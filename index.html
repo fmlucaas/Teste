@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Snake 3D</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; overflow: hidden; font-family: 'Courier New', monospace; }
+  canvas { display: block; }
+  #hud {
+    position: fixed; top: 0; left: 0; width: 100%; pointer-events: none;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 20px 30px;
+  }
+  #score {
+    color: #00ffcc; font-size: 28px; font-weight: bold;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+    letter-spacing: 3px;
+  }
+  #controls {
+    color: #555; font-size: 12px; text-align: right; line-height: 1.8;
+  }
+  #overlay {
+    position: fixed; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+  }
+  #overlay h1 {
+    font-size: 64px; color: #00ffcc; letter-spacing: 8px;
+    text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+    margin-bottom: 10px;
+  }
+  #overlay .subtitle {
+    color: #ff00aa; font-size: 18px; letter-spacing: 4px;
+    text-shadow: 0 0 10px #ff00aa;
+    margin-bottom: 40px;
+  }
+  #overlay .final-score {
+    color: #fff; font-size: 22px; margin-bottom: 30px; letter-spacing: 2px;
+  }
+  #overlay button {
+    background: transparent; border: 2px solid #00ffcc; color: #00ffcc;
+    font-size: 18px; letter-spacing: 4px; padding: 14px 40px;
+    cursor: pointer; font-family: inherit;
+    text-shadow: 0 0 8px #00ffcc; box-shadow: 0 0 15px #00ffcc44;
+    transition: all 0.2s;
+  }
+  #overlay button:hover {
+    background: #00ffcc22; box-shadow: 0 0 30px #00ffcc88;
+  }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div id="hud">
+  <div id="score">SCORE: <span id="scoreVal">0</span></div>
+  <div id="controls">WASD / ↑↓←→ — MOVER<br>Evite as paredes e a si mesmo</div>
+</div>
+<div id="overlay">
+  <h1>SNAKE 3D</h1>
+  <div class="subtitle">CYBERPUNK EDITION</div>
+  <div class="final-score hidden" id="finalScore"></div>
+  <button id="btn">INICIAR JOGO</button>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const GRID = 20, CELL = 1, SPEED = 150;
+let scene, camera, renderer, clock;
+let snake, dir, nextDir, food, foodMesh, particles = [];
+let score = 0, running = false, gameTimer = 0;
+const floorMeshes = [], snakeMeshes = [];
+
+// Geometries/Materials (reused)
+const boxGeo = new THREE.BoxGeometry(0.85, 0.85, 0.85);
+const headMat = new THREE.MeshStandardMaterial({ color: 0x00ffcc, emissive: 0x00ffcc, emissiveIntensity: 0.6, roughness: 0.2, metalness: 0.8 });
+const bodyMat = new THREE.MeshStandardMaterial({ color: 0x00aa88, emissive: 0x00aa88, emissiveIntensity: 0.3, roughness: 0.3, metalness: 0.8 });
+const foodGeo = new THREE.SphereGeometry(0.45, 16, 16);
+const foodMat = new THREE.MeshStandardMaterial({ color: 0xff00aa, emissive: 0xff00aa, emissiveIntensity: 0.8, roughness: 0.1 });
+const partGeo = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+const partMat = new THREE.MeshStandardMaterial({ color: 0xff00aa, emissive: 0xff00aa, emissiveIntensity: 1 });
+
+function init() {
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x020008);
+  scene.fog = new THREE.FogExp2(0x020008, 0.04);
+
+  // Camera — isometric-ish
+  camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 200);
+  camera.position.set(0, 22, 18);
+  camera.lookAt(0, 0, 0);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(devicePixelRatio);
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  document.body.appendChild(renderer.domElement);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0x111133, 2));
+  const pt = new THREE.PointLight(0x00ffcc, 3, 40);
+  pt.position.set(0, 15, 0);
+  pt.castShadow = true;
+  scene.add(pt);
+  const pt2 = new THREE.PointLight(0xff00aa, 2, 30);
+  pt2.position.set(8, 5, 8);
+  scene.add(pt2);
+
+  buildFloor();
+  clock = new THREE.Clock();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+  });
+
+  window.addEventListener('keydown', e => {
+    const map = { ArrowUp: [0,-1], ArrowDown: [0,1], ArrowLeft: [-1,0], ArrowRight: [1,0],
+                  w: [0,-1], s: [0,1], a: [-1,0], d: [1,0],
+                  W: [0,-1], S: [0,1], A: [-1,0], D: [1,0] };
+    if (map[e.key]) {
+      const [nx, nz] = map[e.key];
+      if (nx !== -dir[0] || nz !== -dir[1]) nextDir = [nx, nz];
+      e.preventDefault();
+    }
+  });
+
+  document.getElementById('btn').addEventListener('click', startGame);
+  renderer.setAnimationLoop(animate);
+}
+
+function buildFloor() {
+  floorMeshes.forEach(m => scene.remove(m));
+  floorMeshes.length = 0;
+  const half = GRID / 2;
+  for (let x = -half; x < half; x++) {
+    for (let z = -half; z < half; z++) {
+      const even = (x + z) % 2 === 0;
+      const geo = new THREE.BoxGeometry(CELL, 0.1, CELL);
+      const mat = new THREE.MeshStandardMaterial({
+        color: even ? 0x0a0020 : 0x050010,
+        emissive: even ? 0x110033 : 0x000000,
+        roughness: 0.8, metalness: 0.3
+      });
+      const m = new THREE.Mesh(geo, mat);
+      m.position.set(x + 0.5, -0.5, z + 0.5);
+      m.receiveShadow = true;
+      scene.add(m);
+      floorMeshes.push(m);
+    }
+  }
+  // Grid lines
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x220044, transparent: true, opacity: 0.5 });
+  for (let i = -half; i <= half; i++) {
+    const hg = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-half,0,i), new THREE.Vector3(half,0,i)]);
+    const vg = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(i,0,-half), new THREE.Vector3(i,0,half)]);
+    scene.add(new THREE.Line(hg, lineMat));
+    scene.add(new THREE.Line(vg, lineMat));
+  }
+  // Wall glow border
+  const edges = [[-half,0,-half,-half,0,half],[-half,0,half,half,0,half],[half,0,half,half,0,-half],[half,0,-half,-half,0,-half]];
+  const wallMat = new THREE.LineBasicMaterial({ color: 0xff00aa, transparent: true, opacity: 0.8 });
+  edges.forEach(([x1,y1,z1,x2,y2,z2]) => {
+    const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x1,y1,z1), new THREE.Vector3(x2,y2,z2)]);
+    scene.add(new THREE.Line(g, wallMat));
+  });
+}
+
+function startGame() {
+  document.getElementById('overlay').classList.add('hidden');
+  snakeMeshes.forEach(m => scene.remove(m));
+  snakeMeshes.length = 0;
+  particles.forEach(p => scene.remove(p.mesh));
+  particles.length = 0;
+  if (foodMesh) { scene.remove(foodMesh); foodMesh = null; }
+
+  score = 0;
+  document.getElementById('scoreVal').textContent = '0';
+  gameTimer = 0;
+
+  const mid = Math.floor(GRID / 2);
+  snake = [[mid, mid], [mid, mid+1], [mid, mid+2]];
+  dir = [0, -1];
+  nextDir = [0, -1];
+  running = true;
+
+  snake.forEach((seg, i) => {
+    const m = new THREE.Mesh(boxGeo, i === 0 ? headMat : bodyMat);
+    m.castShadow = true;
+    setPos(m, seg);
+    scene.add(m);
+    snakeMeshes.push(m);
+  });
+
+  spawnFood();
+}
+
+function setPos(mesh, [gx, gz]) {
+  mesh.position.set(gx - GRID/2 + 0.5, 0, gz - GRID/2 + 0.5);
+}
+
+function spawnFood() {
+  if (foodMesh) scene.remove(foodMesh);
+  let fx, fz;
+  do {
+    fx = Math.floor(Math.random() * GRID);
+    fz = Math.floor(Math.random() * GRID);
+  } while (snake.some(([x, z]) => x === fx && z === fz));
+  food = [fx, fz];
+  foodMesh = new THREE.Mesh(foodGeo, foodMat);
+  foodMesh.castShadow = true;
+  foodMesh.position.set(fx - GRID/2 + 0.5, 0, fz - GRID/2 + 0.5);
+  scene.add(foodMesh);
+}
+
+function spawnParticles(x, z) {
+  for (let i = 0; i < 12; i++) {
+    const m = new THREE.Mesh(partGeo, partMat.clone());
+    m.position.set(x - GRID/2 + 0.5, 0, z - GRID/2 + 0.5);
+    scene.add(m);
+    particles.push({
+      mesh: m,
+      vel: new THREE.Vector3((Math.random()-0.5)*6, Math.random()*5+2, (Math.random()-0.5)*6),
+      life: 1.0
+    });
+  }
+}
+
+function stepGame() {
+  dir = nextDir;
+  const [hx, hz] = snake[0];
+  const nx = hx + dir[0], nz = hz + dir[1];
+
+  if (nx < 0 || nx >= GRID || nz < 0 || nz >= GRID || snake.some(([x,z]) => x === nx && z === nz)) {
+    running = false;
+    document.getElementById('finalScore').textContent = `PONTUAÇÃO: ${score}`;
+    document.getElementById('finalScore').classList.remove('hidden');
+    document.getElementById('btn').textContent = 'JOGAR NOVAMENTE';
+    document.getElementById('overlay').classList.remove('hidden');
+    return;
+  }
+
+  const ate = nx === food[0] && nz === food[1];
+  snake.unshift([nx, nz]);
+  if (!ate) snake.pop();
+
+  // Sync meshes
+  while (snakeMeshes.length < snake.length) {
+    const m = new THREE.Mesh(boxGeo, bodyMat);
+    m.castShadow = true;
+    scene.add(m);
+    snakeMeshes.push(m);
+  }
+  while (snakeMeshes.length > snake.length) {
+    scene.remove(snakeMeshes.pop());
+  }
+  snake.forEach((seg, i) => {
+    snakeMeshes[i].material = i === 0 ? headMat : bodyMat;
+    setPos(snakeMeshes[i], seg);
+  });
+
+  if (ate) {
+    score += 10;
+    document.getElementById('scoreVal').textContent = score;
+    spawnParticles(nx, nz);
+    spawnFood();
+  }
+}
+
+function animate() {
+  const dt = clock.getDelta();
+
+  if (running) {
+    gameTimer += dt * 1000;
+    while (gameTimer >= SPEED) {
+      gameTimer -= SPEED;
+      stepGame();
+    }
+  }
+
+  // Animate food pulse
+  if (foodMesh) {
+    const t = clock.elapsedTime;
+    const s = 1 + 0.15 * Math.sin(t * 4);
+    foodMesh.scale.setScalar(s);
+    foodMesh.rotation.y = t * 2;
+    foodMat.emissiveIntensity = 0.6 + 0.4 * Math.sin(t * 4);
+  }
+
+  // Animate snake head
+  if (snakeMeshes[0]) {
+    snakeMeshes[0].rotation.y += dt * 2;
+  }
+
+  // Particles
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.life -= dt * 1.5;
+    p.vel.y -= 10 * dt;
+    p.mesh.position.addScaledVector(p.vel, dt);
+    p.mesh.material.opacity = p.life;
+    p.mesh.material.transparent = true;
+    if (p.life <= 0) { scene.remove(p.mesh); particles.splice(i, 1); }
+  }
+
+  renderer.render(scene, camera);
+}
+
+init();
+</script>
+</body>
+</html>
