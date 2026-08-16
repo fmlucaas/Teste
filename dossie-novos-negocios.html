@@ -1,0 +1,1369 @@
+<title>Redesenho de Novos Negócios</title>
+
+<style>
+  :root {
+    --ground: #EDF0EF;
+    --surface: #FFFFFF;
+    --surface-2: #F5F8F7;
+    --ink: #101A18;
+    --ink-2: #3D4C49;
+    --ink-3: #6D7D79;
+    --rule: #D3DBD9;
+    --rule-strong: #B4C0BD;
+    --accent: #0C5350;
+    --accent-ink: #0C5350;
+    --accent-soft: #DEEAE8;
+    --signal: #A0631A;
+    --signal-soft: #F1E6D4;
+    --critical: #93372C;
+    --positive: #2F6B4C;
+    --shadow: 0 1px 2px rgba(16, 26, 24, .05), 0 8px 24px -18px rgba(16, 26, 24, .35);
+
+    --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+
+    --measure: 70ch;
+    --pad: clamp(1.1rem, 4vw, 2.5rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0B1211;
+      --surface: #131B1A;
+      --surface-2: #182321;
+      --ink: #E6ECEA;
+      --ink-2: #AFBFBB;
+      --ink-3: #7E908C;
+      --rule: #253230;
+      --rule-strong: #36453F;
+      --accent: #58B8B1;
+      --accent-ink: #7FCEC7;
+      --accent-soft: #12302E;
+      --signal: #D6A055;
+      --signal-soft: #2C2417;
+      --critical: #E08977;
+      --positive: #74B792;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -20px rgba(0, 0, 0, .9);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0B1211;
+    --surface: #131B1A;
+    --surface-2: #182321;
+    --ink: #E6ECEA;
+    --ink-2: #AFBFBB;
+    --ink-3: #7E908C;
+    --rule: #253230;
+    --rule-strong: #36453F;
+    --accent: #58B8B1;
+    --accent-ink: #7FCEC7;
+    --accent-soft: #12302E;
+    --signal: #D6A055;
+    --signal-soft: #2C2417;
+    --critical: #E08977;
+    --positive: #74B792;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -20px rgba(0, 0, 0, .9);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ---------- layout ---------- */
+
+  .wrap {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 var(--pad);
+  }
+
+  .col {
+    max-width: var(--measure);
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  section {
+    padding: clamp(2.6rem, 6vw, 4.6rem) 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  section > .wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* ---------- topbar ---------- */
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--ground) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .topbar .wrap {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    min-height: 48px;
+    flex-wrap: wrap;
+  }
+
+  .topbar strong {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .navlinks {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-left: auto;
+  }
+
+  .navlinks a {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .06em;
+    color: var(--ink-3);
+    text-decoration: none;
+    padding: 2px 0;
+    border-bottom: 1px solid transparent;
+  }
+
+  .navlinks a:hover,
+  .navlinks a:focus-visible { color: var(--accent-ink); border-bottom-color: var(--accent); }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  /* ---------- type ---------- */
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.16; }
+
+  h1 { font-size: clamp(2.1rem, 5.4vw, 3.4rem); letter-spacing: -.015em; }
+  h2 { font-size: clamp(1.5rem, 3.2vw, 2rem); letter-spacing: -.01em; }
+  h3 { font-size: 1.14rem; line-height: 1.3; }
+
+  p { max-width: var(--measure); }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .sec-head { display: flex; flex-direction: column; gap: .45rem; }
+
+  .sec-head .eyebrow { color: var(--accent-ink); }
+
+  .deck {
+    font-size: clamp(1.05rem, 2.2vw, 1.28rem);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 62ch;
+  }
+
+  .lede { font-size: 1.04rem; color: var(--ink-2); }
+
+  em.key { font-style: normal; font-weight: 600; color: var(--ink); box-shadow: inset 0 -.42em 0 var(--accent-soft); }
+
+  a { color: var(--accent-ink); }
+
+  /* ---------- hero ---------- */
+
+  .hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2.2rem, 5vw, 3.4rem); border-top: 0; }
+  .hero .wrap { gap: 1.6rem; }
+
+  .thesis {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 3.4vw, 1.9rem);
+    line-height: 1.35;
+    max-width: 26ch;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding-left: 1.1rem;
+  }
+
+  .sixline {
+    display: grid;
+    gap: 0;
+    counter-reset: sl;
+    border-top: 1px solid var(--rule);
+    max-width: 96ch;
+  }
+
+  .sixline li {
+    list-style: none;
+    counter-increment: sl;
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 1rem;
+    padding: .85rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+
+  .sixline li::before {
+    content: counter(sl, decimal-leading-zero);
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    color: var(--accent-ink);
+    letter-spacing: .06em;
+  }
+
+  .sixline p { margin: 0; max-width: 78ch; }
+
+  /* ---------- figures ---------- */
+
+  figure {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+    box-shadow: var(--shadow);
+  }
+
+  .figscroll { overflow-x: auto; }
+
+  figure svg { display: block; width: 100%; min-width: 640px; height: auto; }
+
+  figcaption {
+    font-size: .84rem;
+    line-height: 1.5;
+    color: var(--ink-3);
+    max-width: 84ch;
+  }
+
+  figcaption b { color: var(--ink-2); font-weight: 600; }
+
+  /* svg tokens */
+  .s-work { fill: var(--accent); }
+  .s-wait { fill: var(--surface-2); stroke: var(--rule-strong); stroke-width: 1; }
+  .s-track { fill: var(--accent); }
+  .s-track-alt { fill: var(--signal); }
+  .s-lane { fill: var(--surface-2); stroke: var(--rule); stroke-width: 1; }
+  .s-rule { stroke: var(--rule-strong); stroke-width: 1; fill: none; }
+  .s-gate { stroke: var(--rule-strong); stroke-width: 1; stroke-dasharray: 3 4; fill: none; }
+  .s-node { fill: var(--ground); stroke: var(--accent); stroke-width: 1.6; }
+  .s-lbl { fill: var(--ink-2); font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em; }
+  .s-lbl-dim { fill: var(--ink-3); font-family: var(--font-mono); font-size: 9px; letter-spacing: .04em; }
+  .s-lbl-in { fill: var(--surface); font-family: var(--font-mono); font-size: 9px; letter-spacing: .02em; }
+  .s-lbl-hd { fill: var(--ink); font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; font-weight: 600; }
+  .s-lbl-gate { fill: var(--accent-ink); font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em; font-weight: 600; }
+  .s-dot { fill: var(--ink-3); }
+  .s-thread { stroke: var(--rule-strong); stroke-width: 1; fill: none; }
+  .s-spine { stroke: var(--accent); stroke-width: 1.6; fill: none; }
+
+  /* ---------- cards ---------- */
+
+  .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.05rem 1.15rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+  }
+
+  .card h3 { font-family: var(--font-body); font-size: .98rem; font-weight: 650; }
+  .card p, .card ul { font-size: .89rem; line-height: 1.55; color: var(--ink-2); margin: 0; }
+  .card ul { padding-left: 1.05rem; display: flex; flex-direction: column; gap: .3rem; }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: .64rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  /* ---------- phases ---------- */
+
+  .phases { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--rule); }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 1.4rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .phase-mark { display: flex; flex-direction: column; gap: .3rem; position: relative; padding-left: 1rem; }
+
+  .phase-mark::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: .48rem;
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+  }
+
+  .phase-mark .code { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .12em; color: var(--accent-ink); font-weight: 600; }
+  .phase-mark .name { font-family: var(--font-display); font-size: 1.16rem; line-height: 1.2; }
+  .phase-mark .sla { font-family: var(--font-mono); font-size: .68rem; color: var(--ink-3); }
+
+  .phase-body { display: flex; flex-direction: column; gap: .7rem; }
+  .phase-body p { margin: 0; font-size: .94rem; max-width: 76ch; }
+  .phase-body ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: .35rem; font-size: .94rem; color: var(--ink-2); max-width: 76ch; }
+
+  .decision {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .55rem;
+    background: var(--accent-soft);
+    border-radius: 3px;
+    padding: .45rem .7rem;
+    font-size: .88rem;
+    color: var(--ink);
+    align-self: start;
+    max-width: 76ch;
+  }
+
+  .decision b { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .08em; color: var(--accent-ink); white-space: nowrap; }
+
+  /* ---------- tables ---------- */
+
+  .tablebox { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); }
+
+  table { border-collapse: collapse; width: 100%; min-width: 660px; font-size: .88rem; }
+
+  th, td { text-align: left; padding: .68rem .85rem; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.45; }
+
+  thead th {
+    font-family: var(--font-mono);
+    font-size: .66rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  tbody tr:last-child td { border-bottom: 0; }
+
+  td.num { font-family: var(--font-mono); font-size: .74rem; color: var(--ink-3); white-space: nowrap; }
+  td.from { color: var(--ink-3); }
+  td.to { color: var(--ink); }
+  td.ref { font-family: var(--font-mono); font-size: .72rem; color: var(--ink-3); white-space: nowrap; }
+  .tabular td { font-variant-numeric: tabular-nums; }
+
+  tr.hi td.to { font-weight: 600; }
+  tr.hi td.num { color: var(--accent-ink); }
+
+  /* ---------- dossier fan ---------- */
+
+  .fan { display: grid; grid-template-columns: minmax(200px, 1fr) minmax(240px, 1.15fr); gap: 1.4rem; align-items: start; }
+
+  @media (max-width: 620px) { .fan { grid-template-columns: 1fr; } }
+
+  .fan-base {
+    background: var(--surface-2);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  .fan-base h3 { font-family: var(--font-body); font-size: .95rem; font-weight: 650; }
+  .fan-base ul { margin: 0; padding-left: 1rem; font-size: .84rem; color: var(--ink-2); display: flex; flex-direction: column; gap: .22rem; }
+
+  .fan-list { display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--accent); padding-left: 1.1rem; }
+
+  .fan-list div { padding: .5rem 0; border-bottom: 1px solid var(--rule); font-size: .87rem; color: var(--ink-2); }
+  .fan-list div:last-child { border-bottom: 0; }
+  .fan-list b { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .06em; color: var(--accent-ink); margin-right: .5rem; }
+
+  /* ---------- callout ---------- */
+
+  .note {
+    border-left: 2px solid var(--signal);
+    background: var(--signal-soft);
+    padding: .85rem 1.1rem;
+    border-radius: 0 3px 3px 0;
+    font-size: .9rem;
+    color: var(--ink-2);
+    max-width: 84ch;
+  }
+
+  .note b { color: var(--ink); }
+
+  /* ---------- questions ---------- */
+
+  .qblock { display: flex; flex-direction: column; gap: .75rem; }
+
+  .qgroup { display: flex; flex-direction: column; gap: .55rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+
+  .qgroup > .eyebrow { color: var(--accent-ink); }
+
+  .qgroup ol { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: .6rem; font-size: .94rem; max-width: 80ch; }
+
+  .qgroup li span { display: block; color: var(--ink-3); font-size: .85rem; margin-top: .15rem; }
+
+  /* ---------- risks ---------- */
+
+  .risks { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--rule); max-width: 92ch; }
+  .risks li { list-style: none; padding: .85rem 0; border-bottom: 1px solid var(--rule); font-size: .93rem; color: var(--ink-2); display: grid; grid-template-columns: auto 1fr; gap: .9rem; align-items: baseline; }
+  .risks li::before { content: "—"; color: var(--critical); font-family: var(--font-mono); }
+  .risks b { color: var(--ink); font-weight: 600; }
+
+  footer { border-top: 1px solid var(--rule); padding: 2rem 0 3.5rem; }
+  footer p { font-size: .82rem; color: var(--ink-3); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="topbar">
+  <div class="wrap">
+    <strong>Novos Negócios · Redesenho</strong>
+    <nav class="navlinks">
+      <a href="#desenho">O desenho</a>
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#modelo">Modelo</a>
+      <a href="#mudancas">Mudanças</a>
+      <a href="#governanca">Governança</a>
+      <a href="#roteiro">Roteiro</a>
+      <a href="#perguntas">Perguntas</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Dossiê de processo · Coordenação de Novos Negócios · In-licensing e parcerias</p>
+      <h1>O fluxo não está errado. Está serializado.</h1>
+      <p class="thesis">As etapas certas já existem. Elas apenas acontecem uma depois da outra — e cada transição depende de alguém lembrar de puxar a próxima.</p>
+      <p class="deck">Este dossiê parte do fluxograma atual e dos 24 pontos do processo descrito, separa sintoma de causa, e propõe um modelo de seis fases e cinco decisões que preserva todo o rigor técnico e de governança existente, mudando apenas <em class="key">quando</em> cada coisa acontece e <em class="key">quantas vezes</em> é decidida.</p>
+
+      <ol class="sixline">
+        <li><p>O gargalo declarado — validação técnica, depois interesse da BU, depois acionista — não é gargalo de trabalho. É gargalo de <b>fila e de agenda</b>. O trabalho técnico leva dias; a espera leva semanas.</p></li>
+        <li><p>Sete documentos contam a mesma história. <b>Um dossiê único com releases</b> resolve o pedido de template único e mais quatro problemas na mesma decisão.</p></li>
+        <li><p>A revalidação de premissas pelas BUs é <b>sintoma do lead time</b>, não doença isolada. Há antídoto imediato: Carta de Premissas com validade e gatilhos objetivos.</p></li>
+        <li><p>O acionista aprova o projeto e, depois, os termos. Isso está correto e não deve ser removido. O que falta é um <b>mandato de negociação</b> aprovado junto com o projeto.</p></li>
+        <li><p>O dilema “investigar ou acessar o parceiro” desaparece com uma regra de custo: <b>contato é barato e reversível, hora técnica é cara e irreversível</b>.</p></li>
+        <li><p>O fluxograma atual é um pôster, não um instrumento. Precisa virar <b>uma página mais seis telas</b>.</p></li>
+      </ol>
+    </div>
+  </header>
+
+  <!-- ============================== 1 ============================== -->
+  <section id="desenho">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Parte 1</p>
+        <h2>O que o desenho revela sobre a área</h2>
+      </div>
+      <p class="lede col">Trabalhei sobre a visão geral do diagrama. Nesta resolução a topologia é perfeitamente legível; os rótulos não. Isso é menos limitante do que parece: o diagnóstico estrutural está justamente na topologia — em como o desenho distribui trabalho, decisão e espera —, e não no texto de cada caixa.</p>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 760 300" role="img" aria-label="Esquema da topologia do fluxograma atual: uma espinha densa concentrada em duas raias no topo e mais de quinze raias praticamente vazias abaixo, ligadas por fios verticais longos.">
+            <defs>
+              <marker id="ar1" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 7 4 L 0 7 z" fill="var(--rule-strong)"></path>
+              </marker>
+            </defs>
+
+            <text class="s-lbl-hd" x="0" y="14">TOPOLOGIA DO DIAGRAMA ATUAL</text>
+
+            <!-- dense spine lanes -->
+            <rect class="s-lane" x="0" y="28" width="760" height="30"></rect>
+            <rect class="s-lane" x="0" y="58" width="760" height="34"></rect>
+            <text class="s-lbl-dim" x="6" y="47">raia 1</text>
+            <text class="s-lbl-dim" x="6" y="79">raia 2 · Novos Negócios</text>
+
+            <!-- spine of many nodes -->
+            <path class="s-spine" d="M 120 74 L 700 74"></path>
+            <g class="s-work">
+              <rect x="120" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="145" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="170" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="195" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="220" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="245" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="270" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="295" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="320" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="345" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="370" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="395" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="420" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="445" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="470" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="495" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="520" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="545" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="570" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="595" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="620" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="645" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="670" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="695" y="66" width="15" height="16" rx="2"></rect>
+              <rect x="180" y="36" width="15" height="16" rx="2"></rect>
+              <rect x="330" y="36" width="15" height="16" rx="2"></rect>
+              <rect x="540" y="36" width="15" height="16" rx="2"></rect>
+            </g>
+            <path class="s-thread" d="M 187 52 L 187 66 M 337 52 L 337 66 M 547 52 L 547 66"></path>
+
+            <!-- empty lanes -->
+            <g>
+              <rect class="s-lane" x="0" y="98" width="760" height="24"></rect>
+              <rect class="s-lane" x="0" y="122" width="760" height="24"></rect>
+              <rect class="s-lane" x="0" y="146" width="760" height="24"></rect>
+              <rect class="s-lane" x="0" y="170" width="760" height="24"></rect>
+              <rect class="s-lane" x="0" y="194" width="760" height="24"></rect>
+              <rect class="s-lane" x="0" y="218" width="760" height="24"></rect>
+              <rect class="s-lane" x="0" y="242" width="760" height="24"></rect>
+            </g>
+            <text class="s-lbl-dim" x="6" y="114">Médico</text>
+            <text class="s-lbl-dim" x="6" y="138">Patentes</text>
+            <text class="s-lbl-dim" x="6" y="162">Regulatório</text>
+            <text class="s-lbl-dim" x="6" y="186">Pesq. clínica</text>
+            <text class="s-lbl-dim" x="6" y="210">Econômico</text>
+            <text class="s-lbl-dim" x="6" y="234">Projetos e Alianças</text>
+            <text class="s-lbl-dim" x="6" y="258">Jurídico · Financeiro · …</text>
+
+            <!-- isolated boxes with long threads -->
+            <g class="s-work" opacity=".55">
+              <rect x="210" y="102" width="15" height="16" rx="2"></rect>
+              <rect x="255" y="126" width="15" height="16" rx="2"></rect>
+              <rect x="300" y="150" width="15" height="16" rx="2"></rect>
+              <rect x="430" y="174" width="15" height="16" rx="2"></rect>
+              <rect x="480" y="198" width="15" height="16" rx="2"></rect>
+              <rect x="600" y="222" width="15" height="16" rx="2"></rect>
+              <rect x="655" y="246" width="15" height="16" rx="2"></rect>
+            </g>
+            <path class="s-thread" marker-end="url(#ar1)" d="M 217 82 L 217 100"></path>
+            <path class="s-thread" marker-end="url(#ar1)" d="M 262 82 L 262 124"></path>
+            <path class="s-thread" marker-end="url(#ar1)" d="M 307 82 L 307 148"></path>
+            <path class="s-thread" marker-end="url(#ar1)" d="M 437 82 L 437 172"></path>
+            <path class="s-thread" marker-end="url(#ar1)" d="M 487 82 L 487 196"></path>
+            <path class="s-thread" marker-end="url(#ar1)" d="M 607 82 L 607 220"></path>
+            <path class="s-thread" marker-end="url(#ar1)" d="M 662 82 L 662 244"></path>
+
+            <text class="s-lbl-dim" x="0" y="286">Cada área par aparece uma vez, sem retorno, sem fila e sem prazo — o gargalo real fica invisível no desenho.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 1.</b> A geometria do fluxograma atual, em esquema. Praticamente todo o processo vive em duas raias; as demais recebem uma caixa isolada ligada por um fio vertical longo. Um desenho assim modela as áreas pares como <b>caixas de saída</b> — para onde o pedido vai — e não como participantes que têm fila, capacidade e prazo. É exatamente onde o coordenador declara estar o gargalo, e é justamente o que o desenho não mostra.</figcaption>
+      </figure>
+
+      <div class="cards">
+        <div class="card">
+          <p class="tag">Observação 1</p>
+          <h3>É um pôster, não um instrumento</h3>
+          <p>Ordem de 150 elementos numa prancha larguíssima. Um artefato desse tamanho não é aberto em reunião, não é consultado na dúvida e não é atualizado. Fluxos que ninguém consegue ler divergem do processo real em poucos meses — e é o processo real que se quer melhorar.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Observação 2</p>
+          <h3>Sequência onde deveria haver simultaneidade</h3>
+          <p>A espinha segue em linha reta e predominam decisões exclusivas (ou isso, ou aquilo). Não há paralelismo explícito em lugar nenhum. Um processo desenhado em série tende a ser executado em série — e é aí que o calendário se perde.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Observação 3</p>
+          <h3>Saídas dispersas, sem tratamento do “não”</h3>
+          <p>Há vários eventos de fim espalhados e mais de um início desconectado. Faltam duas coisas: um encerramento único que registre o <b>motivo</b> do no-go, e um caminho de hibernação e reativação. Oportunidade morta hoje é conhecimento perdido — e boa parte volta em 12 a 24 meses.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Observação 4</p>
+          <h3>Nenhum relógio</h3>
+          <p>Não há prazo, SLA ou lead time em ponto algum. Um fluxo sem tempo não se gerencia; apenas se descreve. É a razão pela qual a conversa sobre demora nunca chega a um número.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Observação 5</p>
+          <h3>Os documentos não aparecem</h3>
+          <p>One Page, TAO, business case, NBO, TDP, Summary e Sumário de Contrato não estão representados como artefatos ligados às atividades. Por isso a duplicação documental é invisível para quem lê o processo, embora seja óbvia para quem o executa.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Observação 6</p>
+          <h3>Um caminho único para negócios diferentes</h3>
+          <p>Genérico, inovador, distribuição, co-desenvolvimento, Brasil ou regional — todos passam pelo mesmo rito. Ou o desenho está incompleto, ou o processo cobra de uma oportunidade simples o mesmo esforço de uma complexa. As duas hipóteses custam caro.</p>
+        </div>
+      </div>
+
+      <div class="note"><b>Sobre o artefato em si:</b> não identifiquei bloco de dono, versão e data de revisão. Sem isso, um fluxograma não tem manutenção — tem arqueologia. O primeiro item de qualquer redesenho é definir quem é o dono do processo e com que periodicidade ele revisa o desenho.</div>
+    </div>
+  </section>
+
+  <!-- ============================== 2 ============================== -->
+  <section id="diagnostico">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Parte 2</p>
+        <h2>Sete causas para vinte e quatro sintomas</h2>
+      </div>
+      <p class="lede col">Os 24 pontos descritos não são 24 problemas. São sete causas se manifestando em pontos diferentes do fluxo. Tratar a causa resolve vários sintomas de uma vez; tratar sintoma por sintoma produz mais processo, não menos.</p>
+
+      <div class="tablebox">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 4rem;">Causa</th>
+              <th style="width: 30%;">O que é</th>
+              <th style="width: 12rem;">Onde aparece</th>
+              <th>O efeito que você sente</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="num">R1</td>
+              <td class="to"><b>Serialização</b></td>
+              <td class="ref">11 · 12 · 13</td>
+              <td>Validação técnica, depois BU, depois acionista, uma coisa por vez. Projetos e Alianças entra tarde; a viabilidade financeira só depois da proposta. O lead time longo é o que produz os pontos 20 e 21.</td>
+            </tr>
+            <tr>
+              <td class="num">R2</td>
+              <td class="to"><b>Sem triagem nem morte precoce</b></td>
+              <td class="ref">2 · 6</td>
+              <td>Não há regra que diga quanto investigar antes de acessar, nem quando parar. Resultado: hora técnica cara gasta em oportunidade que não vinga, ou oportunidade boa parada esperando informação.</td>
+            </tr>
+            <tr>
+              <td class="num">R3</td>
+              <td class="to"><b>Documentos sem base única</b></td>
+              <td class="ref">4 · 10 · 15 · 18 · 23</td>
+              <td>Sete artefatos reconstruídos do zero, cada um numa ferramenta. Retrabalho, versões divergentes e o pedido legítimo de “um template só”.</td>
+            </tr>
+            <tr>
+              <td class="num">R4</td>
+              <td class="to"><b>Premissas sem prazo de validade</b></td>
+              <td class="ref">21</td>
+              <td>A BU entrega premissas comerciais e depois as reabre. Renegociação interna de um negócio já negociado externamente — o pior momento possível para descobrir que o forecast mudou.</td>
+            </tr>
+            <tr>
+              <td class="num">R5</td>
+              <td class="to"><b>Decisão concentrada, sem alçada</b></td>
+              <td class="ref">11 · 19 · 20 · 23</td>
+              <td>Nada anda sem retorno ao topo, e o retorno depende de agenda. A negociação passa a andar no ritmo do calendário interno, não do negócio.</td>
+            </tr>
+            <tr>
+              <td class="num">R6</td>
+              <td class="to"><b>Variáveis tratadas como exceção</b></td>
+              <td class="ref">8 · 9 · 14 · 17 · 22</td>
+              <td>Geografia, tipo de projeto e nacionalização em fase clínica aparecem como surpresa em cada deal. Cada caso vira um pequeno projeto de processo.</td>
+            </tr>
+            <tr>
+              <td class="num">R7</td>
+              <td class="to"><b>Handover informal</b></td>
+              <td class="ref">16</td>
+              <td>A transferência acontece no ponto de maior valor acumulado do processo — e é justamente onde não há rito, checklist nem aceite formal.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>Onde discordo do enunciado.</b> O ponto 2 e o ponto 6 são apresentados como dilemas, mas não são: são regras faltando. E o ponto 6 tem uma inversão de premissa — o objetivo da avaliação técnica precoce <b>é</b> matar a oportunidade rápido. O problema não é perguntar cedo; é o <b>custo</b> de perguntar. Um parecer completo cedo é caro; um parecer em semáforo de três perguntas, não.</div>
+    </div>
+  </section>
+
+  <!-- ============================== 3 ============================== -->
+  <section id="modelo">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Parte 3</p>
+        <h2>Seis fases, cinco decisões, quatro frentes em paralelo</h2>
+      </div>
+      <p class="lede col">O modelo abaixo não acrescenta nenhuma etapa nova ao que já se faz. Ele reordena: aproxima o que pode correr junto, condiciona o que é caro, e transforma decisões repetidas em decisão única com alçada.</p>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 1080 412" role="img" aria-label="Comparação entre o fluxo atual, executado em série com longos períodos de espera entre blocos de trabalho, e o modelo proposto, com quatro frentes correndo em paralelo dentro de seis fases separadas por cinco portões de decisão.">
+            <defs>
+              <pattern id="hatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="6" stroke="var(--rule-strong)" stroke-width="1"></line>
+              </pattern>
+            </defs>
+
+            <!-- ===== PANEL A ===== -->
+            <text class="s-lbl-hd" x="0" y="14">HOJE · EXECUÇÃO EM SÉRIE</text>
+
+            <g>
+              <rect class="s-work" x="118" y="40" width="54" height="26" rx="2"></rect>
+              <rect x="172" y="40" width="96" height="26" fill="url(#hatch)" stroke="var(--rule)"></rect>
+              <rect class="s-work" x="268" y="40" width="58" height="26" rx="2"></rect>
+              <rect x="326" y="40" width="110" height="26" fill="url(#hatch)" stroke="var(--rule)"></rect>
+              <rect class="s-work" x="436" y="40" width="54" height="26" rx="2"></rect>
+              <rect x="490" y="40" width="106" height="26" fill="url(#hatch)" stroke="var(--rule)"></rect>
+              <rect class="s-work" x="596" y="40" width="68" height="26" rx="2"></rect>
+              <rect x="664" y="40" width="98" height="26" fill="url(#hatch)" stroke="var(--rule)"></rect>
+              <rect class="s-work" x="762" y="40" width="54" height="26" rx="2"></rect>
+              <rect x="816" y="40" width="108" height="26" fill="url(#hatch)" stroke="var(--rule)"></rect>
+              <rect class="s-work" x="924" y="40" width="66" height="26" rx="2"></rect>
+              <rect x="990" y="40" width="85" height="26" fill="url(#hatch)" stroke="var(--rule)"></rect>
+            </g>
+
+            <g class="s-lbl-dim" text-anchor="middle">
+              <text x="220" y="57">espera</text>
+              <text x="381" y="57">espera</text>
+              <text x="543" y="57">espera</text>
+              <text x="713" y="57">espera</text>
+              <text x="870" y="57">espera</text>
+              <text x="1032" y="57">espera</text>
+            </g>
+
+            <g class="s-lbl" text-anchor="middle">
+              <text x="145" y="82">triagem</text>
+              <text x="297" y="82">técnica</text>
+              <text x="463" y="82">MKT · BU</text>
+              <text x="630" y="82">business case</text>
+              <text x="789" y="82">TDP · DD</text>
+              <text x="957" y="82">acionista</text>
+            </g>
+
+            <text class="s-lbl-dim" x="118" y="106">Cada bloco só começa quando o anterior termina. A espera entre eles — agenda, fila de área par, revalidação — domina o calendário.</text>
+
+            <line class="s-rule" x1="0" y1="132" x2="1080" y2="132"></line>
+
+            <!-- ===== PANEL B ===== -->
+            <text class="s-lbl-hd" x="0" y="162">PROPOSTO · SEIS FASES, QUATRO FRENTES EM PARALELO</text>
+
+            <g class="s-lbl" text-anchor="middle">
+              <text x="178" y="192">Triagem</text>
+              <text x="333" y="192">Qualificação</text>
+              <text x="538" y="192">Validação</text>
+              <text x="763" y="192">Estruturação</text>
+              <text x="944" y="192">Contratação</text>
+              <text x="1043" y="192">Transição</text>
+            </g>
+
+            <!-- gates -->
+            <g>
+              <path class="s-gate" d="M 238 232 L 238 350 M 428 232 L 428 350 M 648 232 L 648 350 M 878 232 L 878 350 M 1010 232 L 1010 350"></path>
+              <g class="s-node">
+                <rect x="232" y="216" width="12" height="12" transform="rotate(45 238 222)"></rect>
+                <rect x="422" y="216" width="12" height="12" transform="rotate(45 428 222)"></rect>
+                <rect x="642" y="216" width="12" height="12" transform="rotate(45 648 222)"></rect>
+                <rect x="872" y="216" width="12" height="12" transform="rotate(45 878 222)"></rect>
+                <rect x="1004" y="216" width="12" height="12" transform="rotate(45 1010 222)"></rect>
+              </g>
+              <g class="s-lbl-gate" text-anchor="middle">
+                <text x="238" y="208">D1</text>
+                <text x="428" y="208">D2</text>
+                <text x="648" y="208">D3</text>
+                <text x="878" y="208">D4</text>
+                <text x="1010" y="208">D5</text>
+              </g>
+            </g>
+
+            <!-- track labels -->
+            <g class="s-lbl-dim" text-anchor="end">
+              <text x="108" y="252">Parceiro</text>
+              <text x="108" y="278">Técnico · Reg.</text>
+              <text x="108" y="304">Comercial · BUs</text>
+              <text x="108" y="330">Projetos · Fin.</text>
+            </g>
+
+            <!-- track 1 : parceiro -->
+            <g>
+              <rect class="s-track" x="126" y="240" width="104" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="178" y="252" text-anchor="middle">triagem · CI</text>
+              <rect class="s-track" x="246" y="240" width="174" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="333" y="252" text-anchor="middle">contato · CDA · questionário</text>
+              <rect class="s-track" x="436" y="240" width="122" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="497" y="252" text-anchor="middle">sinalização</text>
+              <rect class="s-track" x="700" y="240" width="170" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="785" y="252" text-anchor="middle">NBO ou proposta</text>
+              <rect class="s-track" x="886" y="240" width="116" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="944" y="252" text-anchor="middle">term sheet · contrato</text>
+              <rect class="s-track" x="1018" y="240" width="56" height="18" rx="3"></rect>
+            </g>
+
+            <!-- track 2 : tecnico -->
+            <g>
+              <rect class="s-track" x="246" y="266" width="174" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="333" y="278" text-anchor="middle">expresso · checklist reg.</text>
+              <rect class="s-track" x="436" y="266" width="204" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="538" y="278" text-anchor="middle">parecer completo · econômico</text>
+              <rect class="s-track" x="656" y="266" width="144" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="728" y="278" text-anchor="middle">due diligence</text>
+            </g>
+
+            <!-- track 3 : comercial -->
+            <g>
+              <rect class="s-track" x="436" y="292" width="204" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="538" y="304" text-anchor="middle">BUs BR + regiões · premissas</text>
+              <rect class="s-track" x="656" y="292" width="134" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="723" y="304" text-anchor="middle">business case</text>
+            </g>
+
+            <!-- track 4 : projetos -->
+            <g>
+              <rect class="s-track-alt" x="330" y="318" width="90" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="375" y="330" text-anchor="middle">TL preliminar</text>
+              <rect class="s-track-alt" x="500" y="318" width="140" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="570" y="330" text-anchor="middle">nacionalização · valuation</text>
+              <rect class="s-track-alt" x="656" y="318" width="214" height="18" rx="3"></rect>
+              <text class="s-lbl-in" x="763" y="330" text-anchor="middle">TL completa · viabilidade · Summary</text>
+              <rect class="s-track-alt" x="1018" y="318" width="56" height="18" rx="3"></rect>
+            </g>
+
+            <g class="s-lbl-dim" text-anchor="middle">
+              <text x="178" y="360">5 dias</text>
+              <text x="333" y="360">20 dias</text>
+              <text x="538" y="360">25 dias</text>
+              <text x="763" y="360">30–40 dias</text>
+              <text x="944" y="360">30–45 dias</text>
+            </g>
+
+            <text class="s-lbl-dim" x="0" y="392">Prazos em dias úteis, como referência de calibração — não como medida do processo atual, que ainda não é cronometrado.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 2.</b> A mesma quantidade de trabalho, reorganizada. No painel superior, os blocos não se sobrepõem — cada um espera o anterior. No inferior, as quatro frentes se sobrepõem dentro de cada fase e só se encontram nos portões. <b>O ganho de calendário não vem de trabalhar mais rápido; vem da sobreposição</b> e de matar cedo o que morreria tarde. A frente em âmbar (Projetos e Alianças, nacionalização, financeiro) é a que hoje entra por último e passa a entrar assim que o checklist regulatório chega.</figcaption>
+      </figure>
+
+      <div class="phases">
+
+        <article class="phase">
+          <div class="phase-mark">
+            <span class="code">F1</span>
+            <span class="name">Triagem</span>
+            <span class="sla">5 dias úteis</span>
+          </div>
+          <div class="phase-body">
+            <p>Entrada única, venha de onde vier — diretoria, acionista, parceiro ofertando, portfólio, prospecção ativa ou BU/marketing. Cadastro no dossiê, abertura do CI, classificação nas quatro dimensões e um scorecard curto de fit estratégico, atratividade aparente e viabilidade aparente.</p>
+            <p class="lede">A regra que resolve o seu ponto 2: <em class="key">contato com parceiro é barato e reversível; hora técnica é cara e irreversível.</em> Antecipe o contato, condicione a hora técnica.</p>
+            <div class="decision"><b>D1</b> Seguir, hibernar ou encerrar — com motivo registrado. Decidido pelo coordenador em comitê semanal de 30 minutos. Não sobe para diretoria.</div>
+          </div>
+        </article>
+
+        <article class="phase">
+          <div class="phase-mark">
+            <span class="code">F2</span>
+            <span class="name">Qualificação</span>
+            <span class="sla">20 dias úteis</span>
+          </div>
+          <div class="phase-body">
+            <p>Três frentes correndo juntas, não em sequência:</p>
+            <ul>
+              <li><b>Parceiro</b> — contato, CDA a partir de minuta pré-aprovada com posições de recuo já negociadas com o jurídico, e o <b>Questionário de Entrada</b>: estágio do dossiê, escopo geográfico pretendido, expectativa de estrutura, disponibilidade de dados para nacionalização, e se espera NBO ou enviará proposta. Uma pergunta feita uma vez, no primeiro contato, resolve seus pontos 8, 10 e parte do 14.</li>
+              <li><b>Técnico</b> — parecer expresso em semáforo, em 3 dias: médico, patentes, regulatório preliminar e pesquisa clínica se aplicável. Três perguntas fechadas, não um parecer completo. A maior parte das oportunidades morre em três perguntas.</li>
+              <li><b>Projetos e Alianças</b> — entra aqui, com o checklist regulatório em mãos, e devolve uma <b>timeline preliminar em faixa</b>. É exatamente o que você propõe no ponto 13: endosso e formalizo.</li>
+            </ul>
+            <div class="decision"><b>D2</b> Qualificada? Só as que passam consomem parecer técnico completo e estudo econômico.</div>
+          </div>
+        </article>
+
+        <article class="phase">
+          <div class="phase-mark">
+            <span class="code">F3</span>
+            <span class="name">Validação comercial</span>
+            <span class="sla">25 dias úteis</span>
+          </div>
+          <div class="phase-body">
+            <p>A visão de oportunidade — o template único — vai às BUs do <b>Brasil e das regiões no mesmo disparo</b>, não em sequência. É a correção direta do seu ponto 9: hoje México e Leste Europeu entram depois, e a compilação do business case espera por eles.</p>
+            <p>A BU devolve uma <b>Carta de Premissas</b>: forecast, preço, força de vendas, go-to-market, em cenário base e conservador, com <b>validade de 120 dias</b> e gatilhos objetivos de reabertura — câmbio fora de faixa, mudança de teto de preço, entrada de concorrente, deslocamento da timeline acima de seis meses. Assinada por quem responde pela BU.</p>
+            <p>Em paralelo, um <b>pré-valuation de uma hora</b> produz o número de walk-away preliminar. Nenhuma sinalização de valor ao parceiro antes disso.</p>
+            <div class="decision"><b>D3</b> Interesse comercial formalizado — e só então sinalizamos ao parceiro.</div>
+          </div>
+        </article>
+
+        <article class="phase">
+          <div class="phase-mark">
+            <span class="code">F4</span>
+            <span class="name">Estruturação e aprovação</span>
+            <span class="sla">30–40 dias úteis</span>
+          </div>
+          <div class="phase-body">
+            <p>Business case completo somando Brasil e regiões, viabilidade financeira, nacionalização (em trilha real ou paramétrica) e NBO enviada sob política, ou proposta recebida.</p>
+            <p>O <b>TDP deixa de ser documento novo</b> e passa a ser um release do dossiê. O handover a Projetos e Alianças ganha rito: reunião única, checklist de aceite, aceite assinado. Projetos e Alianças conclui a due diligence e devolve a timeline completa. O <b>Summary</b> é o release final, para as diretorias de Novos Negócios e marketing e depois para o acionista.</p>
+            <div class="decision"><b>D4</b> O acionista aprova o projeto <b style="color:var(--ink)">e o mandato</b> — o envelope de negociação: upfront até X, milestones até Y, royalty até Z, exclusividade, prazo e território. Esta é a mudança de maior impacto do dossiê inteiro.</div>
+          </div>
+        </article>
+
+        <article class="phase">
+          <div class="phase-mark">
+            <span class="code">F5</span>
+            <span class="name">Contratação</span>
+            <span class="sla">30–45 dias úteis</span>
+          </div>
+          <div class="phase-body">
+            <p>Term sheet e contrato negociados <b>dentro do envelope</b>, com playbook jurídico de cláusulas padrão e posições de recuo pré-aprovadas. Tudo que está dentro do envelope anda sem retorno ao topo. O que sai do envelope vira exceção resolvida em 5 dias, não um ciclo completo de aprovação.</p>
+            <p>O <b>Sumário de Contrato passa a ser um relatório de delta</b>: o que mudou em relação ao mandato aprovado. Se nada saiu do envelope, aprovação por exceção. É assim que a segunda subida ao acionista deixa de custar semanas sem perder governança nenhuma.</p>
+            <div class="decision"><b>D5</b> Assinatura eletrônica.</div>
+          </div>
+        </article>
+
+        <article class="phase">
+          <div class="phase-mark">
+            <span class="code">F6</span>
+            <span class="name">Transição e aprendizado</span>
+            <span class="sla">contínuo</span>
+          </div>
+          <div class="phase-body">
+            <p>Handover formal de execução com checklist de aceite assinado, e uma retrospectiva de 30 minutos por deal encerrado — ganho ou perdido: tempo real por fase, o que travou, o que entra no playbook.</p>
+            <p>E o elo que hoje não existe: <b>retorno de resultado em 12 e 24 meses</b>, comparando forecast realizado com a premissa que a BU assinou. É esse retorno que dá autoridade à Carta de Premissas na negociação seguinte — sem ele, ela é só mais um formulário.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 4 ============================== -->
+  <section id="mudancas">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Parte 4</p>
+        <h2>As mudanças, uma a uma</h2>
+      </div>
+      <p class="lede col">Dezesseis mudanças concretas. As seis marcadas mudam o jogo; as demais são arrumação necessária. A coluna final aponta o ponto do seu processo que cada uma resolve.</p>
+
+      <div class="tablebox">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 2.6rem;"></th>
+              <th style="width: 34%;">De</th>
+              <th>Para</th>
+              <th style="width: 6.5rem;">Resolve</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="hi">
+              <td class="num">01</td>
+              <td class="from">One Page em PPT para retail, TAO em Excel para non-retail</td>
+              <td class="to">Dossiê único com núcleo comum e bloco variável por canal — as duas visões saem da mesma base, sem redigitação</td>
+              <td class="ref">4</td>
+            </tr>
+            <tr class="hi">
+              <td class="num">02</td>
+              <td class="from">Cada etapa cria um documento novo do zero</td>
+              <td class="to">Um dossiê que evolui e emite releases: Qualificação, Oportunidade, Business Case, TDP, Summary, Sumário</td>
+              <td class="ref">15 · 18 · 23</td>
+            </tr>
+            <tr>
+              <td class="num">03</td>
+              <td class="from">“Investigo primeiro ou acesso o parceiro?”, caso a caso</td>
+              <td class="to">Regra de custo: contato antecipado sempre; hora técnica condicionada ao portão</td>
+              <td class="ref">2 · 6</td>
+            </tr>
+            <tr>
+              <td class="num">04</td>
+              <td class="from">Parecer técnico completo logo no início</td>
+              <td class="to">Parecer expresso em semáforo (3 dias, 3 perguntas) e parecer completo só depois de D2</td>
+              <td class="ref">6</td>
+            </tr>
+            <tr class="hi">
+              <td class="num">05</td>
+              <td class="from">Perguntas ao parceiro pulverizadas ao longo de meses</td>
+              <td class="to">Questionário de Entrada único no primeiro contato: geografia, estágio, estrutura, dados de nacionalização, expectativa de NBO</td>
+              <td class="ref">8 · 10 · 14</td>
+            </tr>
+            <tr>
+              <td class="num">06</td>
+              <td class="from">Regiões acessadas depois de fechar o Brasil</td>
+              <td class="to">Disparo simultâneo, com ponto focal por região e mesmo formato de premissas</td>
+              <td class="ref">9</td>
+            </tr>
+            <tr class="hi">
+              <td class="num">07</td>
+              <td class="from">Premissas comerciais sem prazo, reabertas a qualquer momento</td>
+              <td class="to">Carta de Premissas com validade de 120 dias e gatilhos objetivos de reabertura, assinada pela BU</td>
+              <td class="ref">21</td>
+            </tr>
+            <tr>
+              <td class="num">08</td>
+              <td class="from">Viabilidade financeira só depois da proposta do parceiro</td>
+              <td class="to">Pré-valuation e walk-away em F3; viabilidade completa em F4</td>
+              <td class="ref">12</td>
+            </tr>
+            <tr>
+              <td class="num">09</td>
+              <td class="from">Projetos e Alianças entra no TDP</td>
+              <td class="to">Entra com o checklist regulatório, devolvendo timeline preliminar em faixa</td>
+              <td class="ref">13</td>
+            </tr>
+            <tr class="hi">
+              <td class="num">10</td>
+              <td class="from">Acionista aprova o projeto; cada movimento de negociação volta</td>
+              <td class="to">Aprova o projeto <b>e o mandato</b> — envelope de upfront, milestones, royalty, prazo e território</td>
+              <td class="ref">11 · 19 · 20</td>
+            </tr>
+            <tr class="hi">
+              <td class="num">11</td>
+              <td class="from">Sumário de Contrato reapresenta o negócio inteiro</td>
+              <td class="to">Relatório de delta contra o mandato; sem desvio, aprovação por exceção</td>
+              <td class="ref">23</td>
+            </tr>
+            <tr>
+              <td class="num">12</td>
+              <td class="from">Handover “a qualquer jeito”</td>
+              <td class="to">Rito único com checklist de aceite assinado por quem recebe</td>
+              <td class="ref">16</td>
+            </tr>
+            <tr>
+              <td class="num">13</td>
+              <td class="from">Nacionalização travada quando o produto está em fase clínica</td>
+              <td class="to">Trilha paramétrica por forma farmacêutica e rota, mais cláusula de revisão no gatilho de dados</td>
+              <td class="ref">14</td>
+            </tr>
+            <tr>
+              <td class="num">14</td>
+              <td class="from">“Co-desenvolvimento ou licenciamento” como rótulo de conveniência</td>
+              <td class="to">Taxonomia de quatro dimensões que define a trilha, o rito e o nível de aprovação</td>
+              <td class="ref">17 · 22</td>
+            </tr>
+            <tr>
+              <td class="num">15</td>
+              <td class="from">Reuniões de decisão marcadas sob demanda</td>
+              <td class="to">Calendário fixo: pipeline semanal, portão quinzenal, janela mensal com o acionista</td>
+              <td class="ref">11 · 20</td>
+            </tr>
+            <tr>
+              <td class="num">16</td>
+              <td class="from">Nenhuma medição de tempo ou conversão</td>
+              <td class="to">Seis indicadores numa página por mês</td>
+              <td class="ref">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:1.2rem;">A taxonomia que substitui o rótulo</h3>
+      <p class="col">Chamar de co-desenvolvimento o que ainda tem dossiê por concluir, e de licenciamento o que só precisa de adequação à ANVISA, é uma convenção interna que descreve <b>uma</b> variável — maturidade do dossiê — e a trata como se fosse a classificação do negócio. Isso esconde as outras três que realmente mudam o esforço, o prazo e a alçada:</p>
+
+      <div class="cards">
+        <div class="card">
+          <p class="tag">Dimensão 1</p>
+          <h3>Maturidade do dossiê</h3>
+          <p>Registrado em país de referência · CTD completo · em fase clínica · conceito. É daqui que o rótulo atual deriva — mantenha o nome, mas como consequência, não como classificação.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Dimensão 2</p>
+          <h3>Natureza do produto</h3>
+          <p>Genérico e similar · inovador · biológico e biossimilar · dispositivo · OTC e nutracêutico. Define quais pareceres são obrigatórios e quais são dispensáveis.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Dimensão 3</p>
+          <h3>Modelo comercial</h3>
+          <p>Licença · distribuição · co-desenvolvimento · aquisição de dossiê · sublicenciamento B2B. Define o playbook jurídico e a estrutura financeira.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Dimensão 4</p>
+          <h3>Escopo geográfico</h3>
+          <p>Brasil · Brasil mais LATAM B2B · regional com México e Leste Europeu · global. Define quem precisa ser acionado no <b>primeiro</b> disparo, não no último.</p>
+        </div>
+      </div>
+
+      <p class="col">A combinação produz três trilhas — <b>expressa</b> (dossiê pronto, genérico, Brasil), <b>padrão</b> e <b>complexa</b> (fase clínica, inovador, regional) — com exigência de evidência, prazo e nível de aprovação diferentes. É o que impede uma oportunidade simples de pagar o pedágio de uma complexa.</p>
+    </div>
+  </section>
+
+  <!-- ============================== 5 ============================== -->
+  <section id="governanca">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Parte 5</p>
+        <h2>Governança: ritos, prazos e o dossiê único</h2>
+      </div>
+
+      <h3>Um dossiê, seis releases</h3>
+      <p class="col">A resposta ao seu pedido de template único não é escolher entre PPT e Excel. É separar <b>base de dados</b> de <b>apresentação</b>. A informação é registrada uma vez e cada momento do processo emite uma visão dela.</p>
+
+      <div class="fan">
+        <div class="fan-base">
+          <h3>Base única — o Dossiê da Oportunidade</h3>
+          <ul>
+            <li>Identificação: CI, parceiro, produto, molécula, classe</li>
+            <li>Classificação: as quatro dimensões</li>
+            <li>Regulatório: estágio, checklist, via de registro</li>
+            <li>Técnico: pareceres e semáforos</li>
+            <li>Comercial: premissas por região, cenários, validade</li>
+            <li>Financeiro: investimento, retorno, walk-away, envelope</li>
+            <li>Parceria: estrutura, escopo, CDA, NBO</li>
+            <li>Governança: portão atual, dias por fase, decisões, riscos</li>
+          </ul>
+        </div>
+        <div class="fan-list">
+          <div><b>R1</b> Ficha de Qualificação — saída de F2</div>
+          <div><b>R2</b> Visão de Oportunidade — substitui One Page e TAO</div>
+          <div><b>R3</b> Business Case — Brasil e regiões consolidados</div>
+          <div><b>R4</b> TDP — pacote de handover para Projetos e Alianças</div>
+          <div><b>R5</b> Summary — diretorias e acionista, com o mandato</div>
+          <div><b>R6</b> Sumário de Contrato — delta contra o mandato</div>
+        </div>
+      </div>
+
+      <div class="note"><b>Comece simples.</b> Uma lista do SharePoint ou uma planilha governada, com o PPT gerado por vínculo, entrega 80% do ganho em semanas. Só vá para ferramenta dedicada se o volume anual justificar — e essa é uma das perguntas do final.</div>
+
+      <h3 style="margin-top:1rem;">Os quatro ritos</h3>
+      <div class="tablebox">
+        <table class="tabular">
+          <thead>
+            <tr>
+              <th>Rito</th>
+              <th style="width: 8rem;">Frequência</th>
+              <th style="width: 4.5rem;">Duração</th>
+              <th>Quem</th>
+              <th style="width: 9rem;">Decide</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="to"><b>Comitê de Pipeline</b></td>
+              <td>Semanal</td>
+              <td>30 min</td>
+              <td>Novos Negócios e um representante técnico</td>
+              <td class="ref">D1 · destrava filas</td>
+            </tr>
+            <tr>
+              <td class="to"><b>Comitê de Portão</b></td>
+              <td>Quinzenal</td>
+              <td>60 min</td>
+              <td>Novos Negócios, marketing, técnico, Projetos e Alianças</td>
+              <td class="ref">D2 · D3</td>
+            </tr>
+            <tr>
+              <td class="to"><b>Janela do Acionista</b></td>
+              <td>Mensal, data fixa</td>
+              <td>—</td>
+              <td>Diretorias e acionista</td>
+              <td class="ref">D4 · D5</td>
+            </tr>
+            <tr>
+              <td class="to"><b>Retrospectiva</b></td>
+              <td>Por deal encerrado</td>
+              <td>30 min</td>
+              <td>Quem participou, ganho ou perdido</td>
+              <td class="ref">alimenta o playbook</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="col">A janela mensal de data fixa é, isoladamente, uma das maiores economias de calendário disponíveis: elimina o tempo de <b>conseguir agenda</b>, que hoje não aparece em lugar nenhum do fluxograma mas aparece inteiro no lead time.</p>
+
+      <h3 style="margin-top:1rem;">Acordo de nível de serviço com as áreas pares</h3>
+      <p class="col">Os números abaixo são <b>proposta de negociação, não imposição</b> — cada área precisa validar o seu. O valor não está no número: está em existir um número, um formulário único de solicitação e uma fila visível.</p>
+
+      <div class="tablebox">
+        <table class="tabular">
+          <thead>
+            <tr>
+              <th style="width: 30%;">Área</th>
+              <th>Entrega expressa</th>
+              <th>Entrega completa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="to">Médico</td><td>Semáforo em 3 dias</td><td>Parecer em 10 dias</td></tr>
+            <tr><td class="to">Patentes</td><td>Busca preliminar em 5 dias</td><td>Liberdade de operar em 15 dias</td></tr>
+            <tr><td class="to">Regulatório</td><td>Checklist em 5 dias</td><td>Parecer de via e prazo em 15 dias</td></tr>
+            <tr><td class="to">Pesquisa clínica</td><td>Enquadramento em 5 dias</td><td>Plano e custo em 15 dias</td></tr>
+            <tr><td class="to">Estudos econômicos</td><td>—</td><td>15 dias</td></tr>
+            <tr><td class="to">Nacionalização e suprimentos</td><td>—</td><td>10 dias após checklist do parceiro</td></tr>
+            <tr><td class="to">Projetos e Alianças</td><td>Timeline em faixa, 5 dias</td><td>Timeline completa, 20 dias</td></tr>
+            <tr><td class="to">Financeiro</td><td>Pré-valuation, 2 dias</td><td>Viabilidade completa, 10 dias</td></tr>
+            <tr><td class="to">Jurídico</td><td>CDA de minuta padrão, 3 dias</td><td>Minuta de contrato, 10 dias</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>Um SLA sem padrinho é uma sugestão.</b> Isso só funciona com um patrocinador na diretoria e com o cumprimento publicado mensalmente por área. A transparência é o mecanismo de cobrança — não a autoridade da coordenação.</div>
+
+      <h3 style="margin-top:1rem;">Seis indicadores, uma página, todo mês</h3>
+      <div class="cards">
+        <div class="card"><p class="tag">01</p><h3>Lead time por fase</h3><p>Mediana e P80. É o número que muda a conversa inteira, porque transforma “está demorado” em “F3 leva 41 dias, dos quais 27 são fila”.</p></div>
+        <div class="card"><p class="tag">02</p><h3>Conversão por portão</h3><p>E, sobretudo, <b>onde</b> os projetos morrem. Morte cedo é boa notícia; morte depois do business case é o custo mais caro do processo atual.</p></div>
+        <div class="card"><p class="tag">03</p><h3>Fila por área par</h3><p>Tempo em espera contra o SLA acordado. Publicado por área.</p></div>
+        <div class="card"><p class="tag">04</p><h3>Aderência ao mandato</h3><p>Percentual de negócios fechados dentro do envelope aprovado. Mede se a alçada foi bem calibrada.</p></div>
+        <div class="card"><p class="tag">05</p><h3>Reaberturas de premissa</h3><p>Quantas vezes uma BU reabriu premissas por caducidade. Meta declarada: zero.</p></div>
+        <div class="card"><p class="tag">06</p><h3>Idade do pipeline</h3><p>Dias desde a última movimentação de cada oportunidade. É o indicador que mata os zumbis — projetos que ninguém encerra e ninguém toca.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 6 ============================== -->
+  <section id="roteiro">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Parte 6</p>
+        <h2>Roteiro por dependência, não por ambição</h2>
+      </div>
+      <p class="lede col">Separado por quem precisa dizer sim. O primeiro bloco depende só de você — e é o que gera a evidência necessária para conseguir os outros dois.</p>
+
+      <div class="cards">
+        <div class="card">
+          <p class="tag">30 dias · só depende de você</p>
+          <h3>Instrumentar e padronizar</h3>
+          <ul>
+            <li>Template único de oportunidade, com núcleo e bloco variável</li>
+            <li>Questionário de Entrada do parceiro</li>
+            <li>Parecer expresso em semáforo, acordado informalmente com os pares</li>
+            <li>Calendário fixo dos comitês</li>
+            <li>Painel de pipeline com data de entrada e dias por fase</li>
+            <li>Motivos de no-go padronizados e registrados</li>
+            <li>Fluxograma de uma página — o mapa dos seis portões</li>
+          </ul>
+        </div>
+        <div class="card">
+          <p class="tag">60–90 dias · com a diretoria</p>
+          <h3>Contratar o processo</h3>
+          <ul>
+            <li>Carta de Premissas com validade e gatilhos</li>
+            <li>SLA formal com cada área par, com patrocinador</li>
+            <li>Projetos e Alianças antecipado ao checklist regulatório</li>
+            <li>Playbook jurídico: CDA e term sheet padrão com recuos</li>
+            <li>Rito de handover com checklist de aceite</li>
+            <li>Taxonomia de quatro dimensões e as três trilhas</li>
+          </ul>
+        </div>
+        <div class="card">
+          <p class="tag">6–12 meses · com acionista e TI</p>
+          <h3>Delegar e digitalizar</h3>
+          <ul>
+            <li>Mandato de negociação com envelope aprovado</li>
+            <li>Dossiê único digital, gerando todas as visões</li>
+            <li>Política regional formal com pontos focais</li>
+            <li>Modelo paramétrico de nacionalização para fase clínica</li>
+            <li>Indicadores publicados e revisão semestral do processo</li>
+            <li>Retorno de forecast realizado em 12 e 24 meses</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="margin-top:1rem;">O fluxograma que substitui o pôster</h3>
+      <p class="col">Três níveis, e nenhum deles é um pôster. <b>Nível 0</b>: uma página, seis fases, cinco portões — é o que se apresenta à diretoria e o que se cola na parede. <b>Nível 1</b>: um diagrama por fase, cabendo numa tela, mostrando as frentes em paralelo, quem decide e o prazo. <b>Nível 2</b>: checklists e procedimentos por área — texto, não desenho, porque é o que mais muda. Cada arquivo com dono, versão e data de revisão, revisado a cada seis meses. Um desenho que ninguém consegue manter volta a divergir da prática em um trimestre.</p>
+    </div>
+  </section>
+
+  <!-- ============================== 7 ============================== -->
+  <section id="riscos">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Parte 7</p>
+        <h2>Onde esta proposta pode estar errada</h2>
+      </div>
+      <p class="lede col">Revisei o dossiê procurando o que ele assume sem provar. Estes são os pontos em que a recomendação muda se a realidade for outra — e vale conferir antes de investir esforço.</p>
+
+      <ul class="risks">
+        <li><span><b>Se o volume anual for baixo</b> — algo como menos de 20 oportunidades por ano —, investir em sistema é desperdício. O ganho estaria inteiro em rito e disciplina, e o dossiê único caberia numa planilha bem governada para sempre.</span></li>
+        <li><span><b>Se o gargalo for capacidade do time de Novos Negócios</b>, e não fila nas áreas pares, SLA não resolve nada. O remédio passa a ser priorização explícita e dizer não mais cedo — e a triagem de F1 vira a peça central, não o paralelismo.</span></li>
+        <li><span><b>O mandato de negociação depende de cultura de delegação.</b> Se o acionista quiser ver cada movimento, a alternativa não é insistir na alçada: é reduzir o custo de agenda com a janela fixa e o formato de delta. Metade do ganho se preserva.</span></li>
+        <li><span><b>A dupla aprovação — Summary e Sumário de Contrato — é provavelmente inegociável, e do ponto de vista de governança está correta.</b> Termos mudam durante a negociação e precisam ser reaprovados. Não lute contra ela; torne a segunda barata.</span></li>
+        <li><span><b>A Carta de Premissas vai gerar atrito se a BU não tiver meta ligada a produtos in-licensed.</b> Nesse caso o problema é de incentivo, não de processo, e nenhum formulário o resolve — a conversa muda de lugar.</span></li>
+        <li><span><b>Antecipar o contato com o parceiro tem custo reputacional</b> quando a empresa acessa e depois some. Mitigação obrigatória: comunicação padrão de encerramento ao parceiro, sempre, mesmo no no-go. Barata e rara no mercado.</span></li>
+        <li><span><b>Os prazos deste dossiê são referências de calibração</b>, não medições. Sem o indicador de lead time rodando por um trimestre, qualquer meta é chute — inclusive as minhas.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================== 8 ============================== -->
+  <section id="perguntas">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Parte 8</p>
+        <h2>O que eu preciso saber para fechar o desenho</h2>
+      </div>
+      <p class="lede col">Cortei tudo que dava para inferir do que você descreveu. Sobraram catorze perguntas, cada uma com uma consequência real: a resposta muda a recomendação, não apenas o detalhe.</p>
+
+      <div class="qblock">
+
+        <div class="qgroup">
+          <p class="eyebrow">Volume e capacidade</p>
+          <ol>
+            <li>Quantas oportunidades entram por ano, quantas chegam à assinatura, e quanto tempo leva hoje do CI à assinatura?
+              <span>Se não medimos, essa é a primeira coisa a fazer — e provavelmente é o dado que sustenta o pedido de mudança perante a diretoria.</span></li>
+            <li>Quantas pessoas no time e quantas oportunidades ativas por pessoa ao mesmo tempo?
+              <span>Define se o gargalo é fila nas áreas pares ou capacidade interna. As soluções são opostas.</span></li>
+            <li>Como se prioriza quando há mais oportunidade do que capacidade — existe critério, ou é ordem de chegada e pressão?
+              <span>Sem critério de priorização, a trilha expressa não funciona: tudo vira urgente.</span></li>
+          </ol>
+        </div>
+
+        <div class="qgroup">
+          <p class="eyebrow">Decisão e alçada</p>
+          <ol start="4">
+            <li>O acionista tem cadência fixa de agenda ou é sob demanda? Quanto tempo passa entre pedir a apresentação e apresentar?
+              <span>Se esse intervalo for de semanas, a janela fixa sozinha já é o maior ganho isolado do redesenho.</span></li>
+            <li>Existe hoje alguma alçada pré-aprovada — upfront, royalty, milestone — dentro da qual você negocia sem voltar? Se não existe, qual a chance real de conseguir uma?
+              <span>É a mudança de maior impacto e a de maior risco político. Preciso saber se vale a briga.</span></li>
+            <li>Em que portão os projetos morrem hoje: antes ou depois do business case?
+              <span>Morte tardia indica que o problema é triagem. Morte precoce em excesso indica que a originação está trazendo o tipo errado de oportunidade.</span></li>
+          </ol>
+        </div>
+
+        <div class="qgroup">
+          <p class="eyebrow">Áreas pares e unidades de negócio</p>
+          <ol start="7">
+            <li>As BUs têm meta ou indicador ligado a produtos in-licensed?
+              <span>Se não têm, demorar e revalidar premissas é comportamento racional delas. O processo não corrige incentivo.</span></li>
+            <li>Há alguém na diretoria disposto a patrocinar um SLA com as áreas pares?
+              <span>Sem padrinho, o SLA é sugestão e o esforço de montá-lo é perdido.</span></li>
+            <li>As solicitações às áreas pares saem por e-mail, sistema ou pedido pessoal? Existe fila visível em algum lugar?
+              <span>Determina se dá para medir tempo de fila já no primeiro mês ou se é preciso criar o registro antes.</span></li>
+          </ol>
+        </div>
+
+        <div class="qgroup">
+          <p class="eyebrow">Regional e tipo de negócio</p>
+          <ol start="10">
+            <li>México e Leste Europeu têm time de Novos Negócios próprio? Quem é o ponto focal e a quem ele responde?
+              <span>Define se o disparo simultâneo é viável ou se depende de escalada por outra diretoria a cada caso.</span></li>
+            <li>Existe política definida sobre LATAM em B2B — entra por padrão na conversa com o parceiro ou só quando ele pergunta?
+              <span>Se não há política, você está negociando escopo territorial no improviso, deal a deal.</span></li>
+            <li>O rótulo co-desenvolvimento versus licenciamento muda orçamento, alçada ou contabilização?
+              <span>Se muda, ele deixa de ser semântica e precisa virar regra objetiva e auditável, não julgamento.</span></li>
+          </ol>
+        </div>
+
+        <div class="qgroup">
+          <p class="eyebrow">Ferramenta e pós-assinatura</p>
+          <ol start="13">
+            <li>Qual o ambiente disponível — Microsoft 365 e SharePoint, algum CRM, SAP, alguma ferramenta de portfólio?
+              <span>Define se “fonte única” é sistema, lista corporativa ou planilha governada. Todas funcionam; o custo é que muda.</span></li>
+            <li>Depois da assinatura, Novos Negócios acompanha o projeto? Volta alguma informação de lançamento e de forecast realizado?
+              <span>Sem esse retorno, a área nunca acumula poder de fogo para questionar premissas na negociação seguinte — e repete a mesma discussão a cada deal.</span></li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>Dossiê elaborado sobre o fluxograma atual da área e sobre a descrição do processo em 24 pontos. Prazos, faixas e níveis de serviço são referências de calibração — nenhum representa medição do processo vigente.</p>
+    </div>
+  </footer>
+
+</main>
