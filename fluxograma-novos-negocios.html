@@ -1,0 +1,1063 @@
+<title>Fluxo de Novos Negócios</title>
+
+<style>
+  :root {
+    --ground: #EDF0EF;
+    --surface: #FFFFFF;
+    --surface-2: #F5F8F7;
+    --surface-3: #E9EFEE;
+    --ink: #101A18;
+    --ink-2: #3D4C49;
+    --ink-3: #6D7D79;
+    --rule: #D3DBD9;
+    --rule-strong: #B4C0BD;
+    --accent: #0C5350;
+    --accent-ink: #0C5350;
+    --accent-soft: #DEEAE8;
+    --signal: #A0631A;
+    --signal-soft: #F1E6D4;
+    --critical: #93372C;
+    --critical-soft: #F2DFDB;
+    --positive: #2F6B4C;
+    --shadow: 0 1px 2px rgba(16, 26, 24, .05), 0 8px 24px -18px rgba(16, 26, 24, .35);
+
+    --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+
+    --measure: 70ch;
+    --pad: clamp(1.1rem, 4vw, 2.5rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0B1211;
+      --surface: #131B1A;
+      --surface-2: #182321;
+      --surface-3: #1E2A28;
+      --ink: #E6ECEA;
+      --ink-2: #AFBFBB;
+      --ink-3: #7E908C;
+      --rule: #253230;
+      --rule-strong: #36453F;
+      --accent: #58B8B1;
+      --accent-ink: #7FCEC7;
+      --accent-soft: #12302E;
+      --signal: #D6A055;
+      --signal-soft: #2C2417;
+      --critical: #E08977;
+      --critical-soft: #2E1D19;
+      --positive: #74B792;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -20px rgba(0, 0, 0, .9);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0B1211;
+    --surface: #131B1A;
+    --surface-2: #182321;
+    --surface-3: #1E2A28;
+    --ink: #E6ECEA;
+    --ink-2: #AFBFBB;
+    --ink-3: #7E908C;
+    --rule: #253230;
+    --rule-strong: #36453F;
+    --accent: #58B8B1;
+    --accent-ink: #7FCEC7;
+    --accent-soft: #12302E;
+    --signal: #D6A055;
+    --signal-soft: #2C2417;
+    --critical: #E08977;
+    --critical-soft: #2E1D19;
+    --positive: #74B792;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -20px rgba(0, 0, 0, .9);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 var(--pad); }
+  .col { max-width: var(--measure); }
+
+  section { padding: clamp(2rem, 5vw, 3.4rem) 0; border-top: 1px solid var(--rule); }
+  section > .wrap { display: flex; flex-direction: column; gap: 1.1rem; }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--ground) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .topbar .wrap { display: flex; align-items: center; gap: 1.25rem; min-height: 48px; flex-wrap: wrap; }
+  .topbar strong {
+    font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em;
+    text-transform: uppercase; font-weight: 600; white-space: nowrap;
+  }
+  .navlinks { display: flex; gap: .9rem; flex-wrap: wrap; margin-left: auto; }
+  .navlinks a {
+    font-family: var(--font-mono); font-size: .68rem; letter-spacing: .06em;
+    color: var(--ink-3); text-decoration: none; border-bottom: 1px solid transparent; padding: 2px 0;
+  }
+  .navlinks a:hover, .navlinks a:focus-visible { color: var(--accent-ink); border-bottom-color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.16; }
+  h1 { font-size: clamp(1.9rem, 5vw, 3rem); letter-spacing: -.015em; }
+  h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); letter-spacing: -.01em; }
+  h3 { font-size: 1.05rem; }
+  p { max-width: var(--measure); }
+
+  .eyebrow {
+    font-family: var(--font-mono); font-size: .68rem; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  .sec-head { display: flex; flex-direction: column; gap: .4rem; }
+  .sec-head .eyebrow { color: var(--accent-ink); }
+  .lede { font-size: 1rem; color: var(--ink-2); }
+
+  .hero { padding: clamp(2.5rem, 7vw, 4.5rem) 0 clamp(1.6rem, 4vw, 2.6rem); border-top: 0; }
+  .hero .wrap { gap: 1.2rem; }
+
+  .idblock {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    max-width: 900px;
+  }
+  .idblock div { padding: .7rem 1rem .7rem 0; display: flex; flex-direction: column; gap: .15rem; }
+  .idblock dt {
+    font-family: var(--font-mono); font-size: .62rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  .idblock dd { margin: 0; font-size: .88rem; color: var(--ink); }
+
+  figure {
+    margin: 0; background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 4px; padding: 1.1rem; display: flex; flex-direction: column; gap: .8rem;
+    box-shadow: var(--shadow);
+  }
+  .figscroll { overflow-x: auto; }
+  figure svg { display: block; width: 100%; min-width: 720px; height: auto; }
+  figcaption { font-size: .83rem; line-height: 1.5; color: var(--ink-3); max-width: 88ch; }
+  figcaption b { color: var(--ink-2); font-weight: 600; }
+
+  /* svg grammar */
+  .lane-bg { fill: var(--surface-2); }
+  .lane-own { fill: var(--accent-soft); }
+  .lane-line { stroke: var(--rule); stroke-width: 1; }
+  .act { fill: var(--surface); stroke: var(--rule-strong); stroke-width: 1; }
+  .act-own { fill: var(--surface); stroke: var(--accent); stroke-width: 1.4; }
+  .act-crit { fill: var(--signal-soft); stroke: var(--signal); stroke-width: 1.4; }
+  .act-ext { fill: var(--surface-3); stroke: var(--rule-strong); stroke-width: 1; }
+  .gatebar { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+  .killbar { fill: var(--critical-soft); stroke: var(--critical); stroke-width: 1.2; }
+  .flow { stroke: var(--rule-strong); stroke-width: 1.2; fill: none; }
+  .flow-dash { stroke: var(--signal); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+  .t { fill: var(--ink); font-family: var(--font-body); font-size: 10px; }
+  .t-dim { fill: var(--ink-3); font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .03em; }
+  .t-lane { fill: var(--ink-2); font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .05em; }
+  .t-hd { fill: var(--ink); font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; font-weight: 600; }
+  .t-gate { fill: var(--accent-ink); font-family: var(--font-mono); font-size: 9px; letter-spacing: .06em; font-weight: 600; }
+  .t-kill { fill: var(--critical); font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .04em; }
+  .t-crit { fill: var(--signal); font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .03em; }
+  .t-doc { fill: var(--accent-ink); font-family: var(--font-mono); font-size: 8px; letter-spacing: .05em; }
+
+  .grid2 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .card {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 4px;
+    padding: .95rem 1.05rem 1.05rem; display: flex; flex-direction: column; gap: .45rem;
+  }
+  .card h3 { font-family: var(--font-body); font-size: .93rem; font-weight: 650; }
+  .card p, .card ul { font-size: .86rem; line-height: 1.5; color: var(--ink-2); margin: 0; }
+  .card ul { padding-left: 1rem; display: flex; flex-direction: column; gap: .25rem; }
+  .tag {
+    font-family: var(--font-mono); font-size: .62rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent-ink);
+  }
+
+  .tablebox { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: .85rem; }
+  th, td { text-align: left; padding: .6rem .8rem; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.45; }
+  thead th {
+    font-family: var(--font-mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 600; background: var(--surface-2); border-bottom: 1px solid var(--rule-strong);
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.who { font-family: var(--font-mono); font-size: .72rem; color: var(--ink-3); white-space: nowrap; }
+  td.k { color: var(--ink); font-weight: 600; }
+
+  .note {
+    border-left: 2px solid var(--signal); background: var(--signal-soft);
+    padding: .8rem 1rem; border-radius: 0 3px 3px 0; font-size: .88rem; color: var(--ink-2); max-width: 88ch;
+  }
+  .note b { color: var(--ink); }
+  .note.kill { border-left-color: var(--critical); background: var(--critical-soft); }
+  .note.calm { border-left-color: var(--rule-strong); background: var(--surface-2); }
+
+  .legend { display: grid; gap: .6rem 1.4rem; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); max-width: 1000px; }
+  .legend div { display: flex; align-items: baseline; gap: .55rem; font-size: .82rem; color: var(--ink-2); }
+  .legend i { width: 22px; height: 11px; border-radius: 2px; flex: none; display: inline-block; }
+  .lg-own { background: var(--surface); border: 1.4px solid var(--accent); }
+  .lg-act { background: var(--surface); border: 1px solid var(--rule-strong); }
+  .lg-crit { background: var(--signal-soft); border: 1.4px solid var(--signal); }
+  .lg-gate { background: var(--accent-soft); border: 1.4px solid var(--accent); }
+  .lg-kill { background: var(--critical-soft); border: 1.2px solid var(--critical); }
+  .lg-ext { background: var(--surface-3); border: 1px solid var(--rule-strong); }
+
+  footer { border-top: 1px solid var(--rule); padding: 2rem 0 3.5rem; }
+  footer p { font-size: .82rem; color: var(--ink-3); }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="topbar">
+  <div class="wrap">
+    <strong>Fluxo de Novos Negócios · v2</strong>
+    <nav class="navlinks">
+      <a href="#mapa">Mapa</a>
+      <a href="#f1">F1</a>
+      <a href="#f2">F2</a>
+      <a href="#f3">F3</a>
+      <a href="#f4">F4</a>
+      <a href="#f5">F5</a>
+      <a href="#f6">F6</a>
+      <a href="#nogo">Não-go</a>
+      <a href="#manutencao">Manutenção</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <defs>
+      <marker id="m1" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+        <path d="M 0 1 L 7 4 L 0 7 z" fill="var(--rule-strong)"></path>
+      </marker>
+      <marker id="m1k" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+        <path d="M 0 1 L 7 4 L 0 7 z" fill="var(--critical)"></path>
+      </marker>
+    </defs>
+  </svg>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Fluxo redesenhado · in-licensing e parcerias</p>
+      <h1>Um mapa de uma página e seis telas.</h1>
+      <p class="lede col">O fluxograma anterior era uma prancha única com cerca de 150 elementos: não se lia em reunião, não se consultava na dúvida e não se atualizava. Este substitui aquele por <b>dois níveis</b> — um mapa que cabe numa folha e um diagrama por fase que cabe numa tela. O terceiro nível, os checklists de cada área, é texto e não desenho, porque é o que mais muda.</p>
+
+      <div class="idblock">
+        <div><dt>Dono do processo</dt><dd>Coordenação de Novos Negócios</dd></div>
+        <div><dt>Versão</dt><dd>2.0 — redesenho</dd></div>
+        <div><dt>Revisão</dt><dd>Semestral</dd></div>
+        <div><dt>Prazos</dt><dd>Dias úteis, a calibrar</dd></div>
+      </div>
+
+      <h3 style="margin-top:.6rem;">Legenda</h3>
+      <div class="legend">
+        <div><i class="lg-own"></i> Atividade de Novos Negócios</div>
+        <div><i class="lg-act"></i> Atividade de área par</div>
+        <div><i class="lg-ext"></i> Atividade do parceiro</div>
+        <div><i class="lg-crit"></i> Caminho crítico ou prazo externo</div>
+        <div><i class="lg-gate"></i> Portão de decisão</div>
+        <div><i class="lg-kill"></i> Encerramento ou hibernação</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAPA ================= -->
+  <section id="mapa">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Nível 0</p>
+        <h2>O mapa de uma página</h2>
+      </div>
+      <p class="lede col">Tudo o que a diretoria precisa ver de uma vez: por onde entra, quantas decisões existem, quem decide cada uma, o que sai de cada fase e para onde vai o que morre.</p>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 1240 372" role="img" aria-label="Mapa geral do processo: seis fontes de entrada alimentam a fase de triagem; seguem-se seis fases separadas por cinco portões de decisão, cada portão com um caminho de encerramento ou hibernação; abaixo, os três estados de entrada e as três trilhas.">
+            <text class="t-hd" x="0" y="14">MAPA DE UMA PÁGINA · DA ORIGINAÇÃO À ASSINATURA</text>
+
+            <!-- entradas -->
+            <rect class="act" x="0" y="34" width="170" height="140" rx="3"></rect>
+            <text class="t-dim" x="14" y="52">ENTRADA ÚNICA</text>
+            <text class="t" x="14" y="72">Diretoria</text>
+            <text class="t" x="14" y="90">Acionista</text>
+            <text class="t" x="14" y="108">Parceiro ofertando</text>
+            <text class="t" x="14" y="126">Portfólio</text>
+            <text class="t" x="14" y="144">Prospecção ativa</text>
+            <text class="t" x="14" y="162">Unidade de Negócio e MKT</text>
+            <path class="flow" marker-end="url(#m1)" d="M 170 104 L 186 104"></path>
+
+            <!-- fases -->
+            <g>
+              <rect class="act-own" x="190" y="76" width="138" height="58" rx="3"></rect>
+              <text class="t-gate" x="204" y="94">F1</text>
+              <text class="t" x="204" y="112">Triagem</text>
+              <text class="t-dim" x="259" y="152" text-anchor="middle">5 dias</text>
+
+              <rect class="act-own" x="370" y="76" width="138" height="58" rx="3"></rect>
+              <text class="t-gate" x="384" y="94">F2</text>
+              <text class="t" x="384" y="112">Qualificação</text>
+              <text class="t-dim" x="439" y="152" text-anchor="middle">20 dias</text>
+              <text class="t-doc" x="439" y="167" text-anchor="middle">R1 Ficha</text>
+
+              <rect class="act-own" x="550" y="76" width="138" height="58" rx="3"></rect>
+              <text class="t-gate" x="564" y="94">F3</text>
+              <text class="t" x="564" y="112">Validação</text>
+              <text class="t" x="564" y="126">comercial</text>
+              <text class="t-dim" x="619" y="152" text-anchor="middle">25 dias</text>
+              <text class="t-doc" x="619" y="167" text-anchor="middle">R2 Oportunidade</text>
+
+              <rect class="act-own" x="730" y="76" width="138" height="58" rx="3"></rect>
+              <text class="t-gate" x="744" y="94">F4</text>
+              <text class="t" x="744" y="112">Estruturação</text>
+              <text class="t" x="744" y="126">e aprovação</text>
+              <text class="t-dim" x="799" y="152" text-anchor="middle">30–40 dias</text>
+              <text class="t-doc" x="799" y="167" text-anchor="middle">R3 BC · R4 TDP · R5 Summary</text>
+
+              <rect class="act-own" x="910" y="76" width="138" height="58" rx="3"></rect>
+              <text class="t-gate" x="924" y="94">F5</text>
+              <text class="t" x="924" y="112">Contratação</text>
+              <text class="t-dim" x="979" y="152" text-anchor="middle">30–45 dias</text>
+              <text class="t-doc" x="979" y="167" text-anchor="middle">R6 Sumário</text>
+
+              <rect class="act-own" x="1090" y="76" width="138" height="58" rx="3"></rect>
+              <text class="t-gate" x="1104" y="94">F6</text>
+              <text class="t" x="1104" y="112">Transição e</text>
+              <text class="t" x="1104" y="126">aprendizado</text>
+              <text class="t-dim" x="1159" y="152" text-anchor="middle">contínuo</text>
+            </g>
+
+            <!-- portões -->
+            <g>
+              <rect class="gatebar" x="336" y="66" width="26" height="78" rx="2"></rect>
+              <text class="t-gate" x="349" y="110" text-anchor="middle">D1</text>
+              <text class="t-dim" x="349" y="188" text-anchor="middle">Comitê de Pipeline</text>
+
+              <rect class="gatebar" x="516" y="66" width="26" height="78" rx="2"></rect>
+              <text class="t-gate" x="529" y="110" text-anchor="middle">D2</text>
+              <text class="t-dim" x="529" y="188" text-anchor="middle">Comitê de Portão</text>
+
+              <rect class="gatebar" x="696" y="66" width="26" height="78" rx="2"></rect>
+              <text class="t-gate" x="709" y="110" text-anchor="middle">D3</text>
+              <text class="t-dim" x="709" y="188" text-anchor="middle">Comitê de Portão</text>
+
+              <rect class="gatebar" x="876" y="66" width="26" height="78" rx="2"></rect>
+              <text class="t-gate" x="889" y="110" text-anchor="middle">D4</text>
+              <text class="t-dim" x="889" y="188" text-anchor="middle">Diretorias e acionista</text>
+
+              <rect class="gatebar" x="1056" y="66" width="26" height="78" rx="2"></rect>
+              <text class="t-gate" x="1069" y="110" text-anchor="middle">D5</text>
+              <text class="t-dim" x="1069" y="188" text-anchor="middle">Acionista · assinatura</text>
+            </g>
+
+            <!-- conectores -->
+            <g class="flow" marker-end="url(#m1)">
+              <path d="M 328 105 L 332 105"></path>
+              <path d="M 362 105 L 366 105"></path>
+              <path d="M 508 105 L 512 105"></path>
+              <path d="M 542 105 L 546 105"></path>
+              <path d="M 688 105 L 692 105"></path>
+              <path d="M 722 105 L 726 105"></path>
+              <path d="M 868 105 L 872 105"></path>
+              <path d="M 902 105 L 906 105"></path>
+              <path d="M 1048 105 L 1052 105"></path>
+              <path d="M 1082 105 L 1086 105"></path>
+            </g>
+
+            <!-- trilho de saída -->
+            <g class="flow" stroke="var(--critical)" marker-end="url(#m1k)">
+              <path d="M 349 196 L 349 216"></path>
+              <path d="M 529 196 L 529 216"></path>
+              <path d="M 709 196 L 709 216"></path>
+              <path d="M 889 196 L 889 216"></path>
+              <path d="M 1069 196 L 1069 216"></path>
+            </g>
+            <rect class="killbar" x="300" y="216" width="820" height="34" rx="3"></rect>
+            <text class="t-kill" x="316" y="237">SAÍDA ÚNICA — registrar motivo codificado · hibernar com data de revisão ou encerrar · comunicar o parceiro sempre</text>
+
+            <!-- estados e trilhas -->
+            <rect class="act" x="0" y="276" width="600" height="76" rx="3"></rect>
+            <text class="t-dim" x="14" y="294">ESTADO DE ENTRADA — define a abertura, decidido em F1</text>
+            <text class="t" x="14" y="313">E1 · parceiro na mesa → acessa na mesma semana, sem hora técnica antes</text>
+            <text class="t" x="14" y="329">E2 · molécula na mesa → desk research de 5 dias, depois acessa</text>
+            <text class="t" x="14" y="345">E3 · produto complexo → parecer expresso em 3 dias, e só então o contato</text>
+
+            <rect class="act" x="640" y="276" width="600" height="76" rx="3"></rect>
+            <text class="t-dim" x="654" y="294">TRILHA — define o rito e o esforço exigido</text>
+            <text class="t" x="654" y="313">Expressa · dossiê pronto, genérico, Brasil</text>
+            <text class="t" x="654" y="329">Padrão · demais casos</text>
+            <text class="t-crit" x="654" y="345">Complexa · fase clínica, inovador, biológico ou regional — acrescenta o gate de desenvolvimento em F2</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 1 · Nível 0.</b> Seis fases, cinco portões, uma entrada e uma saída. Compare com o desenho anterior: as decisões deixam de estar dispersas em gateways ao longo de uma linha e passam a estar concentradas em cinco pontos com dono declarado; e os vários eventos de fim espalhados viram um único trilho de saída que <b>registra o motivo</b> — o que transforma cada perda em informação de originação.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= F1 ================= -->
+  <section id="f1">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Nível 1 · Fase 1</p>
+        <h2>Triagem</h2>
+      </div>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 1000 192" role="img" aria-label="Fase 1, triagem: qualquer fonte entra por um ponto único; Novos Negócios registra no dossiê e abre o CI, classifica nas quatro dimensões, define a trilha e define o estado de entrada; o portão D1 é decidido em comitê semanal.">
+            <text class="t-hd" x="0" y="13">F1 · TRIAGEM</text>
+            <text class="t-dim" x="900" y="13" text-anchor="end">5 dias úteis · sem consumo de área par</text>
+
+            <rect class="lane-bg" x="0" y="24" width="900" height="52"></rect>
+            <rect class="lane-own" x="0" y="76" width="900" height="76"></rect>
+            <line class="lane-line" x1="0" y1="24" x2="900" y2="24"></line>
+            <line class="lane-line" x1="0" y1="76" x2="900" y2="76"></line>
+            <line class="lane-line" x1="0" y1="152" x2="900" y2="152"></line>
+            <text class="t-lane" x="124" y="54" text-anchor="end">Fontes</text>
+            <text class="t-lane" x="124" y="118" text-anchor="end">Novos Negócios</text>
+
+            <rect class="act-ext" x="140" y="34" width="180" height="32" rx="3"></rect>
+            <text class="t" x="150" y="54">Entrada única, qualquer fonte</text>
+
+            <path class="flow" marker-end="url(#m1)" d="M 230 66 L 230 86"></path>
+
+            <g>
+              <rect class="act-own" x="140" y="94" width="150" height="40" rx="3"></rect>
+              <text class="t" x="150" y="110">Registrar no Dossiê</text>
+              <text class="t" x="150" y="124">e abrir o CI</text>
+
+              <rect class="act-own" x="316" y="94" width="150" height="40" rx="3"></rect>
+              <text class="t" x="326" y="110">Classificar nas</text>
+              <text class="t" x="326" y="124">quatro dimensões</text>
+
+              <rect class="act-own" x="492" y="94" width="150" height="40" rx="3"></rect>
+              <text class="t" x="502" y="110">Definir a trilha:</text>
+              <text class="t" x="502" y="124">expressa · padrão · complexa</text>
+
+              <rect class="act-own" x="668" y="94" width="150" height="40" rx="3"></rect>
+              <text class="t" x="678" y="110">Definir o estado</text>
+              <text class="t" x="678" y="124">de entrada E1 · E2 · E3</text>
+            </g>
+
+            <g class="flow" marker-end="url(#m1)">
+              <path d="M 290 114 L 312 114"></path>
+              <path d="M 466 114 L 488 114"></path>
+              <path d="M 642 114 L 664 114"></path>
+              <path d="M 818 114 L 906 114"></path>
+            </g>
+
+            <rect class="gatebar" x="912" y="24" width="88" height="128" rx="3"></rect>
+            <text class="t-gate" x="956" y="46" text-anchor="middle">D1</text>
+            <text class="t-dim" x="956" y="64" text-anchor="middle">Comitê de Pipeline</text>
+            <text class="t-dim" x="956" y="76" text-anchor="middle">semanal · 30 min</text>
+            <line class="lane-line" x1="924" y1="86" x2="988" y2="86"></line>
+            <text class="t-dim" x="956" y="102" text-anchor="middle">Seguir</text>
+            <text class="t-dim" x="956" y="116" text-anchor="middle">Hibernar</text>
+            <text class="t-dim" x="956" y="130" text-anchor="middle">Encerrar</text>
+
+            <text class="t-dim" x="0" y="180">Nenhuma área par é acionada em F1. A fase existe para que a deliberação sobre por onde começar aconteça uma vez, aqui, e não a cada oportunidade.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 2 · F1.</b> A fase mais barata do processo e a que mais economiza depois. As quatro dimensões de classificação — maturidade do dossiê, natureza do produto, modelo comercial e escopo geográfico — determinam a trilha; o estado de entrada determina se o próximo passo é ligar para o parceiro ou pesquisar antes.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= F2 ================= -->
+  <section id="f2">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Nível 1 · Fase 2</p>
+        <h2>Qualificação</h2>
+      </div>
+      <p class="lede col">A fase que mais muda em relação ao desenho anterior: três frentes correm ao mesmo tempo, e a pergunta que define a ordem de grandeza do investimento clínico é feita <b>aqui</b>, sem depender do data room.</p>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 1000 316" role="img" aria-label="Fase 2, qualificação: o parceiro assina CDA, responde o questionário de entrada e abre o data room; Novos Negócios acessa, envia o checklist regulatório e aciona regiões; as áreas técnicas emitem parecer expresso em semáforo e pesquisa clínica classifica a exigência de estudo sem data room; Projetos e Alianças devolve timeline preliminar em faixa; o portão D2 tem um gate adicional de viabilidade de desenvolvimento na trilha complexa.">
+            <text class="t-hd" x="0" y="13">F2 · QUALIFICAÇÃO</text>
+            <text class="t-dim" x="900" y="13" text-anchor="end">20 dias úteis · três frentes em paralelo</text>
+
+            <rect class="lane-bg" x="0" y="24" width="900" height="56"></rect>
+            <rect class="lane-own" x="0" y="80" width="900" height="56"></rect>
+            <rect class="lane-bg" x="0" y="136" width="900" height="86"></rect>
+            <rect class="lane-bg" x="0" y="222" width="900" height="56"></rect>
+            <line class="lane-line" x1="0" y1="24" x2="900" y2="24"></line>
+            <line class="lane-line" x1="0" y1="80" x2="900" y2="80"></line>
+            <line class="lane-line" x1="0" y1="136" x2="900" y2="136"></line>
+            <line class="lane-line" x1="0" y1="222" x2="900" y2="222"></line>
+            <line class="lane-line" x1="0" y1="278" x2="900" y2="278"></line>
+            <text class="t-lane" x="124" y="56" text-anchor="end">Parceiro</text>
+            <text class="t-lane" x="124" y="112" text-anchor="end">Novos Negócios</text>
+            <text class="t-lane" x="124" y="170" text-anchor="end">Técnicas</text>
+            <text class="t-lane" x="124" y="184" text-anchor="end">Méd · Pat · Reg · PC</text>
+            <text class="t-lane" x="124" y="254" text-anchor="end">Projetos e Alianças</text>
+
+            <!-- parceiro -->
+            <g>
+              <rect class="act-ext" x="200" y="34" width="150" height="36" rx="3"></rect>
+              <text class="t" x="210" y="49">Primeira reunião</text>
+              <text class="t" x="210" y="62">e assinatura do CDA</text>
+
+              <rect class="act-ext" x="380" y="34" width="170" height="36" rx="3"></rect>
+              <text class="t" x="390" y="49">Responder o Questionário</text>
+              <text class="t" x="390" y="62">de Entrada</text>
+
+              <rect class="act-ext" x="580" y="34" width="150" height="36" rx="3"></rect>
+              <text class="t" x="590" y="55">Abrir o data room</text>
+            </g>
+
+            <!-- NN -->
+            <g>
+              <rect class="act-own" x="140" y="90" width="150" height="36" rx="3"></rect>
+              <text class="t" x="150" y="105">Acessar o parceiro</text>
+              <text class="t" x="150" y="118">conforme E1 · E2 · E3</text>
+
+              <rect class="act-own" x="320" y="90" width="160" height="36" rx="3"></rect>
+              <text class="t" x="330" y="105">Enviar checklist</text>
+              <text class="t" x="330" y="118">regulatório preliminar</text>
+
+              <rect class="act-own" x="510" y="90" width="160" height="36" rx="3"></rect>
+              <text class="t" x="520" y="105">Acionar México e</text>
+              <text class="t" x="520" y="118">Leste Europeu, se regional</text>
+              <rect class="act-own" x="700" y="90" width="150" height="36" rx="3"></rect>
+              <text class="t" x="710" y="105">Consolidar a</text>
+              <text class="t" x="710" y="118">Ficha de Qualificação</text>
+              <text class="t-doc" x="710" y="132">R1</text>
+            </g>
+
+            <!-- tecnicas -->
+            <g>
+              <rect class="act" x="320" y="144" width="240" height="34" rx="3"></rect>
+              <text class="t" x="330" y="158">Parecer expresso em semáforo · 3 dias</text>
+              <text class="t-dim" x="330" y="171">médico · patentes · regulatório</text>
+
+              <rect class="act-crit" x="320" y="182" width="240" height="34" rx="3"></rect>
+              <text class="t-crit" x="330" y="196">PC · Pergunta A — que classe de estudo</text>
+              <text class="t-crit" x="330" y="209">o Brasil exige · 3 a 5 dias · sem data room</text>
+            </g>
+
+            <!-- P&A -->
+            <g>
+              <rect class="act-crit" x="510" y="230" width="220" height="34" rx="3"></rect>
+              <text class="t-crit" x="520" y="244">P&amp;A · timeline preliminar em faixa</text>
+              <text class="t-dim" x="520" y="257">a partir do checklist regulatório · 5 dias</text>
+            </g>
+
+            <!-- flows -->
+            <g class="flow" marker-end="url(#m1)">
+              <path d="M 290 108 L 316 108"></path>
+              <path d="M 480 108 L 506 108"></path>
+              <path d="M 670 108 L 696 108"></path>
+              <path d="M 215 90 L 215 76 L 196 76"></path>
+              <path d="M 350 52 L 376 52"></path>
+              <path d="M 550 52 L 576 52"></path>
+              <path d="M 400 70 L 400 140"></path>
+              <path d="M 620 70 L 620 226"></path>
+              <path d="M 850 108 L 906 108"></path>
+              <path d="M 560 161 L 700 161 L 700 126"></path>
+              <path d="M 730 247 L 800 247 L 800 130"></path>
+            </g>
+
+            <rect class="gatebar" x="912" y="24" width="88" height="254" rx="3"></rect>
+            <text class="t-gate" x="956" y="46" text-anchor="middle">D2</text>
+            <text class="t-dim" x="956" y="64" text-anchor="middle">Comitê de Portão</text>
+            <text class="t-dim" x="956" y="76" text-anchor="middle">quinzenal</text>
+            <line class="lane-line" x1="924" y1="86" x2="988" y2="86"></line>
+            <text class="t-dim" x="956" y="102" text-anchor="middle">Qualificada?</text>
+            <line class="lane-line" x1="924" y1="114" x2="988" y2="114"></line>
+            <text class="t-crit" x="956" y="132" text-anchor="middle">TRILHA</text>
+            <text class="t-crit" x="956" y="144" text-anchor="middle">COMPLEXA</text>
+            <text class="t-dim" x="956" y="162" text-anchor="middle">Gate de</text>
+            <text class="t-dim" x="956" y="174" text-anchor="middle">viabilidade de</text>
+            <text class="t-dim" x="956" y="186" text-anchor="middle">desenvolvimento</text>
+            <text class="t-dim" x="956" y="206" text-anchor="middle">1 · que estudo</text>
+            <text class="t-dim" x="956" y="220" text-anchor="middle">2 · custo e prazo</text>
+            <text class="t-dim" x="956" y="234" text-anchor="middle">3 · quem paga</text>
+            <text class="t-dim" x="956" y="254" text-anchor="middle">Sem as três em</text>
+            <text class="t-dim" x="956" y="266" text-anchor="middle">faixa, não passa</text>
+
+            <text class="t-dim" x="0" y="300">Em E3 — produto complexo — o parecer expresso e a Pergunta A antecedem o contato com o parceiro. Nos demais estados, correm em paralelo ao acesso.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 3 · F2.</b> As três frentes se sobrepõem: o parceiro assina e abre o data room enquanto as técnicas emitem semáforo e Projetos e Alianças já devolve a timeline preliminar. <b>A caixa em âmbar é a mudança decisiva</b> — a classificação da exigência de estudo clínico não espera o data room, porque depende da identidade regulatória do produto e não do dossiê do parceiro. Na trilha complexa, o portão ganha um gate de viabilidade de desenvolvimento: sem resposta em faixa para as três perguntas, o projeto não consome F3.</figcaption>
+      </figure>
+
+      <div class="note"><b>O prazo que não está sob seu controle.</b> Se a Pergunta A apontar “centro brasileiro em estudo global”, existe uma janela de recrutamento com data limite fora da EMS. Perder essa janela move o produto da opção mais barata para uma das mais caras. Esse relógio precisa entrar no Dossiê como data, e ser olhado no Comitê de Pipeline toda semana.</div>
+    </div>
+  </section>
+
+  <!-- ================= F3 ================= -->
+  <section id="f3">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Nível 1 · Fase 3</p>
+        <h2>Validação comercial</h2>
+      </div>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 1000 330" role="img" aria-label="Fase 3, validação comercial: no data room as áreas técnicas emitem parecer completo e pesquisa clínica faz a análise de lacunas; Novos Negócios consolida a visão de oportunidade e dispara Brasil e regiões simultaneamente; as unidades de negócio devolvem a Carta de Premissas; financeiro produz o pré-valuation; o portão D3 formaliza o interesse comercial.">
+            <text class="t-hd" x="0" y="13">F3 · VALIDAÇÃO COMERCIAL</text>
+            <text class="t-dim" x="900" y="13" text-anchor="end">25 dias úteis · Brasil e regiões no mesmo disparo</text>
+
+            <rect class="lane-bg" x="0" y="24" width="900" height="46"></rect>
+            <rect class="lane-own" x="0" y="70" width="900" height="56"></rect>
+            <rect class="lane-bg" x="0" y="126" width="900" height="76"></rect>
+            <line class="lane-line" x1="0" y1="24" x2="900" y2="24"></line>
+            <line class="lane-line" x1="0" y1="70" x2="900" y2="70"></line>
+            <line class="lane-line" x1="0" y1="126" x2="900" y2="126"></line>
+            <line class="lane-line" x1="0" y1="202" x2="900" y2="202"></line>
+            <line class="lane-line" x1="0" y1="254" x2="900" y2="254"></line>
+            <line class="lane-line" x1="0" y1="292" x2="900" y2="292"></line>
+            <text class="t-lane" x="124" y="52" text-anchor="end">Parceiro</text>
+            <text class="t-lane" x="124" y="102" text-anchor="end">Novos Negócios</text>
+            <text class="t-lane" x="124" y="160" text-anchor="end">Técnicas · data room</text>
+            <text class="t-lane" x="124" y="232" text-anchor="end">BUs BR · MX · LE</text>
+            <text class="t-lane" x="124" y="276" text-anchor="end">Financeiro · Suprimentos</text>
+
+            <rect class="act-ext" x="140" y="32" width="160" height="30" rx="3"></rect>
+            <text class="t" x="150" y="51">Data room disponível</text>
+            <rect class="act-ext" x="700" y="32" width="180" height="30" rx="3"></rect>
+            <text class="t" x="710" y="51">Recebe sinalização formal</text>
+
+            <g>
+              <rect class="act-own" x="140" y="80" width="170" height="36" rx="3"></rect>
+              <text class="t" x="150" y="95">Consolidar a Visão de</text>
+              <text class="t" x="150" y="108">Oportunidade · R2</text>
+
+              <rect class="act-own" x="340" y="80" width="170" height="36" rx="3"></rect>
+              <text class="t" x="350" y="95">Disparar BUs Brasil e</text>
+              <text class="t" x="350" y="108">regiões simultaneamente</text>
+
+              <rect class="act-own" x="540" y="80" width="150" height="36" rx="3"></rect>
+              <text class="t" x="550" y="95">Definir política</text>
+              <text class="t" x="550" y="108">de NBO</text>
+            </g>
+
+            <g>
+              <rect class="act" x="340" y="134" width="250" height="30" rx="3"></rect>
+              <text class="t" x="350" y="153">Parecer completo · médico · patentes · regulatório</text>
+
+              <rect class="act-crit" x="340" y="168" width="250" height="30" rx="3"></rect>
+              <text class="t-crit" x="350" y="187">PC · Pergunta B — análise de lacunas, custo e prazo</text>
+
+              <rect class="act" x="620" y="151" width="180" height="30" rx="3"></rect>
+              <text class="t" x="630" y="170">Estudo econômico</text>
+            </g>
+
+            <g>
+              <rect class="act" x="340" y="210" width="250" height="36" rx="3"></rect>
+              <text class="t" x="350" y="225">Carta de Premissas — pré-preenchida</text>
+              <text class="t-dim" x="350" y="238">por NN, validada pela BU · validade 120 dias</text>
+            </g>
+
+            <g>
+              <rect class="act" x="340" y="260" width="180" height="26" rx="3"></rect>
+              <text class="t" x="350" y="277">Pré-valuation · walk-away</text>
+              <rect class="act" x="545" y="260" width="245" height="26" rx="3"></rect>
+              <text class="t" x="555" y="277">Nacionalização — real, ou paramétrica em fase clínica</text>
+            </g>
+
+            <g class="flow" marker-end="url(#m1)">
+              <path d="M 310 98 L 336 98"></path>
+              <path d="M 510 98 L 536 98"></path>
+              <path d="M 220 62 L 220 76 L 336 76 L 336 145" stroke-dasharray="3 3"></path>
+              <path d="M 420 116 L 420 130"></path>
+              <path d="M 465 116 L 465 206"></path>
+              <path d="M 430 246 L 430 256"></path>
+              <path d="M 590 149 L 616 149 L 616 147"></path>
+              <path d="M 690 98 L 906 98"></path>
+              <path d="M 790 62 L 790 48 L 884 48" stroke-dasharray="3 3"></path>
+            </g>
+
+            <rect class="gatebar" x="912" y="24" width="88" height="268" rx="3"></rect>
+            <text class="t-gate" x="956" y="46" text-anchor="middle">D3</text>
+            <text class="t-dim" x="956" y="64" text-anchor="middle">Comitê de Portão</text>
+            <text class="t-dim" x="956" y="76" text-anchor="middle">quinzenal</text>
+            <line class="lane-line" x1="924" y1="88" x2="988" y2="88"></line>
+            <text class="t-dim" x="956" y="106" text-anchor="middle">Interesse</text>
+            <text class="t-dim" x="956" y="118" text-anchor="middle">comercial</text>
+            <text class="t-dim" x="956" y="130" text-anchor="middle">formalizado?</text>
+            <line class="lane-line" x1="924" y1="142" x2="988" y2="142"></line>
+            <text class="t-dim" x="956" y="160" text-anchor="middle">Exige Carta</text>
+            <text class="t-dim" x="956" y="172" text-anchor="middle">de Premissas</text>
+            <text class="t-dim" x="956" y="184" text-anchor="middle">assinada de</text>
+            <text class="t-dim" x="956" y="196" text-anchor="middle">cada região</text>
+            <line class="lane-line" x1="924" y1="208" x2="988" y2="208"></line>
+            <text class="t-crit" x="956" y="226" text-anchor="middle">Exposição</text>
+            <text class="t-crit" x="956" y="238" text-anchor="middle">antecipada</text>
+            <text class="t-dim" x="956" y="252" text-anchor="middle">5 min na</text>
+            <text class="t-dim" x="956" y="264" text-anchor="middle">janela mensal</text>
+            <text class="t-dim" x="956" y="276" text-anchor="middle">do acionista</text>
+
+            <text class="t-dim" x="0" y="314">A sinalização ao parceiro só ocorre depois de D3. E nenhum valor é mencionado antes de existir o número de walk-away.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 4 · F3.</b> Brasil, México e Leste Europeu recebem o mesmo material no mesmo dia — o disparo sequencial era uma das causas do alongamento do business case. A Carta de Premissas vem pré-preenchida por Novos Negócios para que validar custe minutos à BU, já que não há meta de in-licensing que a obrigue. E é aqui que entra a <b>exposição antecipada</b>: cinco minutos na janela mensal para testar apetite antes de gastar o business case inteiro.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= F4 ================= -->
+  <section id="f4">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Nível 1 · Fase 4</p>
+        <h2>Estruturação e aprovação</h2>
+      </div>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 1000 316" role="img" aria-label="Fase 4, estruturação e aprovação: o parceiro recebe NBO ou envia proposta; Novos Negócios consolida o business case, emite o TDP e o Summary; pesquisa clínica entrega o plano de estudo; Projetos e Alianças conduz a due diligence e devolve a timeline completa; financeiro fecha a viabilidade; o portão D4 é a janela mensal do acionista.">
+            <text class="t-hd" x="0" y="13">F4 · ESTRUTURAÇÃO E APROVAÇÃO</text>
+            <text class="t-dim" x="900" y="13" text-anchor="end">30 a 40 dias úteis</text>
+
+            <rect class="lane-bg" x="0" y="24" width="900" height="46"></rect>
+            <rect class="lane-own" x="0" y="70" width="900" height="56"></rect>
+            <rect class="lane-bg" x="0" y="126" width="900" height="46"></rect>
+            <line class="lane-line" x1="0" y1="24" x2="900" y2="24"></line>
+            <line class="lane-line" x1="0" y1="70" x2="900" y2="70"></line>
+            <line class="lane-line" x1="0" y1="126" x2="900" y2="126"></line>
+            <line class="lane-line" x1="0" y1="172" x2="900" y2="172"></line>
+            <line class="lane-line" x1="0" y1="226" x2="900" y2="226"></line>
+            <line class="lane-line" x1="0" y1="272" x2="900" y2="272"></line>
+            <text class="t-lane" x="124" y="52" text-anchor="end">Parceiro</text>
+            <text class="t-lane" x="124" y="102" text-anchor="end">Novos Negócios</text>
+            <text class="t-lane" x="124" y="152" text-anchor="end">Pesquisa clínica</text>
+            <text class="t-lane" x="124" y="202" text-anchor="end">Projetos e Alianças</text>
+            <text class="t-lane" x="124" y="252" text-anchor="end">Financeiro · Jurídico</text>
+
+            <rect class="act-ext" x="140" y="32" width="200" height="30" rx="3"></rect>
+            <text class="t" x="150" y="51">Recebe NBO ou envia proposta</text>
+
+            <g>
+              <rect class="act-own" x="140" y="80" width="150" height="36" rx="3"></rect>
+              <text class="t" x="150" y="95">Business case</text>
+              <text class="t" x="150" y="108">Brasil + regiões · R3</text>
+
+              <rect class="act-own" x="430" y="80" width="150" height="36" rx="3"></rect>
+              <text class="t" x="440" y="95">TDP e handover</text>
+              <text class="t" x="440" y="108">com aceite · R4</text>
+
+              <rect class="act-own" x="700" y="80" width="150" height="36" rx="3"></rect>
+              <text class="t" x="710" y="95">Summary</text>
+              <text class="t" x="710" y="108">release final · R5</text>
+            </g>
+
+            <rect class="act-crit" x="140" y="134" width="240" height="30" rx="3"></rect>
+            <text class="t-crit" x="150" y="153">Plano de estudo · custo, cronograma, riscos</text>
+
+            <g>
+              <rect class="act" x="430" y="184" width="150" height="34" rx="3"></rect>
+              <text class="t" x="440" y="198">Due diligence</text>
+              <text class="t-dim" x="440" y="211">recebe o TDP</text>
+              <rect class="act-crit" x="610" y="184" width="150" height="34" rx="3"></rect>
+              <text class="t-crit" x="620" y="198">Timeline completa</text>
+              <text class="t-dim" x="620" y="211">entra no Summary</text>
+            </g>
+
+            <g>
+              <rect class="act" x="140" y="234" width="200" height="30" rx="3"></rect>
+              <text class="t" x="150" y="253">Viabilidade financeira completa</text>
+              <rect class="act" x="380" y="234" width="200" height="30" rx="3"></rect>
+              <text class="t" x="390" y="253">Jurídico prepara a minuta</text>
+            </g>
+
+            <g class="flow" marker-end="url(#m1)">
+              <path d="M 240 62 L 240 76"></path>
+              <path d="M 290 98 L 426 98"></path>
+              <path d="M 580 98 L 696 98"></path>
+              <path d="M 260 134 L 260 122 L 215 122 L 215 120"></path>
+              <path d="M 240 234 L 240 122"></path>
+              <path d="M 505 116 L 505 180"></path>
+              <path d="M 580 201 L 606 201"></path>
+              <path d="M 685 184 L 685 120"></path>
+              <path d="M 850 98 L 906 98"></path>
+            </g>
+
+            <rect class="gatebar" x="912" y="24" width="88" height="248" rx="3"></rect>
+            <text class="t-gate" x="956" y="46" text-anchor="middle">D4</text>
+            <text class="t-dim" x="956" y="64" text-anchor="middle">Diretorias</text>
+            <text class="t-dim" x="956" y="76" text-anchor="middle">NN e MKT</text>
+            <line class="lane-line" x1="924" y1="88" x2="988" y2="88"></line>
+            <text class="t-dim" x="956" y="106" text-anchor="middle">Janela mensal</text>
+            <text class="t-dim" x="956" y="118" text-anchor="middle">do acionista</text>
+            <text class="t-dim" x="956" y="130" text-anchor="middle">data fixa</text>
+            <line class="lane-line" x1="924" y1="142" x2="988" y2="142"></line>
+            <text class="t-dim" x="956" y="160" text-anchor="middle">Aprova o</text>
+            <text class="t-dim" x="956" y="172" text-anchor="middle">projeto</text>
+            <line class="lane-line" x1="924" y1="184" x2="988" y2="184"></line>
+            <text class="t-dim" x="956" y="202" text-anchor="middle">Opcional:</text>
+            <text class="t-dim" x="956" y="214" text-anchor="middle">mandato</text>
+            <text class="t-dim" x="956" y="226" text-anchor="middle">pontual —</text>
+            <text class="t-dim" x="956" y="238" text-anchor="middle">“até quanto</text>
+            <text class="t-dim" x="956" y="250" text-anchor="middle">posso ir?”</text>
+
+            <text class="t-dim" x="0" y="300">O TDP não é documento novo: é o release R4 do mesmo Dossiê. O handover a Projetos e Alianças tem reunião única e aceite assinado por quem recebe.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 5 · F4.</b> O handover deixa de ser informal: o TDP sai do Dossiê, há reunião única e aceite assinado. A timeline completa volta de Projetos e Alianças e entra no Summary. O mandato de negociação está fora do desenho por decisão do acionista — fica registrada apenas a versão mínima, opcional, de perguntar o teto em um deal específico quando o vai-e-vem já estiver custando caro.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= F5 ================= -->
+  <section id="f5">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Nível 1 · Fase 5</p>
+        <h2>Contratação</h2>
+      </div>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 1000 228" role="img" aria-label="Fase 5, contratação: negociação de term sheet e contrato com o parceiro, apoiada pelo playbook jurídico; Novos Negócios produz o Sumário de Contrato em formato de delta; o portão D5 é a aprovação do acionista e a assinatura eletrônica.">
+            <text class="t-hd" x="0" y="13">F5 · CONTRATAÇÃO</text>
+            <text class="t-dim" x="900" y="13" text-anchor="end">30 a 45 dias úteis</text>
+
+            <rect class="lane-bg" x="0" y="24" width="900" height="46"></rect>
+            <rect class="lane-own" x="0" y="70" width="900" height="56"></rect>
+            <rect class="lane-bg" x="0" y="126" width="900" height="46"></rect>
+            <line class="lane-line" x1="0" y1="24" x2="900" y2="24"></line>
+            <line class="lane-line" x1="0" y1="70" x2="900" y2="70"></line>
+            <line class="lane-line" x1="0" y1="126" x2="900" y2="126"></line>
+            <line class="lane-line" x1="0" y1="172" x2="900" y2="172"></line>
+            <text class="t-lane" x="124" y="52" text-anchor="end">Parceiro</text>
+            <text class="t-lane" x="124" y="102" text-anchor="end">Novos Negócios</text>
+            <text class="t-lane" x="124" y="152" text-anchor="end">Jurídico</text>
+
+            <rect class="act-ext" x="140" y="32" width="160" height="30" rx="3"></rect>
+            <text class="t" x="150" y="51">Term sheet</text>
+            <rect class="act-ext" x="360" y="32" width="180" height="30" rx="3"></rect>
+            <text class="t" x="370" y="51">Negociação do contrato</text>
+            <rect class="act-ext" x="700" y="32" width="180" height="30" rx="3"></rect>
+            <text class="t" x="710" y="51">Assinatura eletrônica</text>
+
+            <g>
+              <rect class="act-own" x="140" y="80" width="180" height="36" rx="3"></rect>
+              <text class="t" x="150" y="95">Conduzir a negociação</text>
+              <text class="t-dim" x="150" y="108">registrando cada termo no Dossiê</text>
+
+              <rect class="act-own" x="380" y="80" width="200" height="36" rx="3"></rect>
+              <text class="t" x="390" y="95">Sumário de Contrato · R6</text>
+              <text class="t-dim" x="390" y="108">duas colunas: apresentado × fechado</text>
+            </g>
+
+            <rect class="act" x="140" y="134" width="280" height="30" rx="3"></rect>
+            <text class="t" x="150" y="153">Playbook: cláusulas padrão e posições de recuo pré-aprovadas</text>
+
+            <g class="flow" marker-end="url(#m1)">
+              <path d="M 220 62 L 220 76"></path>
+              <path d="M 320 98 L 376 98"></path>
+              <path d="M 450 62 L 450 76" stroke-dasharray="3 3"></path>
+              <path d="M 280 134 L 280 122"></path>
+              <path d="M 580 98 L 906 98"></path>
+              <path d="M 790 62 L 790 76" stroke-dasharray="3 3"></path>
+            </g>
+
+            <rect class="gatebar" x="912" y="24" width="88" height="148" rx="3"></rect>
+            <text class="t-gate" x="956" y="46" text-anchor="middle">D5</text>
+            <text class="t-dim" x="956" y="64" text-anchor="middle">Acionista</text>
+            <line class="lane-line" x1="924" y1="76" x2="988" y2="76"></line>
+            <text class="t-dim" x="956" y="94" text-anchor="middle">Aprova o</text>
+            <text class="t-dim" x="956" y="106" text-anchor="middle">Sumário</text>
+            <text class="t-dim" x="956" y="118" text-anchor="middle">em delta</text>
+            <line class="lane-line" x1="924" y1="130" x2="988" y2="130"></line>
+            <text class="t-dim" x="956" y="148" text-anchor="middle">Libera a</text>
+            <text class="t-dim" x="956" y="160" text-anchor="middle">assinatura</text>
+
+            <text class="t-dim" x="0" y="200">O Sumário em duas colunas encurta a leitura da aprovação sem tirar decisão de ninguém — é mudança de formato, não de alçada.</text>
+            <text class="t-dim" x="0" y="216">Cláusula obrigatória no playbook para trilha complexa: propriedade e uso dos dados gerados em estudo conduzido no Brasil.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 6 · F5.</b> A única alteração estrutural desta fase é o formato do Sumário de Contrato: em vez de reapresentar o negócio inteiro, ele compara o que foi apresentado no Summary com o que foi fechado. O playbook jurídico com posições de recuo pré-aprovadas é o que evita que cada cláusula vire uma consulta.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= F6 ================= -->
+  <section id="f6">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Nível 1 · Fase 6</p>
+        <h2>Transição e aprendizado</h2>
+      </div>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 1000 212" role="img" aria-label="Fase 6, transição e aprendizado: handover formal com checklist de aceite, retrospectiva de trinta minutos e retorno de resultado em doze e vinte e quatro meses que realimenta a Carta de Premissas das próximas oportunidades.">
+            <text class="t-hd" x="0" y="13">F6 · TRANSIÇÃO E APRENDIZADO</text>
+            <text class="t-dim" x="900" y="13" text-anchor="end">contínuo · é o que torna o processo melhor a cada deal</text>
+
+            <rect class="lane-own" x="0" y="24" width="900" height="56"></rect>
+            <rect class="lane-bg" x="0" y="80" width="900" height="46"></rect>
+            <line class="lane-line" x1="0" y1="24" x2="900" y2="24"></line>
+            <line class="lane-line" x1="0" y1="80" x2="900" y2="80"></line>
+            <line class="lane-line" x1="0" y1="126" x2="900" y2="126"></line>
+            <text class="t-lane" x="124" y="56" text-anchor="end">Novos Negócios</text>
+            <text class="t-lane" x="124" y="106" text-anchor="end">Execução do projeto</text>
+
+            <g>
+              <rect class="act-own" x="140" y="34" width="180" height="36" rx="3"></rect>
+              <text class="t" x="150" y="49">Handover de execução</text>
+              <text class="t-dim" x="150" y="62">checklist de aceite assinado</text>
+
+              <rect class="act-own" x="370" y="34" width="180" height="36" rx="3"></rect>
+              <text class="t" x="380" y="49">Retrospectiva · 30 min</text>
+              <text class="t-dim" x="380" y="62">tempo por fase e o que travou</text>
+
+              <rect class="act-crit" x="600" y="34" width="250" height="36" rx="3"></rect>
+              <text class="t-crit" x="610" y="49">Retorno de resultado em 12 e 24 meses</text>
+              <text class="t-dim" x="610" y="62">forecast realizado × premissa assinada pela BU</text>
+            </g>
+
+            <rect class="act" x="140" y="88" width="180" height="30" rx="3"></rect>
+            <text class="t" x="150" y="107">Assina o aceite</text>
+
+            <g class="flow" marker-end="url(#m1)">
+              <path d="M 320 52 L 366 52"></path>
+              <path d="M 550 52 L 596 52"></path>
+              <path d="M 230 70 L 230 84"></path>
+            </g>
+
+            <path class="flow-dash" marker-end="url(#m1)" d="M 725 70 L 725 150 L 60 150 L 60 126"></path>
+            <text class="t-crit" x="392" y="166" text-anchor="middle">realimenta a Carta de Premissas e a triagem das próximas oportunidades</text>
+
+            <text class="t-dim" x="0" y="196">Sem esse retorno, a área nunca acumula argumento para questionar premissas na negociação seguinte — e repete a mesma discussão a cada deal.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 7 · F6.</b> A fase que não existia. O laço tracejado é o que transforma o processo em algo que melhora sozinho: o resultado real de cada deal volta como referência para a próxima Carta de Premissas e para o scorecard de triagem.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= NÃO-GO ================= -->
+  <section id="nogo">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Subprocesso</p>
+        <h2>O caminho do “não”</h2>
+      </div>
+      <p class="lede col">No desenho anterior havia vários eventos de fim espalhados e nenhum tratamento do que morre. Aqui existe um só, ele é obrigatório em qualquer portão, e produz duas coisas que hoje se perdem: <b>um motivo codificado</b> e <b>uma data de revisão</b>.</p>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 1000 216" role="img" aria-label="Subprocesso de encerramento: de qualquer portão, registra-se o motivo codificado, comunica-se o parceiro e escolhe-se entre hibernar com data de revisão, que retorna à triagem, ou encerrar definitivamente, alimentando a inteligência de originação.">
+            <text class="t-hd" x="0" y="13">SAÍDA ÚNICA · APLICÁVEL A D1, D2, D3, D4 E D5</text>
+
+            <rect class="gatebar" x="0" y="40" width="120" height="40" rx="3"></rect>
+            <text class="t-gate" x="60" y="58" text-anchor="middle">Qualquer</text>
+            <text class="t-gate" x="60" y="70" text-anchor="middle">portão</text>
+
+            <rect class="killbar" x="170" y="40" width="180" height="40" rx="3"></rect>
+            <text class="t-kill" x="182" y="58">Registrar o motivo em</text>
+            <text class="t-kill" x="182" y="70">código, não em texto livre</text>
+
+            <rect class="killbar" x="400" y="40" width="180" height="40" rx="3"></rect>
+            <text class="t-kill" x="412" y="58">Comunicar o parceiro</text>
+            <text class="t-kill" x="412" y="70">sempre — modelo padrão</text>
+
+            <rect class="act" x="630" y="16" width="200" height="40" rx="3"></rect>
+            <text class="t" x="642" y="34">Hibernar</text>
+            <text class="t-dim" x="642" y="47">com data de revisão declarada</text>
+
+            <rect class="act" x="630" y="76" width="200" height="40" rx="3"></rect>
+            <text class="t" x="642" y="94">Encerrar</text>
+            <text class="t-dim" x="642" y="107">o motivo vai para o painel</text>
+
+            <rect class="act-crit" x="630" y="150" width="330" height="40" rx="3"></rect>
+            <text class="t-crit" x="642" y="168">Inteligência de originação</text>
+            <text class="t-dim" x="642" y="181">devolve ao originador que tipo de oportunidade tem chance</text>
+
+            <g class="flow" marker-end="url(#m1)">
+              <path d="M 120 60 L 166 60"></path>
+              <path d="M 350 60 L 396 60"></path>
+              <path d="M 580 60 L 604 60 L 604 36 L 626 36"></path>
+              <path d="M 604 60 L 604 96 L 626 96"></path>
+              <path d="M 730 116 L 730 146"></path>
+            </g>
+
+            <path class="flow-dash" marker-end="url(#m1)" d="M 830 36 L 900 36 L 900 200 L 60 200 L 60 84"></path>
+            <text class="t-crit" x="480" y="212" text-anchor="middle">na data de revisão, a oportunidade hibernada volta à triagem — não some</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 8 · Saída.</b> Três exigências, e nenhuma delas custa tempo: motivo em código para virar estatística, comunicação padrão ao parceiro para preservar relacionamento — barata e rara no mercado —, e data de revisão para que a hibernação não vire esquecimento. Boa parte das oportunidades volta em 12 a 24 meses.</figcaption>
+      </figure>
+
+      <div class="tablebox">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 16rem;">Código de encerramento</th>
+              <th>Para que serve olhar isso todo mês</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="k">Fit estratégico</td><td>Se concentra em uma fonte, a conversa é com o originador, não com o processo.</td></tr>
+            <tr><td class="k">Patente ou liberdade de operar</td><td>Se aparece tarde, a busca preliminar precisa subir para F1.</td></tr>
+            <tr><td class="k">Viabilidade regulatória</td><td>Indica que o checklist preliminar está chegando fora de hora.</td></tr>
+            <tr><td class="k">Custo ou prazo de estudo clínico</td><td>Se aparece depois de F3, a Pergunta A não está sendo feita em F2.</td></tr>
+            <tr><td class="k">Viabilidade financeira</td><td>Se aparece depois do business case, falta o pré-valuation de F3.</td></tr>
+            <tr><td class="k">Desinteresse da unidade de negócio</td><td>Se aparece tarde, a Carta de Premissas não está segurando.</td></tr>
+            <tr><td class="k">Parceiro desistiu ou seguiu com terceiro</td><td>É o indicador mais direto de que o lead time está caro.</td></tr>
+            <tr><td class="k">Não aprovado pelo acionista</td><td>Se recorrente, a exposição antecipada precisa começar antes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MANUTENÇÃO ================= -->
+  <section id="manutencao">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Como não virar pôster de novo</p>
+        <h2>Manutenção do desenho</h2>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <p class="tag">Regra 1</p>
+          <h3>Nenhum diagrama maior que uma tela</h3>
+          <p>Se uma fase não couber, ela virou duas fases ou ganhou detalhe que pertence ao nível 2. O tamanho é o alarme.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Regra 2</p>
+          <h3>Raia vazia não existe</h3>
+          <p>Se uma área aparece uma vez e nunca mais, ela não é raia — é uma caixa dentro da raia de quem a acionou. Foi assim que o desenho anterior escondeu o gargalo.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Regra 3</p>
+          <h3>O nível 2 é texto</h3>
+          <p>Checklists, roteiros de parecer e critérios de scorecard mudam com frequência. Em desenho, envelhecem sem que ninguém perceba.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Regra 4</p>
+          <h3>Revisão semestral com data marcada</h3>
+          <p>Na retrospectiva de cada deal, anote o que o fluxo não previu. A cada seis meses, essas anotações viram a versão seguinte — e o número da versão muda.</p>
+        </div>
+      </div>
+
+      <div class="note calm"><b>O que ainda não está no desenho, e por quê.</b> O mandato de negociação foi retirado por decisão do acionista. O indicador de in-licensing nas BUs está fora de alcance. E os prazos de cada fase são referências a calibrar — só passam a ser metas quando houver um trimestre de lead time medido. Nada disso invalida o fluxo: as duas ausências afetam a velocidade de F4 e F5, não a estrutura.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>Fluxo de Novos Negócios · versão 2.0 · dono: Coordenação de Novos Negócios · revisão semestral. Prazos em dias úteis, apresentados como referência de calibração e não como medição do processo vigente.</p>
+    </div>
+  </footer>
+
+</main>
