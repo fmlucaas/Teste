@@ -438,6 +438,16 @@
 
   .qgroup li span { display: block; color: var(--ink-3); font-size: .85rem; margin-top: .15rem; }
 
+  .qgroup li.done { color: var(--ink-3); }
+  .qgroup li.done b.ans {
+    color: var(--positive);
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-right: .45rem;
+  }
+
   /* ---------- risks ---------- */
 
   .risks { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--rule); max-width: 92ch; }
@@ -457,6 +467,7 @@
   <div class="wrap">
     <strong>Novos Negócios · Redesenho</strong>
     <nav class="navlinks">
+      <a href="#calibracao">Calibração</a>
       <a href="#desenho">O desenho</a>
       <a href="#diagnostico">Diagnóstico</a>
       <a href="#modelo">Modelo</a>
@@ -487,6 +498,166 @@
       </ol>
     </div>
   </header>
+
+  <!-- ============================== CALIBRAÇÃO ============================== -->
+  <section id="calibracao">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Nota de calibração · segunda rodada</p>
+        <h2>Cinco respostas fecham três decisões, corrigem um diagnóstico e abrem uma prioridade</h2>
+      </div>
+      <p class="lede col">As respostas da coordenação mudaram material deste dossiê. Registro aqui o que mudou e por quê, antes do documento original — porque muda a forma de ler o resto.</p>
+
+      <div class="tablebox">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 22%;">Pergunta</th>
+              <th style="width: 30%;">Resposta</th>
+              <th>Consequência</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="hi">
+              <td class="to">Volume anual</td>
+              <td class="from">20 a 30 oportunidades, de forma contínua. Lead time ainda não medido.</td>
+              <td><b>Decidido: nada de sistema.</b> Nesse volume, ferramenta dedicada é desperdício. Uma planilha ou lista corporativa bem governada entrega o dossiê único e continua entregando. Sai o item mais caro do roteiro de 6 a 12 meses. Medir o lead time sobe para os primeiros 30 dias.</td>
+            </tr>
+            <tr class="hi">
+              <td class="to">Onde está o gargalo</td>
+              <td class="from">Não é o time. É a fluidez do fluxo: às vezes acessa-se o parceiro antes, às vezes depois, dependendo do nível de informação do produto.</td>
+              <td><b>Diagnóstico corrigido.</b> Isso não é fila nem capacidade — é <b>ausência de estado de entrada definido</b>. Cada oportunidade recomeça a deliberação sobre qual é o primeiro movimento. A correção é uma regra de três estados, abaixo.</td>
+            </tr>
+            <tr class="hi">
+              <td class="to">Mandato de negociação</td>
+              <td class="from">Não ficou claro se seria uma aprovação nova, antes do Summary.</td>
+              <td><b>Não é antes, e não é uma aprovação a mais.</b> É o mesmo Summary, com uma folha adicional. Explicado em detalhe abaixo.</td>
+            </tr>
+            <tr>
+              <td class="to">Meta das BUs</td>
+              <td class="from">As BUs não têm meta ligada a produtos in-licensed.</td>
+              <td><b>Deixa de ser risco e vira restrição de projeto.</b> A Carta de Premissas precisa custar quase nada para a BU, senão não será assinada. Muda o desenho dela: Novos Negócios pré-preenche, a BU valida.</td>
+            </tr>
+            <tr>
+              <td class="to">Onde os projetos morrem</td>
+              <td class="from">Nos dois portões — cedo e tarde.</td>
+              <td><b>Nova prioridade nos 30 dias.</b> Morte cedo é barata e desejável. Morte tarde tem quatro causas possíveis, com quatro correções diferentes e incompatíveis. Enquanto não soubermos qual domina, corrigir é apostar.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:1.4rem;">A regra que devolve fluidez à entrada</h3>
+      <p class="col">O que você descreve como falta de fluidez tem causa precisa: a primeira decisão de cada oportunidade — acessar ou investigar — é <b>renegociada do zero toda vez</b>. Não é o trabalho que trava, é a deliberação sobre por onde começar. A saída não é escolher um dos dois caminhos como padrão; é reconhecer que existem três situações de entrada, e fixar a abertura de cada uma.</p>
+
+      <div class="tablebox">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 9rem;">Estado de entrada</th>
+              <th style="width: 26%;">Como você reconhece</th>
+              <th style="width: 30%;">Primeiro movimento, sem deliberar</th>
+              <th>Quando entra hora técnica</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="to"><b>E1</b><br>Parceiro na mesa</td>
+              <td class="from">Parceiro ofertou, ou veio por diretoria ou acionista. Informação do produto baixa.</td>
+              <td>Acessa na mesma semana. CDA a partir da minuta padrão já na primeira reunião, junto do Questionário de Entrada.</td>
+              <td>Depois do pacote do parceiro. Nenhuma hora técnica antes — não há o que avaliar.</td>
+            </tr>
+            <tr>
+              <td class="to"><b>E2</b><br>Molécula na mesa</td>
+              <td class="from">Portfólio, prospecção ativa ou pedido da BU. Conhecemos o produto, não o detentor.</td>
+              <td>Desk research de 5 dias: quem detém, situação patentária, registro no Brasil, concorrência. Depois acessa.</td>
+              <td>Parecer expresso só depois do CDA, quando já há dossiê real para olhar.</td>
+            </tr>
+            <tr>
+              <td class="to"><b>E3</b><br>Produto complexo</td>
+              <td class="from">Fase clínica, inovador ou biológico. Acessar sem entender queima credibilidade técnica com o parceiro.</td>
+              <td>Parecer expresso em semáforo, 3 dias, e só então o contato.</td>
+              <td>Antes do acesso — mas em semáforo, nunca parecer completo.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>A regra que atravessa os três:</b> nunca é o parecer completo que precede o acesso. O CDA é o instrumento que destrava informação — quanto mais cedo ele existe, mais barata fica toda decisão seguinte. Classificar em E1, E2 ou E3 leva um minuto na triagem e elimina a deliberação que hoje se repete 25 vezes por ano.</div>
+
+      <h3 style="margin-top:1.4rem;">O mandato, sem o mal-entendido</h3>
+      <p class="col">Não estou propondo uma aprovação nova, nem antecipar nada. <em class="key">É o mesmo Summary, na mesma hora, com uma folha a mais.</em></p>
+      <p class="col">Hoje o Summary responde uma pergunta: <b>seguimos com este projeto?</b> A proposta é que responda duas — <b>seguimos</b> e <b>até onde podemos ir</b>. A segunda folha é uma tabela de faixas, aprovada na mesma reunião:</p>
+
+      <div class="tablebox">
+        <table class="tabular">
+          <thead>
+            <tr>
+              <th style="width: 34%;">Termo</th>
+              <th>Cenário-alvo <span style="text-transform:none; letter-spacing:0;">(o que vamos buscar)</span></th>
+              <th>Limite aprovado <span style="text-transform:none; letter-spacing:0;">(onde levantamos da mesa)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="to">Upfront</td><td class="from">valor-alvo</td><td>teto</td></tr>
+            <tr><td class="to">Milestones de desenvolvimento</td><td class="from">valor-alvo</td><td>teto</td></tr>
+            <tr><td class="to">Royalty sobre vendas líquidas</td><td class="from">% alvo</td><td>% máximo</td></tr>
+            <tr><td class="to">Preço de transferência</td><td class="from">banda-alvo</td><td>banda máxima</td></tr>
+            <tr><td class="to">Território e exclusividade</td><td class="from">Brasil</td><td>Brasil mais LATAM B2B</td></tr>
+            <tr><td class="to">Prazo e mínimos de compra</td><td class="from">alvo</td><td>limite</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="col">A partir daí, três coisas mudam — e nenhuma delas é uma aprovação a mais:</p>
+      <ul style="max-width:76ch; padding-left:1.1rem; display:flex; flex-direction:column; gap:.45rem; font-size:.95rem; color:var(--ink-2);">
+        <li><b>Dentro da faixa, você negocia sem voltar.</b> É exatamente aqui que o parceiro sente celeridade — a resposta ao seu ponto 20.</li>
+        <li><b>Fora da faixa, é exceção.</b> Uma pergunta objetiva, com número, resolvida em dias — não um ciclo completo de reapresentação.</li>
+        <li><b>O Sumário de Contrato vira um comparativo de duas colunas:</b> aprovado contra fechado. Se está dentro, a aprovação é rápida por construção, porque o acionista já disse sim àquele teto.</li>
+      </ul>
+
+      <div class="note"><b>O argumento para levar ao acionista</b> não é pedir mais autonomia — é o contrário. Hoje ele decide N vezes, sempre sobre um número isolado, sem teto declarado. Com o mandato, ele decide <b>uma vez, com teto</b>, e recebe no fim um relatório de conformidade mostrando que a negociação respeitou o que ele aprovou. O número de subidas ao acionista continua sendo <b>dois</b>: Summary e Sumário de Contrato. O que muda é o que acontece entre elas.</div>
+
+      <h3 style="margin-top:1.4rem;">Morte tardia: quatro causas, quatro correções</h3>
+      <p class="col">Você respondeu que os projetos morrem nos dois portões. Morte cedo é boa notícia e custa pouco — só precisa ser registrada com motivo, para virar inteligência de originação e devolver ao originador o que de fato tem chance. Morte tardia, depois do business case, é o custo caro do processo atual. E ela tem quatro causas com correções diferentes:</p>
+
+      <div class="tablebox">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 26%;">Por que morreu tarde</th>
+              <th style="width: 32%;">O que isso revela</th>
+              <th>Correção</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="to">A viabilidade financeira não fechou</td>
+              <td class="from">O walk-away foi descoberto depois de todo o esforço do business case</td>
+              <td>Pré-valuation de uma hora em F3, antes de qualquer sinalização de valor ao parceiro</td>
+            </tr>
+            <tr>
+              <td class="to">A BU perdeu o interesse</td>
+              <td class="from">A premissa envelheceu, ou nunca foi firme — é o seu ponto 21 com outra roupa</td>
+              <td>Carta de Premissas pré-preenchida, com validade e cenário conservador</td>
+            </tr>
+            <tr>
+              <td class="to">O parceiro saiu</td>
+              <td class="from">Lead time puro: foi para o concorrente ou mudou de estratégia enquanto esperava</td>
+              <td>Paralelismo das quatro frentes e sinalização formal de interesse já em D3</td>
+            </tr>
+            <tr class="hi">
+              <td class="to">O acionista não aprovou</td>
+              <td class="from">O apetite nunca foi testado antes de a área gastar o business case inteiro</td>
+              <td><b>Exposição antecipada</b>: um slide, cinco minutos, na janela mensal, ainda em F2 ou F3 — só para perguntar se há apetite. Custa quase nada e mata o pior tipo de morte tardia.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>O item mais valioso dos próximos 30 dias mudou.</b> Antes de qualquer redesenho, sente o time por duas horas e codifique o motivo de encerramento dos últimos dez projetos mortos. Vocês ainda se lembram — daqui a seis meses, não. Se a maioria morreu por falta de apetite do acionista, a exposição antecipada resolve mais do que todo o resto deste dossiê junto. Se morreu por viabilidade, é o pré-valuation. São correções incompatíveis: fazer as quatro ao mesmo tempo é adicionar processo sem saber para quê.</div>
+    </div>
+  </section>
 
   <!-- ============================== 1 ============================== -->
   <section id="desenho">
@@ -861,7 +1032,7 @@
           </div>
           <div class="phase-body">
             <p>Entrada única, venha de onde vier — diretoria, acionista, parceiro ofertando, portfólio, prospecção ativa ou BU/marketing. Cadastro no dossiê, abertura do CI, classificação nas quatro dimensões e um scorecard curto de fit estratégico, atratividade aparente e viabilidade aparente.</p>
-            <p class="lede">A regra que resolve o seu ponto 2: <em class="key">contato com parceiro é barato e reversível; hora técnica é cara e irreversível.</em> Antecipe o contato, condicione a hora técnica.</p>
+            <p class="lede">A regra que resolve o seu ponto 2: <em class="key">contato com parceiro é barato e reversível; hora técnica é cara e irreversível.</em> Na prática, isso se aplica classificando a oportunidade em um dos três <a href="#calibracao">estados de entrada</a> — E1 parceiro na mesa, E2 molécula na mesa, E3 produto complexo —, cada um com uma abertura fixa. A deliberação sobre por onde começar acontece uma vez, no desenho do processo, e não 25 vezes por ano.</p>
             <div class="decision"><b>D1</b> Seguir, hibernar ou encerrar — com motivo registrado. Decidido pelo coordenador em comitê semanal de 30 minutos. Não sobe para diretoria.</div>
           </div>
         </article>
@@ -892,6 +1063,7 @@
           <div class="phase-body">
             <p>A visão de oportunidade — o template único — vai às BUs do <b>Brasil e das regiões no mesmo disparo</b>, não em sequência. É a correção direta do seu ponto 9: hoje México e Leste Europeu entram depois, e a compilação do business case espera por eles.</p>
             <p>A BU devolve uma <b>Carta de Premissas</b>: forecast, preço, força de vendas, go-to-market, em cenário base e conservador, com <b>validade de 120 dias</b> e gatilhos objetivos de reabertura — câmbio fora de faixa, mudança de teto de preço, entrada de concorrente, deslocamento da timeline acima de seis meses. Assinada por quem responde pela BU.</p>
+            <p><b>Como as BUs não têm meta ligada a in-licensing, a carta precisa custar quase nada para elas, senão não volta.</b> Então Novos Negócios <b>pré-preenche</b> o cenário base — a partir de dados de mercado e de produtos análogos — e a BU <b>valida ou ajusta</b>. Validar é barato; construir do zero é caro, e é por isso que hoje demora. E como a negociação corre contra o <b>cenário conservador</b>, a resposta a uma tentativa futura de reabertura passa a ser objetiva: o negócio já foi fechado contra o número mais pessimista que a própria BU assinou.</p>
             <p>Em paralelo, um <b>pré-valuation de uma hora</b> produz o número de walk-away preliminar. Nenhuma sinalização de valor ao parceiro antes disso.</p>
             <div class="decision"><b>D3</b> Interesse comercial formalizado — e só então sinalizamos ao parceiro.</div>
           </div>
@@ -1232,6 +1404,8 @@
             <li>Calendário fixo dos comitês</li>
             <li>Painel de pipeline com data de entrada e dias por fase</li>
             <li>Motivos de no-go padronizados e registrados</li>
+            <li><b>Codificar o motivo de morte dos últimos dez projetos encerrados</b> — duas horas de reunião, e define qual correção priorizar</li>
+            <li><b>Fixar os três estados de entrada</b> (E1, E2, E3) e a abertura de cada um</li>
             <li>Fluxograma de uma página — o mapa dos seis portões</li>
           </ul>
         </div>
@@ -1251,8 +1425,9 @@
           <p class="tag">6–12 meses · com acionista e TI</p>
           <h3>Delegar e digitalizar</h3>
           <ul>
-            <li>Mandato de negociação com envelope aprovado</li>
-            <li>Dossiê único digital, gerando todas as visões</li>
+            <li>Mandato de negociação com envelope aprovado, na folha adicional do Summary</li>
+            <li>Dossiê único consolidado — em planilha ou lista corporativa governada, <b>sem ferramenta dedicada</b>, decisão fechada pelo volume de 20 a 30 oportunidades por ano</li>
+            <li>Exposição antecipada ao acionista na janela mensal, se a morte tardia por falta de apetite se confirmar</li>
             <li>Política regional formal com pontos focais</li>
             <li>Modelo paramétrico de nacionalização para fase clínica</li>
             <li>Indicadores publicados e revisão semestral do processo</li>
@@ -1273,14 +1448,14 @@
         <p class="eyebrow">Parte 7</p>
         <h2>Onde esta proposta pode estar errada</h2>
       </div>
-      <p class="lede col">Revisei o dossiê procurando o que ele assume sem provar. Estes são os pontos em que a recomendação muda se a realidade for outra — e vale conferir antes de investir esforço.</p>
+      <p class="lede col">Revisei o dossiê procurando o que ele assume sem provar. Estes são os pontos em que a recomendação muda se a realidade for outra. Três já foram resolvidos pela segunda rodada de respostas e estão marcados como tal.</p>
 
       <ul class="risks">
-        <li><span><b>Se o volume anual for baixo</b> — algo como menos de 20 oportunidades por ano —, investir em sistema é desperdício. O ganho estaria inteiro em rito e disciplina, e o dossiê único caberia numa planilha bem governada para sempre.</span></li>
-        <li><span><b>Se o gargalo for capacidade do time de Novos Negócios</b>, e não fila nas áreas pares, SLA não resolve nada. O remédio passa a ser priorização explícita e dizer não mais cedo — e a triagem de F1 vira a peça central, não o paralelismo.</span></li>
+        <li><span><b>Resolvido pela coordenação —</b> com 20 a 30 oportunidades por ano, investir em sistema seria desperdício. O ganho está inteiro em rito e disciplina, e o dossiê único cabe numa planilha ou lista corporativa bem governada, sem prazo para deixar de caber. Item retirado do roteiro.</span></li>
+        <li><span><b>Corrigido pela coordenação —</b> o gargalo não é capacidade do time nem, principalmente, fila nas áreas pares: é a variabilidade do primeiro movimento. Por isso o SLA desce de prioridade e a regra dos três estados de entrada sobe. Fica de pé um resíduo: se, medido o lead time, a espera por área par ainda dominar o calendário, o SLA volta ao topo da fila.</span></li>
         <li><span><b>O mandato de negociação depende de cultura de delegação.</b> Se o acionista quiser ver cada movimento, a alternativa não é insistir na alçada: é reduzir o custo de agenda com a janela fixa e o formato de delta. Metade do ganho se preserva.</span></li>
         <li><span><b>A dupla aprovação — Summary e Sumário de Contrato — é provavelmente inegociável, e do ponto de vista de governança está correta.</b> Termos mudam durante a negociação e precisam ser reaprovados. Não lute contra ela; torne a segunda barata.</span></li>
-        <li><span><b>A Carta de Premissas vai gerar atrito se a BU não tiver meta ligada a produtos in-licensed.</b> Nesse caso o problema é de incentivo, não de processo, e nenhum formulário o resolve — a conversa muda de lugar.</span></li>
+        <li><span><b>Confirmado, e é a maior fragilidade que resta —</b> as BUs não têm meta ligada a produtos in-licensed. Nenhum formulário corrige incentivo. Três atenuantes fazem a Carta de Premissas funcionar mesmo assim: pré-preenchê-la para que validar custe minutos; negociar contra o cenário conservador; e publicar mensalmente o indicador de reaberturas, que cria o custo social que a meta não cria. A correção de fato — um indicador de receita de lançamento vinda de in-licensing na diretoria de marketing — é conversa de 6 a 12 meses, e não deve bloquear nada antes disso.</span></li>
         <li><span><b>Antecipar o contato com o parceiro tem custo reputacional</b> quando a empresa acessa e depois some. Mitigação obrigatória: comunicação padrão de encerramento ao parceiro, sempre, mesmo no no-go. Barata e rara no mercado.</span></li>
         <li><span><b>Os prazos deste dossiê são referências de calibração</b>, não medições. Sem o indicador de lead time rodando por um trimestre, qualquer meta é chute — inclusive as minhas.</span></li>
       </ul>
@@ -1294,19 +1469,27 @@
         <p class="eyebrow">Parte 8</p>
         <h2>O que eu preciso saber para fechar o desenho</h2>
       </div>
-      <p class="lede col">Cortei tudo que dava para inferir do que você descreveu. Sobraram catorze perguntas, cada uma com uma consequência real: a resposta muda a recomendação, não apenas o detalhe.</p>
+      <p class="lede col">Cortei tudo que dava para inferir do que você descreveu. Eram catorze perguntas; quatro já foram respondidas e estão marcadas abaixo. A mais importante das que restam é nova — nasceu justamente das suas respostas.</p>
 
       <div class="qblock">
 
         <div class="qgroup">
+          <p class="eyebrow">A pergunta que virou prioridade</p>
+          <ol>
+            <li>Dos projetos que morreram <b>depois</b> do business case, qual dos quatro motivos domina: viabilidade financeira, desinteresse da BU, saída do parceiro, ou falta de aprovação do acionista?
+              <span>Esta é agora a pergunta mais valiosa do dossiê inteiro. As quatro correções são diferentes e não se somam — fazer todas ao mesmo tempo é adicionar processo sem saber para quê. Duas horas de reunião com o time, sobre os últimos dez encerramentos, resolvem.</span></li>
+          </ol>
+        </div>
+
+        <div class="qgroup">
           <p class="eyebrow">Volume e capacidade</p>
           <ol>
-            <li>Quantas oportunidades entram por ano, quantas chegam à assinatura, e quanto tempo leva hoje do CI à assinatura?
-              <span>Se não medimos, essa é a primeira coisa a fazer — e provavelmente é o dado que sustenta o pedido de mudança perante a diretoria.</span></li>
-            <li>Quantas pessoas no time e quantas oportunidades ativas por pessoa ao mesmo tempo?
-              <span>Define se o gargalo é fila nas áreas pares ou capacidade interna. As soluções são opostas.</span></li>
+            <li class="done"><b class="ans">Respondido</b> 20 a 30 oportunidades por ano, de forma contínua; lead time ainda não medido.
+              <span>Fecha a decisão de não investir em sistema. Fica de pé um só item: cronometrar o lead time por fase a partir de agora — é o dado que sustenta qualquer pedido de mudança perante a diretoria.</span></li>
+            <li class="done"><b class="ans">Respondido</b> O gargalo não é o time, é a variabilidade do primeiro movimento.
+              <span>Diagnóstico corrigido no dossiê: a resposta é a regra dos três estados de entrada, não SLA.</span></li>
             <li>Como se prioriza quando há mais oportunidade do que capacidade — existe critério, ou é ordem de chegada e pressão?
-              <span>Sem critério de priorização, a trilha expressa não funciona: tudo vira urgente.</span></li>
+              <span>Sem critério de priorização, a trilha expressa não funciona: tudo vira urgente. Com 20 a 30 por ano e várias simultâneas, isso importa.</span></li>
           </ol>
         </div>
 
@@ -1315,18 +1498,18 @@
           <ol start="4">
             <li>O acionista tem cadência fixa de agenda ou é sob demanda? Quanto tempo passa entre pedir a apresentação e apresentar?
               <span>Se esse intervalo for de semanas, a janela fixa sozinha já é o maior ganho isolado do redesenho.</span></li>
-            <li>Existe hoje alguma alçada pré-aprovada — upfront, royalty, milestone — dentro da qual você negocia sem voltar? Se não existe, qual a chance real de conseguir uma?
-              <span>É a mudança de maior impacto e a de maior risco político. Preciso saber se vale a briga.</span></li>
-            <li>Em que portão os projetos morrem hoje: antes ou depois do business case?
-              <span>Morte tardia indica que o problema é triagem. Morte precoce em excesso indica que a originação está trazendo o tipo errado de oportunidade.</span></li>
+            <li>Agora que a mecânica está clara: o acionista aceitaria aprovar <b>faixa</b> em vez de número, na mesma folha do Summary? Existe hoje qualquer coisa parecida com um teto declarado?
+              <span>É a mudança de maior impacto e a de maior risco político. Se a resposta for não, o plano B preserva boa parte do ganho: janela mensal de data fixa mais o Sumário de Contrato em formato de delta.</span></li>
+            <li class="done"><b class="ans">Respondido</b> Os projetos morrem nos dois portões.
+              <span>Desdobrado na primeira pergunta desta seção: precisamos saber qual das quatro causas domina a morte tardia.</span></li>
           </ol>
         </div>
 
         <div class="qgroup">
           <p class="eyebrow">Áreas pares e unidades de negócio</p>
           <ol start="7">
-            <li>As BUs têm meta ou indicador ligado a produtos in-licensed?
-              <span>Se não têm, demorar e revalidar premissas é comportamento racional delas. O processo não corrige incentivo.</span></li>
+            <li class="done"><b class="ans">Respondido</b> As BUs não têm meta ligada a produtos in-licensed.
+              <span>Confirmado: demorar e revalidar premissas é comportamento racional delas, e nenhum processo corrige incentivo. Resta uma pergunta derivada — <b>há abertura na diretoria de marketing para criar um indicador de receita de lançamento vinda de in-licensing?</b> Enquanto não houver, a Carta de Premissas se sustenta em pré-preenchimento, cenário conservador e publicação de reaberturas.</span></li>
             <li>Há alguém na diretoria disposto a patrocinar um SLA com as áreas pares?
               <span>Sem padrinho, o SLA é sugestão e o esforço de montá-lo é perdido.</span></li>
             <li>As solicitações às áreas pares saem por e-mail, sistema ou pedido pessoal? Existe fila visível em algum lugar?
