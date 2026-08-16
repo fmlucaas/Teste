@@ -282,6 +282,10 @@
   .s-dot { fill: var(--ink-3); }
   .s-thread { stroke: var(--rule-strong); stroke-width: 1; fill: none; }
   .s-spine { stroke: var(--accent); stroke-width: 1.6; fill: none; }
+  .s-box { fill: var(--surface-2); stroke: var(--rule-strong); stroke-width: 1; }
+  .s-box-hi { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .s-box-warn { fill: var(--signal-soft); stroke: var(--signal); stroke-width: 1.5; }
+  .s-lbl-warn { fill: var(--signal); font-family: var(--font-mono); font-size: 9px; letter-spacing: .04em; }
 
   /* ---------- cards ---------- */
 
@@ -468,6 +472,7 @@
     <strong>Novos Negócios · Redesenho</strong>
     <nav class="navlinks">
       <a href="#calibracao">Calibração</a>
+      <a href="#clinica">Pesquisa clínica</a>
       <a href="#desenho">O desenho</a>
       <a href="#diagnostico">Diagnóstico</a>
       <a href="#modelo">Modelo</a>
@@ -656,6 +661,239 @@
       </div>
 
       <div class="note"><b>O item mais valioso dos próximos 30 dias mudou.</b> Antes de qualquer redesenho, sente o time por duas horas e codifique o motivo de encerramento dos últimos dez projetos mortos. Vocês ainda se lembram — daqui a seis meses, não. Se a maioria morreu por falta de apetite do acionista, a exposição antecipada resolve mais do que todo o resto deste dossiê junto. Se morreu por viabilidade, é o pré-valuation. São correções incompatíveis: fazer as quatro ao mesmo tempo é adicionar processo sem saber para quê.</div>
+    </div>
+  </section>
+
+  <!-- ============================== TERCEIRA RODADA ============================== -->
+  <section id="terceira">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Nota de calibração · terceira rodada</p>
+        <h2>Três negativas, e o que continua de pé</h2>
+      </div>
+      <p class="lede col">As três perguntas que restavam receberam não. Isso fecha a via política do redesenho — e é uma informação boa, não ruim: o dossiê perde duas peças e ganha foco. Quinze das dezesseis mudanças propostas nunca dependeram de alçada nem de meta alheia.</p>
+
+      <div class="tablebox">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 26%;">Pergunta</th>
+              <th style="width: 8rem;">Resposta</th>
+              <th>O que muda</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="to">O acionista aprovaria faixa em vez de número?</td>
+              <td class="from"><b>Não</b></td>
+              <td><b>Mandato retirado do dossiê.</b> Era a recomendação de maior impacto e não sobrevive. O plano B preserva parte relevante do ganho e não pede alçada nenhuma — detalhado abaixo.</td>
+            </tr>
+            <tr>
+              <td class="to">Existe critério de priorização?</td>
+              <td class="from"><b>Não</b></td>
+              <td><b>Vira lacuna a preencher, e é sua.</b> Com 20 a 30 oportunidades por ano e várias simultâneas, ausência de critério significa que tudo é urgente — o que alimenta diretamente a falta de fluidez que você descreve.</td>
+            </tr>
+            <tr>
+              <td class="to">Há abertura para um indicador de in-licensing nas BUs?</td>
+              <td class="from"><b>Não</b></td>
+              <td><b>Correção de incentivo fora de alcance.</b> A Carta de Premissas passa a se sustentar apenas nos três atenuantes: pré-preenchimento, cenário conservador e publicação de reaberturas. Funciona menos bem, e é o que há.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:1.4rem;">O plano B do mandato</h3>
+      <p class="col">Sem envelope aprovado, a negociação continua voltando ao topo. Três peças reduzem o custo de cada volta sem pedir autonomia nenhuma — e todas as três estão ao seu alcance:</p>
+      <div class="cards">
+        <div class="card">
+          <p class="tag">Peça 1</p>
+          <h3>Janela mensal de data fixa</h3>
+          <p>Elimina o tempo de <b>conseguir agenda</b>, que hoje não aparece em nenhum lugar do fluxograma e aparece inteiro no lead time. É provavelmente a maior economia isolada que sobrou.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Peça 2</p>
+          <h3>Sumário de Contrato em formato de delta</h3>
+          <p>Duas colunas: o que foi apresentado no Summary e o que foi fechado. Isso é <b>formato de documento, não alçada</b> — sobrevive intacto à negativa. Reduz o tempo de leitura e de decisão sem tirar poder de ninguém.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Peça 3 · sobe de prioridade</p>
+          <h3>Exposição antecipada</h3>
+          <p>Cinco minutos, um slide, na janela mensal, ainda em F2 ou F3, só para perguntar se há apetite. <b>Não pede delegação — pede mais exposição, não menos</b>, e por isso tende a passar onde o mandato não passou. Com o mandato fora, esta peça vira a principal defesa contra morte tardia.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:1.4rem;">A regra de priorização que falta</h3>
+      <p class="col">A tentação aqui é construir um scorecard ponderado. Não construa: com esse volume, ele custa mais do que resolve e ninguém preenche. O que funciona é mais simples e quase sem esforço — <em class="key">limite de trabalho em andamento mais fila visível</em>. O critério emerge sozinho quando a fila existe.</p>
+      <ul style="max-width:76ch; padding-left:1.1rem; display:flex; flex-direction:column; gap:.5rem; font-size:.95rem; color:var(--ink-2);">
+        <li><b>Limite as fases caras.</b> Defina um teto de oportunidades simultâneas em F3 e F4 — as fases que consomem hora de área par e de BU. O número exato importa menos do que existir; comece com o que o time hoje consegue conduzir bem e ajuste.</li>
+        <li><b>Torne a fila visível.</b> O que excede o teto fica numa fila declarada, com data de entrada. Isso muda a conversa de “está parado” para “está em terceiro na fila, e aqui está o porquê” — inclusive com a diretoria.</li>
+        <li><b>Desempate em quatro critérios, nessa ordem:</b> origem em acionista ou diretoria (é a realidade política, melhor admiti-la do que fingir que não pesa); trilha expressa antes de complexa, porque barato primeiro libera capacidade mais rápido; janela de mercado real, como patente expirando ou concorrente entrando; e, por último, ordem de chegada.</li>
+      </ul>
+      <div class="note">Um quadro visível de fila é também a peça que faltava para a exposição antecipada funcionar: ela dá ao acionista e às diretorias uma visão do que está represado, e é esse desconforto — não um pedido formal — que costuma destravar capacidade.</div>
+    </div>
+  </section>
+
+  <!-- ============================== PESQUISA CLÍNICA ============================== -->
+  <section id="clinica">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Lacuna identificada · pesquisa clínica</p>
+        <h2>A área par que o fluxo deixou de fora</h2>
+      </div>
+      <p class="lede col">Você está certo em cobrar. Nas versões anteriores deste dossiê, pesquisa clínica aparecia três vezes — “se aplicável” no parecer expresso, uma linha na tabela de níveis de serviço, e uma menção na taxonomia. Isso é citar, não modelar. E o fluxograma atual dá a ela o mesmo tratamento que dá a todas as áreas pares: uma raia com uma caixa isolada, ligada por um fio vertical longo — o que já é insuficiente para todas elas, e é onde mais custa aqui.</p>
+
+      <div class="note"><b>Ela é área par, como a área médica — e é exatamente por isso que a falha salta.</b> Sendo par, deveria estar em todo lugar onde a área médica está: no parecer expresso de F2, na tabela de níveis de serviço, na frente técnica que corre em paralelo. O que a distingue não é o status na mesa, é <b>o que a resposta dela carrega</b>. O parecer médico qualifica a oportunidade. O de pesquisa clínica, quando o produto é inovador ou está em fase clínica, define uma <b>linha de investimento</b> e o <b>caminho crítico da data de lançamento</b>. Mesma cadeira, peso diferente na conta — e é esse peso que exige perguntar a ela cedo, e mais de uma vez.</div>
+
+      <figure>
+        <div class="figscroll">
+          <svg viewBox="0 0 900 252" role="img" aria-label="Comparação de dependências: hoje a timeline e as premissas são montadas antes de pesquisa clínica informar qual estudo o Brasil exige, o que força retrabalho; no encadeamento correto, pesquisa clínica define o estudo, dele saem custo e prazo, depois a timeline, depois a premissa da unidade de negócio e por fim o business case.">
+            <defs>
+              <marker id="ar3" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 7 4 L 0 7 z" fill="var(--rule-strong)"></path>
+              </marker>
+              <marker id="ar3w" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 7 4 L 0 7 z" fill="var(--signal)"></path>
+              </marker>
+            </defs>
+
+            <text class="s-lbl-hd" x="0" y="13">HOJE · DEPENDÊNCIA INVERTIDA</text>
+
+            <g>
+              <rect class="s-box" x="0" y="34" width="150" height="36" rx="3"></rect>
+              <text class="s-lbl" x="75" y="57" text-anchor="middle">P&amp;A monta a TL</text>
+
+              <rect class="s-box" x="180" y="34" width="150" height="36" rx="3"></rect>
+              <text class="s-lbl" x="255" y="51" text-anchor="middle">MKT monta a</text>
+              <text class="s-lbl" x="255" y="63" text-anchor="middle">estratégia</text>
+
+              <rect class="s-box" x="360" y="34" width="150" height="36" rx="3"></rect>
+              <text class="s-lbl" x="435" y="51" text-anchor="middle">Business case</text>
+              <text class="s-lbl" x="435" y="63" text-anchor="middle">e premissas</text>
+
+              <rect class="s-box-warn" x="540" y="34" width="150" height="36" rx="3"></rect>
+              <text class="s-lbl-warn" x="615" y="51" text-anchor="middle">PC informa o</text>
+              <text class="s-lbl-warn" x="615" y="63" text-anchor="middle">estudo exigido</text>
+            </g>
+
+            <g class="s-thread" marker-end="url(#ar3)">
+              <path d="M 152 52 L 176 52"></path>
+              <path d="M 332 52 L 356 52"></path>
+              <path d="M 512 52 L 536 52"></path>
+            </g>
+
+            <path d="M 615 72 L 615 96 L 75 96 L 75 74" fill="none" stroke="var(--signal)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#ar3w)"></path>
+            <text class="s-lbl-warn" x="345" y="112" text-anchor="middle">TL refeita · premissa reaberta · meses perdidos depois de todo o esforço</text>
+
+            <line class="s-rule" x1="0" y1="134" x2="900" y2="134"></line>
+
+            <text class="s-lbl-hd" x="0" y="158">CORRETO · O ESTUDO É O CAMINHO CRÍTICO</text>
+
+            <g>
+              <rect class="s-box-hi" x="0" y="178" width="150" height="36" rx="3"></rect>
+              <text class="s-lbl" x="75" y="195" text-anchor="middle">PC define o</text>
+              <text class="s-lbl" x="75" y="207" text-anchor="middle">estudo exigido</text>
+
+              <rect class="s-box" x="180" y="178" width="150" height="36" rx="3"></rect>
+              <text class="s-lbl" x="255" y="195" text-anchor="middle">Custo e prazo</text>
+              <text class="s-lbl" x="255" y="207" text-anchor="middle">em faixa</text>
+
+              <rect class="s-box" x="360" y="178" width="150" height="36" rx="3"></rect>
+              <text class="s-lbl" x="435" y="195" text-anchor="middle">TL de Projetos</text>
+              <text class="s-lbl" x="435" y="207" text-anchor="middle">e Alianças</text>
+
+              <rect class="s-box" x="540" y="178" width="150" height="36" rx="3"></rect>
+              <text class="s-lbl" x="615" y="201" text-anchor="middle">Premissa da BU</text>
+
+              <rect class="s-box" x="720" y="178" width="150" height="36" rx="3"></rect>
+              <text class="s-lbl" x="795" y="201" text-anchor="middle">Business case</text>
+            </g>
+
+            <g class="s-thread" marker-end="url(#ar3)">
+              <path d="M 152 196 L 176 196"></path>
+              <path d="M 332 196 L 356 196"></path>
+              <path d="M 512 196 L 536 196"></path>
+              <path d="M 692 196 L 716 196"></path>
+            </g>
+
+            <text class="s-lbl-dim" x="0" y="240">A data de lançamento não é uma escolha de marketing: é uma consequência do estudo exigido. Toda premissa construída antes dela é provisória.</text>
+          </svg>
+        </div>
+        <figcaption><b>Figura 3.</b> A inversão que produz retrabalho. Hoje a timeline e a estratégia comercial são construídas antes que alguém saiba qual estudo o Brasil exige — e quando pesquisa clínica finalmente responde, tudo volta. <b>O estudo clínico local costuma ser o caminho crítico da data de lançamento, não o registro.</b> Se ele exige 30 meses, nenhuma premissa da BU construída sobre uma data anterior sobrevive.</figcaption>
+      </figure>
+
+      <h3>Três perguntas, três momentos</h3>
+      <p class="col">Pesquisa clínica não deve ser consultada uma vez. Deve responder três perguntas diferentes, em três momentos, com nível de precisão crescente — e a primeira delas é barata e decisiva.</p>
+
+      <div class="tablebox">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 4rem;">Quando</th>
+              <th style="width: 24%;">A pergunta</th>
+              <th style="width: 30%;">A resposta esperada</th>
+              <th>Por que ali</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="hi">
+              <td class="num">F2<br><span style="font-weight:400;">3–5 dias</span></td>
+              <td class="to"><b>O Brasil exige estudo? De que tipo?</b></td>
+              <td>Enquadramento em uma de cinco opções: nenhum estudo; bioequivalência ou biodisponibilidade; estudo ponte para população brasileira; inclusão de centro em estudo global em andamento; estudo local dedicado.</td>
+              <td>É uma resposta de dias, desde que PC receba o checklist regulatório e o estágio do dossiê. E a quinta opção pode matar o negócio só pelo custo — melhor saber agora do que depois do business case.</td>
+            </tr>
+            <tr>
+              <td class="num">F3<br><span style="font-weight:400;">10 dias</span></td>
+              <td class="to"><b>Quanto custa, quanto demora e quem paga?</b></td>
+              <td>Faixa de custo, faixa de duração, e a posição negocial sobre quem conduz e quem financia.</td>
+              <td>Alimenta o pré-valuation, a TL preliminar de P&amp;A e a premissa da BU. “Quem paga” é pergunta <b>comercial</b>, não técnica — e precisa estar no Questionário de Entrada do parceiro.</td>
+            </tr>
+            <tr>
+              <td class="num">F4<br><span style="font-weight:400;">20 dias</span></td>
+              <td class="to"><b>Qual o plano de estudo?</b></td>
+              <td>Desenho, centros, cronograma, custo detalhado, riscos e dependência de submissão à ANVISA.</td>
+              <td>Vira linha de investimento no business case e entra na TL completa. Só para projetos que passaram por D3 — nunca antes.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:1.4rem;">O gate de viabilidade de desenvolvimento</h3>
+      <p class="col">Para a trilha complexa — inovador, fase clínica, biológico — proponho <b>um único portão adicional</b>, dentro de F2, que não existe nas outras trilhas. Ele responde três perguntas antes de qualquer discussão comercial. Se as três não tiverem resposta ao menos em faixa, o projeto não passa para F3:</p>
+      <div class="cards">
+        <div class="card">
+          <p class="tag">Pergunta 1 · PC</p>
+          <h3>Que estudo o Brasil exige?</h3>
+          <p>Enquadramento em semáforo. Sem isso, tudo que vem depois é hipótese.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Pergunta 2 · PC e P&amp;A</p>
+          <h3>Quanto custa e quanto demora?</h3>
+          <p>Faixa, não número. E a duração entra na TL <b>antes</b> de o marketing montar estratégia.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Pergunta 3 · Novos Negócios</p>
+          <h3>Quem conduz e quem financia?</h3>
+          <p>Pergunta comercial, feita ao parceiro no primeiro contato. Muda a estrutura do negócio inteiro.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:1.4rem;">O que passa a ser perguntado ao parceiro</h3>
+      <p class="col">Quatro campos novos no Questionário de Entrada, todos feitos na primeira conversa e todos hoje descobertos tarde:</p>
+      <ul style="max-width:76ch; padding-left:1.1rem; display:flex; flex-direction:column; gap:.45rem; font-size:.95rem; color:var(--ink-2);">
+        <li>Existem dados de população latina ou brasileira no pacote clínico atual?</li>
+        <li>Há estudo global em andamento que aceite a inclusão de centros no Brasil, e em que janela?</li>
+        <li>O parceiro compartilha ou assume custo de estudo local exigido pela ANVISA?</li>
+        <li>Quem detém os dados gerados em estudo conduzido no Brasil, e sob que condições o parceiro pode usá-los em outros territórios?</li>
+      </ul>
+
+      <h3 style="margin-top:1.4rem;">O estudo local é ativo de negociação, não só custo</h3>
+      <p class="col">Este é o ponto que costuma passar batido, e vale dinheiro. Quando a EMS conduz o estudo exigido no Brasil, ela <b>gera dado que o parceiro não tem, para uma população que ele não estudaria</b>. Isso tem valor para ele — em registro regional, em publicação, em suporte a outros mercados. Tratado como custo puro, vira apenas uma linha negativa no seu business case. Tratado como contrapartida, entra na mesa: abatimento de upfront, redução de royalty nos primeiros anos, extensão de território, ou direitos sobre os dados gerados.</p>
+
+      <div class="note"><b>E uma cláusula que precisa entrar no playbook jurídico:</b> propriedade e uso dos dados gerados no estudo brasileiro. Se a EMS financia, no mínimo deve ter direito de uso irrestrito no território, e uma compensação declarada caso o parceiro use esses dados fora dele. É barato negociar isso no term sheet e caro descobrir depois.</div>
+
+      <h3 style="margin-top:1.4rem;">A regra única das faixas</h3>
+      <p class="col">Seu ponto 14 — a nacionalização travada porque o parceiro em fase clínica ainda não tem os dados — e a dificuldade com pesquisa clínica são <b>o mesmo problema com dois nomes</b>. Em fase clínica quase nenhum dado definitivo existe: nem de processo produtivo, nem de estabilidade, nem de população brasileira, nem de custo de produção. Tentar preencher os mesmos formulários da trilha expressa é garantir que o projeto trave.</p>
+      <p class="col">A regra, então, é uma só e vale para os três: <em class="key">na trilha complexa, tudo opera em faixa e condicionalidade.</em> Nacionalização por modelo paramétrico, com base em forma farmacêutica e rota tecnológica. Estudo clínico por faixa de custo e duração. Timeline por janela, não por data. E o contrato carrega os gatilhos de revisão — quando o dado existir, a cláusula recalcula. Isso não é imprecisão: é a única forma honesta de precificar um produto que ainda não terminou de existir.</p>
     </div>
   </section>
 
@@ -959,7 +1197,7 @@
             <!-- track labels -->
             <g class="s-lbl-dim" text-anchor="end">
               <text x="108" y="252">Parceiro</text>
-              <text x="108" y="278">Técnico · Reg.</text>
+              <text x="108" y="278">Técnico · Reg. · PC</text>
               <text x="108" y="304">Comercial · BUs</text>
               <text x="108" y="330">Projetos · Fin.</text>
             </g>
@@ -1047,7 +1285,7 @@
             <p>Três frentes correndo juntas, não em sequência:</p>
             <ul>
               <li><b>Parceiro</b> — contato, CDA a partir de minuta pré-aprovada com posições de recuo já negociadas com o jurídico, e o <b>Questionário de Entrada</b>: estágio do dossiê, escopo geográfico pretendido, expectativa de estrutura, disponibilidade de dados para nacionalização, e se espera NBO ou enviará proposta. Uma pergunta feita uma vez, no primeiro contato, resolve seus pontos 8, 10 e parte do 14.</li>
-              <li><b>Técnico</b> — parecer expresso em semáforo, em 3 dias: médico, patentes, regulatório preliminar e pesquisa clínica se aplicável. Três perguntas fechadas, não um parecer completo. A maior parte das oportunidades morre em três perguntas.</li>
+              <li><b>Técnico</b> — parecer expresso em semáforo, em 3 dias: médico, patentes, regulatório preliminar e <b>pesquisa clínica sempre que o produto for inovador ou estiver em fase clínica</b> — não “se aplicável”, mas por regra da trilha. Três perguntas fechadas, não um parecer completo. A maior parte das oportunidades morre em três perguntas, e no caso de pesquisa clínica a primeira delas — que estudo o Brasil exige — é a que mais mata cedo.</li>
               <li><b>Projetos e Alianças</b> — entra aqui, com o checklist regulatório em mãos, e devolve uma <b>timeline preliminar em faixa</b>. É exatamente o que você propõe no ponto 13: endosso e formalizo.</li>
             </ul>
             <div class="decision"><b>D2</b> Qualificada? Só as que passam consomem parecer técnico completo e estudo econômico.</div>
@@ -1360,7 +1598,7 @@
             <tr><td class="to">Médico</td><td>Semáforo em 3 dias</td><td>Parecer em 10 dias</td></tr>
             <tr><td class="to">Patentes</td><td>Busca preliminar em 5 dias</td><td>Liberdade de operar em 15 dias</td></tr>
             <tr><td class="to">Regulatório</td><td>Checklist em 5 dias</td><td>Parecer de via e prazo em 15 dias</td></tr>
-            <tr><td class="to">Pesquisa clínica</td><td>Enquadramento em 5 dias</td><td>Plano e custo em 15 dias</td></tr>
+            <tr class="hi"><td class="to">Pesquisa clínica</td><td>Enquadramento — que estudo o Brasil exige — em 3 a 5 dias</td><td>Custo e prazo em faixa, 10 dias · plano de estudo detalhado, 20 dias</td></tr>
             <tr><td class="to">Estudos econômicos</td><td>—</td><td>15 dias</td></tr>
             <tr><td class="to">Nacionalização e suprimentos</td><td>—</td><td>10 dias após checklist do parceiro</td></tr>
             <tr><td class="to">Projetos e Alianças</td><td>Timeline em faixa, 5 dias</td><td>Timeline completa, 20 dias</td></tr>
@@ -1406,6 +1644,8 @@
             <li>Motivos de no-go padronizados e registrados</li>
             <li><b>Codificar o motivo de morte dos últimos dez projetos encerrados</b> — duas horas de reunião, e define qual correção priorizar</li>
             <li><b>Fixar os três estados de entrada</b> (E1, E2, E3) e a abertura de cada um</li>
+            <li><b>Acionar pesquisa clínica em F2 por regra</b>, junto com médico e patentes, para todo produto inovador ou em fase clínica</li>
+            <li><b>Limite de oportunidades simultâneas em F3 e F4</b>, com fila visível e data de entrada</li>
             <li>Fluxograma de uma página — o mapa dos seis portões</li>
           </ul>
         </div>
@@ -1425,7 +1665,7 @@
           <p class="tag">6–12 meses · com acionista e TI</p>
           <h3>Delegar e digitalizar</h3>
           <ul>
-            <li>Mandato de negociação com envelope aprovado, na folha adicional do Summary</li>
+            <li><s style="color:var(--ink-3)">Mandato de negociação com envelope aprovado</s> — retirado: o acionista não aprovaria faixa. Substituído pelo plano B, que já cabe nos primeiros 90 dias</li>
             <li>Dossiê único consolidado — em planilha ou lista corporativa governada, <b>sem ferramenta dedicada</b>, decisão fechada pelo volume de 20 a 30 oportunidades por ano</li>
             <li>Exposição antecipada ao acionista na janela mensal, se a morte tardia por falta de apetite se confirmar</li>
             <li>Política regional formal com pontos focais</li>
@@ -1453,7 +1693,7 @@
       <ul class="risks">
         <li><span><b>Resolvido pela coordenação —</b> com 20 a 30 oportunidades por ano, investir em sistema seria desperdício. O ganho está inteiro em rito e disciplina, e o dossiê único cabe numa planilha ou lista corporativa bem governada, sem prazo para deixar de caber. Item retirado do roteiro.</span></li>
         <li><span><b>Corrigido pela coordenação —</b> o gargalo não é capacidade do time nem, principalmente, fila nas áreas pares: é a variabilidade do primeiro movimento. Por isso o SLA desce de prioridade e a regra dos três estados de entrada sobe. Fica de pé um resíduo: se, medido o lead time, a espera por área par ainda dominar o calendário, o SLA volta ao topo da fila.</span></li>
-        <li><span><b>O mandato de negociação depende de cultura de delegação.</b> Se o acionista quiser ver cada movimento, a alternativa não é insistir na alçada: é reduzir o custo de agenda com a janela fixa e o formato de delta. Metade do ganho se preserva.</span></li>
+        <li><span><b>Materializado —</b> o acionista não aprovaria faixa em vez de número, e o mandato foi retirado. Sobra o plano B, que não pede alçada: janela mensal de data fixa, Sumário de Contrato em formato de delta e exposição antecipada de cinco minutos. Preserva parte relevante do ganho e nenhum dos três depende de autorização especial.</span></li>
         <li><span><b>A dupla aprovação — Summary e Sumário de Contrato — é provavelmente inegociável, e do ponto de vista de governança está correta.</b> Termos mudam durante a negociação e precisam ser reaprovados. Não lute contra ela; torne a segunda barata.</span></li>
         <li><span><b>Confirmado, e é a maior fragilidade que resta —</b> as BUs não têm meta ligada a produtos in-licensed. Nenhum formulário corrige incentivo. Três atenuantes fazem a Carta de Premissas funcionar mesmo assim: pré-preenchê-la para que validar custe minutos; negociar contra o cenário conservador; e publicar mensalmente o indicador de reaberturas, que cria o custo social que a meta não cria. A correção de fato — um indicador de receita de lançamento vinda de in-licensing na diretoria de marketing — é conversa de 6 a 12 meses, e não deve bloquear nada antes disso.</span></li>
         <li><span><b>Antecipar o contato com o parceiro tem custo reputacional</b> quando a empresa acessa e depois some. Mitigação obrigatória: comunicação padrão de encerramento ao parceiro, sempre, mesmo no no-go. Barata e rara no mercado.</span></li>
@@ -1474,6 +1714,16 @@
       <div class="qblock">
 
         <div class="qgroup">
+          <p class="eyebrow">Pesquisa clínica</p>
+          <ol>
+            <li>Hoje, quando pesquisa clínica é acionada numa oportunidade — em F2, junto com médico e patentes, ou só depois que o business case existe?
+              <span>Se for depois, isso sozinho explica boa parte das mortes tardias por viabilidade, e a correção é de calendário, não de processo.</span></li>
+            <li>Ela consegue responder “que estudo o Brasil exige” em 3 a 5 dias tendo em mãos o checklist regulatório e o estágio do dossiê — ou esse enquadramento depende de análise longa?
+              <span>Define se o gate de viabilidade de desenvolvimento cabe dentro de F2 ou se precisa de uma janela própria. É a única incerteza que pode obrigar a mexer no desenho das fases.</span></li>
+          </ol>
+        </div>
+
+        <div class="qgroup">
           <p class="eyebrow">A pergunta que virou prioridade</p>
           <ol>
             <li>Dos projetos que morreram <b>depois</b> do business case, qual dos quatro motivos domina: viabilidade financeira, desinteresse da BU, saída do parceiro, ou falta de aprovação do acionista?
@@ -1488,8 +1738,8 @@
               <span>Fecha a decisão de não investir em sistema. Fica de pé um só item: cronometrar o lead time por fase a partir de agora — é o dado que sustenta qualquer pedido de mudança perante a diretoria.</span></li>
             <li class="done"><b class="ans">Respondido</b> O gargalo não é o time, é a variabilidade do primeiro movimento.
               <span>Diagnóstico corrigido no dossiê: a resposta é a regra dos três estados de entrada, não SLA.</span></li>
-            <li>Como se prioriza quando há mais oportunidade do que capacidade — existe critério, ou é ordem de chegada e pressão?
-              <span>Sem critério de priorização, a trilha expressa não funciona: tudo vira urgente. Com 20 a 30 por ano e várias simultâneas, isso importa.</span></li>
+            <li class="done"><b class="ans">Respondido</b> Não existe critério de priorização.
+              <span>Proposta no dossiê: limite de trabalho em andamento nas fases caras mais fila visível, com quatro critérios de desempate. Não precisa de scorecard.</span></li>
           </ol>
         </div>
 
@@ -1498,8 +1748,8 @@
           <ol start="4">
             <li>O acionista tem cadência fixa de agenda ou é sob demanda? Quanto tempo passa entre pedir a apresentação e apresentar?
               <span>Se esse intervalo for de semanas, a janela fixa sozinha já é o maior ganho isolado do redesenho.</span></li>
-            <li>Agora que a mecânica está clara: o acionista aceitaria aprovar <b>faixa</b> em vez de número, na mesma folha do Summary? Existe hoje qualquer coisa parecida com um teto declarado?
-              <span>É a mudança de maior impacto e a de maior risco político. Se a resposta for não, o plano B preserva boa parte do ganho: janela mensal de data fixa mais o Sumário de Contrato em formato de delta.</span></li>
+            <li class="done"><b class="ans">Respondido</b> O acionista não aprovaria faixa em vez de número.
+              <span>Mandato retirado do dossiê. Em seu lugar, o plano B de três peças, nenhuma delas dependente de alçada.</span></li>
             <li class="done"><b class="ans">Respondido</b> Os projetos morrem nos dois portões.
               <span>Desdobrado na primeira pergunta desta seção: precisamos saber qual das quatro causas domina a morte tardia.</span></li>
           </ol>
@@ -1509,7 +1759,7 @@
           <p class="eyebrow">Áreas pares e unidades de negócio</p>
           <ol start="7">
             <li class="done"><b class="ans">Respondido</b> As BUs não têm meta ligada a produtos in-licensed.
-              <span>Confirmado: demorar e revalidar premissas é comportamento racional delas, e nenhum processo corrige incentivo. Resta uma pergunta derivada — <b>há abertura na diretoria de marketing para criar um indicador de receita de lançamento vinda de in-licensing?</b> Enquanto não houver, a Carta de Premissas se sustenta em pré-preenchimento, cenário conservador e publicação de reaberturas.</span></li>
+              <span>Confirmado, e a pergunta derivada também foi respondida: <b>não há abertura</b> para criar um indicador de receita de lançamento vinda de in-licensing. A correção de incentivo está fora de alcance, e a Carta de Premissas se sustenta apenas em pré-preenchimento, cenário conservador e publicação de reaberturas.</span></li>
             <li>Há alguém na diretoria disposto a patrocinar um SLA com as áreas pares?
               <span>Sem padrinho, o SLA é sugestão e o esforço de montá-lo é perdido.</span></li>
             <li>As solicitações às áreas pares saem por e-mail, sistema ou pedido pessoal? Existe fila visível em algum lugar?
