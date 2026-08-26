@@ -1,0 +1,379 @@
+<title>Cláusulas de Término Padagis</title>
+
+<style>
+  :root{
+    --ground:#EDF0EF; --surface:#FFFFFF; --surface-2:#F5F8F7; --ink:#101A18; --ink-2:#3D4C49;
+    --ink-3:#6D7D79; --rule:#D3DBD9; --rule-strong:#B4C0BD; --accent:#0C5350; --accent-ink:#0C5350;
+    --accent-soft:#DEEAE8; --signal:#A0631A; --signal-soft:#F1E6D4; --critical:#93372C;
+    --critical-soft:#F4DCD7; --positive:#2F6B4C; --positive-soft:#DBEBE0;
+    --shadow:0 1px 2px rgba(16,26,24,.05),0 8px 24px -18px rgba(16,26,24,.35);
+    --font-display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+    --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-mono:ui-monospace,SFMono-Regular,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+    --measure:70ch; --pad:clamp(1.1rem,4vw,2.5rem);
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --ground:#0B1211; --surface:#131B1A; --surface-2:#182321; --ink:#E6ECEA; --ink-2:#AFBFBB;
+    --ink-3:#7E908C; --rule:#253230; --rule-strong:#36453F; --accent:#58B8B1; --accent-ink:#7FCEC7;
+    --accent-soft:#12302E; --signal:#D6A055; --signal-soft:#2C2417; --critical:#E08977;
+    --critical-soft:#33201C; --positive:#74B792; --positive-soft:#152A20;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -20px rgba(0,0,0,.9);
+  }}
+  :root[data-theme="dark"]{
+    --ground:#0B1211; --surface:#131B1A; --surface-2:#182321; --ink:#E6ECEA; --ink-2:#AFBFBB;
+    --ink-3:#7E908C; --rule:#253230; --rule-strong:#36453F; --accent:#58B8B1; --accent-ink:#7FCEC7;
+    --accent-soft:#12302E; --signal:#D6A055; --signal-soft:#2C2417; --critical:#E08977;
+    --critical-soft:#33201C; --positive:#74B792; --positive-soft:#152A20;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -20px rgba(0,0,0,.9);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 var(--pad)}
+  .col{max-width:var(--measure)}
+  section{padding:clamp(2rem,5vw,3.4rem) 0;border-top:1px solid var(--rule)}
+  section>.wrap{display:flex;flex-direction:column;gap:1.1rem}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;text-wrap:balance;line-height:1.15}
+  h1{font-size:clamp(1.9rem,5vw,3rem);letter-spacing:-.015em}
+  h2{font-size:clamp(1.35rem,3vw,1.85rem);letter-spacing:-.01em}
+  h3{font-size:1.04rem}
+  p{max-width:var(--measure)}
+  .eyebrow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .sec-head{display:flex;flex-direction:column;gap:.4rem}
+  .sec-head .eyebrow{color:var(--accent-ink)}
+  .lede{font-size:1rem;color:var(--ink-2)}
+  em.key{font-style:normal;font-weight:600;color:var(--ink);box-shadow:inset 0 -.42em 0 var(--accent-soft)}
+  .topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+  .topbar .wrap{display:flex;align-items:center;gap:1.25rem;min-height:48px;flex-wrap:wrap}
+  .topbar strong{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;white-space:nowrap}
+  .navlinks{display:flex;gap:.9rem;flex-wrap:wrap;margin-left:auto}
+  .navlinks a{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;padding:2px 0}
+  .navlinks a:hover,.navlinks a:focus-visible{color:var(--accent-ink);border-bottom-color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+  .hero{padding:clamp(2.5rem,7vw,4.5rem) 0 clamp(1.4rem,4vw,2.4rem);border-top:0}
+  .hero .wrap{gap:1.2rem}
+  .idblock{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);max-width:940px}
+  .idblock div{padding:.7rem 1rem .7rem 0;display:flex;flex-direction:column;gap:.15rem}
+  .idblock dt{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .idblock dd{margin:0;font-size:.86rem;color:var(--ink)}
+  .tablebox{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface);box-shadow:var(--shadow)}
+  table{border-collapse:collapse;width:100%;font-size:.86rem}
+  th,td{text-align:left;padding:.6rem .75rem;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4}
+  thead th{font-family:var(--font-mono);font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;background:var(--surface-2);border-bottom:1px solid var(--rule-strong)}
+  tbody tr:last-child td{border-bottom:0}
+  td.k{font-weight:600;color:var(--ink)}
+  .mtx{min-width:800px}
+  .mtx th.sc{text-align:center;width:17%}
+  .mtx th.hot{color:var(--critical);background:var(--critical-soft)}
+  .mtx td.c{text-align:center;font-size:.78rem;line-height:1.35}
+  .mtx td.hot{background:var(--critical-soft)}
+  .mk{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;font-size:.72rem;font-weight:700;margin-bottom:.2rem}
+  .yes{background:var(--positive-soft);color:var(--positive)}
+  .no{background:var(--critical-soft);color:var(--critical)}
+  .part{background:var(--signal-soft);color:var(--signal)}
+  .cap{display:block;color:var(--ink-3);font-size:.72rem;font-family:var(--font-mono);letter-spacing:.02em}
+  .trg{min-width:720px}
+  .trg td.c{text-align:center}
+  .pill{display:inline-block;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.05em;padding:.15rem .45rem;border-radius:3px;font-weight:600}
+  .p-yes{background:var(--positive-soft);color:var(--positive)}
+  .p-no{background:var(--critical-soft);color:var(--critical)}
+  .p-warn{background:var(--signal-soft);color:var(--signal)}
+  .cards{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+  .card{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:1rem 1.1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem}
+  .card.crit{border-color:var(--critical);border-left-width:3px}
+  .card h3{font-family:var(--font-body);font-size:.95rem;font-weight:650}
+  .card p,.card ul{font-size:.87rem;line-height:1.5;color:var(--ink-2);margin:0}
+  .card ul{padding-left:1rem;display:flex;flex-direction:column;gap:.28rem}
+  .tag{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+  .tag.red{color:var(--critical)}
+  .note{border-left:2px solid var(--signal);background:var(--signal-soft);padding:.8rem 1rem;border-radius:0 3px 3px 0;font-size:.88rem;color:var(--ink-2);max-width:90ch}
+  .note.kill{border-left-color:var(--critical);background:var(--critical-soft)}
+  .note.calm{border-left-color:var(--rule-strong);background:var(--surface-2)}
+  .note b{color:var(--ink)}
+  .asks{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);counter-reset:ask}
+  .asks li{list-style:none;counter-increment:ask;display:grid;grid-template-columns:2.2rem 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--rule);align-items:baseline}
+  .asks li::before{content:counter(ask,decimal-leading-zero);font-family:var(--font-mono);font-size:.7rem;color:var(--critical);letter-spacing:.06em}
+  .asks h3{font-family:var(--font-body);font-size:.97rem;font-weight:650;margin:0 0 .25rem}
+  .asks p{font-size:.9rem;color:var(--ink-2);margin:0}
+  .asks .opt{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-3);margin-top:.4rem;display:block}
+  footer{border-top:1px solid var(--rule);padding:2rem 0 3.5rem}
+  footer p{font-size:.8rem;color:var(--ink-3);max-width:90ch}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="topbar">
+  <div class="wrap">
+    <strong>Término · EMS × Padagis</strong>
+    <nav class="navlinks">
+      <a href="#assimetria">Assimetria</a>
+      <a href="#achados">Achados</a>
+      <a href="#gatilhos">Gatilhos</a>
+      <a href="#contradicoes">Contradições</a>
+      <a href="#decisoes">Decisões</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Quadro de discussão · Alta Gestão · Novos Negócios</p>
+      <h1>Se a Padagis descumprir o contrato, a EMS termina praticamente na mesma posição de quando a culpa é dela.</h1>
+      <p class="lede col">Esta é a leitura dos Artigos 19 e 20 na minuta em discussão, com as marcações desta rodada aplicadas. O ponto para decisão não é cláusula a cláusula — é que <em class="key">o contrato deixou de distinguir quem errou</em>. Os três remédios que faziam essa distinção foram removidos ou esvaziados na última rodada.</p>
+
+      <div class="idblock">
+        <div><dt>Contrato</dt><dd>License &amp; Supply — Testosterone</dd></div>
+        <div><dt>Minuta</dt><dd>rev. EMS 23.07.2026, marcações até 21.08.2026</dd></div>
+        <div><dt>Escopo</dt><dd>Art. 19 e Art. 20</dd></div>
+        <div><dt>Prazo</dt><dd>8 anos da assinatura ou 5 do lançamento</dd></div>
+        <div><dt>Sell-Off</dt><dd>6 meses, não-exclusivo</dd></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="assimetria">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">O quadro em uma imagem</p>
+        <h2>O que a EMS leva em cada cenário de término</h2>
+      </div>
+      <p class="lede col">Leia as duas colunas do meio lado a lado. A da esquerda é a Padagis descumprindo o contrato; a da direita é a EMS descumprindo. A diferença entre elas é uma devolução parcial de dinheiro — e nada mais.</p>
+
+      <div class="tablebox">
+        <table class="mtx">
+          <thead>
+            <tr>
+              <th style="width:26%">O que a EMS obtém</th>
+              <th class="sc">Expiração ou término sem culpa</th>
+              <th class="sc hot">Padagis descumpre<br><span style="font-weight:400;text-transform:none;letter-spacing:0">EMS termina · cl. 19.4</span></th>
+              <th class="sc">EMS descumpre<br><span style="font-weight:400;text-transform:none;letter-spacing:0">Padagis termina · cl. 19.3</span></th>
+              <th class="sc">Hardship<br><span style="font-weight:400;text-transform:none;letter-spacing:0">cl. 11.5.3</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="k">Vender o estoque existente</td>
+              <td class="c"><span class="mk yes">✓</span><span class="cap">6 meses</span></td>
+              <td class="c hot"><span class="mk yes">✓</span><span class="cap">6 meses</span></td>
+              <td class="c"><span class="mk yes">✓</span><span class="cap">6 meses</span></td>
+              <td class="c"><span class="mk yes">✓</span><span class="cap">6 meses</span></td>
+            </tr>
+            <tr>
+              <td class="k">Ficar com o registro (MA)</td>
+              <td class="c"><span class="mk no">✗</span><span class="cap">Padagis escolhe: transferir ou cancelar</span></td>
+              <td class="c hot"><span class="mk no">✗</span><span class="cap">Padagis escolhe: transferir ou cancelar</span></td>
+              <td class="c"><span class="mk no">✗</span><span class="cap">transfere em 6 meses às custas da EMS</span></td>
+              <td class="c"><span class="mk no">✗</span><span class="cap">regido pela cl. 20.1</span></td>
+            </tr>
+            <tr>
+              <td class="k">Licença para continuar fabricando</td>
+              <td class="c"><span class="mk no">✗</span></td>
+              <td class="c hot"><span class="mk no">✗</span><span class="cap">licença compulsória removida nesta rodada</span></td>
+              <td class="c"><span class="mk no">✗</span></td>
+              <td class="c"><span class="mk no">✗</span><span class="cap">vedado expressamente</span></td>
+            </tr>
+            <tr>
+              <td class="k">Exigir Technology Transfer</td>
+              <td class="c"><span class="mk no">✗</span></td>
+              <td class="c hot"><span class="mk part">~</span><span class="cap">“aplica-se o Art. 14”, que não obriga ninguém</span></td>
+              <td class="c"><span class="mk no">✗</span></td>
+              <td class="c"><span class="mk no">✗</span><span class="cap">vedado expressamente</span></td>
+            </tr>
+            <tr>
+              <td class="k">Receber o License Fee de volta</td>
+              <td class="c"><span class="mk no">✗</span></td>
+              <td class="c hot"><span class="mk yes">✓</span><span class="cap">menos a 1ª parcela, agora não reembolsável</span></td>
+              <td class="c"><span class="mk no">✗</span></td>
+              <td class="c"><span class="mk no">✗</span><span class="cap">cl. 11.5 nega o reembolso</span></td>
+            </tr>
+            <tr>
+              <td class="k">Compensação pela perda do negócio</td>
+              <td class="c"><span class="mk no">✗</span></td>
+              <td class="c hot"><span class="mk no">✗</span><span class="cap">taxa de término excluída nesta rodada</span></td>
+              <td class="c"><span class="mk no">✗</span></td>
+              <td class="c"><span class="mk no">✗</span><span class="cap">vedado expressamente</span></td>
+            </tr>
+            <tr>
+              <td class="k">Safety Stock garantido na transição</td>
+              <td class="c"><span class="mk no">✗</span></td>
+              <td class="c hot"><span class="mk no">✗</span><span class="cap">“Padagis não tem obrigação alguma”, mesmo em falta</span></td>
+              <td class="c"><span class="mk no">✗</span></td>
+              <td class="c"><span class="mk no">✗</span></td>
+            </tr>
+            <tr>
+              <td class="k">Manter a titularidade do que desenvolveu</td>
+              <td class="c"><span class="mk part">~</span><span class="cap">só o que não referencie material Padagis</span></td>
+              <td class="c hot"><span class="mk part">~</span><span class="cap">idem</span></td>
+              <td class="c"><span class="mk no">✗</span><span class="cap">licença perpétua e mundial dos estudos de estabilidade à Padagis</span></td>
+              <td class="c"><span class="mk part">~</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note kill"><b>A leitura de negócio.</b> A coluna “Padagis descumpre” deveria ser visivelmente melhor para a EMS do que a coluna “EMS descumpre”. Hoje ela é melhor em uma única linha — a devolução parcial do License Fee. Em tudo o mais que sustenta a continuidade do produto — registro, fabricação, transferência de tecnologia, estoque de segurança — as duas colunas são idênticas. <b>Na prática, o contrato não pune o descumprimento da contraparte.</b></div>
+    </div>
+  </section>
+
+  <section id="achados">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">O que mudou nesta rodada</p>
+        <h2>Três remoções que produziram esse quadro</h2>
+      </div>
+      <p class="lede col">Praticamente todo o Artigo 20 foi reescrito pela contraparte nesta versão. Três alterações concentram o efeito.</p>
+
+      <div class="cards">
+        <div class="card crit">
+          <p class="tag red">Remoção 1</p>
+          <h3>A taxa de término antecipado foi excluída por inteiro</h3>
+          <p>Previa que a Parte infratora pagasse à inocente o equivalente a <b>um ano de receita esperada</b>, em 30 dias, sem caráter de penalidade e sem prejuízo de outros remédios. Valia para os dois lados.</p>
+          <p>Era a única sanção pecuniária por descumprimento em todo o contrato. Sem ela, descumprir custa à contraparte apenas o que ela já deixaria de ganhar.</p>
+        </div>
+        <div class="card crit">
+          <p class="tag red">Remoção 2</p>
+          <h3>A licença compulsória e o direito de exigir Technology Transfer</h3>
+          <p>O texto anterior dava à EMS, quando terminasse por falha da Padagis, licença gratuita sobre a PI necessária, o direito de <b>fabricar por si ou por terceiro</b> e o de exigir a transferência de tecnologia.</p>
+          <p>Foi substituído por uma vedação expressa: nenhuma licença compulsória, implícita ou gratuita, e nenhum direito de exigir Technology Transfer sem acordo escrito da Padagis.</p>
+        </div>
+        <div class="card crit">
+          <p class="tag red">Remoção 3</p>
+          <h3>A obrigação de Safety Stock</h3>
+          <p>A Padagis devia fabricar e manter estoque de segurança para evitar desabastecimento no Território. O texto novo diz o oposto, e é explícito: <b>nenhuma obrigação de fabricar, manter ou estocar</b> — “inclusive em caso de término pela EMS por falha da Padagis”.</p>
+        </div>
+      </div>
+
+      <div class="note kill"><b>E o remédio que sobrou é vazio.</b> A cl. 20.4 promete Technology Transfer remetendo ao Artigo 14. Só que o Artigo 14, como está redigido, diz que a Padagis <b>“pode, mas não é obrigada”</b> a discutir transferência de tecnologia, e que a outra Parte <b>“pode, a seu critério”</b>, participar da discussão. Não há escopo, prazo, custo nem obrigação. <b>Remeter a ele é remeter a nada</b> — e o remédio que antes punia a falha no TT em 12 meses era justamente a taxa de término, também excluída.</div>
+    </div>
+  </section>
+
+  <section id="gatilhos">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Cl. 19.2 · término por qualquer das partes</p>
+        <h2>Doze gatilhos, dois efeitos financeiros</h2>
+      </div>
+      <p class="lede col">Cada gatilho da cl. 19.2 produz — ou não — devolução do License Fee (cl. 20.3) e Technology Transfer (cl. 20.4). O desenho atual não segue uma lógica: há gatilhos com dinheiro e sem tecnologia, e o inverso.</p>
+
+      <div class="tablebox">
+        <table class="trg">
+          <thead>
+            <tr>
+              <th style="width:6rem">Cl. 19.2</th>
+              <th>Gatilho</th>
+              <th class="c" style="width:9rem">Reembolso do License Fee</th>
+              <th class="c" style="width:9rem">Technology Transfer</th>
+              <th style="width:30%">Onde está o problema</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="k">(i)</td><td>Material Breach</td><td class="c"><span class="pill p-yes">Sim</span></td><td class="c"><span class="pill p-yes">Sim</span></td><td>—</td></tr>
+            <tr><td class="k">(ii)</td><td>Falência</td><td class="c"><span class="pill p-yes">Sim</span></td><td class="c"><span class="pill p-yes">Sim</span></td><td>Não há consequência específica de falência: se a Padagis quebrar, a EMS fica sem produto e sem licença perpétua.</td></tr>
+            <tr><td class="k">(iii)</td><td>Recusa regulatória sem culpa</td><td class="c"><span class="pill p-no">Não</span></td><td class="c"><span class="pill p-no">Não</span></td><td>Evento fora do controle da EMS, e ela perde tudo o que pagou.</td></tr>
+            <tr><td class="k">(iv)</td><td>Risco de segurança</td><td class="c"><span class="pill p-no">Não</span></td><td class="c"><span class="pill p-no">Não</span></td><td>Aceitável. Ressalva: retirada de concorrente não deveria dar gatilho à Padagis.</td></tr>
+            <tr><td class="k">(v)</td><td>Violação de PI de terceiro</td><td class="c"><span class="pill p-yes">Sim</span></td><td class="c"><span class="pill p-yes">Sim</span></td><td>—</td></tr>
+            <tr><td class="k">(vi)</td><td>Falha em assinar SDEA / Quality Agreement</td><td class="c"><span class="pill p-yes">Sim</span></td><td class="c"><span class="pill p-no">Não</span></td><td>Falha administrativa bilateral virou gatilho de término, e sem TT.</td></tr>
+            <tr><td class="k">(vii)</td><td>Mudança inviável</td><td class="c"><span class="pill p-no">Não</span></td><td class="c"><span class="pill p-yes">Sim</span></td><td>Espelho invertido do item (viii). Não há razão para a assimetria.</td></tr>
+            <tr><td class="k">(viii)</td><td>Preço de fornecimento inviável</td><td class="c"><span class="pill p-warn">Sim*</span></td><td class="c"><span class="pill p-no">Não</span></td><td><b>Pior combinação do contrato.</b> O reembolso é contestado pela cl. 11.5, e o TT está excluído — justamente no cenário em que fabricar seria a saída.</td></tr>
+            <tr><td class="k">(ix)</td><td>Non-compliance</td><td class="c"><span class="pill p-yes">Sim</span></td><td class="c"><span class="pill p-yes">Sim</span></td><td>—</td></tr>
+            <tr><td class="k">(x)</td><td>Força maior</td><td class="c"><span class="pill p-no">Não</span></td><td class="c"><span class="pill p-no">Não</span></td><td>Se a força maior atingir a fábrica da Padagis, o efeito para a EMS é o de falha de fornecimento — mas sem remédio.</td></tr>
+            <tr><td class="k">(xi)</td><td>Mudança de controle</td><td class="c"><span class="pill p-yes">Sim</span></td><td class="c"><span class="pill p-yes">Sim</span></td><td>Gatilho subjetivo (“prejudique material e comprovadamente”). Pode ser usado contra movimento societário do Grupo.</td></tr>
+            <tr><td class="k">(xii)</td><td>Regulatory Plan cessation</td><td class="c"><span class="pill p-no">Não</span></td><td class="c"><span class="pill p-yes">Sim</span></td><td><b>Item inserido sem nenhum texto: consta apenas o título.</b> É uma cláusula em branco de término.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="contradicoes">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">Forçar resolução por escrito</p>
+        <h2>Contradições internas da minuta</h2>
+      </div>
+      <p class="lede col">Não são pontos de negociação: são conflitos entre cláusulas do mesmo contrato. Se não forem resolvidos agora, viram disputa depois — e quem invoca a cláusula mais restritiva costuma ser quem redigiu.</p>
+
+      <div class="cards">
+        <div class="card">
+          <p class="tag red">Conflito 1</p>
+          <h3>Technology Transfer existe ou não existe?</h3>
+          <p>A cl. 20.4 diz que o Art. 14 <b>se aplica</b> no término por falha da Padagis. A cl. 20.2.2 diz que esse mesmo término <b>não gera direito de exigir</b> Technology Transfer sem acordo escrito. As duas tratam do mesmo cenário.</p>
+        </div>
+        <div class="card">
+          <p class="tag red">Conflito 2</p>
+          <h3>Preço inviável devolve o License Fee?</h3>
+          <p>A cl. 20.3 concede o reembolso ao gatilho 19.2(viii). Mas o 19.2(viii) remete ao mecanismo de hardship do Art. 11.5, e a cl. 11.5 diz que término por hardship <b>não gera reembolso algum</b>.</p>
+        </div>
+        <div class="card">
+          <p class="tag">Integridade 3</p>
+          <h3>Referências cruzadas quebradas</h3>
+          <ul>
+            <li>A cl. 20.2.3 remete ao Sell-Off como “cl. 20.1, item (iii)” — hoje é o item (iv).</li>
+            <li>A cl. 20.2.2 remete a “esta cl. 20.3.2” — hoje a cl. 20.3 é o reembolso do License Fee.</li>
+            <li>A cl. 20.2.3(ii) remete à “cl. 20.2.1(ii)”, que hoje trata de devolução de informação confidencial.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <p class="tag">Integridade 4</p>
+          <h3>Restos de edição no texto</h3>
+          <ul>
+            <li>A cl. 19.2(xii) tem título e nenhum texto.</li>
+            <li>As cl. 19.3 e 19.4 terminam com um item vazio cada.</li>
+            <li>A cl. 19.4(ii) tem duas alíneas “(C)”.</li>
+            <li>A cl. 20.0 foi digitada à mão, fora da numeração automática do artigo.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note"><b>O Artigo 16 passou a prevalecer sobre o Artigo 20.</b> Foi acrescentado na cl. 20.5 que, em matéria de propriedade intelectual, o Art. 16 governa “não obstante qualquer disposição deste Artigo 20”. Na prática, qualquer direito de PI que a EMS conquiste nas consequências de término pode ser neutralizado por outro artigo. Exigir a prevalência inversa quanto a consequências de término.</div>
+    </div>
+  </section>
+
+  <section id="decisoes">
+    <div class="wrap">
+      <div class="sec-head col">
+        <p class="eyebrow">O que preciso da reunião</p>
+        <h2>Quatro decisões, não quarenta cláusulas</h2>
+      </div>
+      <p class="lede col">O Excel anexo traz as 25 cláusulas linha a linha, com texto integral e espaço de conclusão. Para a discussão de alta gestão, o que precisa ser decidido cabe em quatro perguntas — e as três primeiras definem se este contrato é assinável na forma atual.</p>
+
+      <ol class="asks">
+        <li>
+          <div>
+            <h3>Aceitamos um contrato sem remédio de continuidade de fornecimento?</h3>
+            <p>Se a Padagis descumprir, a EMS não pode fabricar, não pode exigir transferência de tecnologia e não tem estoque de segurança garantido. Fica com seis meses para vender o que tiver e devolver o registro. Para um produto que vamos registrar, lançar e sustentar comercialmente, isso é risco de descontinuidade sem saída.</p>
+            <span class="opt">Posições possíveis · reintroduzir licença compulsória + TT obrigatório  ·  aceitar sem remédio e precificar no deal  ·  não assinar sem cláusula de continuidade</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Abrimos mão da taxa de término antecipado?</h3>
+            <p>Era simétrica, valia um ano de receita esperada e era a única sanção econômica por descumprimento no contrato. Sua exclusão retira também o remédio que garantia a conclusão do Technology Transfer em 12 meses.</p>
+            <span class="opt">Posições possíveis · reinclusão integral  ·  reinclusão com teto ou valor reduzido  ·  troca por outro remédio equivalente</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Aceitamos que o que a EMS desenvolve e paga no Brasil não seja da EMS?</h3>
+            <p>A cl. 20.0, inserida nesta rodada, retira da EMS a titularidade do Submission Dossier sempre que ele referencie ou dependa de material da Padagis — o que é, na prática, sempre. E a cl. 20.2.3 dá à Padagis licença perpétua, gratuita e mundial sobre os estudos de estabilidade que a EMS gerar.</p>
+            <span class="opt">Posições possíveis · titularidade da EMS sobre o que financiou  ·  licença à Padagis limitada ao Território e onerosa  ·  aceitar mediante abatimento do License Fee</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Qual o valor exato que a 1ª parcela do License Fee torna irrecuperável?</h3>
+            <p>A exclusão da primeira parcela do reembolso foi inserida nesta rodada. É a única alteração da rodada com efeito de caixa imediato e quantificável, e precisa entrar na conta do negócio — seja como perda aceita, seja como pedido de redução equivalente no valor total.</p>
+            <span class="opt">Posições possíveis · retirar a exclusão  ·  aceitar e reduzir o License Fee no mesmo montante  ·  aceitar como custo de entrada</span>
+          </div>
+        </li>
+      </ol>
+
+      <div class="note calm"><b>Como este quadro foi montado.</b> Leitura integral dos Artigos 19 e 20 da minuta, com as marcações de revisão aplicadas, e verificação de cada referência cruzada a Art. 11.5 (hardship), Art. 14 (technology transfer), Art. 16 (propriedade intelectual) e cl. 8.12 (delay expenses). As remoções descritas foram identificadas nas marcações da própria minuta. Este material organiza a discussão comercial e não substitui o parecer do Jurídico sobre a redação final.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>Quadro de discussão de cláusulas de término · EMS × Padagis · License and Supply Agreement — Testosterone. Elaborado por Novos Negócios sobre a minuta rev. EMS de 23.07.2026, com marcações até 21.08.2026. Documento de trabalho interno.</p>
+    </div>
+  </footer>
+</main>
