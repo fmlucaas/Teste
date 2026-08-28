@@ -255,6 +255,67 @@ footer p + p{margin-top:12px}
   .dossier,.scen,.callout,.script,.mesa{page-break-inside:avoid;box-shadow:none}
   section{padding:22px 0}
 }
+
+/* ---- folha de saídas ---- */
+.sheet{border:2px solid var(--accent);border-radius:12px;background:var(--card);overflow:hidden;margin-top:26px}
+.sheet-head{background:var(--accent);color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sheet-head strong{font-family:"Source Serif 4",Georgia,serif;font-size:1.18rem;font-weight:600}
+.sheet-head span{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+.sheet-row{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule-2);border-bottom:1px solid var(--rule-2)}
+@media (min-width:860px){.sheet-row.two{grid-template-columns:1fr 1fr}}
+.sheet-row:last-child{border-bottom:0}
+.cell{background:var(--card);padding:13px 18px}
+.cell h4{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;font-weight:500}
+.cell h4 .who{color:var(--ink-3);letter-spacing:.04em}
+
+table.tmap{width:100%;border-collapse:collapse;font-size:11.5px}
+table.tmap th{text-align:left;font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:500;padding:0 6px 4px 0;border-bottom:1px solid var(--rule)}
+table.tmap td{padding:3.5px 6px 3.5px 0;border-bottom:1px solid var(--rule-2);vertical-align:top;line-height:1.3}
+table.tmap tr:last-child td{border-bottom:0}
+table.tmap td.n{font-family:"IBM Plex Mono",monospace;color:var(--ink-3);font-size:10px;width:1%;white-space:nowrap;padding-top:4.5px}
+table.tmap td.g{font-weight:500}
+table.tmap td.f{color:var(--ink-2);font-size:10.5px;white-space:nowrap}
+table.tmap td.r{width:1%;white-space:nowrap;text-align:center;font-weight:600;font-size:12px}
+table.tmap td.r.y{color:var(--ours)}
+table.tmap td.r.n2{color:var(--theirs)}
+table.tmap tr.hot td{background:var(--theirs-soft)}
+.legend{font-size:10px;color:var(--ink-2);margin-top:8px;line-height:1.45}
+.legend b{font-family:"IBM Plex Mono",monospace}
+.legend .y{color:var(--ours);font-weight:600}
+.legend .n2{color:var(--theirs);font-weight:600}
+
+table.cons{width:100%;border-collapse:collapse;font-size:11px}
+table.cons th{text-align:left;font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:500;padding:0 6px 5px 0;border-bottom:1px solid var(--rule);vertical-align:bottom}
+table.cons th.c1{color:var(--ink-3)}
+table.cons th.c2{color:var(--ours)}
+table.cons th.c3{color:var(--theirs)}
+table.cons td{padding:5px 6px 5px 0;border-bottom:1px solid var(--rule-2);vertical-align:top;line-height:1.35}
+table.cons tr:last-child td{border-bottom:0}
+table.cons td.lbl{font-family:"IBM Plex Mono",monospace;font-size:9.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;width:1%;white-space:nowrap}
+
+.ladder{display:flex;flex-direction:column;gap:0;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.rung{display:grid;grid-template-columns:78px 1fr 62px;gap:0;border-bottom:1px solid var(--rule-2);font-size:11px}
+.rung:last-child{border-bottom:0}
+.rung .k{font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.07em;text-transform:uppercase;padding:7px 8px;background:var(--card-2);color:var(--ink-3);border-right:1px solid var(--rule-2)}
+.rung .v{padding:7px 9px;line-height:1.35}
+.rung .m{padding:7px 9px;font-family:"IBM Plex Mono",monospace;font-size:11px;text-align:right;font-variant-numeric:tabular-nums;border-left:1px solid var(--rule-2)}
+.rung.now .k{background:var(--theirs-soft);color:var(--theirs)}
+.rung.now .m{color:var(--theirs);font-weight:600}
+.rung.pick .k{background:var(--ours-soft);color:var(--ours)}
+.rung.pick .m{color:var(--ours);font-weight:600}
+.rung.lim .k{background:var(--limit-soft);color:var(--limit)}
+
+.traps{display:grid;grid-template-columns:1fr;gap:9px}
+@media (min-width:700px){.traps{grid-template-columns:1fr 1fr}}
+.trap{border-left:2.5px solid var(--theirs);padding:6px 0 6px 10px}
+.trap b{display:block;font-size:11.5px;margin-bottom:2px}
+.trap span{font-size:10.5px;color:var(--ink-2);line-height:1.42;display:block}
+.trap code{font-family:"IBM Plex Mono",monospace;font-size:9.5px;color:var(--accent)}
+
+.notes .lines{display:flex;flex-direction:column;gap:0;margin-top:6px}
+.notes .ln{height:21px;border-bottom:1px solid var(--rule)}
+.notes .ln:first-child{border-top:1px solid var(--rule)}
+
 </style>
 
 <div class="navbar">
@@ -262,6 +323,7 @@ footer p + p{margin-top:12px}
     <span class="navmark">EMS &times; Padagis &middot; final</span>
     <nav class="navlinks">
       <a href="#mesa">P&aacute;gina de mesa</a>
+      <a href="#saidas">Folha de sa&iacute;das</a>
       <a href="#acordo">O acordo</a>
       <a href="#principio">Princ&iacute;pio</a>
       <a href="#escuta">Escuta</a>
@@ -388,6 +450,154 @@ footer p + p{margin-top:12px}
       <span class="blabel">Duas contas que precisam estar com voc&ecirc; antes de entrar</span>
       <p><b>1. O custo da bioequival&ecirc;ncia.</b> A cl. 5.1.2 p&otilde;e a BQV integralmente por conta da EMS, e esse valor n&atilde;o aparece em nenhum dos documentos analisados. Se ele for da ordem da primeira parcela ou maior, o reembolso de 266.000 cobre menos da metade da sua exposi&ccedil;&atilde;o real &mdash; e o pedido na mesa muda de tamanho. <b>Levante internamente antes.</b></p>
       <p><b>2. A margem ao pre&ccedil;o CMED.</b> Pre&ccedil;o CMED estimado &rarr; pre&ccedil;o l&iacute;quido EMS &rarr; custo posto Brasil a partir de US$&nbsp;8,00 EXW &rarr; royalty de 5% com gross-up &rarr; margem bruta. Sem esse n&uacute;mero voc&ecirc; negocia o texto do royalty, nunca a al&iacute;quota.</p>
+    </div>
+  </div>
+</section>
+
+<section id="saidas">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">00b</span><h2>Folha de sa&iacute;das</h2><span class="chip new">Imprima esta tamb&eacute;m</span></div>
+    <p class="secintro">Segunda folha de mesa, dedicada a t&eacute;rminos, gatilhos e reembolso. Cada gatilho aparece pelo <b>nome em ingl&ecirc;s</b>, que &eacute; a refer&ecirc;ncia r&aacute;pida confi&aacute;vel &mdash; os n&uacute;meros da minuta est&atilde;o com remiss&otilde;es quebradas em seis lugares.</p>
+
+    <div class="sheet">
+      <div class="sheet-head"><strong>Sa&iacute;das, t&eacute;rminos e reembolso</strong><span>Art. 19 Term and Termination &middot; Art. 20 Consequences of Termination</span></div>
+
+      <div class="sheet-row two">
+        <div class="cell">
+          <h4>Early Termination by Either Party <span class="who">&middot; 19.2 &middot; qualquer parte invoca</span></h4>
+          <table class="tmap">
+            <thead><tr><th>&nbsp;</th><th>Gatilho</th><th>Culpa de</th><th>Fee</th></tr></thead>
+            <tbody>
+              <tr><td class="n">i</td><td class="g">Material Breach</td><td class="f">quem viola</td><td class="r y">&#9679;</td></tr>
+              <tr><td class="n">ii</td><td class="g">Bankruptcy</td><td class="f">quem quebra</td><td class="r y">&#9679;</td></tr>
+              <tr class="hot"><td class="n">iii</td><td class="g">Faultless Regulatory Refusal</td><td class="f">ningu&eacute;m</td><td class="r n2">&#9675;</td></tr>
+              <tr class="hot"><td class="n">iv</td><td class="g">Material Safety Concern</td><td class="f">ningu&eacute;m</td><td class="r n2">&#9675;</td></tr>
+              <tr><td class="n">v</td><td class="g">Intellectual Property Infringement</td><td class="f">Padagis*</td><td class="r y">&#9679;</td></tr>
+              <tr><td class="n">vi</td><td class="g">Quality Agreement / SDEA Execution</td><td class="f">ambas</td><td class="r y">&#9679;</td></tr>
+              <tr class="hot"><td class="n">vii</td><td class="g">Unfeasible Change</td><td class="f">ningu&eacute;m</td><td class="r n2">&#9675;</td></tr>
+              <tr><td class="n">viii</td><td class="g">Unfeasible Supply Price</td><td class="f">ningu&eacute;m</td><td class="r y">&#9679;</td></tr>
+              <tr><td class="n">ix</td><td class="g">Compliance Breach or Serious Concern</td><td class="f">quem viola</td><td class="r y">&#9679;</td></tr>
+              <tr class="hot"><td class="n">x</td><td class="g">Force Majeure</td><td class="f">ningu&eacute;m</td><td class="r n2">&#9675;</td></tr>
+              <tr><td class="n">xi</td><td class="g">Change of Control</td><td class="f">quem muda</td><td class="r y">&#9679;</td></tr>
+              <tr class="hot"><td class="n">xii</td><td class="g">Regulatory Plan cessation <span style="color:var(--theirs);font-weight:400">&mdash; t&iacute;tulo sem texto</span></td><td class="f">?</td><td class="r n2">&#9675;</td></tr>
+            </tbody>
+          </table>
+          <p class="legend"><span class="y">&#9679;</span> Fee reembolsado <b>menos a 1&ordf; parcela</b> &mdash; e <b>s&oacute; se a EMS rescindir</b>. Se a Padagis invocar o mesmo gatilho, n&atilde;o h&aacute; reembolso. &nbsp;<span class="n2">&#9675;</span> Nenhum reembolso.<br>* A cl&aacute;usula n&atilde;o atribui culpa; na pr&aacute;tica o risco de PI do Produto &eacute; da Padagis.</p>
+        </div>
+
+        <div class="cell">
+          <h4>Early Termination by Padagis <span class="who">&middot; 19.3 &middot; culpa da EMS &middot; sem reembolso em nenhum</span></h4>
+          <table class="tmap">
+            <tbody>
+              <tr><td class="n">i</td><td class="g">Non-Payment</td><td class="f">2 pagtos. em atraso &gt;30d</td><td class="r n2">&#9675;</td></tr>
+              <tr><td class="n">ii</td><td class="g">Regulatory Refusal</td><td class="f">falha da EMS no registro</td><td class="r n2">&#9675;</td></tr>
+              <tr><td class="n">iii</td><td class="g">Intellectual Property Improper Use</td><td class="f">uso fora do escopo</td><td class="r n2">&#9675;</td></tr>
+              <tr><td class="n">iv</td><td class="g">EMS&rsquo;s failure to file the Regulatory Filing</td><td class="f">n&atilde;o protocolar</td><td class="r n2">&#9675;</td></tr>
+              <tr><td class="n">v</td><td class="g">EMS&rsquo;s failure to launch</td><td class="f">&gt;6 meses do registro</td><td class="r n2">&#9675;</td></tr>
+              <tr><td class="n">vi</td><td class="g">EMS&rsquo;s failure to Commercialize</td><td class="f">parada &gt;6 meses</td><td class="r n2">&#9675;</td></tr>
+              <tr><td class="n">vii</td><td class="g">Withdrawal</td><td class="f">decis&atilde;o da Padagis</td><td class="r n2">&#9675;</td></tr>
+            </tbody>
+          </table>
+
+          <h4 style="margin-top:14px">Early Termination by EMS <span class="who">&middot; 19.4 &middot; culpa da Padagis &middot; reembolso em todos</span></h4>
+          <table class="tmap">
+            <tbody>
+              <tr><td class="n">i</td><td class="g">Delivery Failure</td><td class="f">2 anos consecutivos</td><td class="r y">&#9679;</td></tr>
+              <tr class="hot"><td class="n">ii</td><td class="g">Regulatory Failure</td><td class="f">bloqueada pela 5.2.2</td><td class="r y">&#9679;</td></tr>
+              <tr><td class="n">iii</td><td class="g">Product Unfeasibility</td><td class="f">ap&oacute;s 5.4 e hardship</td><td class="r y">&#9679;</td></tr>
+              <tr><td class="n">iv</td><td class="g">Non-Approved Change</td><td class="f">Change sem Art. 6</td><td class="r y">&#9679;</td></tr>
+              <tr><td class="n">v</td><td class="g">Withdrawal</td><td class="f">decis&atilde;o da EMS</td><td class="r y">&#9679;</td></tr>
+            </tbody>
+          </table>
+          <p class="legend"><b>O n&oacute;:</b> o reembolso do 19.4 vale para todos os cinco gatilhos &mdash; mas <b>sempre menos a 1&ordf; parcela</b>. E na BQV a 1&ordf; parcela &eacute; o &uacute;nico valor pago.</p>
+        </div>
+      </div>
+
+      <div class="sheet-row two">
+        <div class="cell">
+          <h4>Consequ&ecirc;ncias por cen&aacute;rio <span class="who">&middot; Art. 20</span></h4>
+          <table class="cons">
+            <thead><tr><th class="c1">&nbsp;</th><th class="c1">Sem culpa</th><th class="c2">Culpa Padagis</th><th class="c3">Culpa EMS</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="lbl">Registro</td>
+                <td>Padagis <b>escolhe</b>: transferir sem custo ou cancelar<br><code style="font-size:9px">MA Cancellation/Transfer</code></td>
+                <td>Idem &mdash; a <b>Maintenance</b> foi deletada<br><code style="font-size:9px">MA Maintenance</code></td>
+                <td>EMS transfere em 6 meses <b>&agrave;s pr&oacute;prias custas</b><br><code style="font-size:9px">MA Transference</code></td>
+              </tr>
+              <tr>
+                <td class="lbl">Estoque</td>
+                <td><b>6 meses</b> de escoamento<br><code style="font-size:9px">Sell-Off Period</code></td>
+                <td>6 meses. <b>Safety Stock deletado</b></td>
+                <td>6 meses</td>
+              </tr>
+              <tr>
+                <td class="lbl">Dinheiro</td>
+                <td>Pro rata, <b>menos a 1&ordf; parcela</b><br><code style="font-size:9px">License Fee Proportional Refund</code></td>
+                <td>100% antes do lan&ccedil;amento, <b>menos a 1&ordf;</b></td>
+                <td><b>Nada volta.</b> Multa de rescis&atilde;o deletada<br><code style="font-size:9px">Early Termination Fee</code></td>
+              </tr>
+              <tr>
+                <td class="lbl">PI</td>
+                <td colspan="3">Toda licen&ccedil;a da EMS extingue automaticamente, em qualquer hip&oacute;tese &mdash; <code style="font-size:9px">General Effect of Expiration or Termination</code> (20.0, inserida). Sem licen&ccedil;a compuls&oacute;ria, sem Technology Transfer for&ccedil;ada.</td>
+              </tr>
+              <tr>
+                <td class="lbl">Sobrevive</td>
+                <td colspan="3">Art. 1, 15, 16, cl. 17.7, 18.3, Art. 20, 21, 24, 25 &mdash; <code style="font-size:9px">Survival</code>. Pagamentos pendentes com teto de 90 dias &mdash; <code style="font-size:9px">Pending Payments</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cell">
+          <h4>Escada do reembolso <span class="who">&middot; sobre USD 700.000 &middot; em risco na assinatura</span></h4>
+          <div class="ladder">
+            <div class="rung now"><div class="k">Hoje</div><div class="v">Marco 1 a 38%, irrepet&iacute;vel em toda hip&oacute;tese</div><div class="m">266.000</div></div>
+            <div class="rung"><div class="k">Abertura</div><div class="v">Marco 1 a 38% + reembolso integral se o registro n&atilde;o sair</div><div class="m">0</div></div>
+            <div class="rung pick"><div class="k">Alvo</div><div class="v">Marco 1 a <b>30%</b> (mediana da base EMS) + <b>metade reembols&aacute;vel</b></div><div class="m">105.000</div></div>
+            <div class="rung"><div class="k">Sem &ldquo;refund&rdquo;</div><div class="v">S&oacute; remarca&ccedil;&atilde;o: marco 1 a 20%, linguagem deles intacta</div><div class="m">140.000</div></div>
+            <div class="rung lim"><div class="k">Seu piso</div><div class="v">Marco 1 a 38% + 50% reembols&aacute;vel</div><div class="m">133.000</div></div>
+            <div class="rung"><div class="k">Fora</div><div class="v">Nada muda &mdash; leve &agrave; gest&atilde;o, n&atilde;o feche</div><div class="m">266.000</div></div>
+          </div>
+          <p class="legend" style="margin-top:9px"><b>Quatro formatos, mesmo efeito:</b> reembolso &middot; remarca&ccedil;&atilde;o de marcos &middot; cr&eacute;dito de portf&oacute;lio (36 meses) &middot; escrow. Se a trava deles for reconhecimento de receita, <b>pare de brigar pela palavra</b> e troque de formato.</p>
+        </div>
+      </div>
+
+      <div class="sheet-row">
+        <div class="cell">
+          <h4>Onde voc&ecirc; vai encontrar problema</h4>
+          <div class="traps">
+            <div class="trap"><b>A trava dupla da bioequival&ecirc;ncia</b><span><code>Negative or Inconclusive Results</code> (5.2.2 iii) impede a EMS de invocar <em>qualquer</em> rescis&atilde;o do Art. 19 se o estudo seguiu o protocolo &mdash; e <code>Regulatory Failure</code> foi subordinada a ela. Mesmo com sa&iacute;da, o reembolso exclui a 1&ordf; parcela, que &eacute; o &uacute;nico valor pago naquele momento. No Zona IVb, <code>Additional Studies</code> (5.1.2) d&aacute; sa&iacute;da <em>&ldquo;without further liability&rdquo;</em> e sem prazo &mdash; s&oacute; &ldquo;reasonable period of time&rdquo;.</span></div>
+            <div class="trap"><b>A frase que esvazia o reembolso</b><span><code>Consideration for the Rights</code> (3.1) diz que o fee &ldquo;represents reimbursement of R&amp;D costs&rdquo;. Se &eacute; ressarcimento de custo j&aacute; gasto, &eacute; logicamente irrepet&iacute;vel &mdash; independentemente do que a cl&aacute;usula de reembolso diga.</span></div>
+            <div class="trap"><b>Sa&iacute;da por CMED virou te&oacute;rica</b><span><code>Hardship</code> (11.6.2) exclui expressamente pre&ccedil;o CMED, rentabilidade e decis&atilde;o de portf&oacute;lio de <em>qualquer</em> reembolso. Os dois BDR t&ecirc;m sa&iacute;da por invi&aacute;bilidade de CMED &mdash; aqui, n&atilde;o.</span></div>
+            
+            
+            <div class="trap"><b>As remiss&otilde;es quebradas</b><span>O reembolso opera apontando para itens numerados do 19.2. Seis remiss&otilde;es da minuta apontam para cl&aacute;usulas com outro conte&uacute;do. <b>Cite pelo nome, nunca s&oacute; pelo n&uacute;mero.</b></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-row two">
+        <div class="cell">
+          <h4>O que queremos &mdash; e at&eacute; onde</h4>
+          <table class="cons">
+            <tbody>
+              <tr><td class="lbl">Porta</td><td colspan="3">Gatilho expresso de <b>BE Failure</b>: sem acordo em 60 dias, qualquer Parte encerra, sem discuss&atilde;o de culpa. <b>Inegoci&aacute;vel.</b></td></tr>
+              <tr><td class="lbl">Dinheiro</td><td colspan="3">Recupera&ccedil;&atilde;o de <b>ao menos 50%</b> da 1&ordf; parcela, em qualquer formato &mdash; at&eacute; <b>133.000</b> em risco.</td></tr>
+              <tr><td class="lbl">Simetria</td><td colspan="3">Consequ&ecirc;ncia segue a causa. Sell-off de <b>12 meses</b> (3 de 4 na base). MA transferida <b>a custo da Padagis</b> quando a culpa for deles.</td></tr>
+              <tr><td class="lbl">Moeda</td><td colspan="3"><b>Damos:</b> licen&ccedil;a compuls&oacute;ria (0 de 6) &middot; Technology Transfer como rem&eacute;dio (0 de 6) &middot; <code style="font-size:9px">Early Termination Fee</code> (1 de 6, bilateral). &nbsp;<b>N&atilde;o damos:</b> compromissos firmes de lan&ccedil;amento ou comercializa&ccedil;&atilde;o &mdash; decis&atilde;o de acionista.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cell notes">
+          <h4>Anota&ccedil;&otilde;es</h4>
+          <div class="lines">
+            <div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
+            <div class="ln"></div><div class="ln"></div><div class="ln"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
