@@ -1,0 +1,1419 @@
+<title>Dossiê Padagis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --paper:#F4F6F8;
+  --card:#FFFFFF;
+  --card-2:#EDF0F4;
+  --ink:#141D28;
+  --ink-2:#4C5A6B;
+  --ink-3:#75828F;
+  --rule:#D6DDE5;
+  --rule-2:#E7ECF1;
+  --accent:#1B4B67;
+  --accent-soft:#E4EDF2;
+  --ours:#0D6353;
+  --ours-soft:#E1EFEB;
+  --theirs:#93382B;
+  --theirs-soft:#F6E7E3;
+  --limit:#7E6110;
+  --limit-soft:#F5EEDB;
+  --shadow:0 1px 2px rgba(20,29,40,.06), 0 8px 24px -16px rgba(20,29,40,.24);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F141A;
+    --card:#161E27;
+    --card-2:#1D2731;
+    --ink:#E6ECF2;
+    --ink-2:#A7B4C2;
+    --ink-3:#7B8896;
+    --rule:#2A3742;
+    --rule-2:#222D37;
+    --accent:#7FB6D4;
+    --accent-soft:#1A2A36;
+    --ours:#5FC0AB;
+    --ours-soft:#132A27;
+    --theirs:#E0907E;
+    --theirs-soft:#2B1B17;
+    --limit:#D8B85C;
+    --limit-soft:#292217;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F141A;
+  --card:#161E27;
+  --card-2:#1D2731;
+  --ink:#E6ECF2;
+  --ink-2:#A7B4C2;
+  --ink-3:#7B8896;
+  --rule:#2A3742;
+  --rule-2:#222D37;
+  --accent:#7FB6D4;
+  --accent-soft:#1A2A36;
+  --ours:#5FC0AB;
+  --ours-soft:#132A27;
+  --theirs:#E0907E;
+  --theirs-soft:#2B1B17;
+  --limit:#D8B85C;
+  --limit-soft:#292217;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+/* ---------- nav ---------- */
+.navbar{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+}
+.navbar .wrap{display:flex;align-items:center;gap:16px;height:52px}
+.navmark{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);white-space:nowrap;flex:0 0 auto;
+}
+.navlinks{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1 1 auto}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{
+  flex:0 0 auto;text-decoration:none;color:var(--ink-2);
+  font-size:12.5px;font-weight:500;padding:5px 9px;border-radius:5px;white-space:nowrap;
+}
+.navlinks a:hover{background:var(--card-2);color:var(--ink)}
+.navlinks a b{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-weight:500;margin-right:5px}
+
+/* ---------- masthead ---------- */
+.masthead{padding:56px 0 40px;border-bottom:1px solid var(--rule)}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:18px;
+}
+.masthead h1{font-size:clamp(2.5rem,6vw,3.9rem);line-height:1.04;font-weight:700;letter-spacing:-.02em;max-width:15ch}
+.masthead .dek{
+  font-family:"Source Serif 4",Georgia,serif;font-size:1.22rem;line-height:1.5;
+  color:var(--ink-2);max-width:60ch;margin-top:20px;
+}
+.factbar{
+  display:flex;flex-wrap:wrap;gap:0;margin-top:32px;
+  border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--card);
+}
+.factbar div{
+  flex:1 1 180px;padding:13px 16px;border-right:1px solid var(--rule-2);
+}
+.factbar div:last-child{border-right:0}
+.factbar dt{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 3px;
+}
+.factbar dd{margin:0;font-size:14px;font-weight:500}
+
+/* ---------- cockpit ---------- */
+.cockpit{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.tile{background:var(--card);padding:16px 18px}
+.tile .lbl{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+.tile .val{font-family:"Source Serif 4",Georgia,serif;font-size:1.6rem;font-weight:600;line-height:1.15;margin-top:6px;font-variant-numeric:tabular-nums}
+.tile .sub{font-size:12.5px;color:var(--ink-2);margin-top:5px;line-height:1.4}
+.tile.hot .val{color:var(--theirs)}
+.tile.good .val{color:var(--ours)}
+
+/* ---------- sections ---------- */
+section{padding:52px 0;border-bottom:1px solid var(--rule)}
+.sechead{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+.secnum{
+  font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);
+  letter-spacing:.1em;padding-top:6px;
+}
+.sechead h2{font-size:clamp(1.6rem,3.2vw,2.15rem);font-weight:700;letter-spacing:-.015em;line-height:1.15}
+.secintro{font-family:"Source Serif 4",Georgia,serif;font-size:1.08rem;color:var(--ink-2);max-width:68ch;margin-top:12px;line-height:1.62}
+.secintro + .secintro{margin-top:10px}
+
+/* ---------- dossier card ---------- */
+.dossier{
+  background:var(--card);border:1px solid var(--rule);border-radius:10px;
+  box-shadow:var(--shadow);overflow:hidden;margin-top:26px;
+}
+.dhead{padding:22px 26px 20px;border-bottom:1px solid var(--rule-2);background:var(--card-2)}
+.dtag{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  background:var(--accent-soft);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);
+}
+.chip.owner{background:transparent;color:var(--ink-3);border-color:var(--rule)}
+.chip.crit{background:var(--theirs-soft);color:var(--theirs);border-color:color-mix(in srgb,var(--theirs) 26%,transparent)}
+.dhead h3{font-size:1.5rem;font-weight:700;letter-spacing:-.012em;line-height:1.2}
+.dhead .en{
+  font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-2);
+  margin-top:7px;line-height:1.5;
+}
+.dbody{padding:24px 26px 26px;display:flex;flex-direction:column;gap:22px}
+
+.block > .blabel{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;display:block;
+}
+.block p + p{margin-top:10px}
+.block p, .block li{font-size:15px;line-height:1.62}
+.block ul{margin:8px 0 0;padding-left:20px}
+.block li{margin-bottom:7px}
+.block li::marker{color:var(--ink-3)}
+
+.duo{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:820px){.duo{grid-template-columns:1fr 1fr}}
+.pos{border-left:3px solid;padding:14px 16px;border-radius:0 7px 7px 0}
+.pos.them{border-color:var(--theirs);background:var(--theirs-soft)}
+.pos.us{border-color:var(--ours);background:var(--ours-soft)}
+.pos .blabel{color:inherit;opacity:.85}
+.pos.them .blabel{color:var(--theirs)}
+.pos.us .blabel{color:var(--ours)}
+
+.limitbox{border-left:3px solid var(--limit);background:var(--limit-soft);padding:14px 16px;border-radius:0 7px 7px 0}
+.limitbox .blabel{color:var(--limit)}
+.walk{margin-top:10px;padding-top:10px;border-top:1px dashed color-mix(in srgb,var(--limit) 40%,transparent);font-size:14.5px}
+.walk b{color:var(--limit)}
+
+.bench{border:1px solid var(--rule);border-radius:7px;padding:14px 16px;background:var(--paper)}
+.bench .blabel{color:var(--accent)}
+.bench table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}
+.bench td{padding:6px 10px 6px 0;vertical-align:top;border-bottom:1px solid var(--rule-2)}
+.bench tr:last-child td{border-bottom:0}
+.bench td:first-child{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2);white-space:nowrap;width:1%}
+.bench td .num{font-family:"IBM Plex Mono",monospace;font-weight:500;color:var(--ink)}
+
+/* script block */
+.script{
+  border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);
+  background:var(--accent-soft);border-radius:8px;padding:16px 18px;
+}
+.script .blabel{color:var(--accent)}
+.script q{
+  font-family:"Source Serif 4",Georgia,serif;font-size:1.06rem;line-height:1.6;
+  display:block;quotes:"“" "”";
+}
+.script q + q{margin-top:12px}
+.script .gloss{font-size:13px;color:var(--ink-2);margin-top:11px;padding-top:10px;border-top:1px solid color-mix(in srgb,var(--accent) 20%,transparent)}
+
+/* details / verbatim */
+details.verbatim{border:1px solid var(--rule);border-radius:7px;background:var(--paper);overflow:hidden}
+details.verbatim > summary{
+  cursor:pointer;padding:11px 15px;list-style:none;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2);display:flex;align-items:center;gap:9px;
+}
+details.verbatim > summary::-webkit-details-marker{display:none}
+details.verbatim > summary::before{
+  content:"▸";color:var(--accent);font-size:13px;transition:transform .15s ease;display:inline-block;
+}
+details.verbatim[open] > summary::before{transform:rotate(90deg)}
+details.verbatim > summary:hover{background:var(--card-2);color:var(--ink)}
+.vb{padding:4px 16px 16px;border-top:1px solid var(--rule-2)}
+.vb .cl{margin-top:14px}
+.vb .cl:first-child{margin-top:8px}
+.vb .cln{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;
+  color:var(--accent);text-transform:uppercase;display:block;margin-bottom:4px;
+}
+.vb .cltext{
+  font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:1.68;color:var(--ink-2);
+  white-space:pre-wrap;
+}
+.vb .cltext em{font-style:normal;background:color-mix(in srgb,var(--limit) 22%,transparent);padding:0 2px;color:var(--ink)}
+.vb .note{font-size:13px;color:var(--ink-3);margin-top:8px;font-style:italic}
+
+/* generic table */
+.tblwrap{overflow-x:auto;border:1px solid var(--rule);border-radius:8px;background:var(--card)}
+table.grid{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+table.grid th{
+  text-align:left;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:500;padding:11px 14px;
+  border-bottom:1px solid var(--rule);background:var(--card-2);white-space:nowrap;
+}
+table.grid td{padding:11px 14px;border-bottom:1px solid var(--rule-2);vertical-align:top;line-height:1.5}
+table.grid tr:last-child td{border-bottom:0}
+table.grid td.mono{font-family:"IBM Plex Mono",monospace;font-size:12.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.grid td.ours{color:var(--ours);font-weight:500}
+table.grid td.theirs{color:var(--theirs)}
+
+/* run sheet */
+.runsheet{display:flex;flex-direction:column;gap:0;border:1px solid var(--rule);border-radius:9px;overflow:hidden;background:var(--card);margin-top:24px}
+.leg{display:grid;grid-template-columns:88px 1fr;gap:0;border-bottom:1px solid var(--rule-2)}
+.leg:last-child{border-bottom:0}
+.leg .clock{
+  font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);
+  padding:14px 12px 14px 16px;background:var(--card-2);border-right:1px solid var(--rule-2);
+  font-variant-numeric:tabular-nums;
+}
+.leg .what{padding:14px 18px}
+.leg .what strong{display:block;font-size:14.5px;margin-bottom:3px}
+.leg .what span{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+
+/* scenario */
+.scenarios{display:grid;grid-template-columns:1fr;gap:16px;margin-top:24px}
+@media (min-width:760px){.scenarios{grid-template-columns:1fr 1fr}}
+.scen{border:1px solid var(--rule);border-radius:9px;padding:18px 20px;background:var(--card)}
+.scen h4{font-size:1.1rem;margin-bottom:4px}
+.scen .trigger{font-size:13px;color:var(--ink-3);font-style:italic;margin-bottom:11px}
+.scen p{font-size:14.5px;line-height:1.6}
+.scen .move{margin-top:11px;padding-top:11px;border-top:1px solid var(--rule-2);font-size:14px}
+.scen .move b{color:var(--accent);font-family:"IBM Plex Sans",sans-serif}
+
+/* pocket lines */
+.pockets{display:grid;grid-template-columns:1fr;gap:14px;margin-top:24px}
+@media (min-width:800px){.pockets{grid-template-columns:1fr 1fr}}
+.pocket{border-left:3px solid var(--accent);background:var(--card);padding:14px 17px;border-radius:0 7px 7px 0;border-top:1px solid var(--rule);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.pocket .when{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
+.pocket q{font-family:"Source Serif 4",Georgia,serif;font-size:1.02rem;line-height:1.55;display:block}
+
+.callout{
+  border:1px solid color-mix(in srgb,var(--limit) 40%,transparent);
+  background:var(--limit-soft);border-radius:8px;padding:16px 19px;margin-top:22px;
+}
+.callout .blabel{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--limit);display:block;margin-bottom:7px}
+.callout p{font-size:14.5px;line-height:1.6}
+
+.toolbar{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.btn{
+  font-family:"IBM Plex Sans",sans-serif;font-size:12.5px;font-weight:500;
+  padding:7px 13px;border-radius:6px;border:1px solid var(--rule);
+  background:var(--card);color:var(--ink-2);cursor:pointer;
+}
+.btn:hover{background:var(--card-2);color:var(--ink);border-color:var(--ink-3)}
+
+footer{padding:44px 0 64px;color:var(--ink-3);font-size:13px;line-height:1.6}
+footer strong{color:var(--ink-2)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+@media print{
+  .navbar,.toolbar{display:none}
+  body{background:#fff;color:#000;font-size:10.5pt}
+  details.verbatim{page-break-inside:avoid}
+  details.verbatim > .vb{display:block!important}
+  .dossier{page-break-inside:avoid;box-shadow:none}
+  section{page-break-before:auto}
+}
+</style>
+
+<div class="navbar">
+  <div class="wrap">
+    <span class="navmark">EMS × Padagis</span>
+    <nav class="navlinks">
+      <a href="#cockpit">Cockpit</a>
+      <a href="#leitura">Leitura da base</a>
+      <a href="#roteiro">Roteiro</a>
+      <a href="#higiene">Higiene</a>
+      <a href="#t1"><b>1</b>Termination</a>
+      <a href="#t2"><b>2</b>License Fee</a>
+      <a href="#t3"><b>3</b>Regulatory</a>
+      <a href="#t4"><b>4</b>Supply</a>
+      <a href="#t5"><b>5</b>IP / FTO</a>
+      <a href="#t6"><b>6</b>Royalties</a>
+      <a href="#t7"><b>7</b>Liability</a>
+      <a href="#fora">Fora da pauta</a>
+      <a href="#troca">Troca</a>
+      <a href="#cenarios">Cenários</a>
+      <a href="#frases">Frases</a>
+    </nav>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Guia de condução · reunião executiva ao vivo</div>
+    <h1>Dossiê Padagis</h1>
+    <p class="dek">License and Supply Agreement — Testosterone Gel Pump 16,2&nbsp;mg/g. Sete blocos de negociação, o que a minuta diz hoje, o que o parceiro quer, o que a EMS quer, e o limite de aceitação em cada um — checado contra os seis contratos que a EMS já assinou.</p>
+
+    <dl class="factbar">
+      <div><dt>Contraparte</dt><dd>Padagis Israel Agencies Ltd.</dd></div>
+      <div><dt>Minuta de referência</dt><dd>rev. Padagis 21.08.2026</dd></div>
+      <div><dt>Condutor da mesa</dt><dd>Lucas Medina</dd></div>
+      <div><dt>Blocos em pauta</dt><dd>7 · ~180 min</dd></div>
+      <div><dt>Base comparativa</dt><dd>6 contratos assinados</dd></div>
+    </dl>
+
+    <div class="toolbar">
+      <button class="btn" id="openAll" type="button">Abrir todos os textos de cláusula</button>
+      <button class="btn" id="closeAll" type="button">Fechar todos</button>
+    </div>
+  </div>
+</header>
+
+<section id="cockpit">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">00</span><h2>Os números da mesa</h2></div>
+    <p class="secintro">Leve estes valores decorados. Toda concessão que você fizer na sala tem que ser precificada contra eles, e três deles estão acima do que a EMS já assinou para um produto desta classe.</p>
+
+    <div class="cockpit" style="margin-top:26px">
+      <div class="tile hot">
+        <div class="lbl">License Fee</div>
+        <div class="val">700k</div>
+        <div class="sub">EMS propõe USD 700.000; Padagis mantém 800.000. Marcos: 266k / 224k / 210k.</div>
+      </div>
+      <div class="tile hot">
+        <div class="lbl">1ª parcela</div>
+        <div class="val">38%</div>
+        <div class="sub">USD 266.000 na assinatura, hoje <b>não reembolsável</b>. Mediana da base: 30%.</div>
+      </div>
+      <div class="tile hot">
+        <div class="lbl">Royalty</div>
+        <div class="val">5%</div>
+        <div class="sub">Sobre Net Sales Revenue, com gross-up de IRRF por conta da EMS. Só 1 dos 6 contratos tem royalty.</div>
+      </div>
+      <div class="tile">
+        <div class="lbl">Supply Price</div>
+        <div class="val">US$ 8,00</div>
+        <div class="sub">Por unidade, EXW Yeruham (Israel). Fixo pelo Term.</div>
+      </div>
+      <div class="tile hot">
+        <div class="lbl">Compromisso mínimo</div>
+        <div class="val">80%</div>
+        <div class="sub">Do Estimated Forecast, por Contract Year. Mediana da base: 70%.</div>
+      </div>
+      <div class="tile">
+        <div class="lbl">Forecast ano 1</div>
+        <div class="val">203.000</div>
+        <div class="sub">Unidades. Escala até 602.000 no ano 5. Lote de ~90.000 pumps.</div>
+      </div>
+      <div class="tile">
+        <div class="lbl">Vigência</div>
+        <div class="val">8 / 5</div>
+        <div class="sub">O que ocorrer antes: 8 anos da assinatura ou 5 do lançamento. Igual aos dois BDR.</div>
+      </div>
+      <div class="tile good">
+        <div class="lbl">Seguro</div>
+        <div class="val">US$ 5M</div>
+        <div class="sub">Apólice mútua, Term + 2 anos. <b>Nenhum</b> dos 6 contratos tem isso — é ganho novo.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="blabel">Antes de entrar na sala</span>
+      <p>Falta uma conta na mesa e ela decide o bloco 6: <strong>preço CMED estimado → preço líquido EMS → custo posto Brasil a partir de US$&nbsp;8,00 EXW → royalty 5% com gross-up → margem bruta.</strong> Sem esse número você não pode negociar a alíquota, só o texto. Peça a Finanças antes da reunião e deixe impresso ao lado.</p>
+    </div>
+  </div>
+</section>
+
+<section id="leitura">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">01</span><h2>A leitura honesta da nossa própria base</h2></div>
+    <p class="secintro">A planilha de balizadores compara a minuta com seis contratos já assinados pela EMS. Ela contém quatro constatações desconfortáveis, e é melhor você entrar sabendo delas do que descobrir na sala. Elas dizem onde <em>não</em> gastar capital político.</p>
+
+    <div class="tblwrap" style="margin-top:24px">
+      <table class="grid">
+        <thead><tr><th>Posição do template EMS</th><th>O que a base assinada realmente mostra</th><th>Consequência tática</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Multa de atraso de entrega 0,33%/dia, teto 20%</td>
+            <td class="theirs"><b>0 de 6</b> contratos têm qualquer multa de atraso. Todos tratam atraso só como hipótese de rescisão.</td>
+            <td>A minuta já nos dá 0,33% com teto de 10%. Isso é <b>mais</b> do que já conseguimos. Não brigue pelo teto — brigue pelo &ldquo;sole remedy&rdquo;.</td>
+          </tr>
+          <tr>
+            <td>Multa de rescisão de 1 ano de Net Revenue (cl. 19.5 do template)</td>
+            <td class="theirs"><b>1 de 6</b> (i-Health) — e lá é bilateral, podendo ser cobrada <i>da</i> EMS. Nos outros cinco a cláusula foi retirada.</td>
+            <td>Padagis deletou. Não é morro para morrer. Use como moeda: troque a deleção por reembolso do License Fee.</td>
+          </tr>
+          <tr>
+            <td>Escolha da EMS entre Technology Transfer <i>ou</i> multa, na rescisão por culpa do licenciante</td>
+            <td class="theirs"><b>0 de 6</b>. Onde há transferência de tecnologia ela é autônoma, nunca remédio de rescisão.</td>
+            <td>Licença compulsória e tech transfer forçado nunca foram obtidos. Substitua o pedido por <b>continuidade de fornecimento</b>, que fornecedor aceita.</td>
+          </tr>
+          <tr>
+            <td>Sem teto monetário de responsabilidade</td>
+            <td><b>5 de 6</b> contratos de licença também não têm teto. Só a i-Health (distribuição) tem.</td>
+            <td>Não proponha teto. A EMS é titular do registro e primeira demandada no Brasil — teto protege o fabricante, não nós.</td>
+          </tr>
+          <tr>
+            <td>Prazo de cura de 60 dias para violação material</td>
+            <td class="ours"><b>6 de 6</b>, sem uma única variação. É o balizador mais sólido da base.</td>
+            <td>Já está na minuta (cl. 19.2(i)). Cláusula fechada — não abra.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="margin-top:26px">
+      <span class="blabel">Atenção à numeração — isso vai confundir a sala</span>
+      <p>A minuta da Padagis tem <strong>25 artigos</strong>; o template da EMS tem 24. A Padagis inseriu <strong>Royalties como Artigo 12</strong>, e a partir daí <strong>tudo desloca +1</strong>. Quando o jurídico citar o balizador do template, traduza em voz alta: <span style="font-family:'IBM Plex Mono',monospace;font-size:13px">template 18 = minuta 19 (Term/Termination) · 19 = 20 (Consequences) · 20 = 21 (Indemnification) · 15 = 16 (IP) · 12 = 13 (Quality/PV) · 23 = 24 (Misc) · 24 = 25 (Governing Law)</span>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="roteiro">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">02</span><h2>Roteiro da reunião</h2></div>
+    <p class="secintro">A ordem não é a da pauta recebida, e há uma razão. O bloco 3 (Regulatory) é um ponto de <em>completude</em>, quase impossível de recusar, e destrava o bloco 2. Os blocos 2 e 1 são a mesma negociação vista de dois lados: o que acontece quando isso acaba. E o bloco 6 é a vitória da Padagis — não abra antes de ter o reembolso, porque eles vão querer bancar cedo e passar o resto da reunião defendendo.</p>
+
+    <div class="runsheet">
+      <div class="leg"><div class="clock">0–06</div><div class="what"><strong>Abertura e enquadramento</strong><span>Você fala. Define que a reunião é para fechar, não para trocar minuta. Nomeia os quatro blocos que não saem da sala em aberto: Apêndice 04, reembolso, Critical Shortfall e indenização do fabricante.</span></div></div>
+      <div class="leg"><div class="clock">06–15</div><div class="what"><strong>Higiene da minuta</strong><span>Lista de defeitos formais. Rápido, técnico, incontroverso. Estabelece que a EMS leu tudo e cria momento antes do primeiro atrito.</span></div></div>
+      <div class="leg"><div class="clock">15–40</div><div class="what"><strong>Bloco 3 — Regulatory failure, studies &amp; investments</strong><span>Débora conduz. Abre pelo Apêndice 04 vazio. É a peça que torna impossível assinar hoje e legitima todo o resto.</span></div></div>
+      <div class="leg"><div class="clock">40–75</div><div class="what"><strong>Bloco 2 — License Fee refund &amp; exit protection</strong><span>Você conduz. O dinheiro. Entra depois do 3 porque o gatilho de reembolso depende do Plano Regulatório existir.</span></div></div>
+      <div class="leg"><div class="clock">75–100</div><div class="what"><strong>Bloco 1 — Termination framework &amp; consequences</strong><span>Continuação natural do 2. Aqui você troca licença compulsória e multa de rescisão por continuidade e sell-off.</span></div></div>
+      <div class="leg"><div class="clock">100–120</div><div class="what"><strong>Bloco 4 — Supply failure remedies</strong><span>Você conduz. Alvo único: &ldquo;sole monetary remedy&rdquo; e o gatilho de 75% do Critical Shortfall.</span></div></div>
+      <div class="leg"><div class="clock">120–142</div><div class="what"><strong>Bloco 5 — IP / FTO &amp; infringement liability</strong><span>Débora conduz. Se travar em patente, pare e agende sessão técnica — não se resolve FTO ao vivo.</span></div></div>
+      <div class="leg"><div class="clock">142–162</div><div class="what"><strong>Bloco 6 — Royalties / Net Sales</strong><span>Roberta conduz. As definições já foram aceitas; sobram gross-up, lista de deduções e presunção INPI.</span></div></div>
+      <div class="leg"><div class="clock">162–175</div><div class="what"><strong>Bloco 7 — Liability, indemnities &amp; cap</strong><span>Reverter as duas deleções da Padagis no 21.2. Preservar o seguro.</span></div></div>
+      <div class="leg"><div class="clock">175–180</div><div class="what"><strong>Fechamento</strong><span>Ata em voz alta: acordado / parado / dono / data da próxima minuta. Ninguém sai sem ouvir a lista.</span></div></div>
+    </div>
+
+    <div class="script" style="margin-top:26px">
+      <span class="blabel">Abertura — para dizer nos dois primeiros minutos</span>
+      <q>We&rsquo;ve been at this since March, and the draft is close. Today is not another exchange of markups — it&rsquo;s a working session to close. I&rsquo;ll take us through seven blocks in order and I&rsquo;ll ask for a decision on each one before we move on.</q>
+      <q>Four items will not leave this room open, and I want to name them now so nothing is a surprise at the end: Appendix 04, which is still blank; the refund of the License Fee; the Critical Shortfall trigger; and the manufacturer&rsquo;s indemnity in 21.2. Everything else, we have room to trade.</q>
+      <div class="gloss">Nomear os bloqueadores na abertura muda a dinâmica da sala inteira: cada concessão que a Padagis fizer nos outros pontos passa a ser lida por eles mesmos como progresso rumo aos quatro. E tira de você a necessidade de endurecer no fim, quando todos estão cansados.</div>
+    </div>
+  </div>
+</section>
+
+<section id="higiene">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">03</span><h2>Higiene da minuta</h2><span class="chip">10 minutos · ganhos rápidos</span></div>
+    <p class="secintro">Nenhum destes pontos custa dinheiro à Padagis, e todos são objetivamente erros. Passe rápido, um após o outro, sem debater. O efeito é duplo: corrige riscos reais e demonstra, sem dizer, que a EMS leu cada linha.</p>
+
+    <div class="tblwrap" style="margin-top:24px">
+      <table class="grid">
+        <thead><tr><th>Onde</th><th>O defeito</th><th>Por que importa</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">Apêndice 04</td><td><b>Está vazio.</b> Só o título: &ldquo;Regulatory Plan and Due Diligence Gap Analysis&rdquo;.</td><td>Todo o Artigo 5 — obrigações, prazos, quem paga o quê, o que é breach — remete a um documento que não existe.</td></tr>
+          <tr><td class="mono">cl. 5.3.2</td><td>Final Deadline consta como <span class="mono">[DATE]</span>.</td><td>A minuta chama o Final Deadline de &ldquo;fundamental commercial assumption&rdquo; e o único gatilho de breach por atraso. Em branco.</td></tr>
+          <tr><td class="mono">cl. 12.6.4</td><td>Juros de mora sobre royalties &ldquo;in accordance with clause <span class="mono">xxx</span> above&rdquo;.</td><td>Remissão placeholder literal, não preenchida.</td></tr>
+          <tr><td class="mono">cl. 8.12 × 19.4(i)</td><td>O teto de Delay Expenses é <b>10%</b> em 8.12 e <b>20%</b> na cláusula que o usa como gatilho de rescisão.</td><td>Contradição sobre o gatilho de rescisão por falha de entrega. Fixe em 10% nos dois.</td></tr>
+          <tr><td class="mono">cl. 11.4</td><td>Diz &ldquo;more than fifteen (15) calendar days&rdquo; e, na frase seguinte, &ldquo;the 10-day grace period&rdquo;.</td><td>Duas carências diferentes na mesma cláusula de mora.</td></tr>
+          <tr><td class="mono">Apêndice 02</td><td>Batch size grafado <span class="mono">&ldquo;90,9000 pumps&rdquo;</span>.</td><td>Não dá para saber se o lote é 90.000 ou 909.000. Isso governa o MOQ e, por tabela, o compromisso mínimo anual.</td></tr>
+          <tr><td class="mono">Preâmbulo</td><td>Effective Date com duas datas em redline (23 e 25 de agosto de 2026).</td><td>É a data-base do câmbio (cl. 11.5.1), do marco 1 e de todas as garantias &ldquo;as of the Effective Date&rdquo;.</td></tr>
+          <tr><td class="mono">Diversas</td><td>Remissões cruzadas quebradas: 8.9 / 8.11 / 8.17 / 5.5.1 / 11.5.3 / 20.4 apontam para cláusulas com outro conteúdo.</td><td><b>Este é o mais sério.</b> A cláusula de reembolso (20.3) funciona por remissão a itens numerados do 19.2. Um erro de numeração aniquila o direito.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="script" style="margin-top:24px">
+      <span class="blabel">Como passar por isso em 10 minutos</span>
+      <q>Before we get to substance, eight drafting items. None of them are commercial, none of them should take more than a minute each. I&rsquo;d like your legal team to accept them as corrections in the next turn.</q>
+      <q>The one I do want to flag as more than housekeeping is the cross-referencing. Clause 20.3 grants the refund by pointing at numbered items in 19.2. If the numbering is wrong — and in six places it currently is — the refund points at nothing. We&rsquo;ll need a clean cross-reference pass before signature, and I&rsquo;d ask that both sides check it independently.</q>
+    </div>
+  </div>
+</section>
+
+<section id="t1">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">04</span><h2>Os sete blocos</h2></div>
+    <p class="secintro">Cada bloco traz, na mesma ordem: o resumo, o texto integral da cláusula (recolhido — abra na sala se precisar ler em voz alta), a posição da Padagis, a nossa posição com o caminho para chegar lá, o balizador dos contratos assinados, e o limite de aceitação com o ponto de ruptura.</p>
+
+    <!-- ============ 1 ============ -->
+    <article class="dossier">
+      <div class="dhead">
+        <div class="dtag">
+          <span class="chip">Bloco 1</span>
+          <span class="chip crit">Crítica</span>
+          <span class="chip owner">Condução: Lucas</span>
+        </div>
+        <h3>Termination framework &amp; consequences</h3>
+        <div class="en">Arts. 19.1–19.4 · 20.0–20.5 · conexas: Arts. 5, 6, 8; cl. 11.5.3, 16.6, 22.3, 24.5</div>
+      </div>
+      <div class="dbody">
+
+        <div class="block">
+          <span class="blabel">Resumo</span>
+          <p>O Artigo 19 lista os gatilhos de saída em três camadas: doze hipóteses abertas a qualquer Parte (19.2), sete exclusivas da Padagis (19.3) e cinco exclusivas da EMS (19.4). O Artigo 20 diz o que acontece depois — e é aí que está o problema. A Padagis inseriu uma cláusula nova, <b>20.0 &ldquo;General Effect&rdquo;</b>, que extingue automaticamente toda licença, direito e autorização da EMS na terminação por qualquer causa, e depois removeu, uma a uma, todas as compensações que a EMS teria: a licença compulsória royalty-free em caso de culpa deles (20.3.1), a obrigação de Safety Stock, o direito de exigir Technology Transfer e a multa de rescisão (20.5) inteira.</p>
+          <p>O resultado é uma assimetria estrutural: os gatilhos de saída continuam bilaterais, mas as <em>consequências</em> passaram a ser unidirecionais. Em toda hipótese de término, incluindo aquelas causadas pela própria Padagis, a EMS devolve o registro, para de vender ao fim do sell-off e não recebe nada.</p>
+        </div>
+
+        <details class="verbatim">
+          <summary>Texto integral das cláusulas centrais</summary>
+          <div class="vb">
+            <div class="cl"><span class="cln">20.0 · General Effect of Expiration or Termination — inserida pela Padagis</span><div class="cltext">Except as expressly provided in this Agreement, upon expiration or termination of this Agreement for any reason, <em>all licenses, rights and authorizations granted to EMS</em> with respect to the Product, the Dossier, Padagis Intellectual Property, Padagis know-how, manufacturing processes, Specifications, technical information, regulatory information and Confidential Information <em>shall automatically terminate</em>.</div></div>
+            <div class="cl"><span class="cln">20.2.1 · Marketing Authorization — término sem culpa</span><div class="cltext">After the end of Sell-Off Period described in clause 20.1 above, EMS shall, <em>at Padagis election</em> by written notice within ninety (90) calendar days, either: (A) transfer the Marketing Authorization of the Product to Padagis or to a Third Party designated by Padagis, <em>at no cost to Padagis</em>, or (B) cancel the Marketing Authorization in accordance with applicable Law.</div></div>
+            <div class="cl"><span class="cln">20.3 · Rescisão pela EMS por culpa da Padagis — o que a Padagis deletou</span><div class="cltext">[DELETADO] EMS shall be entitled to maintain in full force and effect the Marketing Authorization […] by continuing the use of the necessary or reasonably useful Padagis's Intellectual Property, including the Dossier, <em>under a compulsory royalty-free license basis</em>, and EMS shall be free to manufacture, import, store, handle, market, promote, commercialize, distribute, offer for sale and sell the Products in the Territory […] as well as to demand the Technology Transfer.
+
+[INSERIDO EM SUBSTITUIÇÃO] For the avoidance of doubt, <em>no compulsory, royalty-free or implied license</em> to Padagis Intellectual Property shall arise by reason of such termination, and termination shall <em>not give rise to any right of EMS to request, require or impose any Technology Transfer</em>, except as expressly agreed by Padagis in writing pursuant to Article 14.</div></div>
+            <div class="cl"><span class="cln">20.3.2 · Safety Stock — deletado pela Padagis</span><div class="cltext">For the avoidance of doubt, Padagis shall have <em>no obligation, including in the event of early termination by EMS due to Padagis's breach or fault</em>, to manufacture, hold or store any Safety Stock or other inventory of the Product. EMS's post-termination rights shall be limited to selling off inventory already delivered […] and any Confirmed Purchase Orders accepted prior to termination.</div></div>
+            <div class="cl"><span class="cln">20.5 · Early Termination Fee — deletada integralmente pela Padagis</span><div class="cltext">[DELETADO] […] the breaching Party shall obliged to pay an early termination fee to the innocent Party <em>equivalent to the innocent Party's Expected Net Revenue for the following one (1) Contract Year</em>.</div></div>
+            <div class="cl"><span class="cln">1.1.80 · Sell-Off Period</span><div class="cltext">&ldquo;Sell-Off Period&rdquo; means the additional period of <em>six (6) months</em>, or longer if permitted by Padagis or required by the applicable Laws of the Territory, counted from the date of the expiration or termination of this Agreement, for any reason whatsoever, during which the EMS will be able to receive the pending Confirmed Purchase Orders and sell the remaining inventory and stock of the Product.</div></div>
+            <p class="note">Mantidos e não contestados: cura de 60 dias (19.2(i)), obrigações acumuladas (20.1.3), pagamentos pendentes com teto de 90 dias (20.1.1) e o rol de sobrevivência (20.6).</p>
+          </div>
+        </details>
+
+        <div class="duo">
+          <div class="pos them">
+            <span class="blabel">O que a Padagis quer</span>
+            <ul>
+              <li>Que o término, por qualquer causa, extinga integralmente os direitos da EMS, salvo o sell-off.</li>
+              <li>Nenhuma licença compulsória, implícita ou residual; nenhuma transferência de tecnologia obrigatória.</li>
+              <li>Controle do destino do registro: <em>eles</em> escolhem entre receber a MA ou mandar cancelar.</li>
+              <li>Hardship e inviabilidade de preço CMED tratados como término sem culpa — logo, sem qualquer compensação.</li>
+              <li>Sem multa de rescisão em nenhuma direção.</li>
+            </ul>
+          </div>
+          <div class="pos us">
+            <span class="blabel">O que queremos</span>
+            <ul>
+              <li>Consequência que <b>siga a causa</b>. Três baldes explícitos: sem culpa, culpa da Padagis, culpa da EMS — e um destino diferente para o registro, o estoque e o dinheiro em cada um.</li>
+              <li>Sell-off de <b>12 meses</b> em todos os cenários, não 6.</li>
+              <li>Quando a culpa é da Padagis: transferência da MA <b>às custas deles</b>, recompra do estoque da EMS ao preço de fatura, e <b>obrigação de continuidade de fornecimento</b> ao preço contratual por até 12 meses enquanto a EMS transiciona.</li>
+              <li>Preservação, nos três baldes, de obrigações acumuladas, POs confirmadas e do reembolso do bloco 2.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <span class="blabel">Como chegar lá — condução na sala</span>
+          <p>Não peça a licença compulsória de volta. A base própria da EMS mostra <b>zero</b> precedentes dela em seis contratos, e a Padagis sabe disso melhor do que nós; insistir queima credibilidade que você vai precisar no bloco 2. Faça a troca explícita, em voz alta, e cobre o preço.</p>
+          <p>A frase que abre o bloco é a que transfere o ônus: peça que <em>eles</em> descrevam o remédio. A minuta hoje não tem nenhum, e obrigá-los a dizer isso em voz alta, na frente do próprio jurídico, é mais eficaz do que qualquer argumento seu.</p>
+          <p>Se resistirem à continuidade de fornecimento, reduza o pedido, não abandone: 6 meses em vez de 12, ou limitado às quantidades do binding forecast então vigente. Fornecedor recusa licença; fornecedor raramente recusa continuar vendendo.</p>
+        </div>
+
+        <div class="script">
+          <span class="blabel">Discurso</span>
+          <q>Let&rsquo;s separate two things that the current draft treats as one. The <i>triggers</i> for termination are bilateral, and we&rsquo;re fine with that. The <i>consequences</i> are not — they&rsquo;re identical no matter who caused it. If Padagis breaches, EMS hands back the registration, stops selling after six months, and receives nothing. That can&rsquo;t be the deal.</q>
+          <q>So let me ask it directly, and I&rsquo;d like an answer we can write down: if this agreement ends because Padagis failed — failed to supply, failed to deliver the regulatory work, lost freedom to operate — what does EMS receive? Name it and give me a number. Right now the draft&rsquo;s answer is nothing, and I don&rsquo;t think that&rsquo;s what you intend.</q>
+          <q>Here&rsquo;s what I&rsquo;ll do. I will drop the compulsory royalty-free licence and I will drop the mandatory technology transfer — both of them, today, permanently. In exchange I need three things that cost you far less: a twelve-month sell-off in every scenario, transfer of the Marketing Authorization at Padagis&rsquo; cost when Padagis is the breaching party, and a transition supply obligation at contract price so Brazilian patients aren&rsquo;t out of stock while we move.</q>
+          <div class="gloss">A terceira fala é o coração do bloco. Você entrega duas coisas que nunca teve e nunca conseguiu em seis contratos, e compra três coisas operacionais que um fabricante aceita sem sentir que perdeu a propriedade intelectual. Diga &ldquo;permanently&rdquo; — é o que torna a troca crível.</div>
+        </div>
+
+        <div class="bench">
+          <span class="blabel">Balizador · 6 contratos assinados</span>
+          <table>
+            <tr><td>Sell-off</td><td><span class="num">12 meses</span> em 3 de 4 (Idorsia, BDR Abema, BDR Olap), sempre em base não exclusiva. i-Health: 6 meses. <b>A minuta está em 6 — pedido de 12 tem lastro.</b></td></tr>
+            <tr><td>Cura</td><td><span class="num">60 dias</span> em 6 de 6, sem variação. Já está na minuta. Não abra.</td></tr>
+            <tr><td>Multa de rescisão</td><td>1 de 6 (i-Health, bilateral e cobrável da EMS). Precedente fraco — é moeda, não bandeira.</td></tr>
+            <tr><td>Tech transfer como remédio</td><td>0 de 6. Onde existe transferência, ela é autônoma.</td></tr>
+            <tr><td>Titularidade da MA</td><td>EMS titular em 6 de 6. Preservado na minuta (cl. 5.4.1).</td></tr>
+            <tr><td>Pagamentos pendentes</td><td>Teto de 90 dias só na i-Health. A minuta já traz o teto — é ganho, mantenha.</td></tr>
+          </table>
+        </div>
+
+        <div class="limitbox">
+          <span class="blabel">Até onde vamos</span>
+          <p>Aceitamos a deleção da licença compulsória <b>e</b> a deleção da multa de rescisão — mas nunca as duas sem contrapartida. O pacote mínimo para fechar o bloco é: sell-off de 12 meses + transferência da MA a custo da Padagis quando a culpa for deles + reembolso do bloco 2 operante. A continuidade de fornecimento é desejável e negociável; o reembolso, não.</p>
+          <div class="walk"><b>Ruptura:</b> se a Padagis mantiver 20.0 integral, recusar o reembolso do bloco 2 e recusar qualquer remédio por descumprimento próprio, o contrato fica sem sanção contra o fornecedor. Não assine. Registre em ata, encerre o bloco e escale para Shlomi Leibovich com o patrocinador da EMS.</div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============ 2 ============ -->
+    <article class="dossier" id="t2">
+      <div class="dhead">
+        <div class="dtag">
+          <span class="chip">Bloco 2</span>
+          <span class="chip crit">Crítica · o dinheiro</span>
+          <span class="chip owner">Condução: Lucas</span>
+        </div>
+        <h3>License Fee refund &amp; exit protection</h3>
+        <div class="en">cl. 3.1–3.1.2 · 20.3 · conexas: Arts. 19.2–19.4; cl. 5.2.4, 5.4.5, 11.5.3; Art. 21.5</div>
+      </div>
+      <div class="dbody">
+
+        <div class="block">
+          <span class="blabel">Resumo</span>
+          <p>O License Fee é de USD 700.000 na versão EMS e 800.000 na versão Padagis, pago em três marcos: <b>266.000 (38%) na assinatura</b>, 224.000 (32%) na conclusão bem-sucedida da bioequivalência e do estudo de estabilidade Zona IVb, e 210.000 (30%) na concessão do registro. A Padagis fez duas jogadas ligadas. Primeira: inseriu em 3.1 que o fee &ldquo;represents reimbursement of research and development costs incurred by Padagis&rdquo; — reenquadrando o pagamento como ressarcimento de custo afundado. Segunda: inseriu 3.1.2 dizendo que o fee é não reembolsável salvo na hipótese estrita da 20.3 e que <b>nenhuma parcela representativa de custo histórico será jamais reembolsada</b>.</p>
+          <p>A primeira inserção não é retórica. Se o fee é ressarcimento de custo já incorrido, ele é logicamente irrepetível — o custo foi gasto independentemente do desfecho. Remover essa frase é a edição de maior valor por caractere em toda a minuta, e não custa um dólar à Padagis hoje.</p>
+          <p>A 20.3 concede reembolso apenas quando a EMS rescinde por sete dos doze itens do 19.2 ou pelo 19.4 — sempre <b>ressalvada a primeira parcela, que é não reembolsável</b>. Antes do lançamento o reembolso é integral; depois, proporcional ao restante do Initial Term.</p>
+        </div>
+
+        <details class="verbatim">
+          <summary>Texto integral · e a matriz de gatilhos que hoje existe</summary>
+          <div class="vb">
+            <div class="cl"><span class="cln">3.1 · Consideration for the Rights</span><div class="cltext">EMS agreed to pay to Padagis a one-time refundable (under certain conditions explicitly set forth in this Agreement) license fee net amount of USD <em>7[8]00,000.00</em> […] in consideration for the licensed rights hereunder (the &ldquo;License Fee&rdquo;). <em>The License Fee for each Product represents reimbursement of research and developments costs incurred by Padagis in developing and preparing the Registration Files, conducting regulatory activities, and obtaining Marketing Authorizations for the Product.</em> [frase inserida pela Padagis] For avoidance of doubt, no other amounts other than Royalties will be due by EMS to Padagis regarding such license rights […]</div></div>
+            <div class="cl"><span class="cln">3.1.2 · Proportional Refund — inserida pela Padagis</span><div class="cltext">The License Fee shall be <em>non-refundable except solely to the limited extent and in the specific circumstances expressly provided in Clause 20.3</em>. For the avoidance of doubt, <em>no refund shall apply to any portion of the License Fee representing reimbursement of Padagis' sunk R&amp;D, development, regulatory, dossier preparation or other historical costs and expenses.</em></div></div>
+            <div class="cl"><span class="cln">20.3 · License Fee Proportional Refund</span><div class="cltext">[…] upon early termination of this Agreement by EMS pursuant to the clauses 19.2, items (i), (ii), (v), (vi), (viii), (ix) and (xi), or by the clause 19.4 above; EMS shall be entitled to have the License Fee refunded <em>save for the first payment of the License Fee which shall be non-refundable</em>. […] (A) before the Launch Date, the License Fee amount to be refunded shall be in its entirety; or (B) after the Launch Date, the refund shall be proportional to the remaining period of the Initial Term […]
+
+For avoidance of doubt, if such early termination occurs due to the clauses 19.2, items (iii), (iv), (vii), (x) and (xii), or by the clause 19.3 above <em>and/or in any case of termination after the Initial Term</em>; then the License Fee shall be due to Padagis in its entirety and EMS shall not be entitled to such refund.</div></div>
+            <div class="cl"><span class="cln">11.6.2 · Hardship — inserção da Padagis que fecha a porta lateral</span><div class="cltext">[…] any termination of this Agreement pursuant to this Hardship Clause, including where based on <em>lack of commercial feasibility, CMED price approval or pricing level, failure to achieve commercial expectations or profitability</em>, or any strategic, portfolio or business decision of EMS, <em>shall not give rise to any refund</em> […] and the License Fee shall be deemed <em>fully earned and non-refundable</em> in all such cases.</div></div>
+            <div class="cl"><span class="cln">Mapa dos gatilhos do 19.2 — leitura obrigatória antes da sala</span><div class="cltext">COM reembolso hoje:
+  (i)   Material Breach              (ii)  Bankruptcy
+  (v)   IP Infringement              (vi)  falha em assinar Quality Agreement / SDEA
+  (viii) Unfeasible Supply Price     (ix)  Compliance Breach
+  (xi)  Change of Control
+
+SEM reembolso hoje:
+  <em>(iii) Faultless Regulatory Refusal — ANVISA nega o registro sem culpa de ninguém</em>
+  (iv)  Material Safety Concern      (vii) Unfeasible Change
+  (x)   Force Majeure                (xii) Regulatory Plan cessation
+  + toda rescisão pelo 19.3 (culpa da EMS) e toda rescisão após o Initial Term</div></div>
+            <p class="note">O item (iii) é o coração do bloco: exatamente o cenário mais provável — o registro não sai — é o que a minuta exclui do reembolso.</p>
+          </div>
+        </details>
+
+        <div class="callout">
+          <span class="blabel">As quatro perguntas que o jurídico deixou em aberto — respondidas</span>
+          <p><b>1. &ldquo;Explicar o que é o License Fee pra gente.&rdquo;</b> Para a EMS é o preço do direito: acesso ao dossiê e exclusividade no Brasil pelo Term. Para a Padagis, no texto que eles inseriram, é ressarcimento de custo já gasto. As duas leituras levam a lugares opostos na hora do reembolso, e por isso a frase precisa sair.</p>
+          <p style="margin-top:10px"><b>2. &ldquo;Por falha de BQV, a cláusula que já existe está nos cobrindo?&rdquo;</b> Não, e são dois riscos diferentes. <em>Se a bioequivalência falha:</em> o marco 2 nunca é atingido, então os 224.000 nunca são faturados — a EMS está protegida por construção, não pela cláusula. Mas a BQV é executada e paga <b>pela EMS</b> (cl. 5.1.2), e esse custo não é License Fee nem entra na 20.3. <em>Se o Zona IVb falha:</em> a Padagis reescreveu a 5.1.2 e retirou o direito da EMS de rescindir unilateralmente e sem custo adicional; hoje é discussão de boa-fé, repetição rateada 50/50, e se não houver acordo qualquer Parte rescinde &ldquo;without further liability&rdquo; — ou seja, sem reembolso. E a EMS já terá pago até USD 42.500 pela primeira execução.</p>
+          <p style="margin-top:10px"><b>Somando:</b> uma falha de BQV ou de Zona IVb custa hoje à EMS os <b>266.000 da primeira parcela + o custo próprio da BQV + até 42.500 do Zona IVb</b>, com recuperação zero. É esse número que você leva à mesa.</p>
+          <p style="margin-top:10px"><b>3. &ldquo;Reembolso só em casos específicos.&rdquo;</b> Correto, e é também o caminho mais fácil de aprovação: proponha uma <b>lista fechada de quatro gatilhos</b>, não um padrão aberto. Lista fechada acalma o medo deles de clawback ilimitado.</p>
+          <p style="margin-top:10px"><b>4. &ldquo;Como eles vão me compensar se terminar? Qual a sugestão deles?&rdquo;</b> Hoje: por nada. Multa de rescisão deletada, tech transfer discricionária, licença compulsória deletada, e o reembolso excluído justamente nas hipóteses mais prováveis. <b>Faça essa pergunta em voz alta e espere a resposta em silêncio.</b> O vazio é o argumento.</p>
+        </div>
+
+        <div class="duo">
+          <div class="pos them">
+            <span class="blabel">O que a Padagis quer</span>
+            <ul>
+              <li>Fee em USD 800.000 e caracterizado como ressarcimento de custo histórico.</li>
+              <li>Primeira parcela (266k / 38%) irrepetível em qualquer hipótese.</li>
+              <li>Reembolso restrito a rescisão por culpa deles, e nunca por recusa regulatória sem culpa.</li>
+              <li>Nada de reembolso quando o motivo for preço CMED, inviabilidade comercial ou decisão de portfólio da EMS.</li>
+              <li>Multa de rescisão e Technology Transfer forçada fora do contrato.</li>
+            </ul>
+          </div>
+          <div class="pos us">
+            <span class="blabel">O que queremos — a matriz de reembolso</span>
+            <ul>
+              <li><b>A · Falha regulatória sem culpa.</b> Registro negado, BQV ou Zona IVb reprovados sem culpa da EMS → <b>100%, incluindo a primeira parcela, em 30 dias.</b></li>
+              <li><b>B · Culpa da Padagis.</b> Antes do lançamento, 100%. Depois, proporcional ao Initial Term remanescente <b>com piso de 50%</b>.</li>
+              <li><b>C · Sem culpa de ninguém.</b> Força maior, retirada por segurança, ação regulatória → proporcional ao Initial Term remanescente.</li>
+              <li><b>D · Culpa da EMS.</b> Sem reembolso, ressalvados marcos não atingidos e não faturados.</li>
+              <li>Excluir a frase de custo afundado em 3.1 e neutralizar a 3.1.2.</li>
+              <li>Desmembrar o marco 2: BQV e Zona IVb são eventos distintos, com pagadores distintos. 112k + 112k, ou marco 2 só devido quando ambos forem positivos <b>e</b> a ANVISA tiver protocolado.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <span class="blabel">Como chegar lá — condução na sala</span>
+          <p>Abra pelo <b>preço, não pelo reembolso</b>. O fee de 700.000 já está acima do teto da própria base da EMS para genérico/similar, que vai de 200.000 (Dr. Reddy&rsquo;s) a 675.000 (BDR Olaparibe); os 800.000 pedidos ficam 18% acima do maior valor que a EMS já assinou nessa classe. E nenhum desses cinco contratos carregava royalty, salvo a Idorsia — que é inovador, sob patente, com fee de USD 20 milhões e prazo de 12 anos. Diga isso com os números, devagar.</p>
+          <p>Depois vire para a primeira parcela. 38% na assinatura está acima da mediana da base, que é 30%. E a única vez em que a EMS foi a 50% foi na Dr. Reddy&rsquo;s — onde veio acompanhada de <b>reembolso integral em 30 dias se a ANVISA negasse o registro, inclusive sem culpa das partes</b>. Esse é o precedente mais poderoso que você tem, porque é a EMS negociando exatamente este risco, neste país, para um produto desta classe. Use-o textualmente.</p>
+          <p>Então ofereça a escolha binária, que é a estrutura que fecha o bloco: <b>ou a primeira parcela cai para 30%, ou ela permanece em 38% e passa a ser reembolsável na hipótese A.</b> Duas saídas, ambas aceitáveis para nós, e a Padagis escolhe — o que a faz sentir que ganhou.</p>
+          <p>Guarde os 100.000 de diferença entre 700k e 800k como última moeda. Se o pacote de reembolso vier inteiro, pagar 800.000 por um direito de reembolso de 800.000 é aritmética favorável. Não gaste essa moeda antes.</p>
+        </div>
+
+        <div class="script">
+          <span class="blabel">Discurso</span>
+          <q>Let me put our own history on the table, because I think it explains our position better than argument will. Across the licences EMS has signed for generic and similar products, the fee range runs from two hundred thousand to six hundred and seventy-five thousand dollars. Seven hundred is already at the top of that range. Eight hundred is eighteen per cent above anything we have ever signed for a product of this class — and none of those deals carried a royalty on top.</q>
+          <q>Second point, and this is the one I&rsquo;d ask you to take seriously. Thirty-eight per cent on signature is above our median, which is thirty. The one time we went higher — fifty per cent, with Dr. Reddy&rsquo;s — it came with a full refund within thirty days if ANVISA refused the registration, including where neither party was at fault. That is precedent from this company, in this country, for this class of product.</q>
+          <q>So I&rsquo;ll give you the choice. Either the first instalment comes down to thirty per cent, or it stays at thirty-eight and becomes refundable if the Marketing Authorization is not granted. Pick whichever suits your revenue recognition — both work for us.</q>
+          <q>And one drafting point that I&rsquo;d rather resolve now than later. The sentence describing the fee as reimbursement of Padagis&rsquo; historical R&amp;D costs has to come out. If the fee is a reimbursement of money you have already spent, then by definition it can never come back, whatever clause 20.3 says. That sentence quietly overrides the entire refund mechanism, and it costs you nothing today to remove it.</q>
+          <div class="gloss">Se resistirem à saída da frase, o fallback é aditivo em vez de subtrativo, e costuma passar: <i>&ldquo;The allocation of the License Fee among Padagis&rsquo; internal cost categories shall not affect EMS&rsquo; refund rights under Clause 20.3.&rdquo;</i></div>
+        </div>
+
+        <div class="bench">
+          <span class="blabel">Balizador · 6 contratos assinados</span>
+          <table>
+            <tr><td>Valor do fee</td><td>Genérico/similar: <span class="num">USD 200k</span> (Dr. Reddy&rsquo;s) a <span class="num">675k</span> (BDR Olaparibe). Inovador in-licensing: USD 20M (Idorsia). Distribuição não tem fee.</td></tr>
+            <tr><td>1ª parcela</td><td>20% em 2 · 30% em 2 · 50% em 1. Mediana <span class="num">30%</span>. Os 50% da Dr. Reddy&rsquo;s vieram com reembolso integral.</td></tr>
+            <tr><td>Reembolso</td><td>Pleno em 1 de 6 — <b>Dr. Reddy&rsquo;s cl. 4.7.1 e 4.9: integral em 30 dias se a ANVISA negar, inclusive sem culpa das partes.</b> Parcial em 1 — Athena, 85% por atraso do dossiê. Os dois BDR e a Idorsia tratam como não reembolsável.</td></tr>
+            <tr><td>Royalty</td><td>Existe em 1 de 6. Cinco são fee único sem royalty. O único caso é inovador sob patente.</td></tr>
+          </table>
+        </div>
+
+        <div class="limitbox">
+          <span class="blabel">Até onde vamos</span>
+          <p>O mínimo aceitável é <b>o gatilho A operante</b> — reembolso integral, incluindo a primeira parcela, quando o registro não for concedido sem culpa da EMS — <b>ou</b> a primeira parcela reduzida a 30% acompanhada do gatilho B. Um dos dois tem que sair da sala fechado. A frase de custo afundado sai ou é neutralizada por aditivo, sem exceção. O desmembramento do marco 2 é desejável e cede se necessário.</p>
+          <div class="walk"><b>Ruptura:</b> fee em 800.000 + royalty de 5% + nenhum reembolso em nenhuma hipótese. Nessa combinação a EMS paga acima do topo histórico, carrega royalty inédito para a classe e assume integralmente o risco regulatório. Recuse e escale.</div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============ 3 ============ -->
+    <article class="dossier" id="t3">
+      <div class="dhead">
+        <div class="dtag">
+          <span class="chip">Bloco 3</span>
+          <span class="chip crit">Crítica · abre a reunião</span>
+          <span class="chip owner">Condução: Débora</span>
+        </div>
+        <h3>Regulatory failure, studies &amp; investments</h3>
+        <div class="en">cl. 5.1–5.4.5 · Appendix 04 · conexas: Arts. 19.2–19.4; 20.2–20.4</div>
+      </div>
+      <div class="dbody">
+
+        <div class="block">
+          <span class="blabel">Resumo</span>
+          <p>Todo o Artigo 5 — quem faz o quê, em que prazo, quem paga, e o que constitui inadimplemento — remete ao <b>Regulatory Plan e à Due Diligence Gap Analysis do Apêndice 04. O Apêndice 04 está vazio: existe apenas o título.</b> O Final Deadline, que a própria minuta chama de &ldquo;fundamental commercial assumption&rdquo; e é o único atraso capaz de gerar breach, está grafado como <span style="font-family:'IBM Plex Mono',monospace">[DATE]</span>.</p>
+          <p>Sobre esse vazio, a Padagis construiu três proteções. Resultado negativo, inconclusivo ou não-ótimo não é breach, desde que o estudo tenha seguido o protocolo. &ldquo;Additional Investment&rdquo; é definido como custo externo desembolsado acima de <b>USD 100.000 por atividade aplicável</b>, e a recusa da Padagis em custeá-lo <em>expressamente não é breach</em>. E — a peça mais consequente — qualquer trabalho específico do Brasil que difira do que já existe no ANDA aprovado pelo FDA só será feito mediante acordo prévio e <b>reembolso integral dos custos internos e externos da Padagis pela EMS</b>.</p>
+          <p>Lida junto, a arquitetura é esta: a Padagis vende um dossiê construído para o FDA e transfere à EMS todo o delta entre FDA e ANVISA — enquanto o documento que dimensionaria esse delta, a Due Diligence Gap Analysis, é justamente o que não existe. A EMS está comprando uma obrigação de tamanho desconhecido.</p>
+        </div>
+
+        <details class="verbatim">
+          <summary>Texto integral · Additional Investment, trabalho Brasil-específico e o Final Deadline</summary>
+          <div class="vb">
+            <div class="cl"><span class="cln">5.4.1 · Additional Investment — definição inserida pela Padagis</span><div class="cltext">[…] an &ldquo;Additional Investment&rdquo; means an external, out-of-pocket cost not expressly foreseen in the Regulatory Plan (Appendix 04) that is objectively required to continue the Regulatory Filing process in the Territory […] and that would cause EMS to incur incremental costs <em>in excess of USD 100,000 in the aggregate for the applicable activity</em> (the &ldquo;Threshold&rdquo;). For the avoidance of doubt, neither the Threshold nor the identification of an Additional Investment shall require Padagis to bear or contribute to any such cost <em>unless Padagis expressly agrees otherwise in a written amendment</em>.</div></div>
+            <div class="cl"><span class="cln">5.4.6 · Recusa de custeio não é inadimplemento</span><div class="cltext">For the avoidance of doubt, <em>Padagis' decision not to assume or contribute to an Additional Investment shall not constitute a breach of this Agreement.</em></div></div>
+            <div class="cl"><span class="cln">5.4.5 · Trabalho Brasil-específico — inserção da Padagis</span><div class="cltext">For the avoidance of doubt, any activity, validation, study, analysis, adaptation or other work required specifically to comply with ANVISA or other requirements applicable in the Territory, <em>which differs from or is additional to the documentation, validation, data or work already existing under Padagis' FDA-approved ANDA</em> and is not expressly allocated to Padagis at its own cost in the mutually agreed Regulatory Plan, shall be performed by Padagis only subject to prior written agreement on scope, timelines and <em>full reimbursement of Padagis' reasonable internal and external costs by EMS</em>. Except for the Zone IVB stability study […] Padagis shall not be required to bear or share the costs of such Territory-specific activities.</div></div>
+            <div class="cl"><span class="cln">5.2.2 · Resultado negativo não é breach</span><div class="cltext">The Parties expressly acknowledge and agree that the occurrence of a <em>negative, inconclusive or non-optimal scientific or technical result, in and of itself, shall not</em>: (i) constitute a breach of this Agreement; or (ii) give rise to an immediate right of termination; or (iii) entitle EMS to invoke any termination right under Article 19, provided that the relevant activity or study was conducted in accordance with the applicable protocol and the Regulatory Plan.</div></div>
+            <div class="cl"><span class="cln">5.3.2 · Final Deadline</span><div class="cltext">[…] provided that they do not impact any critical milestone or the final project completion date currently established in the Regulatory Plan as <em>[DATE]</em> (the &ldquo;Final Deadline&rdquo;). […] the Final Deadline represents the ultimate project deadline, <em>constitutes a fundamental commercial assumption of the Parties</em> and shall prevail over all intermediate Agreed Timelines.</div></div>
+            <div class="cl"><span class="cln">5.1.2 · Zona IVb — o que a Padagis retirou</span><div class="cltext">[TEXTO EMS, DELETADO] Should the study need to be repeated as a result of a negative or otherwise unsatisfactory result, <em>EMS shall be entitled, at its sole discretion, to terminate this Agreement or to authorize the repetition of such study, without incurring any additional costs.</em>
+
+[TEXTO PADAGIS, INSERIDO] the Parties shall promptly discuss in good faith […] If the Parties mutually agree to proceed with the repetition of the study, the costs […] shall be <em>shared equally (50/50)</em>. If the Parties are unable to reach agreement within a reasonable period of time […] either Party shall be entitled to terminate this Agreement upon written notice, <em>without further liability or obligation to the other Party</em>.</div></div>
+            <p class="note">Sobreviveram como ganhos da EMS: revisão de prazo apenas <b>uma vez por marco</b> e limitada a <b>6 meses</b> (cl. 5.3.3), e a titularidade exclusiva do registro pela EMS (cl. 5.4.1).</p>
+          </div>
+        </details>
+
+        <div class="duo">
+          <div class="pos them">
+            <span class="blabel">O que a Padagis quer</span>
+            <ul>
+              <li>Avaliação da EMS restrita a protocolos e critérios objetivos já escritos no Plano Regulatório — sem juízo subjetivo, política interna ou preferência comercial.</li>
+              <li>Estudo que segue o protocolo e falha não é inadimplemento; primeiro reavalia-se, depois se discute saída.</li>
+              <li>Limiar de USD 100.000 por atividade, sem qualquer obrigação de custeio.</li>
+              <li>Recusa de custear expressamente fora do conceito de breach.</li>
+              <li>Todo o delta FDA → ANVISA por conta da EMS, salvo o Zona IVb.</li>
+            </ul>
+          </div>
+          <div class="pos us">
+            <span class="blabel">O que queremos</span>
+            <ul>
+              <li><b>Apêndice 04 anexado e rubricado antes da assinatura, com Final Deadline datado.</b> Não é concessão que se pede — é requisito de completude.</li>
+              <li>Todo gap identificado na Due Diligence Gap Analysis <b>na Effective Date</b> é custo da Padagis, porque era conhecível na diligência. Só exigência genuinamente nova da ANVISA, surgida depois, vai para o mecanismo de Additional Investment.</li>
+              <li>Limiar de USD 100.000 <b>no agregado do Term</b>, não por atividade — senão fatia-se e nunca dispara.</li>
+              <li>Aceitamos que estudo conforme que falha não é breach — <b>desde que, nesse caso, o License Fee seja reembolsado pelo gatilho A.</b> Se não é culpa de ninguém, ninguém fica com o dinheiro.</li>
+              <li>Restaurar na 5.1.2 que a repetição do Zona IVb por resultado insatisfatório não gera custo adicional à EMS.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <span class="blabel">Como chegar lá — condução na sala</span>
+          <p>Este bloco abre a reunião porque é o único cujo pedido central a Padagis não tem como recusar sem ficar em posição estranha: ninguém defende assinar um contrato cujo anexo estruturante está em branco. Peça o Apêndice 04 <b>como condição de assinatura, não como pedido negocial</b>, e diga essa frase exatamente assim.</p>
+          <p>A partir daí o argumento da simetria se monta sozinho. Se resultado negativo não é culpa de ninguém, então ninguém deve ficar com o dinheiro de ninguém — e você acabou de plantar o gatilho A do bloco 2 quarenta minutos antes de precisar dele. Deixe a Débora fazer o técnico e entre você só nessa ponte.</p>
+          <p>No trabalho Brasil-específico, não peça que a Padagis pague tudo — não vão aceitar e você perde o ponto. Peça a divisão temporal: <b>gap conhecido na assinatura é deles; exigência nova depois é do mecanismo</b>. É defensável, é justo, e transforma a Due Diligence Gap Analysis de anexo esquecido em documento que a Padagis tem incentivo real de completar bem.</p>
+        </div>
+
+        <div class="script">
+          <span class="blabel">Discurso</span>
+          <q>Appendix 04 is blank. Not thin — blank. And Article 5 refers to it thirty-odd times: every obligation, every deadline, every cost allocation, and the only definition of what counts as a breach. The Final Deadline, which your own drafting calls a fundamental commercial assumption, currently reads &ldquo;[DATE]&rdquo;.</q>
+          <q>I&rsquo;m not raising this as a negotiating point. I&rsquo;m raising it as a condition of signature. EMS will not sign an agreement whose operative annex does not exist. So the first thing I need from today is a date by which your regulatory team delivers Appendix 04 in full, with the Due Diligence Gap Analysis and a dated Final Deadline.</q>
+          <q>On the gap itself, here&rsquo;s a proposal I think is fair to both sides. Anything the Due Diligence Gap Analysis identifies as of the Effective Date — the known delta between your FDA ANDA and what ANVISA requires — sits with Padagis, because it was knowable at diligence. Anything genuinely new that ANVISA asks for afterwards goes into the Additional Investment mechanism and we split it there. That way the annex is worth writing properly, which serves both of us.</q>
+          <q>And one point of symmetry. You&rsquo;ve asked that a compliant study which fails should not be a breach, and I accept that — it&rsquo;s scientifically correct. But if it&rsquo;s nobody&rsquo;s fault, then nobody should keep the other side&rsquo;s money either. So that scenario has to trigger the refund. I&rsquo;ll come back to it properly in the next block.</q>
+        </div>
+
+        <div class="bench">
+          <span class="blabel">Balizador · 6 contratos assinados</span>
+          <table>
+            <tr><td>Titular do registro</td><td>EMS em <span class="num">6 de 6</span>, sem exceção. Preservado na minuta.</td></tr>
+            <tr><td>Reembolso por falha de dossiê</td><td>Athena: <span class="num">85%</span> do fee se o dossiê não for desenvolvido no prazo. Precedente direto para o gatilho A.</td></tr>
+            <tr><td>Auditoria on-site</td><td>1× por ano em 4 de 5. Confirme que a minuta preserva (Art. 7).</td></tr>
+            <tr><td>Additional Investment</td><td>Sem levantamento na base — não há precedente para citar. Argumente pela estrutura, não pelo balizador.</td></tr>
+          </table>
+        </div>
+
+        <div class="limitbox">
+          <span class="blabel">Até onde vamos</span>
+          <p><b>Apêndice 04 completo e Final Deadline datado são inegociáveis</b> — não como posição, mas como pré-condição de assinatura. O limiar por atividade em vez de agregado <b>cede</b>, desde que o gap pré-Effective Date fique com a Padagis. A caracterização de &ldquo;resultado negativo não é breach&rdquo; <b>cede</b>, desde que acione o reembolso.</p>
+          <div class="walk"><b>Ruptura:</b> assinar com o Apêndice 04 em branco. Sob nenhuma pressão de calendário. Se houver pressão para assinar hoje, este é o fato que a torna impossível — e ele é objetivo, não uma posição sua.</div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============ 4 ============ -->
+    <article class="dossier" id="t4">
+      <div class="dhead">
+        <div class="dtag">
+          <span class="chip">Bloco 4</span>
+          <span class="chip crit">Alta</span>
+          <span class="chip owner">Condução: Lucas</span>
+        </div>
+        <h3>Supply failure remedies</h3>
+        <div class="en">cl. 8.9, 8.12–8.14 · conexas: Arts. 9, 11, 19.4, 22; cl. 16.6, 20.1, 24.5</div>
+      </div>
+      <div class="dbody">
+
+        <div class="block">
+          <span class="blabel">Resumo</span>
+          <p>A minuta constrói uma escada única para atraso de entrega: carência de 15 dias, depois Delay Expenses de <b>0,33% ao dia sobre a porção atrasada</b>, teto de 10% dessa porção, creditadas contra o próximo pagamento devido. Cap atingido + 30 dias → escalada à alta direção → mais 30 dias → só então remédios do Artigo 19.</p>
+          <p>Três movimentos da Padagis merecem atenção, e eles não têm o mesmo peso. Primeiro, e mais importante: as Delay Expenses passaram a ser o <b>&ldquo;sole monetary remedy&rdquo;</b> da EMS para o atraso. Segundo: o Critical Shortfall saiu de &ldquo;menos de 80% em 6 meses = violação material&rdquo; para &ldquo;menos de 75% em 6 meses, com exclusões, e <em>expressamente não é violação material</em>&rdquo;, ainda seguido de 60 dias de negociação antes de qualquer rescisão. Terceiro: a rescisão por falha de entrega (19.4(i)) agora exige <b>dois Contract Years consecutivos</b>.</p>
+          <p>Do outro lado do balcão, a Padagis inseriu para si (cl. 11.4.1) um direito de suspender fornecimento após 30 dias de inadimplência da EMS, e de suspender até haver &ldquo;garantias de crédito razoáveis&rdquo; após duas ocorrências em 12 meses — enquanto o direito espelhado da EMS foi cirurgicamente restringido à porção atrasada e não entregue, com exclusão expressa de royalties e License Fee.</p>
+        </div>
+
+        <details class="verbatim">
+          <summary>Texto integral · Delay Expenses, Critical Shortfall e o gatilho de rescisão</summary>
+          <div class="vb">
+            <div class="cl"><span class="cln">8.12 · Delay of Delivery</span><div class="cltext">[…] EMS shall be entitled to a delay compensation (the &ldquo;Delay Expenses&rdquo;) equal to thirty-three hundredths percent (0,33%) of the value of the <em>delayed portion</em> of the corresponding Confirmed Purchase Order, per each calendar day of delay following the expiry of the Grace Period […] up to an aggregate maximum of <em>ten percent (10%)</em> of the value of such delayed portion […] For clarity, the Delay Expenses shall be applied as a credit against the next undisputed payment due by EMS to Padagis. <em>Delay Expenses shall constitute EMS' sole monetary remedy for the relevant delivery delay</em>, without prejudice to EMS' rights in case of a Critical Shortfall, repeated material delivery failures or other termination rights expressly provided under Article 19.</div></div>
+            <div class="cl"><span class="cln">8.14 · Critical Shortfall — antes e depois</span><div class="cltext">[TEXTO EMS, DELETADO] In case Padagis inability or failure to supply to EMS at least <em>eighty percent (80%)</em> of the cumulative quantity […] during a continuous period equal to or superior to six (6) months, EMS shall […] be released from any purchase obligations […] and <em>such inability or failure shall be considered a material breach of Padagis hereunder.</em>
+
+[TEXTO PADAGIS, INSERIDO] A &ldquo;Critical Shortfall&rdquo; shall be deemed to occur if, over a continuous period of six (6) months, Padagis supplies less than <em>seventy-five percent (75%)</em> of the aggregate quantity […] excluding any shortfall to the extent attributable to: (i) a Force Majeure Event; (ii) EMS-requested changes or rescheduling; (iii) regulatory holds, variations or actions of Regulatory Authorities; or (iv) circumstances otherwise excused […] For the avoidance of doubt: (a) <em>a Critical Shortfall shall not, in and of itself, constitute a material breach</em>; and (b) […] any rights of termination shall be exercised solely in accordance with Article 19.</div></div>
+            <div class="cl"><span class="cln">19.4(i) · Delivery Failure — gatilho de rescisão</span><div class="cltext">If, <em>in any two consecutive Contract Years</em>, (A) the aggregate Delay Expenses payable under clause 8.12 achieve the applicable contractual cap as a result of delays attributable primarily to Padagis material breach or gross negligence, and such failure persists following escalation to senior management and a further thirty (30) day cure period; or (B) Padagis fails […] to deliver at least seventy-five percent (75%) of the aggregate quantities under Confirmed Purchase Orders over a continuous period of six (6) months.</div></div>
+            <div class="cl"><span class="cln">8.13 · Suspensão de pagamento pela EMS — restrita</span><div class="cltext">[…] EMS shall <em>not</em> be entitled to suspend payment of any amounts relating to Products already delivered, <em>Royalties, License Fee payments</em>, or any other undisputed amounts that are not directly related to the delayed and undelivered portion of the affected Confirmed Purchase Order.</div></div>
+            <div class="cl"><span class="cln">11.4.1 · Suspensão de fornecimento pela Padagis — inserida, e ampla</span><div class="cltext">If EMS fails to pay any undisputed amount […] within thirty (30) calendar days following written notice […] Padagis may, upon written notice, <em>temporarily suspend acceptance and/or fulfillment of further Purchase Orders</em> until all overdue amounts (including interest) are paid in full. In the event of repeated payment delays (two (2) or more instances within any rolling twelve (12)-month period), Padagis may suspend supply <em>until payment performance is remedied or reasonable credit assurances are provided</em>.</div></div>
+          </div>
+        </details>
+
+        <div class="duo">
+          <div class="pos them">
+            <span class="blabel">O que a Padagis quer</span>
+            <ul>
+              <li>Delay Expenses como remédio monetário primário e exclusivo para atraso.</li>
+              <li>Carência + teto + escalada + nova cura antes de qualquer rescisão.</li>
+              <li>Suspensão de pagamento limitada à porção atrasada e não entregue; royalties, License Fee e valores não relacionados sempre fora.</li>
+              <li>Critical Shortfall a 75%, com exclusões amplas e sem caracterização de violação material.</li>
+              <li>Rescisão por falha de entrega só em dois anos consecutivos.</li>
+            </ul>
+          </div>
+          <div class="pos us">
+            <span class="blabel">O que queremos</span>
+            <ul>
+              <li><b>Qualificar o &ldquo;sole monetary remedy&rdquo;.</b> Ele pode ser o único remédio pelo <em>atraso em si</em> — não pode extinguir dano direto causado pelo atraso: multa contratual em licitação, custo de compra emergencial, perda de posição em CMED, nem os remédios de produto não conforme e as indenizações do Art. 21.</li>
+              <li><b>Critical Shortfall de volta a 80%</b>, ou 75% com a caracterização de violação material restaurada.</li>
+              <li>19.4(i): trocar &ldquo;dois Contract Years consecutivos&rdquo; por <b>qualquer período móvel de 12 meses</b>.</li>
+              <li>Simetria de suspensão: se a Padagis suspende por duas inadimplências em 12 meses, a EMS se libera do binding forecast por dois atrasos em 12 meses.</li>
+              <li>Corrigir o teto para 10% também no 19.4(i).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <span class="blabel">Como chegar lá — condução na sala</span>
+          <p>Comece <b>concedendo</b>, e diga por quê. Nenhum dos seis contratos assinados pela EMS tem qualquer multa por atraso de entrega — todos tratam atraso apenas como hipótese de rescisão. A minuta, com 0,33% ao dia, já entrega à EMS mais do que a casa jamais obteve. Aceite o teto de 10% na abertura do bloco, em voz alta, como concessão nomeada. Isso compra credibilidade imediata para os dois pedidos que realmente importam e impede que a Padagis gaste a reunião defendendo um ponto que você não ia disputar.</p>
+          <p>Depois vá direto ao &ldquo;sole monetary remedy&rdquo;, que é o risco real e passa despercebido. O exemplo que resolve é concreto e brasileiro: se a falta de produto fizer a EMS perder uma licitação pública com multa contratual, essas quatro palavras transformam um prejuízo de milhões em um crédito de 10% de uma PO. Não é isso que ninguém quis contratar, e dito assim a Padagis costuma concordar sem resistência — porque o pedido não é aumentar a multa deles, é preservar o dano real.</p>
+          <p>Por fim, o Critical Shortfall. Aqui o balizador é limpo e você deve usá-lo sem rodeio: <b>80% em 3 de 3</b> dos contratos que preveem o gatilho, redação idêntica à do template. Peça o retorno a 80% e ofereça, se precisar, a alternativa de manter 75% com a violação material restaurada. Uma das duas.</p>
+        </div>
+
+        <div class="script">
+          <span class="blabel">Discurso</span>
+          <q>I&rsquo;ll start by giving you something. Across the six agreements EMS has signed, not one contains a delivery-delay penalty — every one of them treats late delivery purely as a termination trigger. So the daily rate in this draft is already more than we&rsquo;ve ever obtained, and I&rsquo;m accepting the ten per cent cap now. I won&rsquo;t reopen it.</q>
+          <q>What I do need is four words out of 8.12: &ldquo;sole monetary remedy&rdquo;. Let me tell you why with a real example. If we&rsquo;re out of stock and EMS loses a public tender in Brazil with a contractual penalty attached, those four words convert a multi-million-real loss into a credit worth ten per cent of one purchase order. I don&rsquo;t think that&rsquo;s what either of us is trying to contract for. Make it the sole remedy for the <i>delay itself</i>, and leave direct losses caused by the delay where they belong.</q>
+          <q>And on Critical Shortfall — eighty per cent appears in three of the three EMS contracts that have this trigger at all, in wording identical to ours. Seventy-five, with the material-breach characterisation removed and a sixty-day negotiation on top, means a supplier can miss a quarter of our orders for half a year and we have no route out. Either we go back to eighty, or we keep seventy-five and restore the material breach. Your choice.</q>
+        </div>
+
+        <div class="bench">
+          <span class="blabel">Balizador · 6 contratos assinados</span>
+          <table>
+            <tr><td>Multa de atraso</td><td><span class="num">0 de 6</span>. Nenhum contrato tem. É a maior distância entre o template e a prática — e aqui a minuta já nos favorece.</td></tr>
+            <tr><td>Critical Shortfall</td><td><span class="num">80%</span> em 3 de 3 que preveem o gatilho (Idorsia, BDR Abema, BDR Olap), idêntico ao template.</td></tr>
+            <tr><td>Rescisão por atraso</td><td>Todos os 6 usam &ldquo;2 atrasos superiores a 30 dias&rdquo; <b>dentro de um ano</b> — nunca dois anos consecutivos.</td></tr>
+            <tr><td>Lead-Time</td><td>Minuta: 120 dias (150 no lote de lançamento). Base: 120 na i-Health, 150 na Dr. Reddy&rsquo;s. Dentro do praticado — não abra.</td></tr>
+            <tr><td>Shelf-life</td><td>Minuta em <span class="num">85%</span> após contraproposta da EMS aos 80% da Padagis. Base: 85% em 3 de 4. <b>Já está no mercado — feche.</b></td></tr>
+          </table>
+        </div>
+
+        <div class="limitbox">
+          <span class="blabel">Até onde vamos</span>
+          <p>Três itens têm que sair fechados: <b>(a)</b> &ldquo;sole monetary remedy&rdquo; qualificado para preservar dano direto de terceiro; <b>(b)</b> Critical Shortfall a 80% <em>ou</em> 75% com violação material; <b>(c)</b> janela móvel de 12 meses no 19.4(i). Cedemos sem hesitar: o teto de 10%, a carência de 15 dias, o escopo restrito da suspensão de pagamento e as exclusões do Critical Shortfall.</p>
+          <div class="walk"><b>Ruptura:</b> &ldquo;sole monetary remedy&rdquo; absoluto <b>e</b> Critical Shortfall a 75% sem violação material <b>e</b> dois anos consecutivos para rescindir. Nessa combinação a EMS fica sem remédio efetivo contra falha de fornecimento — que é o risco central de um contrato de supply.</div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============ 5 ============ -->
+    <article class="dossier" id="t5">
+      <div class="dhead">
+        <div class="dtag">
+          <span class="chip">Bloco 5</span>
+          <span class="chip crit">Crítica</span>
+          <span class="chip owner">Condução: Débora</span>
+        </div>
+        <h3>IP / FTO &amp; infringement liability</h3>
+        <div class="en">Art. 16 · cl. 16.5–16.7 · conexas: Arts. 2, 5.1.3, 19.2, 20, 21; cl. 24.12</div>
+      </div>
+      <div class="dbody">
+
+        <div class="block">
+          <span class="blabel">Resumo</span>
+          <p>A Padagis inseriu uma cláusula nova de abertura do Artigo 16: a EMS é a <b>única responsável, às suas custas, pelas avaliações de freedom-to-operate no Território</b>, e nada nessa cláusula amplia as garantias da Padagis além do que está em 15.2. E o que está em 15.2 é estreito de duas maneiras: a garantia de FTO é dada <b>&ldquo;to Padagis knowledge&rdquo;</b> e cobre a não-violação apenas na <b>fabricação, no país de fabricação</b> — não na comercialização no Brasil.</p>
+          <p>Junte as duas peças e o resultado é: quem detém o conhecimento da formulação, do processo e do dispositivo não garante nada além do que sabe, e apenas para o que acontece em Israel; quem não detém esse conhecimento — a EMS — paga pela busca, assume o risco de comercialização e é a primeira demandada no Brasil.</p>
+          <p>O segundo ponto é a <b>Temporary Suspension</b>. Uma Parte pode suspender fornecimento ou comercialização diante de decisão final <em>ou interina</em>, de uma &ldquo;bona fide third-party claim&rdquo;, ou de uma opinião legal escrita de advogado externo. Uma carta de advogado de concorrente somada a um parecer basta para parar o fornecimento. Passados 6 meses, qualquer Parte rescinde — e a minuta diz expressamente que suspensão e a rescisão dela decorrente não geram direito algum da EMS de seguir usando a PI da Padagis.</p>
+          <p>Há um contrapeso genuíno e ele é da Padagis: as indenizações cruzadas de PI estão corretas. Padagis indeniza por Produto, processo, dossiê e PI fornecida; EMS indeniza por marca e materiais promocionais próprios. Isso é alocação de risco por controle e não deve ser tocado.</p>
+        </div>
+
+        <details class="verbatim">
+          <summary>Texto integral · FTO, garantia do 15.2 e Temporary Suspension</summary>
+          <div class="vb">
+            <div class="cl"><span class="cln">16.1 · Freedom to Operate in the Territory — inserida pela Padagis</span><div class="cltext">EMS shall be <em>solely responsible, at its own cost</em>, for conducting and maintaining such patent and other Intellectual Property freedom-to-operate assessments as are reasonably necessary in connection with the registration, importation, marketing, distribution and sale of the Product in the Territory. […] For clarity, <em>nothing in this Clause shall expand Padagis' representations or warranties beyond those expressly set forth in Clause 15.2.</em></div></div>
+            <div class="cl"><span class="cln">15.2.2 · Freedom to Operate — a garantia, e seus dois limites</span><div class="cltext"><em>To Padagis knowledge, as of the Effective Date</em>, (A) there are no material Claims pending or threatened challenging the ownership, validity or enforceability of the Padagis Dossier and Intellectual Property; and (B) the use of the Padagis Dossier and Intellectual Property <em>in the manufacture of the Product in the country of manufacture</em>, as contemplated by this Agreement, does not infringe the Intellectual Property rights of any Third Party.</div></div>
+            <div class="cl"><span class="cln">16.6 · Temporary Suspension</span><div class="cltext">If, as a result of (a) a <em>final or interim</em> administrative, arbitral or judicial decision, or (b) the receipt of a <em>bona fide third-party claim or a credible written legal opinion from external counsel</em>, a Party is required or reasonably advised to refrain from supplying the Product […] such Party shall have the right to temporarily suspend the supply or commercialization […] <em>A Temporary Suspension, and any termination following therefrom, shall not give rise to any right of EMS to continue manufacturing or commercializing the Product using Padagis Intellectual Property.</em>
+
+[…] if a Temporary Suspension continues for more than <em>six (6) consecutive months</em> […] either Party may terminate this Agreement in accordance with Article 19 and subject to the consequences set forth in Article 20.</div></div>
+            <div class="cl"><span class="cln">16.6.2 · Indenização cruzada de PI — correta, preservar</span><div class="cltext">Padagis shall defend, indemnify and hold harmless EMS […] arising out of or relating to: (a) any allegation or claim that <em>the Product, Manufacturing Process, Padagis Intellectual Property, Know-How, documentation, materials</em> or other Intellectual Property selected, owned, used or supplied by Padagis infringe the Intellectual Property rights of a Third Party; and (b) any Temporary Suspension, regulatory action, litigation, arbitration or termination […] resulting from such infringement.</div></div>
+            <div class="cl"><span class="cln">21.5.1 · Responsabilidade por PI de terceiro é ilimitada</span><div class="cltext">NOTHING IN THIS AGREEMENT SHALL LIMIT OR EXCLUDE A PARTY'S LIABILITY FOR: (I) DEATH OR BODILY INJURY; (II) GROSS NEGLIGENCE, WILLFUL MISCONDUCT OR FRAUD; <em>(III) INFRINGEMENTS OF THIRD PARTY'S INTELLECTUAL PROPERTY</em> IN RELATION TO THE SCOPE OF THIS AGREEMENT; OR (IV) ANY BREACH OF THE DATA PROTECTION AND/OR THE ETHICS AND ANTICORRUPTION ARTICLES HEREIN.</div></div>
+          </div>
+        </details>
+
+        <div class="duo">
+          <div class="pos them">
+            <span class="blabel">O que a Padagis quer</span>
+            <ul>
+              <li>Garantias de FTO limitadas ao conhecimento e ao país de fabricação, ancoradas na due diligence já feita.</li>
+              <li>Suspensão acionável por decisão interina, reivindicação de boa-fé ou parecer externo.</li>
+              <li>Nenhum direito compulsório ou residual sobre Produto, dossiê ou know-how, em nenhuma hipótese.</li>
+              <li>Responsabilidade por violação de PI mantida ilimitada nos dois sentidos.</li>
+            </ul>
+          </div>
+          <div class="pos us">
+            <span class="blabel">O que queremos</span>
+            <ul>
+              <li><b>Risco segue o controle.</b> A EMS paga e conduz a busca de FTO no Brasil — sem problema. Mas a Padagis garante, <b>sem o qualificador &ldquo;to its knowledge&rdquo;</b>, que Produto, formulação, processo e dossiê não violam PI de terceiro <b>no Território</b>, e indeniza nessa base.</li>
+              <li>Elevar o gatilho de suspensão: decisão interina ou final, <b>ou</b> parecer de advogado externo <b>mutuamente aceitável</b> — nunca uma mera reivindicação de terceiro.</li>
+              <li>Dever expresso de mitigação antes e durante a suspensão: design-around, licença, fonte alternativa.</li>
+              <li>Se a suspensão decorrer da PI da Padagis e passar de 6 meses: reembolso pelo gatilho B <b>e</b> custos de transição por conta deles.</li>
+              <li>Preservar intactas as indenizações cruzadas de 16.6.1/16.6.2 e a exclusão de teto do 21.5.1(III).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <span class="blabel">Como chegar lá — condução na sala</span>
+          <p>O argumento vence pela assimetria de informação, não pelo texto. Testosterona em gel é química de domínio público; o risco real de patente está na <b>bomba dosadora, no dispositivo e na formulação</b> — e essas são todas da Padagis. A EMS pode contratar a busca, mas não pode garantir o que não conhece. Dito assim, o pedido deixa de ser &ldquo;assumam mais risco&rdquo; e passa a ser &ldquo;cada um garante o que controla&rdquo;, que é difícil de recusar de frente.</p>
+          <p>Sobre a suspensão, a imagem que funciona é a do incentivo perverso: do jeito que está, um concorrente brasileiro que queira travar o lançamento só precisa mandar uma carta e conseguir um parecer. Não é preciso acusar a Padagis de nada — basta descrever o que a cláusula permite que um terceiro faça.</p>
+          <p>Se travar em patente específica, <b>pare</b>. FTO não se resolve ao vivo em reunião executiva. Registre o ponto, agende sessão técnica com o escritório de patentes das duas partes e siga para o bloco seguinte. Insistir aqui consome tempo que os blocos 6 e 7 vão precisar.</p>
+        </div>
+
+        <div class="script">
+          <span class="blabel">Discurso</span>
+          <q>We&rsquo;ll pay for the Brazilian freedom-to-operate search. That&rsquo;s fair — we&rsquo;re the one selling there. But look at what 16.1 does when you read it together with 15.2. Your warranty is limited to your knowledge, and it covers manufacture in Israel. The commercialisation risk in Brazil sits entirely with us.</q>
+          <q>Testosterone gel is public chemistry. The patent exposure in this product is the pump, the device and the formulation — and all three are yours. We can run the search; we cannot warrant what we don&rsquo;t hold. So let each side warrant what it controls: you warrant that the Product, the process and the Dossier don&rsquo;t infringe in the Territory, without the knowledge qualifier, and we warrant the Trademark and our own materials. We already accept that second half in full.</q>
+          <q>On Temporary Suspension — I&rsquo;m not questioning your good faith, I&rsquo;m questioning what the clause lets a third party do. As drafted, a Brazilian competitor who wants to delay our launch needs one letter from its lawyer and one opinion. That&rsquo;s it, and supply stops. Raise the bar to an injunction or an opinion from counsel both sides accept, add a duty to mitigate, and if a suspension caused by your IP runs past six months, the refund applies and transition costs are yours.</q>
+        </div>
+
+        <div class="bench">
+          <span class="blabel">Balizador · 6 contratos assinados</span>
+          <table>
+            <tr><td>Titularidade da marca</td><td>EMS em 4 de 6. Aqui a marca é da EMS (cl. 16.2) — preservado, melhor que Idorsia e i-Health.</td></tr>
+            <tr><td>Danos indiretos</td><td>Exclusão recíproca em 6 de 6. Já na minuta. Fechado.</td></tr>
+            <tr><td>PI de terceiro sem teto</td><td>A minuta já exclui do teto (21.5.1). Coerente com a base, que não tem teto em 5 de 6.</td></tr>
+            <tr><td>Garantia de FTO</td><td>Sem levantamento na base. Argumente por controle e assimetria de informação, não por precedente.</td></tr>
+          </table>
+        </div>
+
+        <div class="limitbox">
+          <span class="blabel">Até onde vamos</span>
+          <p>Precisamos sair com: <b>(a)</b> garantia de FTO da Padagis sobre Produto, processo e dossiê no Território <b>sem o qualificador de conhecimento</b>; <b>(b)</b> gatilho de suspensão acima de &ldquo;bona fide claim&rdquo;; <b>(c)</b> indenizações cruzadas e o 21.5.1(III) intactos. Cedemos: custo e condução da busca de FTO, responsabilidade integral pela marca e pelos materiais promocionais, e a inexistência de direito residual sobre a PI deles.</p>
+          <div class="walk"><b>Ruptura:</b> não há ruptura aqui — há <b>desvio</b>. Se travar em patente específica, mande para sessão técnica com contadores de patente dos dois lados e siga a pauta. Não gaste o relógio da reunião executiva com FTO.</div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============ 6 ============ -->
+    <article class="dossier" id="t6">
+      <div class="dhead">
+        <div class="dtag">
+          <span class="chip">Bloco 6</span>
+          <span class="chip crit">Alta</span>
+          <span class="chip owner">Condução: Roberta</span>
+        </div>
+        <h3>Royalties / Net Sales</h3>
+        <div class="en">Art. 1 (definições) · cl. 2.5 · Art. 12 · conexas: cl. 3.1, 11.4, 20.1, 20.5, 24.5</div>
+      </div>
+      <div class="dbody">
+
+        <div class="block">
+          <span class="blabel">Resumo</span>
+          <p>Royalty de <b>5% do Net Sales Revenue</b> durante o Initial Term, contado da concessão do registro. Relatório semestral em 30 dias úteis, certificado por diretor financeiro da EMS, com abertura item a item das deduções; auditoria anual da Padagis com cauda de 2 anos; correção de subpagamento acima de 5% com juros e custo de auditoria por conta da EMS.</p>
+          <p>As definições já foram trabalhadas e a área aceitou as revisões de 1.1.39, 1.1.40 e das alíneas (a) a (c). O que resta é o que a Padagis inseriu <em>em torno</em> do número, e é aí que está o dinheiro:</p>
+          <ul>
+            <li><b>Gross-up de IRRF (cl. 11.9).</b> Todo tributo retido no Brasil sobre a remessa é bancado pela EMS, de modo que a Padagis receba o valor cheio. Isso não está refletido nos 5%.</li>
+            <li><b>Lista fechada de deduções.</b> O Net Selling Price admite apenas três: descontos e rebates, tributos sobre venda, e devoluções por defeito. E diz expressamente que <em>nenhuma outra dedução de qualquer espécie</em> será feita.</li>
+            <li><b>Presunção INPI.</b> Havendo divergência entre o que a EMS reporta à Padagis e o que reporta ao INPI, <b>prevalece o número do INPI</b>, salvo prova documental &ldquo;clara e convincente&rdquo; em contrário.</li>
+            <li><b>Vedação total de compensação.</b> A EMS não pode compensar nada contra royalties — nem Delay Expenses, nem indenizações já líquidas.</li>
+          </ul>
+        </div>
+
+        <details class="verbatim">
+          <summary>Texto integral · gross-up, deduções, presunção INPI e vedação de set-off</summary>
+          <div class="vb">
+            <div class="cl"><span class="cln">11.9 · Gross-Up for Withholding Taxes — inserida pela Padagis</span><div class="cltext">If EMS or any of its Affiliates is required by applicable Law in the Territory to deduct or withhold any tax from any payment due to Padagis […] <em>EMS shall gross up such payment so that Padagis receives the full amount it would have received had no such deduction or withholding been required.</em> […] all payments due to Padagis under this Agreement are agreed to be net of any withholding taxes imposed in the Territory, and any such withholding taxes shall be <em>borne exclusively by EMS</em>.</div></div>
+            <div class="cl"><span class="cln">1.1.40 · Net Selling Price — a lista fechada</span><div class="cltext">[…] <em>Only the deductions expressly listed in items (a) through (c) below shall be permitted, and no other deductions, offsets or adjustments of any kind shall be made</em>, whether characterized as marketing costs, service fees, administrative charges, inventory management costs or otherwise.
+  (a) normal and customary rebates, and cash and trade discounts actually granted […]
+  (b) sales, use and/or other excise taxes or duties, actually paid […] excluding any taxes on income; and
+  (c) price reduction, credit or allowances granted upon rejections or returns of Product, <em>provided that such price reductions, credits and allowances are granted only for damages or defective Products</em>.</div></div>
+            <div class="cl"><span class="cln">2.5 · Pricing — a contradição com a lista acima</span><div class="cltext">EMS shall have sole and exclusive discretion over the pricing, marketing and sales of Products in the Territory in compliance with applicable Laws, <em>including chargebacks, rebates, cash and quantity discounts, returns, freight, invoice adjustments and other credits, charges or marketing fees taken by customers or granted by EMS</em> in its discretion with respect to such Product.</div></div>
+            <div class="cl"><span class="cln">12.6.2 · Presunção INPI — inserida pela Padagis</span><div class="cltext">In the event of any discrepancy between figures reported to Padagis and those reported to INPI, <em>the figures reported to INPI shall be presumed accurate</em> for purposes of calculating Royalties owed to Padagis, unless EMS demonstrates otherwise with <em>clear and convincing documentary evidence</em>.</div></div>
+            <div class="cl"><span class="cln">12.6.5 · No Set-Off — inserida pela Padagis</span><div class="cltext">All Royalties, interest and other amounts payable by EMS […] shall be paid in full, <em>free and clear of any set-off, counterclaim, deduction or withholding of any kind</em> […] EMS shall not be entitled to set off any amounts alleged to be owed by Padagis, or any claims, disputes or pending matters, against Royalties, interest or audit-identified underpayments due to Padagis.</div></div>
+            <div class="cl"><span class="cln">12.5 · Accrual independente de recebimento</span><div class="cltext">Royalties shall accrue on all Net Sales Revenue generated during the Royalty Term, <em>irrespective of the timing of invoicing, collection</em> or any regulatory filing or approval required for cross-border payment.</div></div>
+            <p class="note">Ganho já obtido pela EMS e que deve ser preservado: a cauda de auditoria caiu de 3 para <b>2 anos</b> (cl. 12.6.1).</p>
+          </div>
+        </details>
+
+        <div class="duo">
+          <div class="pos them">
+            <span class="blabel">O que a Padagis quer</span>
+            <ul>
+              <li>Base de royalty bruta, com lista fechada e taxativa de deduções.</li>
+              <li>Anti-elisão ampla: taxas, investimentos, promoções, bonificações, amostras, fidelidade e bundles.</li>
+              <li>Auditoria com verificação cruzada contra o INPI e presunção a favor do número do INPI.</li>
+              <li>Recebimento líquido de tributos brasileiros, via gross-up.</li>
+              <li>Nenhuma compensação, em nenhuma hipótese, contra royalties.</li>
+            </ul>
+          </div>
+          <div class="pos us">
+            <span class="blabel">O que queremos</span>
+            <ul>
+              <li><b>Gross-up fora</b> — ou, se ficar, a alíquota desce para compensar. O gross-up de IRRF eleva os 5% efetivos para perto de 5,9%, antes de CIDE.</li>
+              <li><b>Alinhar a lista de deduções à realidade que a própria 2.5 reconhece:</b> no mínimo chargebacks, frete quando suportado pela EMS, e reduções de preço impostas por CMED ou por edital público.</li>
+              <li>Dedução por inadimplência: valor baixado como incobrável após 12 meses sai da base. Royalty sobre dinheiro que a EMS nunca recebeu não é base, é imposto.</li>
+              <li><b>Excluir a presunção INPI.</b> Mantenha o direito de auditoria cruzada — retire a inversão de ônus com padrão de &ldquo;clear and convincing&rdquo;.</li>
+              <li>Simetria de compensação para valores líquidos e incontroversos: Delay Expenses, créditos de produto não conforme, indenizações já definidas.</li>
+              <li>Simetria de auditoria: sobrepagamento acima de 5% devolvido com juros.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <span class="blabel">Como chegar lá — condução na sala</span>
+          <p>O enquadramento de abertura é factual e forte: <b>royalty existe em 1 dos 6 contratos da EMS</b>, e é um inovador sob patente, com fee de USD 20 milhões e 12 anos de vigência. Aqui temos um genérico/similar com fee no topo da faixa histórica <em>e</em> royalty <em>e</em> gross-up. Não peça a remoção do royalty — não vai acontecer e você perde a sala. Use o enquadramento para tornar razoáveis os quatro pedidos técnicos que vêm depois.</p>
+          <p>O ponto mais forte do bloco é interno à minuta e não depende de nenhum balizador: <b>a cláusula 2.5 lista chargebacks, frete e marketing fees como realidades comerciais que a EMS administra, e a definição de Net Selling Price proíbe deduzir exatamente esses itens.</b> A EMS pagaria royalty sobre dinheiro que nunca entrou no caixa. Isso não é uma posição negocial — é uma contradição interna do documento, e apresentá-la assim retira a carga adversarial.</p>
+          <p>Sobre a presunção INPI, o argumento é de finalidade: o registro no INPI existe para viabilizar remessa e dedutibilidade fiscal, é feito em outra base e para outro fim. Transformá-lo em prova contra a EMS, com padrão de &ldquo;clara e convincente&rdquo;, é converter um ato administrativo em cláusula probatória. Peça a exclusão da presunção mantendo a auditoria — quase sempre passa, porque a Padagis quer a verificação, não a inversão do ônus.</p>
+          <p>Antes de discutir alíquota, tenha a margem na mão. Se a conta CMED fechar apertada, o pedido muda de &ldquo;5% é muito&rdquo; para <b>&ldquo;5% com gross-up inviabiliza a operação ao preço que a CMED vai aprovar&rdquo;</b> — que é um argumento de viabilidade, não de ganância, e é o único que move alíquota.</p>
+        </div>
+
+        <div class="script">
+          <span class="blabel">Discurso</span>
+          <q>Some context before the detail. Of the six agreements EMS has signed, exactly one carries a royalty — an in-licensed innovator, under patent, twenty million dollars in fee, twelve-year term. This is a generic-equivalent product, the fee is already at the top of our historical range for that class, and there&rsquo;s a five per cent royalty on top of it. I&rsquo;m not asking you to remove the royalty. I am asking you to be reasonable about what sits around it.</q>
+          <q>Start with something inside your own draft. Clause 2.5 says EMS manages chargebacks, freight, invoice adjustments and marketing fees taken by customers — you wrote that, and it&rsquo;s an accurate description of the Brazilian market. Then the Net Selling Price definition permits three deductions and expressly forbids every other one, naming those same items. So EMS pays royalty on money it never collected. That&rsquo;s not a negotiating position, it&rsquo;s two clauses contradicting each other, and I&rsquo;d like to fix it rather than argue about it.</q>
+          <q>Second, the gross-up. It moves the whole Brazilian withholding burden onto EMS, which takes an agreed five per cent to roughly five-point-nine before CIDE. That was never priced into the five. Either the gross-up comes out, or the rate comes down to reflect it. I&rsquo;m genuinely indifferent between the two.</q>
+          <q>Third, the INPI presumption. INPI filings exist to permit remittance and tax deductibility — different purpose, different basis. Turning them into evidence against EMS, with a &ldquo;clear and convincing&rdquo; standard, converts an administrative filing into a rule of proof. Keep the cross-check in the audit, which I think is entirely fair. Drop the presumption.</q>
+          <div class="gloss">Confirmar com o tributário antes da sala: alíquota de IRRF aplicável a royalties remetidos a Israel, incidência de CIDE, e o efeito da convenção Brasil–Israel para evitar dupla tributação. Leve o número exato; &ldquo;cerca de 5,9%&rdquo; só funciona se você puder sustentá-lo se questionado.</div>
+        </div>
+
+        <div class="bench">
+          <span class="blabel">Balizador · 6 contratos assinados</span>
+          <table>
+            <tr><td>Royalty</td><td>Existe em <span class="num">1 de 6</span> — Idorsia, 11% em BR/MX, com step-down para 5,5% e gatilho antecipado por entrada de genérico. Os outros cinco são fee único, licença royalty-free.</td></tr>
+            <tr><td>Modelo de preço</td><td>Dois modelos na base: % da venda líquida (29% Idorsia, 30% BDR Olap, ambos com floor price) ou preço fixo. Aqui é preço fixo <b>mais</b> royalty — combinação que não existe na base.</td></tr>
+            <tr><td>Prazo de pagamento</td><td>Minuta em 60 dias. Base: <span class="num">90 dias</span> em 4 de 6. <b>Ver bloco fora da pauta.</b></td></tr>
+            <tr><td>Mora</td><td>Base: 2% + 1% ao mês em 4 de 4 LSA, idêntico ao template. Minuta trocou por 0,20% ao dia. <b>Ver bloco fora da pauta.</b></td></tr>
+          </table>
+        </div>
+
+        <div class="limitbox">
+          <span class="blabel">Até onde vamos</span>
+          <p>Fechar com: <b>(a)</b> lista de deduções alinhada à 2.5, no mínimo com chargebacks e reduções impostas por CMED ou edital; <b>(b)</b> gross-up excluído <em>ou</em> alíquota ajustada; <b>(c)</b> presunção INPI excluída; <b>(d)</b> compensação permitida para valores líquidos e incontroversos. Cedemos: os 5% nominais, a periodicidade semestral, o direito de auditoria e toda a linguagem anti-elisão já aceita pela área.</p>
+          <div class="walk"><b>Ruptura:</b> alíquota acima de 5%. A base própria mostra royalty em 1 de 6 e apenas para inovador sob patente. Se pedirem mais, é &ldquo;não&rdquo; sem contraproposta.</div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============ 7 ============ -->
+    <article class="dossier" id="t7">
+      <div class="dhead">
+        <div class="dtag">
+          <span class="chip">Bloco 7</span>
+          <span class="chip crit">Crítica</span>
+          <span class="chip owner">Condução: aberta</span>
+        </div>
+        <h3>Liability, indemnities &amp; cap</h3>
+        <div class="en">cl. 21.1–21.6 · conexas: Arts. 9, 10, 13, 16, 18, 20, 23; cl. 24.5</div>
+      </div>
+      <div class="dbody">
+
+        <div class="block">
+          <span class="blabel">Resumo</span>
+          <p>As indenizações são espelhadas e, na estrutura, corretas. O problema está em <b>duas deleções cirúrgicas que a Padagis fez na sua própria lista</b> do 21.2. Saíram: <em>&ldquo;any violation of applicable Laws by Padagis&rdquo;</em> e <em>&ldquo;any Product liability arising under the manufacture of the Product with any Change without due Regulatory Approval, a Product recall and/or Padagis&rsquo;s fault at handling, packaging, storage&rdquo;</em>. As duas equivalentes permanecem intactas na lista da EMS.</p>
+          <p>Ou seja: exatamente as responsabilidades nucleares de um fabricante — violação de lei, recall, mudança não aprovada, falha de manuseio e embalagem — foram retiradas da indenização do fabricante, num contrato em que a EMS é a titular do registro e, no Brasil, a primeira demandada em ação de consumo ou medida da ANVISA.</p>
+          <p>A Padagis também inseriu para si um escudo de conhecimento: não responde por reivindicações decorrentes de &ldquo;conditions, data or information that were not known to Padagis and could not reasonably have been detected&rdquo;. Um fabricante não pode se eximir de defeito latente do próprio produto.</p>
+          <p>Há uma novidade positiva e ela vale ser protegida: a <b>cláusula de seguro (21.6)</b> — apólice mútua de responsabilidade civil e de produto, USD 5 milhões por ocorrência e no agregado, pelo Term e mais 2 anos. <b>Nenhum dos seis contratos da base exige apólice, e o template da EMS também não.</b> É a melhor proteção nova deste contrato. Não a troque por nada.</p>
+        </div>
+
+        <details class="verbatim">
+          <summary>Texto integral · as duas deleções, o escudo de conhecimento e o seguro</summary>
+          <div class="vb">
+            <div class="cl"><span class="cln">21.2 · Indemnification by Padagis — o que foi retirado</span><div class="cltext">[DELETADO] <em>any violation of applicable Laws by Padagis</em> or any Padagis's Representatives, in performing Padagis's obligations under this Agreement, the Quality Agreement and the SDEA;
+
+[DELETADO] <em>any Product liability arising under the manufacture of the Product with any Change without due Regulatory Approval, a Product recall and/or Padagis's fault at handling, packaging, storage, sale or other disposition of any Product.</em></div></div>
+            <div class="cl"><span class="cln">21.1 · Indemnification by EMS — os equivalentes permanecem</span><div class="cltext">[MANTIDO] <em>any violation of applicable Laws by EMS</em> or its Affiliates in performing EMS' obligations under this Agreement, the Quality Agreement and the SDEA; […] the distribution, promotion and commercialization of the Product in the Territory by EMS or its Affiliates.</div></div>
+            <div class="cl"><span class="cln">21.2.1 · Escudo de conhecimento — inserido pela Padagis</span><div class="cltext">Padagis shall not be liable for Claims and Losses to the extent such Claims and Losses […] (ii) arise from <em>conditions, data or information that were not known to Padagis and could not reasonably have been detected</em> in accordance with the Product Specifications, the Marketing Authorization, the Quality Agreement, Applicable Laws and Padagis' quality, manufacturing and supply obligations […]</div></div>
+            <div class="cl"><span class="cln">21.6 · Insurance — inserida, e a preservar</span><div class="cltext">During the Term of this Agreement and for a period of at least <em>two (2) years thereafter</em>, each Party shall […] maintain with reputable and financially sound insurance carriers insurance coverage […] including, as applicable: (a) commercial general liability insurance; and (b) <em>product liability insurance</em>, in each case with coverage limits of <em>not less than USD five million (USD 5,000,000) per occurrence and in the aggregate</em> […] The existence or maintenance of insurance shall not limit, reduce or otherwise affect a Party's obligations, liabilities or indemnification responsibilities under this Agreement.</div></div>
+            <div class="cl"><span class="cln">21.5 · Limitation of Liability</span><div class="cltext">EXCEPT IF EXPRESSLY PROVIDED IN THIS AGREEMENT, NEITHER PARTY SHALL BE LIABLE […] FOR ANY PUNITIVE, EXEMPLARY, SPECIAL, INDIRECT, INCIDENTAL OR CONSEQUENTIAL DAMAGES, INCLUDING LOSS OF PROFITS […] <span style="opacity:.7">[sem teto agregado — coerente com 5 de 6 contratos da base]</span></div></div>
+          </div>
+        </details>
+
+        <div class="duo">
+          <div class="pos them">
+            <span class="blabel">O que a Padagis quer</span>
+            <ul>
+              <li>Indenizações espelhadas com procedimento de defesa detalhado.</li>
+              <li>Indenização operacional ampla da EMS (importação, estocagem, distribuição, promoção).</li>
+              <li>Limitações próprias baseadas em causalidade, due diligence e informação disponível.</li>
+              <li>Exclusão recíproca de danos indiretos e consequenciais.</li>
+              <li>Certas reivindicações — PI, dados, ética — sem teto. Nenhum teto agregado ordinário declarado.</li>
+            </ul>
+          </div>
+          <div class="pos us">
+            <span class="blabel">O que queremos</span>
+            <ul>
+              <li><b>Restaurar as duas deleções do 21.2.</b> Violação de lei pela Padagis e responsabilidade por produto decorrente de Change não aprovada, recall e falha de manuseio, embalagem ou estocagem voltam à lista.</li>
+              <li><b>Estreitar o escudo de conhecimento:</b> não se aplica a produto não conforme, defeito latente, nem a qualquer desvio das Specifications, do cGMP ou do registro.</li>
+              <li>Confirmar que o custo de recall segue a causa raiz (Art. 10) e que o desempate por Independent Laboratory sobrevive.</li>
+              <li><b>Não propor teto agregado.</b> Se a Padagis propuser, exigir carve-outs completos e piso nunca inferior ao limite da apólice.</li>
+              <li>Preservar o seguro. Avaliar elevar o agregado a USD 10M e <b>incluir a EMS como segurada adicional</b> na apólice de produto da Padagis — isso converte uma promessa contratual em ativo executável.</li>
+              <li>Ressalvar expressamente do afastamento de danos indiretos: Delay Expenses, reembolso do License Fee e perdas de terceiro indenizadas.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="block">
+          <span class="blabel">Como chegar lá — condução na sala</span>
+          <p>Este bloco se ganha com um argumento de arquitetura, não de negociação — e é por isso que ele fecha bem a reunião. Não diga que é injusto; diga que <b>não funciona</b>. A EMS é a titular do registro no Brasil e, portanto, a primeira demandada em ação de consumo, em medida da ANVISA e em qualquer discussão de recall. Se a causa raiz for de fabricação, e o fabricante estiver fora da lista de indenização, o contrato deixa de alocar risco e passa a apenas transferi-lo para quem não o controla.</p>
+          <p>As duas deleções são fáceis de recuperar porque estão <b>visíveis no redline</b> e porque os equivalentes permaneceram na lista da EMS. Mostre as duas listas lado a lado na tela. A assimetria fala sozinha e dificilmente alguém a defende em voz alta.</p>
+          <p>No teto, resista ao impulso de propor um. A base própria mostra que 5 dos 6 contratos de licença não têm teto, e a planilha registra o motivo com precisão: com fabricante no exterior e a EMS como titular do registro, teto protege a Padagis, não nós. Se eles propuserem, aí sim negocie carve-outs e piso — nunca abaixo dos USD 5M da apólice, para não abrir vão entre o teto e a cobertura.</p>
+          <p>E termine reconhecendo o seguro em voz alta. É genuinamente melhor do que qualquer coisa que a EMS já assinou, e dizer isso fecha a reunião num registro construtivo depois de sete blocos de atrito.</p>
+        </div>
+
+        <div class="script">
+          <span class="blabel">Discurso</span>
+          <q>Two lines came out of your indemnity in 21.2, and both remain in ours. Violation of applicable laws by Padagis, and product liability arising from an unapproved Change, a recall, or Padagis&rsquo; fault in handling, packaging or storage. Let me put the two lists side by side, because I think this reads better than I can describe it.</q>
+          <q>I&rsquo;m not going to call that unfair — I&rsquo;m going to say it doesn&rsquo;t work. EMS holds the Marketing Authorization in Brazil. That makes us the first defendant in every consumer action, every ANVISA proceeding, every recall. If the root cause is manufacturing and the manufacturer isn&rsquo;t on the indemnity, the contract stops allocating risk and starts relocating it to the party that can&rsquo;t control it. Both lines go back in.</q>
+          <q>And on the knowledge shield in 21.2.1 — a manufacturer can&rsquo;t disclaim latent defects in its own product. Keep the exclusion, but carve out non-conforming Product, latent defects, and any deviation from the Specifications, cGMP or the Marketing Authorization.</q>
+          <q>One last thing, and it&rsquo;s a compliment. The insurance clause you put in is better than anything in the six agreements EMS has signed — none of them require a policy at all. We want to keep it. Two asks around it: take the aggregate to ten million given Brazilian consumer exposure, and name EMS as additional insured on your product liability policy. That turns a contractual promise into something we can actually call on.</q>
+        </div>
+
+        <div class="bench">
+          <span class="blabel">Balizador · 6 contratos assinados</span>
+          <table>
+            <tr><td>Danos indiretos</td><td>Exclusão recíproca em <span class="num">6 de 6</span>. Fechado.</td></tr>
+            <tr><td>Teto monetário</td><td><span class="num">1 de 6</span>, e é distribuição (i-Health: 100% das vendas dos 12 meses anteriores). <b>Nenhum dos 5 contratos de licença aceitou teto.</b></td></tr>
+            <tr><td>Seguro</td><td><span class="num">0 de 6</span> exigem apólice — e o template também não. Esta minuta é melhor que a base. Proteger.</td></tr>
+            <tr><td>Custo de recall</td><td>Pela causa raiz em 5 de 6, como no template. Confirmar que o Art. 10 preserva.</td></tr>
+          </table>
+        </div>
+
+        <div class="limitbox">
+          <span class="blabel">Até onde vamos</span>
+          <p>As <b>duas deleções do 21.2 voltam — inegociável.</b> O escudo de conhecimento é estreitado para não alcançar produto não conforme e defeito latente. O seguro permanece com agregado mínimo de USD 5M. Cedemos: procedimento de defesa e controle de settlement como redigidos, indenização operacional ampla da EMS, e a inexistência de teto agregado.</p>
+          <div class="walk"><b>Ruptura:</b> um fabricante que não indeniza por recall, por Change não aprovada e por violação de lei, num contrato em que a EMS é titular do registro. Isso não é cláusula dura — é ausência de alocação de risco. Não assine.</div>
+        </div>
+
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="fora">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">05</span><h2>Fora da pauta, mas vale dinheiro</h2></div>
+    <p class="secintro">Sete pontos que não estão nos blocos recebidos e que têm balizador claro. Guarde-os para os últimos vinte minutos, quando a Padagis já tiver dito &ldquo;não&rdquo; algumas vezes e estiver procurando algo para conceder. São baratos para eles e concretos para nós.</p>
+
+    <div class="tblwrap" style="margin-top:24px">
+      <table class="grid">
+        <thead><tr><th>Ponto</th><th>Na minuta</th><th>Balizador</th><th>Pedido</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Payment Terms</b><br><span style="font-size:12.5px;color:var(--ink-3)">cl. 11.3</span></td>
+            <td class="mono theirs">60 dias</td>
+            <td><b>90 dias em 4 de 6</b> (BDR ×2, Dr. Reddy&rsquo;s, i-Health). 45 na Idorsia.</td>
+            <td class="ours">90 dias. Capital de giro puro, custo emocional baixo para eles. Excelente moeda de fechamento.</td>
+          </tr>
+          <tr>
+            <td><b>Payments Delay</b><br><span style="font-size:12.5px;color:var(--ink-3)">cl. 11.4</span></td>
+            <td class="mono theirs">0,20% ao dia</td>
+            <td><b>2% + 1% ao mês em 4 de 4 LSA</b>, idêntico ao template.</td>
+            <td class="ours">Voltar a 2% + 1%/mês. Em 90 dias de atraso a minuta cobra ~18% contra 5% do padrão da casa. É pior que o template <em>e</em> que todo contrato assinado.</td>
+          </tr>
+          <tr>
+            <td><b>Minimum Annual Commitment</b><br><span style="font-size:12.5px;color:var(--ink-3)">cl. 8.3</span></td>
+            <td class="mono theirs">80% do forecast</td>
+            <td>60% em 2 · <b>70% em 2</b> · 80% em 1 — e o único 80% é contrato de <em>distribuição</em>, não LSA.</td>
+            <td class="ours">70% (mediana). Some-se a exigência de lote cheio: se o lote for 90.000, os 80% do ano 1 (162.400) não são múltiplo de lote e a EMS terá de pedir 180.000 — 11% acima do próprio mínimo.</td>
+          </tr>
+          <tr>
+            <td><b>Sell-Off Period</b><br><span style="font-size:12.5px;color:var(--ink-3)">cl. 1.1.80</span></td>
+            <td class="mono theirs">6 meses</td>
+            <td><b>12 meses em 3 de 4</b> (Idorsia, BDR ×2). 6 só na i-Health.</td>
+            <td class="ours">12 meses. Já incluído no pacote do bloco 1 — cobre aqui se lá não fechar.</td>
+          </tr>
+          <tr>
+            <td><b>Arbitration</b><br><span style="font-size:12.5px;color:var(--ink-3)">cl. 25.3</span></td>
+            <td class="mono theirs">3 árbitros, ICC, Genebra</td>
+            <td><b>Árbitro único em 5 de 6</b>, em inglês, Genebra em 3.</td>
+            <td class="ours">Árbitro único com experiência no setor farmacêutico. Três árbitros triplicam o custo de qualquer disputa. Técnico, barato, quase sempre aceito.</td>
+          </tr>
+          <tr>
+            <td><b>Hardship / CMED</b><br><span style="font-size:12.5px;color:var(--ink-3)">cl. 11.6 e 5.5</span></td>
+            <td class="mono theirs">&ldquo;objectively impracticable on a sustained basis&rdquo;, sem reembolso</td>
+            <td>Hardship em 5 de 6. Nos dois BDR há <b>saída por inviabilidade de preço CMED com 6 meses de aviso</b> após 3 meses de renegociação.</td>
+            <td class="ours">Restaurar a saída BDR por inviabilidade de CMED. Hoje a Padagis excluiu expressamente CMED, rentabilidade e decisão de portfólio de qualquer reembolso — a saída da EMS virou teórica.</td>
+          </tr>
+          <tr>
+            <td><b>Suspensão assimétrica</b><br><span style="font-size:12.5px;color:var(--ink-3)">cl. 11.4.1 × 8.13</span></td>
+            <td class="mono theirs">Padagis suspende amplo; EMS, restrito</td>
+            <td>Sem levantamento — argumente pela simetria.</td>
+            <td class="ours">Se a Padagis suspende fornecimento por duas inadimplências em 12 meses, a EMS se libera do binding forecast por dois atrasos em 12 meses. Espelho exato.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="blabel">Preservados e não contestados — confirme e não reabra</span>
+      <p>Exclusividade recíproca (Art. 4, 5 de 6 na base) · direito de preferência sobre extensões de linha (cl. 4.3) · EMS titular do registro (cl. 5.4.1, 6 de 6) · marca de titularidade da EMS (cl. 16.2, 4 de 6) · cura de 60 dias (cl. 19.2(i), 6 de 6) · SDEA e Quality Agreement separados com prevalência técnica (Art. 13, 6 de 6) · gatilho cambial de 20% (cl. 11.5.1) · shelf-life de 85% após a contraproposta da EMS · cauda de auditoria reduzida de 3 para 2 anos · lei suíça e ICC (3 de 6 na base). <strong>Tudo isso já está do nosso lado. Não gaste tempo de reunião confirmando o que já foi ganho.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section id="troca">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">06</span><h2>Mapa de troca</h2></div>
+    <p class="secintro">Toda concessão da coluna da esquerda deve ser <em>nomeada em voz alta</em> na hora em que for feita, e vinculada a um item da direita. Concessão silenciosa não compra nada — o outro lado registra como posição que você nunca teve.</p>
+
+    <div class="duo" style="margin-top:26px">
+      <div class="pos them">
+        <span class="blabel">O que damos — e podemos dar sem dor</span>
+        <ul>
+          <li>Licença compulsória royalty-free na rescisão por culpa deles <span style="opacity:.75">(0 de 6 na base)</span></li>
+          <li>Technology Transfer como remédio de rescisão <span style="opacity:.75">(0 de 6)</span></li>
+          <li>Multa de rescisão de 1 ano de Net Revenue <span style="opacity:.75">(1 de 6, e bilateral)</span></li>
+          <li>Teto de 10% nas Delay Expenses <span style="opacity:.75">(0 de 6 têm qualquer multa)</span></li>
+          <li>Custo e condução da busca de FTO no Brasil</li>
+          <li>Alíquota nominal de 5% de royalty</li>
+          <li>Linguagem anti-elisão e direitos de auditoria <span style="opacity:.75">(já aceitos pela área)</span></li>
+          <li>&ldquo;Resultado negativo conforme protocolo não é breach&rdquo;</li>
+          <li>Ausência de teto agregado de responsabilidade</li>
+          <li>Os USD 100.000 entre 700k e 800k <span style="opacity:.75">— última moeda, só contra o pacote de reembolso completo</span></li>
+        </ul>
+      </div>
+      <div class="pos us">
+        <span class="blabel">O que compramos com isso</span>
+        <ul>
+          <li><b>Matriz de reembolso do License Fee</b>, com o gatilho de falha regulatória incluindo a primeira parcela</li>
+          <li><b>Apêndice 04 completo</b> e Final Deadline datado antes da assinatura</li>
+          <li>Gap FDA → ANVISA conhecido na assinatura por conta da Padagis</li>
+          <li><b>Critical Shortfall a 80%</b>, ou 75% com violação material</li>
+          <li>&ldquo;Sole monetary remedy&rdquo; qualificado para preservar dano direto</li>
+          <li>Janela móvel de 12 meses para rescisão por falha de entrega</li>
+          <li><b>Garantia de FTO sem o qualificador &ldquo;to its knowledge&rdquo;</b></li>
+          <li><b>As duas deleções do 21.2 restauradas</b></li>
+          <li>Gross-up excluído e lista de deduções alinhada à cl. 2.5</li>
+          <li>Sell-off de 12 meses · pagamento em 90 dias · MAC em 70% · árbitro único</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cenarios">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">07</span><h2>Cenários e saídas</h2></div>
+    <p class="secintro">Seis situações prováveis e a resposta preparada para cada uma. Ler antes de entrar; consultar sem constrangimento durante.</p>
+
+    <div class="scenarios">
+
+      <div class="scen">
+        <h4>A · Eles seguram tudo</h4>
+        <p class="trigger">&ldquo;Vamos levar internamente e voltamos com a próxima minuta.&rdquo;</p>
+        <p>Resposta preparada: aceite levar, mas não deixe a reunião terminar sem <b>ata falada</b>. Nomeie os quatro bloqueadores um a um, peça confirmação de que foram entendidos como bloqueadores, e fixe data da próxima minuta na sala.</p>
+        <div class="move"><b>Sua fala:</b> &ldquo;That&rsquo;s fine. Before we close, I want to read back the four items that block signature so there&rsquo;s no ambiguity when your team reviews. Appendix 04. The refund on regulatory failure. Critical Shortfall. The two deleted lines in 21.2. Can we agree those four are understood as blockers, and that the next draft addresses them?&rdquo;</div>
+      </div>
+
+      <div class="scen">
+        <h4>B · Trocam reembolso por preço</h4>
+        <p class="trigger">&ldquo;Podemos discutir o reembolso se o fee voltar para 800.000.&rdquo;</p>
+        <p><b>Aceite</b> — desde que o pacote venha inteiro, com o gatilho A incluindo a primeira parcela. Pagar 100.000 a mais para tornar 800.000 recuperável na hipótese mais provável de fracasso é aritmética favorável, e é exatamente para isso que essa moeda foi guardada.</p>
+        <div class="move"><b>Sua fala:</b> &ldquo;I can work with that, and I&rsquo;ll be straight about the condition. Eight hundred with the full refund matrix, first instalment included, refundable if the Marketing Authorization isn&rsquo;t granted. Not eight hundred with a partial refund.&rdquo;</div>
+      </div>
+
+      <div class="scen">
+        <h4>C · Aceitam reembolso, mas só pro rata pós-lançamento</h4>
+        <p class="trigger">&ldquo;Reembolso proporcional ao prazo restante, e a primeira parcela permanece.&rdquo;</p>
+        <p>Contraproposta em duas partes: <b>piso de 50%</b> no cálculo proporcional, e a primeira parcela reembolsável <em>apenas</em> no gatilho A. Você concede o pró-rata puro nos gatilhos B e C e concentra a defesa onde o risco é maior — o registro que não sai.</p>
+        <div class="move"><b>Sua fala:</b> &ldquo;Pro rata works for me everywhere except one case. If the Marketing Authorization never issues, there is no &lsquo;remaining term&rsquo; to prorate against — the whole thing failed before it began. That one case has to be full, and it has to include the first instalment.&rdquo;</div>
+      </div>
+
+      <div class="scen">
+        <h4>D · Pedem royalty acima de 5%</h4>
+        <p class="trigger">&ldquo;Considerando o risco, precisaríamos de 6 ou 7%.&rdquo;</p>
+        <p><b>Não, sem contraproposta.</b> Este é o único ponto da reunião em que a resposta é uma recusa seca. Cinco dos seis contratos da EMS são fee único sem royalty; o único com royalty é inovador sob patente com fee de USD 20 milhões.</p>
+        <div class="move"><b>Sua fala:</b> &ldquo;No. Five of our six agreements carry no royalty at all, and the one that does is a patented innovator at twenty million dollars in fee. Five is already outside our pattern for this class of product. I have no counter to offer on this one.&rdquo;</div>
+      </div>
+
+      <div class="scen">
+        <h4>E · Trava em FTO ou patente específica</h4>
+        <p class="trigger">Discussão técnica sobre patente de dispositivo ou formulação.</p>
+        <p><b>Desvie, não resolva.</b> FTO não se decide em reunião executiva e o custo de tentar é o tempo dos blocos 6 e 7. Registre o ponto, marque a sessão técnica com data e nomes, e siga.</p>
+        <div class="move"><b>Sua fala:</b> &ldquo;This is the right question and the wrong room. Let&rsquo;s put your patent counsel and ours in a session within two weeks, with the device and formulation families on the table. I&rsquo;ll park the clause language until they&rsquo;ve reported. Moving on.&rdquo;</div>
+      </div>
+
+      <div class="scen">
+        <h4>F · Pressão para assinar hoje</h4>
+        <p class="trigger">&ldquo;Nosso board precisa disso fechado neste trimestre.&rdquo;</p>
+        <p>Você tem um fato objetivo que encerra a discussão sem confronto: <b>o Apêndice 04 está em branco.</b> Não é posição da EMS, não é resistência jurídica — é uma peça ausente do próprio documento deles. Use-o e transforme a pressão em cronograma.</p>
+        <div class="move"><b>Sua fala:</b> &ldquo;I want this closed as much as you do. But Appendix 04 is blank, and Article 5 refers to it throughout — that&rsquo;s not an EMS position, it&rsquo;s a missing piece of your own draft. Give me Appendix 04 and the four blockers, and I&rsquo;ll commit to signature within fifteen days of receiving them. Let&rsquo;s put that date in the minutes.&rdquo;</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="frases">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">08</span><h2>Frases de bolso</h2></div>
+    <p class="secintro">Para os momentos em que a sala escorrega. Curtas o bastante para usar sem consultar.</p>
+
+    <div class="pockets">
+      <div class="pocket"><div class="when">Quando pedem uma concessão sem oferecer nada</div><q>I can move on that. What comes back the other way?</q></div>
+      <div class="pocket"><div class="when">Quando dizem que é &ldquo;padrão de mercado&rdquo;</div><q>It may be standard somewhere. It isn&rsquo;t in the six agreements this company has signed — and those are the ones I have to explain internally.</q></div>
+      <div class="pocket"><div class="when">Quando a discussão vira jurídica demais</div><q>Let&rsquo;s put the drafting aside for a second. Commercially, who should carry this risk — and why?</q></div>
+      <div class="pocket"><div class="when">Quando você precisa de tempo</div><q>Let me park that and come back to it in this session — I don&rsquo;t want to answer it badly.</q></div>
+      <div class="pocket"><div class="when">Quando eles invocam custo afundado</div><q>Your sunk cost is real, and it&rsquo;s priced into the fee. What it can&rsquo;t do is decide who carries the risk of the product never reaching the market.</q></div>
+      <div class="pocket"><div class="when">Quando um bloco não fecha</div><q>We&rsquo;re not going to close this one today. Let&rsquo;s record exactly where each side stands, who owns it, and when we come back to it.</q></div>
+      <div class="pocket"><div class="when">Quando você concede algo — sempre nomeie</div><q>I want to be explicit that this is a concession, not a position we never held. I&rsquo;m giving it because I need X in return.</q></div>
+      <div class="pocket"><div class="when">Para fechar a reunião</div><q>Four things agreed, three parked with owners and dates, one escalated. Next draft by the fifteenth. Did I miss anything?</q></div>
+    </div>
+  </div>
+</section>
+
+<section id="fecho" style="border-bottom:0">
+  <div class="wrap">
+    <div class="sechead"><span class="secnum">09</span><h2>O que precisa sair da sala</h2></div>
+    <p class="secintro">Leia esta lista em voz alta nos últimos cinco minutos, item por item, pedindo confirmação. Reunião sem ata falada vira duas reuniões.</p>
+
+    <div class="tblwrap" style="margin-top:24px">
+      <table class="grid">
+        <thead><tr><th>#</th><th>Item</th><th>Estado esperado ao fim</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">1</td><td>Apêndice 04 completo, com Due Diligence Gap Analysis e Final Deadline datado</td><td class="ours">Data de entrega comprometida</td></tr>
+          <tr><td class="mono">2</td><td>Matriz de reembolso do License Fee, com o gatilho de falha regulatória</td><td class="ours">Acordado em princípio, redação na próxima minuta</td></tr>
+          <tr><td class="mono">3</td><td>Frase de custo afundado em 3.1 removida ou neutralizada</td><td class="ours">Acordado</td></tr>
+          <tr><td class="mono">4</td><td>Critical Shortfall a 80%, ou 75% com violação material</td><td class="ours">Escolha da Padagis, registrada</td></tr>
+          <tr><td class="mono">5</td><td>&ldquo;Sole monetary remedy&rdquo; qualificado</td><td class="ours">Acordado</td></tr>
+          <tr><td class="mono">6</td><td>As duas deleções do 21.2 restauradas</td><td class="ours">Acordado</td></tr>
+          <tr><td class="mono">7</td><td>Garantia de FTO sem &ldquo;to its knowledge&rdquo;</td><td>Acordado ou sessão técnica marcada com data</td></tr>
+          <tr><td class="mono">8</td><td>Gross-up e lista de deduções do Net Selling Price</td><td>Acordado ou levado com posição registrada</td></tr>
+          <tr><td class="mono">9</td><td>Lista de higiene — 8 correções formais</td><td class="ours">Aceita integralmente</td></tr>
+          <tr><td class="mono">10</td><td>Fora da pauta: 90 dias · mora 2%+1% · MAC 70% · sell-off 12 meses · árbitro único</td><td>O que der; o resto para a próxima rodada</td></tr>
+          <tr><td class="mono">11</td><td>Data da próxima minuta e do próximo encontro</td><td class="ours">Fixada na sala</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="blabel">Depois da reunião — mesmo dia</span>
+      <p>Registre cada movimento na aba <strong>ANÁLISE</strong> da planilha de balizadores, na coluna <strong>RODADA 2</strong>, e atualize a <strong>SITUAÇÃO</strong> de cada cláusula. Não crie arquivo novo — a planilha foi desenhada para acumular rodadas lado a lado, e é isso que torna visível o movimento da Padagis entre uma reunião e outra. Cláusula que a Padagis inseriu e não existe no template vai para o bloco amarelo <strong>CLÁUSULAS FORA DO TEMPLATE</strong>, hoje vazio — e há pelo menos quatro candidatas óbvias: Royalties (Art. 12 inteiro), Minimum Annual Commitment, Insurance e General Effect of Termination.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Fontes.</strong> Minuta <em>EMS_Padagis_LicenseSupplyAgreement_Testosterone</em>, revisão Padagis de 21.08.2026, com alterações rastreadas de ambos os lados · <em>Executive Meeting — Business Premises</em> de 26.08.2026 · <em>Controle Jurídico — Balizadores de Contrato</em>, ago/2025, base de 6 contratos assinados (Idorsia, BDR Abemaciclibe, BDR Olaparibe, Dr. Reddy&rsquo;s, Athena, i-Health).</p>
+    <p style="margin-top:12px"><strong>Ressalvas de leitura.</strong> Os balizadores vêm de uma base de seis contratos — sempre confira a coluna <em>Contratos com dado comparável</em> antes de tratar um número como praxe da casa. As alíquotas tributárias citadas no bloco 6 são estimativas e precisam de confirmação do time tributário antes da reunião. Os limites de aceitação registrados aqui são recomendações preparatórias e não substituem a alçada de aprovação aplicável.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var open = document.getElementById('openAll');
+  var close = document.getElementById('closeAll');
+  function all(state){
+    document.querySelectorAll('details.verbatim').forEach(function(d){ d.open = state; });
+  }
+  if(open) open.addEventListener('click', function(){ all(true); });
+  if(close) close.addEventListener('click', function(){ all(false); });
+})();
+</script>
