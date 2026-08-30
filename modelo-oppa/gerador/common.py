@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Estilos, formatos e utilitarios comuns do modelo Oppa."""
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from openpyxl.utils import get_column_letter as gcl
+from openpyxl.utils import get_column_letter as gcl, column_index_from_string as cidx
 import datetime as dt
 
 FONT = "Arial"

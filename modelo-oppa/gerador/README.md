@@ -32,4 +32,5 @@ Requer LibreOffice **com o pacote `libreoffice-calc`** instalado.
 | `engine.py` | aba Cenários — o motor: 3 cenários × 60 meses, fonte única de verdade |
 | `detalhe.py` | abas Usuários, Faturamento, Análise Fluxo e DRE Projetada |
 | `resumo.py` | aba Resumo — painel executivo e teste Go/No-Go |
+| `socios.py` | aba Sócios — lucro distribuível e rateio por participação |
 | `verifica.py` | confere os valores calculados e a reconciliação entre abas |

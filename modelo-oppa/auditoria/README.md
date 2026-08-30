@@ -10,6 +10,7 @@ python p2.py ../../Oppa_DRE_Projetada_Viabilidade.xlsx 2    # cenário 2
 python p2.py ../../Oppa_DRE_Projetada_Viabilidade.xlsx 3    # cenário 3
 python p3.py ../../Oppa_DRE_Projetada_Viabilidade.xlsx      # valores derivados
 python p4.py ../../Oppa_DRE_Projetada_Viabilidade.xlsx      # comportamento
+python p5.py ../../Oppa_DRE_Projetada_Viabilidade.xlsx      # aba Sócios
 ```
 
 | Script | O que faz |
@@ -17,6 +18,7 @@ python p4.py ../../Oppa_DRE_Projetada_Viabilidade.xlsx      # comportamento
 | `p1.py` | Referências para célula vazia, coluna TOTAL x soma dos meses, linhas de total x parcelas, número fixo em linha de fórmula, percentual fora de faixa, intervalo que contém a própria célula, fórmula sem resultado |
 | `p2.py` | Reimplementa o modelo inteiro em Python, lendo só as premissas, e compara 26 linhas x 60 meses contra a aba Cenários. É a verificação mais forte: um erro de lógica no motor aparece aqui |
 | `p3.py` | Identidades contábeis da DRE, blocos anuais x soma dos meses, amortização e saldo contábil, cap table, compromisso dos fundadores, VPL, payback, capital requerido, break-even, métricas de unidade, Fator R e tabelas do Simples |
+| `p5.py` | Apuração da aba Sócios: lucro do ano contra a DRE, encadeamento dos acumulados, limite de caixa e de lucro, rateio por participação |
 | `p4.py` | Muda uma premissa, recalcula e confere a reação: troca de cenário, adiamento do lançamento, churn zero, plano de contratações desligado, aportes previstos, acordos em negociação, TMA, conversão zero e troca de regime |
 
 ## Cuidados ao escrever novas verificações
