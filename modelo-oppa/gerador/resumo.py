@@ -125,6 +125,14 @@ def build(wb, P, A, I, BLOCOS, FL, U):
           custom=lambda k, col: f"=MIN('Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37})",
           bold=True,
           obs="Se ficar negativo, o capital planejado não é suficiente — falta captar a diferença.")
+    linha("Mês do caixa mínimo", 0, "custom", TXT, "caixa_min_mes",
+          custom=lambda k, col: (
+              f"=CHOOSE(MOD(MATCH(MIN('Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37}),"
+              f"'Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37},0)-1,12)+1,"
+              f'"jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez")&"/"&'
+              f"(2026+INT((MATCH(MIN('Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37}),"
+              f"'Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37},0)-1)/12))"),
+          obs="Quando o caixa chega no fundo do poço — é o mês para o qual o aporte precisa chegar antes.")
     linha("Caixa em dez/2030", 37, "last", BRL, "caixa_fim")
     r += 1
 
@@ -201,6 +209,8 @@ def build(wb, P, A, I, BLOCOS, FL, U):
         ("Payback do CAC (meses)", U["pb_cac"], '0.0', "Ideal abaixo de 12 meses."),
         ("ARPPU — receita por assinante", U["arppu"], BRL2, ""),
         ("Runway em dez/2026 (meses de caixa)", U["runway"], '0', ""),
+        ("Pessoas na operação em dez/2030", U["hc"], INT,
+         "Quadro de pessoal projetado. Edite linha a linha na aba Pessoas."),
     ]:
         c = ws.cell(r, 2, lbl); c.font = f(10); c.alignment = Alignment(indent=1)
         cc = ws["C" + str(r)]
@@ -219,11 +229,12 @@ def build(wb, P, A, I, BLOCOS, FL, U):
     # ---------------- ALERTAS ---------------------------------------------
     secao(ws, r, "PONTOS DE ATENÇÃO IDENTIFICADOS NA MODELAGEM", 8); r += 1
     alertas = [
-        ("Fator R e enquadramento tributário",
-         "Licenciamento de software é Anexo V do Simples (15,5% inicial) e só migra para o Anexo III "
-         "(6% inicial) se o Fator R — folha e pró-labore ÷ receita — for ≥ 28%. Pagamento a equipe PJ "
-         "NÃO conta como folha. Com a estrutura do brief, a Oppa tende ao Anexo V. Ver aba Tributos "
-         "para o custo anual dessa diferença."),
+        ("Fator R: o modelo está no Anexo V, e é isso mesmo",
+         "A aba Pessoas calcula o Fator R do quadro projetado: fica entre 1% e 6%, muito abaixo dos 28% "
+         "exigidos para o Anexo III. Como pagamento a PJ não conta como folha, o Anexo III simplesmente "
+         "não está disponível com a estrutura atual — por isso o regime padrão do modelo é o Anexo V. "
+         "Migrar parte do time para CLT ou elevar o pró-labore pode reverter isso e economizar até "
+         "R$ 135 mil por ano; compare na aba Tributos antes de decidir."),
         ("Dependência dos aportes não assinados",
          "Dos R$ 200 mil do caso-base, R$ 120 mil vêm de C-ioT, Felipe Martinelli e Shaiane — ainda não "
          "formalizados. Sem eles, o capital cai para R$ 80 mil e o lançamento com aquisição paga não se "
@@ -240,10 +251,15 @@ def build(wb, P, A, I, BLOCOS, FL, U):
          "O modelo troca automaticamente para o Lucro Presumido quando o RBT12 ultrapassa R$ 4,8 milhões. "
          "No cenário Provável isso acontece dentro do horizonte e eleva a carga tributária — planeje a "
          "transição societária e contábil com antecedência."),
-        ("Custo de equipe recorrente não estava no brief",
-         "Os R$ 21 mil citados cobrem a construção do MVP até outubro. Uma base de dezenas de milhares de "
-         "usuários exige engenharia contínua; o modelo assume equipe recorrente a partir de nov/2026 "
-         "(editável em Premissas). É a premissa de custo que mais desloca o resultado."),
+        ("Só a equipe do MVP está de fato contratada",
+         "Hoje não há time. O único custo de pessoal comprometido são os R$ 21 mil da equipe PJ de "
+         "set–out/2026 para entregar o app. Todo o quadro projetado a partir de 2027 é plano, não "
+         "compromisso: está na aba Pessoas, linha a linha, e pode ser desligado inteiro pelo controle "
+         "de Premissas. É a premissa de custo que mais desloca o resultado."),
+        ("A conversão de 2026 depende da rampa, não do patamar",
+         "O patamar de 5% do brief é o regime de médio prazo. Com a rampa de maturação de 6 meses, "
+         "outubro/2026 converte a 0,83%, novembro a 1,67% e dezembro a 2,50% — 2026 fecha bem abaixo "
+         "dos 5%. Ajuste a rampa em Premissas conforme a discussão com os sócios."),
         ("O cenário Conservador mantém a estrutura de custos do Provável",
          "É proposital: mede o risco de dimensionar equipe, marketing e infraestrutura para uma tração "
          "que não se confirma. Na prática a gestão cortaria custos — ajuste as linhas de equipe, "

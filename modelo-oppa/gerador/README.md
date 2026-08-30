@@ -26,6 +26,8 @@ Requer LibreOffice **com o pacote `libreoffice-calc`** instalado.
 | `common.py` | estilos, formatos numéricos, linha do tempo de 60 meses |
 | `premissas.py` | aba Premissas — todos os inputs, com as fontes em comentário de célula |
 | `bases.py` | abas Tributos (Anexos III/V, Fator R) e Aportes (cap table) |
+| `pessoas.py` | aba Pessoas — quadro de pessoal linha a linha e cálculo do Fator R |
+| `comousar.py` | aba Como usar — guia de operação da planilha |
 | `investimentos.py` | aba Investimentos — CAPEX e amortização |
 | `engine.py` | aba Cenários — o motor: 3 cenários × 60 meses, fonte única de verdade |
 | `detalhe.py` | abas Usuários, Faturamento, Análise Fluxo e DRE Projetada |

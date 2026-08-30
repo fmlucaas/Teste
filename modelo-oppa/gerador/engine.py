@@ -73,7 +73,7 @@ DESTAQUE = {16: FILL_TOTAL, 22: FILL_TOTAL, 28: FILL_TOTAL, 30: FILL_TOTAL, 37: 
 NEGRITO = {4, 6, 13, 16, 22, 28, 30, 37}
 
 
-def build(wb, P, A, I, T):
+def build(wb, P, A, I, T, PE):
     ws = wb.create_sheet("Cenários")
     titulo(ws, "MOTOR DE CENÁRIOS — CONSERVADOR · PROVÁVEL · AGRESSIVO",
            "Os três cenários rodam sempre, lado a lado. As demais abas mostram em detalhe o cenário "
@@ -113,7 +113,10 @@ def build(wb, P, A, I, T):
             2:  lambda i, L: '=0' if i == 1 else f'={prev(i)}{S+4}',
             3:  lambda i, L: f'=-{L}{S+2}*{yr(f"churn_{s}", L)}',
             4:  lambda i, L: f'={L}{S+2}+{L}{S+3}+{L}{S+1}',
-            5:  lambda i, L: f'=IF({L}${TEMPO}<Premissas!$B${P["lancamento"]},0,{yr(f"conv_{s}", L)})',
+            5:  lambda i, L: (f'=IF({L}${TEMPO}<Premissas!$B${P["lancamento"]},0,'
+                          f'{yr(f"conv_{s}", L)}*MIN(1,MAX(0,'
+                          f'({L}${LIDX}-Premissas!$B${P["lanc_idx"]}+1)'
+                          f'/Premissas!$B${P["rampa_conv"]})))'),
             6:  lambda i, L: f'=ROUND({L}{S+4}*{L}{S+5},0)',
             7:  lambda i, L: f'=ROUND({L}{S+6}*{yr("mix_b", L)},0)',
             8:  lambda i, L: f'=ROUND({L}{S+6}*{yr("mix_i", L)},0)',
@@ -149,10 +152,8 @@ def build(wb, P, A, I, T):
             23: lambda i, L: (f'=-({L}{S+6}*{yr("cloud_pag", L)}'
                               f'+({L}{S+4}-{L}{S+6})*{yr("cloud_free", L)}'
                               f'+IF({L}${TEMPO}>=Premissas!$B${P["cloud_ini"]},{yr("cloud_fixo", L)},0))'),
-            24: lambda i, L: (f'=-({L}{S+6}*{yr("sup_var", L)}'
-                              f'+IF({L}${TEMPO}>=Premissas!$B${P["lancamento"]},{yr("sup_fixo", L)},0))'),
-            25: lambda i, L: (f'=-(IF({L}${TEMPO}>=Premissas!$B${P["equipe_ini"]},{yr("equipe", L)},0)'
-                              f'+IF({L}${TEMPO}>=Premissas!$B${P["prolab_ini"]},{yr("prolab", L)},0))'),
+            24: lambda i, L: f'=-{L}{S+6}*{yr("sup_var", L)}',
+            25: lambda i, L: f'=-Pessoas!{L}{PE["despesa"]}',
             26: lambda i, L: (f'=-({L}{S+1}*(1-{yr("organico", L)})*{yr(f"cac_{s}", L)}'
                               f'+IF({L}${TEMPO}>=Premissas!$B${P["mkt_ini"]},{yr("mkt_rec", L)},0)'
                               f'+IF({L}${TEMPO}=DATE(YEAR(Premissas!$B${P["mkt_lanc_mes"]}),'

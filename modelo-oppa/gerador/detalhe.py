@@ -32,7 +32,7 @@ def _sub(ws, r):
 
 
 # =====================================================================
-def build_usuarios(wb, P, BLOCOS):
+def build_usuarios(wb, P, BLOCOS, PE):
     ws = wb.create_sheet("Usuários")
     sel, yr, yr_cen = mk_sel(P, BLOCOS)
     titulo(ws, "USUÁRIOS E INDICADORES DE UNIDADE",
@@ -67,6 +67,10 @@ def build_usuarios(wb, P, BLOCOS):
         if off not in (1, 3):
             nota(ws, f"{L_PCT}{r}", "Saldo em dez/2030.")
         U[key] = r; r += 1
+    rotulo(ws, r, "Pessoas na operação (headcount)", 1)
+    preencher_linha(ws, r, lambda i, L: f'=Pessoas!{L}{PE["headcount"]}', INT, total=False,
+                    color=VERDE_LINK)
+    U["hc"] = r; r += 1
     rotulo(ws, r, "Usuários gratuitos", 1)
     preencher_linha(ws, r, lambda i, L: f'={L}{U["base"]}-{L}{U["pag"]}', INT, total=False)
     ws[f"{L_TOT}{r}"] = f"={L_FIM}{r}"
@@ -224,7 +228,7 @@ def build_faturamento(wb, P, BLOCOS):
 
 
 # =====================================================================
-def build_fluxo(wb, P, A, I, BLOCOS):
+def build_fluxo(wb, P, A, I, BLOCOS, PE):
     ws = wb.create_sheet("Análise Fluxo")
     sel, yr, yr_cen = mk_sel(P, BLOCOS)
     titulo(ws, "ANÁLISE DE FLUXO DE CAIXA E VIABILIDADE",
@@ -240,7 +244,7 @@ def build_fluxo(wb, P, A, I, BLOCOS):
     # ---------------- PROJETO ------------------------------------------
     secao(ws, r, "PROJETO — INVESTIMENTOS", COL_PCT); r += 1
     proj_ini = r
-    for lbl, cat in [("Desenvolvimento do app (MVP e evoluções)", "Desenvolvimento"),
+    for lbl, cat in [("Desenvolvimento do app (pessoal capitalizado)", "Desenvolvimento"),
                      ("Equipamentos", "Equipamentos"),
                      ("Constituição, marca e jurídico", "Marca e jurídico"),
                      ("Certificações e conformidade", "Certificações")]:
@@ -265,10 +269,9 @@ def build_fluxo(wb, P, A, I, BLOCOS):
     ops = [
         ("Infraestrutura e nuvem",              lambda i, L: f'={sel(23, L)}',                     "nuvem"),
         ("Suporte ao cliente",                  lambda i, L: f'={sel(24, L)}',                     "suporte"),
-        ("Equipe PJ (produto e engenharia)",
-         lambda i, L: f'=-IF({L}${TEMPO}>=Premissas!$B${P["equipe_ini"]},{yr("equipe", L)},0)',    "equipe"),
-        ("Pró-labore dos sócios",
-         lambda i, L: f'=-IF({L}${TEMPO}>=Premissas!$B${P["prolab_ini"]},{yr("prolab", L)},0)',    "prolab"),
+        ("Equipe PJ",                           lambda i, L: f'=-Pessoas!{L}{PE["pj"]}',           "equipe"),
+        ("Equipe CLT (salários e encargos)",     lambda i, L: f'=-Pessoas!{L}{PE["clt"]}',          "clt"),
+        ("Pró-labore dos sócios",                lambda i, L: f'=-Pessoas!{L}{PE["socio"]}',        "prolab"),
         ("Marketing de performance (aquisição)",
          lambda i, L: f'=-{sel(1, L)}*(1-{yr("organico", L)})*{yr_cen("cac", L)}',                 "mkt_perf"),
         ("Marketing recorrente (agência e conteúdo)",
@@ -401,7 +404,8 @@ def build_fluxo(wb, P, A, I, BLOCOS):
                           ("Taxa das lojas de aplicativos", "taxa_loja", PCT),
                           ("Comissão do marketplace", "com_mp", PCT),
                           ("TMA (a.a.)", "tma", PCT),
-                          ("Payback desejado (meses)", "payback_alvo", INT)]:
+                          ("Payback desejado (meses)", "payback_alvo", INT),
+                          ("Rampa de conversão (meses)", "rampa_conv", INT)]:
         rotulo(ws, r, lbl, 1)
         c = ws.cell(r, 2, f'=Premissas!$B${P[key]}')
         c.number_format = fmt; c.font = f(10, False, VERDE_LINK)
@@ -480,8 +484,9 @@ def build_dre(wb, P, I, BLOCOS, FL):
     D["mg_bruta"] = r; r += 2
 
     secao(ws, r, "DESPESAS OPERACIONAIS", COL_PCT); r += 1
-    linha("(−) Pessoal — equipe PJ e pró-labore",
-          lambda i, L: f"='Análise Fluxo'!{L}{FL['equipe']}+'Análise Fluxo'!{L}{FL['prolab']}",
+    linha("(−) Pessoal — equipe PJ, CLT e pró-labore",
+          lambda i, L: (f"='Análise Fluxo'!{L}{FL['equipe']}+'Análise Fluxo'!{L}{FL['clt']}"
+                        f"+'Análise Fluxo'!{L}{FL['prolab']}"),
           "do_pes", cor=VERDE_LINK, pct_base=D["bruta"])
     linha("(−) Marketing e aquisição",
           lambda i, L: (f"='Análise Fluxo'!{L}{FL['mkt_perf']}+'Análise Fluxo'!{L}{FL['mkt_rec']}"
