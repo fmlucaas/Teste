@@ -119,7 +119,7 @@ def build(wb, P, A, I, BLOCOS, FL, U):
           custom=lambda k, col: f"=-MIN('Cenários'!$B${BLOCOS[k]+33}:${L_FIM}${BLOCOS[k]+33})",
           bold=True,
           obs="Quanto a operação precisa de capital antes de se sustentar sozinha.")
-    linha("Capital disponível (aportes previstos)", 0, "custom", BRL, "cap_disp",
+    linha("Capital total considerado", 0, "custom", BRL, "cap_disp",
           custom=lambda k, col: f"=SUM(Aportes!$B${A['total']}:${L_FIM}${A['total']})")
     linha("Caixa mínimo ao longo do período", 37, "custom", BRL, "caixa_min",
           custom=lambda k, col: f"=MIN('Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37})",
@@ -270,9 +270,10 @@ def build(wb, P, A, I, BLOCOS, FL, U):
          "barato que o Anexo III, porque a alíquota nominal do Anexo III sobe para 33%. Não é erro da "
          "tabela — é o desenho da LC 123/2006. Até essa faixa, o Anexo III é sempre melhor."),
         ("Boston Scientific fora do caso-base",
-         "O acordo não está confirmado e por isso está desligado. Ligue a célula em Premissas para "
-         "dimensionar o upside — e considere que a exclusividade B2B hospitalar limita outras receitas "
-         "do mesmo canal."),
+         "O acordo não está confirmado e por isso está desligado: o interruptor 'Considerar acordos em "
+         "negociação' está em 0, na seção 7 de Premissas. Ligue para dimensionar o upside — e "
+         "considere que a exclusividade B2B hospitalar limita outras receitas do mesmo canal. Para "
+         "incluir outro investidor estratégico, some uma linha na tabela 2 da aba Aportes."),
     ]
     for tit, txt in alertas:
         c = ws.cell(r, 2, "▸  " + tit)

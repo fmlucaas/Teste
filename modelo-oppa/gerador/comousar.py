@@ -101,8 +101,20 @@ def build(wb, P, PE):
     item("“E se os aportes atrasarem?”",
          "Aba APORTES: mude a data de qualquer linha. Veja o efeito na linha Caixa Acumulado da "
          "Análise Fluxo e no indicador “Caixa mínimo” do Resumo.")
+    item("“Quero incluir um investidor novo.”",
+         "Aba APORTES. Se ele só coloca dinheiro, preencha uma linha em branco da tabela 1: data, "
+         "nome, valor, status e tipo. Se ele também traz receita — uma parceria como a da Boston "
+         "Scientific — use a tabela 2, que tem campos para o aporte e para a receita mensal "
+         "recorrente, com início e fim. Não é preciso mexer em nenhuma fórmula.")
     item("“E se a Boston fechar?”",
-         "Premissas → seção 7 → mude “Acordo ativo?” para 1. Ajuste valor, mês e receita recorrente.")
+         "Aba Aportes, tabela 2: mude o status da linha da Boston para Confirmado, ou ligue o "
+         "interruptor “Considerar acordos em negociação” na seção 7 de Premissas para ver todos os "
+         "acordos em negociação de uma vez.")
+    item("“Quanto cada sócio tem do capital?”",
+         "Aba Aportes, seção 5. É a proporção do dinheiro aportado — ponto de partida da conversa "
+         "societária, não percentual de equity, que depende do valuation de cada rodada. Ao incluir "
+         "um investidor novo, lembre de acrescentar o nome dele também nesta tabela: a linha "
+         "“Capital não atribuído” avisa se você esquecer.")
     item("“Vamos mudar os preços dos planos.”",
          "Premissas → seção 3. Preços e mix por plano. A ARPPU implícita aparece logo abaixo do mix, "
          "para você conferir o efeito antes de olhar o resultado.")
@@ -144,8 +156,10 @@ def build(wb, P, PE):
          "Cronograma de CAPEX (equipamentos, marca, certificações) e a amortização em 60 meses. O "
          "desenvolvimento do app entra aqui vindo da aba Pessoas.", CINZA),
         ("Aportes",
-         "Cronograma dos aportes de sócios e o controle do compromisso de R$ 20.000 por fundador.",
-         CINZA),
+         "Todo o capital da empresa: lançamentos de aporte, investidores estratégicos que trazem "
+         "receita recorrente, resumo do capital, controle do compromisso de R$ 20.000 por fundador "
+         "e a proporção do capital por sócio. Todas as tabelas têm linhas em branco para você "
+         "incluir investidores novos.", "BF8F00"),
         ("Tributos",
          "Tabelas dos Anexos III e V do Simples Nacional, a tabela ativa conforme o regime escolhido, "
          "a explicação do Fator R e quanto custa por ano cair no anexo errado.", CINZA),

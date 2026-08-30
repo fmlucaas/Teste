@@ -27,7 +27,7 @@ LABELS = [
     "Receita — Plano Família",                     # 12
     "Receita de assinaturas",                      # 13
     "Receita de marketplace (comissões)",          # 14
-    "Receita B2B — Boston Scientific",             # 15
+    "Receita B2B — parcerias estratégicas",        # 15
     "RECEITA BRUTA TOTAL",                         # 16
     "RBT12 — base de cálculo do Simples",          # 17
     "Alíquota efetiva de impostos",                # 18
@@ -130,9 +130,7 @@ def build(wb, P, A, I, T, PE):
             13: lambda i, L: f'=SUM({L}{S+10}:{L}{S+12})',
             14: lambda i, L: (f'={L}{S+4}*{yr("attach_mp", L)}*Premissas!$B${P["ticket_mp"]}'
                               f'*Premissas!$B${P["com_mp"]}'),
-            15: lambda i, L: (f'=IF(AND(Premissas!$B${P["boston_on"]}=1,'
-                              f'{L}${TEMPO}>=Premissas!$B${P["boston_mes"]}),'
-                              f'Premissas!$B${P["boston_rec"]},0)'),
+            15: lambda i, L: f'=Aportes!{L}{A["b2b"]}',
             16: lambda i, L: f'=SUM({L}{S+13}:{L}{S+15})',
             17: lambda i, L: (f'={L}{S+16}*12' if i == 1 else
                               (f'=SUM($B{S+16}:{prev(i)}{S+16})/{i-1}*12' if i <= 12 else

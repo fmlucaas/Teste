@@ -164,7 +164,7 @@ def build_faturamento(wb, P, BLOCOS):
         ("Assinaturas — Plano Premium", 11, "i"),
         ("Assinaturas — Plano Família", 12, "p"),
         ("Marketplace — comissões sobre dispositivos", 14, "mp"),
-        ("B2B — Boston Scientific (se acordo ativo)", 15, "b2b"),
+        ("B2B — parcerias estratégicas", 15, "b2b"),
     ]:
         rotulo(ws, r, lbl, 1)
         preencher_linha(ws, r, lambda i, L, o=off: f'={sel(o, L)}', BRL, color=VERDE_LINK)
@@ -449,7 +449,7 @@ def build_dre(wb, P, I, BLOCOS, FL):
     linha("Assinaturas — Plano Premium", lambda i, L: f'={sel(11, L)}', "rb_i", cor=VERDE_LINK)
     linha("Assinaturas — Plano Família",       lambda i, L: f'={sel(12, L)}', "rb_p", cor=VERDE_LINK)
     linha("Marketplace — comissões",           lambda i, L: f'={sel(14, L)}', "rb_mp", cor=VERDE_LINK)
-    linha("B2B — Boston Scientific",           lambda i, L: f'={sel(15, L)}', "rb_b2b", cor=VERDE_LINK)
+    linha("B2B — parcerias estratégicas",      lambda i, L: f'={sel(15, L)}', "rb_b2b", cor=VERDE_LINK)
     linha("(=) RECEITA BRUTA", lambda i, L: f'=SUM({L}{D["rb_b"]}:{L}{D["rb_b2b"]})',
           "bruta", bold=True, destaque=True)
     r += 1

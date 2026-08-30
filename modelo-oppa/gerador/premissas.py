@@ -337,17 +337,32 @@ def build(wb):
                 "mkt_lanc_mes"); r += 2
 
     # ==================================================================
-    secao(ws, r, "7. BOSTON SCIENTIFIC (cenário opcional — desligado por padrão)", 12); r += 1
-    linha_unica(ws, r, "Acordo ativo?  (1 = Sim · 0 = Não)", 0, '0', "boston_on", chave=True,
-        fonte=("Acordo NÃO confirmado. Mantido fora do caso-base para que a viabilidade não dependa de "
-               "receita não contratada. Ligue (=1) para dimensionar o upside."),
-        obs="⚠ Desligado por padrão. Mude para 1 para ver o impacto do acordo."); r += 1
-    linha_unica(ws, r, "Aporte da Boston Scientific (R$)", 500000, BRL, "boston_val",
-        obs="Brief: 'casa dos seis dígitos'. Ponto médio da faixa R$ 100 mil – R$ 999 mil."); r += 1
-    linha_unica(ws, r, "Mês do aporte", dt.datetime(2027, 7, 1), MES, "boston_mes"); r += 1
-    linha_unica(ws, r, "Receita B2B recorrente (R$/mês, a partir do mês do aporte)", 80000, BRL,
-                "boston_rec",
-        obs="Monitoramento pós-operatório. Contrapartida: exclusividade B2B hospitalar."); r += 2
+    secao(ws, r, "7. CAPITAL — O QUE ENTRA NA CONTA", 12); r += 1
+    for t in ["Os investidores em si ficam na aba APORTES, em duas tabelas com linhas em branco: "
+              "lançamentos de aporte, e investidores estratégicos que além de aportar trazem "
+              "receita recorrente — o caso da Boston Scientific. Aqui ficam só os dois interruptores "
+              "que decidem o que o modelo considera."]:
+        c = ws.cell(r, 1, "•  " + t)
+        c.font = f(9, False, CINZA)
+        c.alignment = Alignment(wrap_text=True, vertical="top", indent=1)
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=9)
+        ws.row_dimensions[r].height = 28
+        r += 1
+    linha_unica(ws, r, "Considerar aportes PREVISTOS?  (1 = Sim · 0 = Não)", 1, '0',
+                "inc_previsto", chave=True,
+                fonte=("Aportes em negociação adiantada mas sem assinatura — hoje os R$ 120 mil de "
+                       "C-ioT, Felipe Martinelli e Shaiane. Estão ligados por padrão porque a "
+                       "negociação está em curso. Desligue para ver a Oppa apenas com o capital "
+                       "dos fundadores."),
+                obs="Hoje: R$ 120 mil de C-ioT, Martinelli e Shaiane. Desligue para ver só os fundadores."); r += 1
+    linha_unica(ws, r, "Considerar acordos EM NEGOCIAÇÃO?  (1 = Sim · 0 = Não)", 0, '0',
+                "inc_negoc", chave=True,
+                fonte=("Vale para os lançamentos marcados como 'Em negociação' e para as parcerias "
+                       "estratégicas com status 'Em negociação' — hoje, a Boston Scientific. "
+                       "Desligado por padrão para que a viabilidade não dependa de receita nem de "
+                       "capital não contratados. Ligue para dimensionar o upside."),
+                obs="⚠ Desligado por padrão. Ligue para incluir a Boston Scientific e qualquer "
+                    "outra parceria em negociação."); r += 2
 
     # ==================================================================
     secao(ws, r, "8. NOTAS METODOLÓGICAS", 12); r += 1
