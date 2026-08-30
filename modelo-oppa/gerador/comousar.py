@@ -115,6 +115,16 @@ def build(wb, P, PE):
          "societária, não percentual de equity, que depende do valuation de cada rodada. Ao incluir "
          "um investidor novo, lembre de acrescentar o nome dele também nesta tabela: a linha "
          "“Capital não atribuído” avisa se você esquecer.")
+    item("“Queremos incluir uma nova frente de receita B2B.”",
+         "Premissas, seção 5, tabela “Iniciativas de receita B2B”. Uma linha por frente: nome, "
+         "categoria (Dados ou Outras), status, modelo de cobrança (valor fixo mensal ou por "
+         "usuário do painel), valor e período. As duas primeiras linhas são a venda de dados, já "
+         "planejada; as demais estão em branco para vocês preencherem.")
+    item("“Por que a receita de dados só aparece em 2028?”",
+         "Porque o painel precisa de escala. O modelo zera essa receita enquanto a base que "
+         "consentiu compartilhar dados não passa do mínimo definido em Premissas — mesmo que a "
+         "data do contrato já tenha chegado. Mexa na taxa de consentimento e no mínimo do painel "
+         "para ver o efeito.")
     item("“Vamos mudar os preços dos planos.”",
          "Premissas → seção 3. Preços e mix por plano. A ARPPU implícita aparece logo abaixo do mix, "
          "para você conferir o efeito antes de olhar o resultado.")
@@ -148,7 +158,8 @@ def build(wb, P, PE):
          "resumo anual.", "2E5C8A"),
         ("Usuários",
          "O funil de usuários e as métricas de unidade: CAC, LTV, LTV/CAC, ARPPU, payback do CAC, "
-         "queima de caixa e runway.", "2E5C8A"),
+         "queima de caixa e runway. Traz também o painel de dados — quantos usuários consentiram "
+         "compartilhar dados, que é o que a receita B2B de dados monetiza.", "2E5C8A"),
         ("Cenários",
          "O motor. Os três cenários rodam aqui, mês a mês, e todas as outras abas leem daqui. "
          "É a aba mais densa e a única fonte de verdade dos números — consulte, não edite.", "7030A0"),

@@ -33,7 +33,9 @@ def ler(wb):
         vpl=n(R["D"+str(rl("VPL —"))].value),
         capital=n(AP["C"+str(lin(AP,"CAPITAL TOTAL CONSIDERADO",col=2))].value),
         pessoal30=n(PE["BI"+str(lin(PE,"TOTAL DE PESSOAL"))].value),
-        b2b=n(CE["BJ"+str(bl[2]+15)].value),
+        b2b=n(CE["BJ"+str(next(rr for rr in range(bl[2], bl[2]+60)
+              if isinstance(CE.cell(rr,1).value,str)
+              and CE.cell(rr,1).value.strip().startswith("Receita B2B — parcerias")))].value),
         recon=max(abs(n(wb["Análise Fluxo"].cell(lin(wb["Análise Fluxo"],"✔ Verificação"), c).value))
                   for c in range(2,62)),
         # estas seguem o CENÁRIO ATIVO (o Resumo mostra sempre os três lado a lado)

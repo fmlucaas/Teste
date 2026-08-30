@@ -93,6 +93,33 @@ regime   = b(P, "Regime  (1 = Simples")
 lp       = b(P, "Alíquota Lucro Presumido")
 teto     = b(P, "Teto do Simples Nacional")
 lancto   = b(P, "Data de lançamento (calculada)")
+consent  = anos(P, "% da base que consente")
+painel_min   = b(P, "Base mínima do painel")
+custo_painel = b(P, "Custo de processamento do painel")
+inc_estudo   = b(P, "Considerar iniciativas B2B EM ESTUDO")
+
+# tabela de iniciativas B2B (Premissas)
+# cabeçalho exato da tabela: "Iniciativa" em A e "Categoria" em B
+_bh = next(r for r in range(1, P.max_row + 1)
+           if P.cell(r, 1).value == "Iniciativa" and P.cell(r, 2).value == "Categoria")
+B2B = []
+_r = _bh + 1
+while isinstance(P.cell(_r, 5).value, (int, float)):
+    B2B.append(dict(nome=P.cell(_r,1).value, cat=P.cell(_r,2).value, st=P.cell(_r,3).value,
+                    mod=P.cell(_r,4).value, val=P.cell(_r,5).value,
+                    ini=P.cell(_r,6).value, fim=P.cell(_r,7).value))
+    _r += 1
+
+def b2b_receita(d, categoria, painel):
+    fixo = pu = 0.0
+    for x in B2B:
+        if x["cat"] != categoria: continue
+        g = (x["st"] == "Planejado") + (x["st"] == "Em estudo") * inc_estudo
+        if not g or not x["ini"] or not x["fim"]: continue
+        if not (x["ini"] <= d <= x["fim"]): continue
+        if x["mod"] == "Fixo mensal": fixo += g * x["val"]
+        elif x["mod"] == "Por usuário": pu += g * x["val"]
+    return fixo + pu * painel
 
 def mes_data(i): return dt.datetime(ano_de(i), (i - 1) % 12 + 1, 1)
 
@@ -175,7 +202,8 @@ def b2b(i):
 
 # ---------------------------------------------------------------- modelo
 res = {k: [0.0]*(N+1) for k in
-       ["novos","base","pag","rec_ass","rec_mp","rec_b2b","bruta","rbt12","aliq","imp",
+       ["novos","base","pag","painel","rec_ass","rec_mp","rec_b2b","rec_dados","rec_outras",
+        "bruta","rbt12","aliq","imp",
         "loja","pgto","liq","nuvem","sup","pes","mkt","adm","ebitda","capex","fcl",
         "fcld","fcld_ac","fcl_ac","aporte","caixa"]}
 base_ant = 0.0
@@ -191,8 +219,14 @@ for i in range(1, N+1):
     ass = (pe_*p_ess + pp*p_pre + pf*p_fam) * infl
     mp  = base * att_mp[a] * tick_mp * com_mp
     bb  = b2b(i)
-    bruta = ass + mp + bb
+    pn  = xlround(base * consent[a])
+    if pn < painel_min: pn = 0.0
+    rd  = b2b_receita(d, "Dados", pn) if pn else 0.0
+    ro  = b2b_receita(d, "Outras", pn)
+    bruta = ass + mp + bb + rd + ro
     res["novos"][i], res["base"][i], res["pag"][i] = nv, base, pag
+    res["painel"][i] = pn
+    res["rec_dados"][i], res["rec_outras"][i] = rd, ro
     res["rec_ass"][i], res["rec_mp"][i], res["rec_b2b"][i], res["bruta"][i] = ass, mp, bb, bruta
     if i == 1:   rbt = bruta*12
     elif i <= 12: rbt = sum(res["bruta"][1:i])/(i-1)*12
@@ -202,7 +236,8 @@ for i in range(1, N+1):
     loja = -ass*tx_loja*sh_loja[a]
     pgto = -(ass*(1-sh_loja[a]) + mp)*tx_pgto
     liq  = bruta + imp + loja + pgto
-    nuv  = -(pag*cl_pag[a] + (base-pag)*cl_free[a] + (cl_fix[a] if d >= cloud_ini else 0))
+    nuv  = -(pag*cl_pag[a] + (base-pag)*cl_free[a] + pn*custo_painel
+             + (cl_fix[a] if d >= cloud_ini else 0))
     sup  = -pag*sup_var[a]
     pes  = -pessoal(i, "Despesa")
     mkt  = -(nv*(1-organ[a])*cac[a] + (mkt_rec[a] if d >= mkt_ini else 0)
@@ -223,12 +258,50 @@ for i in range(1, N+1):
 
 # ---------------------------------------------------------------- comparação
 S = BLOCOS_CEN[CEN_TESTE]
-MAPA = [("novos",1),("base",4),("pag",6),("rec_ass",13),("rec_mp",14),("rec_b2b",15),
-        ("bruta",16),("rbt12",17),("aliq",18),("imp",19),("loja",20),("pgto",21),("liq",22),
-        ("nuvem",23),("sup",24),("pes",25),("mkt",26),("adm",27),("ebitda",28),("capex",29),
-        ("fcl",30),("fcld",31),("fcld_ac",32),("fcl_ac",33),("aporte",35),("caixa",37)]
-nome_cen = {1:"CONSERVADOR",2:"PROVÁVEL",3:"AGRESSIVO"}[CEN_TESTE]
-print(f"CENÁRIO {CEN_TESTE} — {nome_cen}")
+# Localiza cada linha pelo ROTULO dentro do bloco — imune a insercao de linhas.
+ROTULOS = [
+    ("novos",      "Novos usuários captados"),
+    ("base",       "Base de usuários — fim do mês"),
+    ("pag",        "Usuários pagantes"),
+    ("painel",     "Usuários no painel de dados"),
+    ("rec_ass",    "Receita de assinaturas"),
+    ("rec_mp",     "Receita de marketplace"),
+    ("rec_b2b",    "Receita B2B — parcerias estratégicas"),
+    ("rec_dados",  "Receita B2B — venda de dados"),
+    ("rec_outras", "Receita B2B — outras iniciativas"),
+    ("bruta",      "RECEITA BRUTA TOTAL"),
+    ("rbt12",      "RBT12 — base de cálculo"),
+    ("aliq",       "Alíquota efetiva de impostos"),
+    ("imp",        "(−) Impostos sobre a receita"),
+    ("loja",       "(−) Comissão das lojas"),
+    ("pgto",       "(−) Taxas de meios de pagamento"),
+    ("liq",        "RECEITA LÍQUIDA"),
+    ("nuvem",      "(−) Infraestrutura e nuvem"),
+    ("sup",        "(−) Suporte ao cliente"),
+    ("pes",        "(−) Pessoal"),
+    ("mkt",        "(−) Marketing e aquisição"),
+    ("adm",        "(−) Despesas administrativas"),
+    ("ebitda",     "EBITDA"),
+    ("capex",      "(−) Investimentos (CAPEX)"),
+    ("fcl",        "FLUXO DE CAIXA LIVRE"),
+    ("fcld",       "FCL descontado"),
+    ("fcld_ac",    "FCL descontado acumulado"),
+    ("fcl_ac",     "FCL acumulado (nominal)"),
+    ("aporte",     "(+) Aportes de sócios"),
+    ("caixa",      "CAIXA ACUMULADO"),
+]
+_fim_bloco = S + 60
+MAPA = []
+for chave, rot in ROTULOS:
+    achou = None
+    for rr in range(S, min(_fim_bloco, CE.max_row) + 1):
+        v = CE.cell(rr, 1).value
+        if isinstance(v, str) and v.strip().startswith(rot):
+            achou = rr - S
+            break
+    assert achou is not None, f"rótulo não encontrado no bloco: {rot}"
+    MAPA.append((chave, achou))
+
 print(f"{'linha do modelo':<22}{'maior desvio':>16}{'mês':>6}   veredito")
 print("-"*74)
 falhas = 0

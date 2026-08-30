@@ -43,7 +43,8 @@ pes, mkt, adm = dl("(−) Pessoal"), dl("(−) Marketing e aquisição"), dl("(�
 da, ebit = dl("(−) Depreciação"), dl("(=) EBIT — resultado")
 lair, ll = dl("(=) RESULTADO ANTES"), dl("(=) LUCRO LÍQUIDO")
 ass = [dl("Assinaturas — Plano Essencial"), dl("Assinaturas — Plano Premium"),
-       dl("Assinaturas — Plano Família"), dl("Marketplace — comissões"), dl("B2B — parcerias")]
+       dl("Assinaturas — Plano Família"), dl("Marketplace — comissões"),
+       dl("B2B — parcerias"), dl("B2B — venda de dados"), dl("B2B — outras iniciativas")]
 for c in M:
     g = lambda r: n(D.cell(r, c).value)
     chk(abs(g(rb) - sum(g(x) for x in ass)) < .01, "DRE", f"receita bruta {gcl(c)}")
@@ -135,10 +136,23 @@ print("5) Resumo — VPL, TIR, payback, capital requerido, break-even")
 a0 = len(ach)
 tma_m = n(V["Premissas"].cell(lin(V["Premissas"],"TMA equivalente mensal"),2).value)
 BL = blocos(CE)
+_S0 = BL[1]
+def off(rot):
+    """Offset da linha dentro do bloco, localizada pelo rótulo."""
+    for rr in range(_S0, min(_S0 + 60, CE.max_row) + 1):
+        v = CE.cell(rr, 1).value
+        if isinstance(v, str) and v.strip().startswith(rot):
+            return rr - _S0
+    raise KeyError(rot)
+OF = {k: off(v) for k, v in {
+    "bruta":"RECEITA BRUTA TOTAL", "ebitda":"EBITDA", "capex":"(−) Investimentos (CAPEX)",
+    "fcl":"FLUXO DE CAIXA LIVRE", "fcld_ac":"FCL descontado acumulado",
+    "fcl_ac":"FCL acumulado (nominal)", "caixa":"CAIXA ACUMULADO",
+}.items()}
 def rlin(t): return lin(R, t, col=2)
 for k, S in BL.items():
     col = gcl(3+k-1)
-    fcl = [n(CE.cell(S+30, c).value) for c in M]
+    fcl = [n(CE.cell(S+OF['fcl'], c).value) for c in M]
     vpl_esp = sum(f/(1+tma_m)**(i+1) for i, f in enumerate(fcl))
     vpl_xl = n(R[f"{col}{rlin('VPL —')}"].value)
     chk(abs(vpl_xl-vpl_esp) < .5, "Resumo", f"VPL cenário {k}",
@@ -148,22 +162,23 @@ for k, S in BL.items():
         acum += f
         if acum < 0: negs.append(i)
     pb = None if (negs and negs[-1] == len(fcl)) else ((max(negs)+1) if negs else 1)
+    if pb is None: pb = "> 60"
     got = R[f"{col}{rlin('Payback simples')}"].value
-    chk((pb == got) or (pb is None and got == "> 60"), "Resumo", f"payback simples cenário {k}",
+    chk(pb == got, "Resumo", f"payback simples cenário {k}",
         f"esperado {pb}, obtido {got}")
-    capreq = -min(n(CE.cell(S+33, c).value) for c in M)
+    capreq = -min(n(CE.cell(S+OF['fcl_ac'], c).value) for c in M)
     chk(abs(n(R[f"{col}{rlin('Capital requerido')}"].value)-capreq) < .01,
         "Resumo", f"capital requerido cenário {k}")
-    cmin = min(n(CE.cell(S+37, c).value) for c in M)
+    cmin = min(n(CE.cell(S+OF['caixa'], c).value) for c in M)
     chk(abs(n(R[f"{col}{rlin('Caixa mínimo')}"].value)-cmin) < .01,
         "Resumo", f"caixa mínimo cenário {k}")
-    be = next((i for i, c in enumerate(M, 1) if n(CE.cell(S+28, c).value) > 0), None)
+    be = next((i for i, c in enumerate(M, 1) if n(CE.cell(S+OF['ebitda'], c).value) > 0), None)
     esp = "não atinge" if be is None else \
         ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"][(be-1)%12] + \
         "/" + str(2026+(be-1)//12)
     got = R[f"{col}{rlin('Break-even')}"].value
     chk(str(got) == esp, "Resumo", f"break-even cenário {k}", f"esperado {esp}, obtido {got}")
-    rec_tot = sum(n(CE.cell(S+16, c).value) for c in M)
+    rec_tot = sum(n(CE.cell(S+OF['bruta'], c).value) for c in M)
     chk(abs(n(R[f"{col}{rlin('Receita bruta acumulada')}"].value)-rec_tot) < .01,
         "Resumo", f"receita acumulada cenário {k}")
 print(f"   {len(ach)-a0} falha(s)")

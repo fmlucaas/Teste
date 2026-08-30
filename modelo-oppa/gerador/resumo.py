@@ -2,6 +2,7 @@
 """Aba Resumo: painel executivo com os tres cenarios lado a lado."""
 from openpyxl.styles import Alignment
 from common import *
+from engine import O
 
 LANO = 6   # linha do ano na aba Cenarios
 COLS = ["C", "D", "E"]
@@ -82,83 +83,83 @@ def build(wb, P, A, I, BLOCOS, FL, U):
 
     # ---------------- TRAÇÃO ---------------------------------------------
     bloco("TRAÇÃO — USUÁRIOS E RECEITA")
-    linha("Usuários na base em dez/2026", 4, "custom", INT, "u26",
-          custom=lambda k, col: f"='Cenários'!$M${BLOCOS[k]+4}",
+    linha("Usuários na base em dez/2026", O.base, "custom", INT, "u26",
+          custom=lambda k, col: f"='Cenários'!$M${BLOCOS[k]+O.base}",
           obs="Meta do brief: 50 mil usuários ao final de 2026.")
-    linha("Usuários na base em dez/2030", 4, "last", INT, "u30")
-    linha("Assinantes pagantes em dez/2026", 6, "custom", INT, "p26",
-          custom=lambda k, col: f"='Cenários'!$M${BLOCOS[k]+6}",
+    linha("Usuários na base em dez/2030", O.base, "last", INT, "u30")
+    linha("Assinantes pagantes em dez/2026", O.pag, "custom", INT, "p26",
+          custom=lambda k, col: f"='Cenários'!$M${BLOCOS[k]+O.pag}",
           obs="Meta do brief: 5% da base pagante.")
-    linha("Assinantes pagantes em dez/2030", 6, "last", INT, "p30")
-    linha("Receita bruta de 2026", 16, "ano", BRL, "rb26", ano=2026)
-    linha("Receita bruta de 2030", 16, "ano", BRL, "rb30", ano=2030)
-    linha("Receita bruta acumulada em 5 anos", 16, "sum", BRL, "rb_tot", bold=True)
+    linha("Assinantes pagantes em dez/2030", O.pag, "last", INT, "p30")
+    linha("Receita bruta de 2026", O.bruta, "ano", BRL, "rb26", ano=2026)
+    linha("Receita bruta de 2030", O.bruta, "ano", BRL, "rb30", ano=2030)
+    linha("Receita bruta acumulada em 5 anos", O.bruta, "sum", BRL, "rb_tot", bold=True)
     r += 1
 
     # ---------------- RESULTADO -------------------------------------------
     bloco("RESULTADO OPERACIONAL")
-    linha("EBITDA de 2026", 28, "ano", BRL, "eb26", ano=2026)
-    linha("EBITDA de 2030", 28, "ano", BRL, "eb30", ano=2030)
-    linha("EBITDA acumulado em 5 anos", 28, "sum", BRL, "eb_tot", bold=True)
+    linha("EBITDA de 2026", O.ebitda, "ano", BRL, "eb26", ano=2026)
+    linha("EBITDA de 2030", O.ebitda, "ano", BRL, "eb30", ano=2030)
+    linha("EBITDA acumulado em 5 anos", O.ebitda, "sum", BRL, "eb_tot", bold=True)
     linha("Margem EBITDA em 2030 (% da receita bruta)", 0, "custom", PCT, "mg30",
           custom=lambda k, col: f'=IFERROR({col}{R["eb30"]}/{col}{R["rb30"]},0)')
     linha("Break-even do EBITDA", 0, "custom", TXT, "be",
           custom=lambda k, col: (
-              f'=IF(SUM(\'Cenários\'!$B${BLOCOS[k]+34}:${L_FIM}${BLOCOS[k]+34})=0,"não atinge",'
-              f'CHOOSE(MOD(60-SUM(\'Cenários\'!$B${BLOCOS[k]+34}:${L_FIM}${BLOCOS[k]+34}),12)+1,'
+              f'=IF(SUM(\'Cenários\'!$B${BLOCOS[k]+O.flag_eb}:${L_FIM}${BLOCOS[k]+O.flag_eb})=0,"não atinge",'
+              f'CHOOSE(MOD(60-SUM(\'Cenários\'!$B${BLOCOS[k]+O.flag_eb}:${L_FIM}${BLOCOS[k]+O.flag_eb}),12)+1,'
               f'"jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez")&"/"&'
-              f'(2026+INT((60-SUM(\'Cenários\'!$B${BLOCOS[k]+34}:${L_FIM}${BLOCOS[k]+34}))/12)))'),
+              f'(2026+INT((60-SUM(\'Cenários\'!$B${BLOCOS[k]+O.flag_eb}:${L_FIM}${BLOCOS[k]+O.flag_eb}))/12)))'),
           obs="Primeiro mês com EBITDA positivo — quando a operação passa a se pagar.")
     r += 1
 
     # ---------------- CAPITAL ---------------------------------------------
     bloco("CAPITAL E CAIXA")
-    linha("Investimento total (CAPEX)", 29, "sum", BRL, "capex",
-          custom=lambda k, col: f"=-SUM('Cenários'!$B${BLOCOS[k]+29}:${L_FIM}${BLOCOS[k]+29})")
-    linha("Capital requerido (pico de caixa negativo do FCL)", 33, "custom", BRL, "capreq",
-          custom=lambda k, col: f"=-MIN('Cenários'!$B${BLOCOS[k]+33}:${L_FIM}${BLOCOS[k]+33})",
+    linha("Investimento total (CAPEX)", O.capex, "sum", BRL, "capex",
+          custom=lambda k, col: f"=-SUM('Cenários'!$B${BLOCOS[k]+O.capex}:${L_FIM}${BLOCOS[k]+O.capex})")
+    linha("Capital requerido (pico de caixa negativo do FCL)", O.fcl_ac, "custom", BRL, "capreq",
+          custom=lambda k, col: f"=-MIN('Cenários'!$B${BLOCOS[k]+O.fcl_ac}:${L_FIM}${BLOCOS[k]+O.fcl_ac})",
           bold=True,
           obs="Quanto a operação precisa de capital antes de se sustentar sozinha.")
     linha("Capital total considerado", 0, "custom", BRL, "cap_disp",
           custom=lambda k, col: f"=SUM(Aportes!$B${A['total']}:${L_FIM}${A['total']})")
-    linha("Caixa mínimo ao longo do período", 37, "custom", BRL, "caixa_min",
-          custom=lambda k, col: f"=MIN('Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37})",
+    linha("Caixa mínimo ao longo do período", O.caixa, "custom", BRL, "caixa_min",
+          custom=lambda k, col: f"=MIN('Cenários'!$B${BLOCOS[k]+O.caixa}:${L_FIM}${BLOCOS[k]+O.caixa})",
           bold=True,
           obs="Se ficar negativo, o capital planejado não é suficiente — falta captar a diferença.")
     linha("Mês do caixa mínimo", 0, "custom", TXT, "caixa_min_mes",
           custom=lambda k, col: (
-              f"=CHOOSE(MOD(MATCH(MIN('Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37}),"
-              f"'Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37},0)-1,12)+1,"
+              f"=CHOOSE(MOD(MATCH(MIN('Cenários'!$B${BLOCOS[k]+O.caixa}:${L_FIM}${BLOCOS[k]+O.caixa}),"
+              f"'Cenários'!$B${BLOCOS[k]+O.caixa}:${L_FIM}${BLOCOS[k]+O.caixa},0)-1,12)+1,"
               f'"jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez")&"/"&'
-              f"(2026+INT((MATCH(MIN('Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37}),"
-              f"'Cenários'!$B${BLOCOS[k]+37}:${L_FIM}${BLOCOS[k]+37},0)-1)/12))"),
+              f"(2026+INT((MATCH(MIN('Cenários'!$B${BLOCOS[k]+O.caixa}:${L_FIM}${BLOCOS[k]+O.caixa}),"
+              f"'Cenários'!$B${BLOCOS[k]+O.caixa}:${L_FIM}${BLOCOS[k]+O.caixa},0)-1)/12))"),
           obs="Quando o caixa chega no fundo do poço — é o mês para o qual o aporte precisa chegar antes.")
-    linha("Caixa em dez/2030", 37, "last", BRL, "caixa_fim")
+    linha("Caixa em dez/2030", O.caixa, "last", BRL, "caixa_fim")
     r += 1
 
     # ---------------- VIABILIDADE -----------------------------------------
     bloco("INDICADORES DE VIABILIDADE (sobre o Fluxo de Caixa Livre)")
-    linha("VPL — Valor Presente Líquido", 30, "custom", BRL, "vpl",
+    linha("VPL — Valor Presente Líquido", O.fcl, "custom", BRL, "vpl",
           custom=lambda k, col: (f"=NPV(Premissas!$B${P['tma_m']},"
-                                 f"'Cenários'!$B${BLOCOS[k]+30}:${L_FIM}${BLOCOS[k]+30})"),
+                                 f"'Cenários'!$B${BLOCOS[k]+O.fcl}:${L_FIM}${BLOCOS[k]+O.fcl})"),
           bold=True, obs="Descontado à TMA definida em Premissas. Positivo = o projeto cria valor.")
-    linha("TIR mensal", 30, "custom", PCT2, "tir_m",
-          custom=lambda k, col: (f"=IFERROR(IRR('Cenários'!$B${BLOCOS[k]+30}:"
-                                 f"${L_FIM}${BLOCOS[k]+30}),\"n/d\")"))
+    linha("TIR mensal", O.fcl, "custom", PCT2, "tir_m",
+          custom=lambda k, col: (f"=IFERROR(IRR('Cenários'!$B${BLOCOS[k]+O.fcl}:"
+                                 f"${L_FIM}${BLOCOS[k]+O.fcl}),\"n/d\")"))
     linha("TIR anual", 0, "custom", PCTG, "tir_a",
           custom=lambda k, col: f'=IFERROR((1+{col}{R["tir_m"]})^12-1,"n/d")', bold=True,
           obs="Compare com a TMA. Atenção: quando o investimento inicial é pequeno diante do caixa gerado, a TIR fica muito alta e perde poder de comparação — olhe o VPL junto.")
-    linha("Payback simples (meses)", 33, "custom", INT, "pb",
+    linha("Payback simples (meses)", O.fcl_ac, "custom", INT, "pb",
           custom=lambda k, col: (
-              f'=IF(\'Cenários\'!${L_FIM}${BLOCOS[k]+33}<0,"> 60",'
-              f'MAX(\'Cenários\'!$B${BLOCOS[k]+38}:${L_FIM}${BLOCOS[k]+38})+1)'),
+              f'=IF(\'Cenários\'!${L_FIM}${BLOCOS[k]+O.fcl_ac}<0,"> 60",'
+              f'MAX(\'Cenários\'!$B${BLOCOS[k]+O.mk_pb}:${L_FIM}${BLOCOS[k]+O.mk_pb})+1)'),
           obs="Mês em que o FCL acumulado passa a positivo e não volta mais.")
-    linha("Payback descontado (meses)", 32, "custom", INT, "pbd",
+    linha("Payback descontado (meses)", O.fcld_ac, "custom", INT, "pbd",
           custom=lambda k, col: (
-              f'=IF(\'Cenários\'!${L_FIM}${BLOCOS[k]+32}<0,"> 60",'
-              f'MAX(\'Cenários\'!$B${BLOCOS[k]+39}:${L_FIM}${BLOCOS[k]+39})+1)'),
+              f'=IF(\'Cenários\'!${L_FIM}${BLOCOS[k]+O.fcld_ac}<0,"> 60",'
+              f'MAX(\'Cenários\'!$B${BLOCOS[k]+O.mk_pbd}:${L_FIM}${BLOCOS[k]+O.mk_pbd})+1)'),
           obs="Critério de decisão: payback desejado definido em Premissas.")
-    linha("FCL acumulado em 5 anos", 30, "sum", BRL, "fcl_tot")
+    linha("FCL acumulado em 5 anos", O.fcl, "sum", BRL, "fcl_tot")
     linha("Retorno sobre o capital requerido (múltiplo)", 0, "custom", MULT, "roi",
           custom=lambda k, col: f'=IFERROR({col}{R["fcl_tot"]}/{col}{R["capreq"]},0)',
           obs="Múltiplo, não percentual: 3,0x significa devolver três vezes o capital que o "
@@ -263,6 +264,19 @@ def build(wb, P, A, I, BLOCOS, FL, U):
          "O patamar de 5% do brief é o regime de médio prazo. Com a rampa de maturação de 6 meses, "
          "outubro/2026 converte a 0,83%, novembro a 1,67% e dezembro a 2,50% — 2026 fecha bem abaixo "
          "dos 5%. Ajuste a rampa em Premissas conforme a discussão com os sócios."),
+        ("Venda de dados: o gargalo é jurídico antes de ser comercial",
+         "Dado de saúde é dado sensível na LGPD (art. 11). Para vender é preciso anonimização "
+         "efetiva — o art. 12 tira o dado anonimizado do alcance da lei — ou consentimento "
+         "específico e destacado para essa finalidade, separado do aceite de uso do app e "
+         "revogável a qualquer tempo. Anonimização mal feita não protege: o que vale é ser "
+         "irreversível na prática, não no nome. O modelo trata a taxa de consentimento como "
+         "premissa-chave justamente porque ela, e não o preço do contrato, é o que limita a "
+         "receita. Vale parecer jurídico antes de assinar o primeiro contrato."),
+        ("O painel precisa de escala antes de valer alguma coisa",
+         "Contratos de dados no mercado real vão de US$ 75 mil a US$ 5 milhões por ano, e nenhum "
+         "comprador paga por um painel pequeno. O modelo zera a receita de dados enquanto a base "
+         "consentida não passa do mínimo definido em Premissas, mesmo que a data do contrato já "
+         "tenha chegado. É por isso que essa receita não aparece no ano 1 nem no ano 2."),
         ("O cenário Conservador mantém a estrutura de custos do Provável",
          "É proposital: mede o risco de dimensionar equipe, marketing e infraestrutura para uma tração "
          "que não se confirma. Na prática a gestão cortaria custos — ajuste as linhas de equipe, "

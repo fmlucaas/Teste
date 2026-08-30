@@ -2,7 +2,7 @@
 """Abas de detalhe do cenario selecionado: Usuarios, Faturamento, Analise Fluxo, DRE."""
 from openpyxl.styles import Alignment
 from common import *
-import engine as EN
+from engine import O
 
 TEMPO, LIDX, LANO, LIDXA = 4, 5, 6, 7
 
@@ -47,15 +47,15 @@ def build_usuarios(wb, P, BLOCOS, PE):
     secao(ws, r, "FUNIL DE USUÁRIOS", COL_PCT); r += 1
     U = {}
     linhas = [
-        ("Novos usuários captados", 1, INT, "novos", False),
-        ("Base de usuários — início do mês", 2, INT, "base_ini", False),
-        ("(−) Usuários perdidos (churn)", 3, INT, "churn", False),
-        ("Base de usuários — fim do mês", 4, INT, "base", True),
-        ("Taxa de conversão", 5, PCT, "conv", False),
-        ("Usuários pagantes", 6, INT, "pag", True),
-        ("Pagantes — Plano Essencial", 7, INT, "pag_b", False),
-        ("Pagantes — Plano Premium", 8, INT, "pag_i", False),
-        ("Pagantes — Plano Família", 9, INT, "pag_p", False),
+        ("Novos usuários captados", O.novos, INT, "novos", False),
+        ("Base de usuários — início do mês", O.base_ini, INT, "base_ini", False),
+        ("(−) Usuários perdidos (churn)", O.churn, INT, "churn", False),
+        ("Base de usuários — fim do mês", O.base, INT, "base", True),
+        ("Taxa de conversão", O.conv, PCT, "conv", False),
+        ("Usuários pagantes", O.pag, INT, "pag", True),
+        ("Pagantes — Plano Essencial", O.pag_ess, INT, "pag_b", False),
+        ("Pagantes — Plano Premium", O.pag_pre, INT, "pag_i", False),
+        ("Pagantes — Plano Família", O.pag_fam, INT, "pag_p", False),
     ]
     for lbl, off, fmt, key, bold in linhas:
         rotulo(ws, r, lbl, 0 if bold else 1, bold=bold)
@@ -67,6 +67,12 @@ def build_usuarios(wb, P, BLOCOS, PE):
         if off not in (1, 3):
             nota(ws, f"{L_PCT}{r}", "Saldo em dez/2030.")
         U[key] = r; r += 1
+    rotulo(ws, r, "Usuários no painel de dados (com consentimento)", 1)
+    preencher_linha(ws, r, lambda i, L: f'={sel(O.painel, L)}', INT, total=False,
+                    color=VERDE_LINK)
+    nota(ws, f"{L_PCT}{r}", "Zero enquanto a base consentida não atinge o mínimo comercial "
+                            "definido em Premissas.")
+    U["painel"] = r; r += 1
     rotulo(ws, r, "Pessoas na operação (headcount)", 1)
     preencher_linha(ws, r, lambda i, L: f'=Pessoas!{L}{PE["headcount"]}', INT, total=False,
                     color=VERDE_LINK)
@@ -98,15 +104,15 @@ def build_usuarios(wb, P, BLOCOS, PE):
     U["cac_pag"] = r; r += 1
     rotulo(ws, r, "ARPPU — receita média por assinante pagante", 1)
     preencher_linha(ws, r, lambda i, L:
-        f'=IFERROR({sel(13, L)}/{L}{U["pag"]},0)', BRL2, total=False)
+        f'=IFERROR({sel(O.assinaturas, L)}/{L}{U["pag"]},0)', BRL2, total=False)
     U["arppu"] = r; r += 1
     rotulo(ws, r, "ARPU — receita média por usuário da base", 1)
     preencher_linha(ws, r, lambda i, L:
-        f'=IFERROR({sel(16, L)}/{L}{U["base"]},0)', BRL2, total=False)
+        f'=IFERROR({sel(O.bruta, L)}/{L}{U["base"]},0)', BRL2, total=False)
     U["arpu"] = r; r += 1
     rotulo(ws, r, "Margem de contribuição por pagante (R$/mês)", 1)
     preencher_linha(ws, r, lambda i, L:
-        f'=IFERROR(({sel(22, L)}+{sel(23, L)}+{sel(24, L)})/{L}{U["pag"]},0)', BRL2, total=False)
+        f'=IFERROR(({sel(O.liquida, L)}+{sel(O.nuvem, L)}+{sel(O.suporte, L)})/{L}{U["pag"]},0)', BRL2, total=False)
     nota(ws, f"{L_PCT}{r}", "Receita líquida menos nuvem e suporte, por assinante.")
     U["mc"] = r; r += 1
     rotulo(ws, r, "LTV — valor do assinante ao longo da vida", 1, bold=True)
@@ -127,10 +133,10 @@ def build_usuarios(wb, P, BLOCOS, PE):
 
     secao(ws, r, "CAIXA E FÔLEGO", COL_PCT); r += 1
     rotulo(ws, r, "Caixa acumulado", 1, bold=True)
-    preencher_linha(ws, r, lambda i, L: f'={sel(37, L)}', BRL, bold=True, total=False)
+    preencher_linha(ws, r, lambda i, L: f'={sel(O.caixa, L)}', BRL, bold=True, total=False)
     U["caixa"] = r; r += 1
     rotulo(ws, r, "Queima de caixa do mês (burn)", 1)
-    preencher_linha(ws, r, lambda i, L: f'=MAX(0,-{sel(30, L)})', BRL, total=False)
+    preencher_linha(ws, r, lambda i, L: f'=MAX(0,-{sel(O.fcl, L)})', BRL, total=False)
     U["burn"] = r; r += 1
     rotulo(ws, r, "Runway (meses de caixa restantes)", 1, bold=True)
     def _runway(i, L):
@@ -160,21 +166,23 @@ def build_faturamento(wb, P, BLOCOS):
     r = 8
     secao(ws, r, "RECEITA BRUTA", COL_PCT); r += 1
     for lbl, off, key in [
-        ("Assinaturas — Plano Essencial", 10, "b"),
-        ("Assinaturas — Plano Premium", 11, "i"),
-        ("Assinaturas — Plano Família", 12, "p"),
-        ("Marketplace — comissões sobre dispositivos", 14, "mp"),
-        ("B2B — parcerias estratégicas", 15, "b2b"),
+        ("Assinaturas — Plano Essencial", O.rec_ess, "b"),
+        ("Assinaturas — Plano Premium", O.rec_pre, "i"),
+        ("Assinaturas — Plano Família", O.rec_fam, "p"),
+        ("Marketplace — comissões sobre dispositivos", O.marketplace, "mp"),
+        ("B2B — parcerias estratégicas", O.parcerias, "b2b"),
+        ("B2B — venda de dados", O.dados, "dados"),
+        ("B2B — outras iniciativas", O.outras_b2b, "outras"),
     ]:
         rotulo(ws, r, lbl, 1)
         preencher_linha(ws, r, lambda i, L, o=off: f'={sel(o, L)}', BRL, color=VERDE_LINK)
         F[key] = r; r += 1
     rotulo(ws, r, "RECEITA BRUTA TOTAL", 0, bold=True)
-    preencher_linha(ws, r, lambda i, L: f'=SUM({L}{F["b"]}:{L}{F["b2b"]})', BRL, bold=True)
+    preencher_linha(ws, r, lambda i, L: f'=SUM({L}{F["b"]}:{L}{F["outras"]})', BRL, bold=True)
     for i in range(1, N_MESES + 1):
         ws[f"{col_mes(i)}{r}"].fill = FILL_TOTAL
     F["bruta"] = r
-    for k in ("b", "i", "p", "mp", "b2b"):
+    for k in ("b", "i", "p", "mp", "b2b", "dados", "outras"):
         ws[f"{L_PCT}{F[k]}"] = f'=IFERROR({L_TOT}{F[k]}/{L_TOT}${F["bruta"]},0)'
         ws[f"{L_PCT}{F[k]}"].number_format = PCT
         ws[f"{L_PCT}{F[k]}"].font = f(9, False, CINZA)
@@ -182,9 +190,9 @@ def build_faturamento(wb, P, BLOCOS):
 
     secao(ws, r, "DEDUÇÕES DA RECEITA", COL_PCT); r += 1
     for lbl, off, key in [
-        ("(−) Impostos sobre a receita", 19, "imp"),
-        ("(−) Comissão das lojas de aplicativos", 20, "loja"),
-        ("(−) Taxas de meios de pagamento", 21, "pgto"),
+        ("(−) Impostos sobre a receita", O.impostos, "imp"),
+        ("(−) Comissão das lojas de aplicativos", O.lojas, "loja"),
+        ("(−) Taxas de meios de pagamento", O.pgto, "pgto"),
     ]:
         rotulo(ws, r, lbl, 1)
         preencher_linha(ws, r, lambda i, L, o=off: f'={sel(o, L)}', BRL, color=VERDE_LINK,
@@ -197,7 +205,7 @@ def build_faturamento(wb, P, BLOCOS):
         ws[f"{col_mes(i)}{r}"].fill = FILL_TOTAL
     F["liquida"] = r; r += 1
     rotulo(ws, r, "Alíquota efetiva de impostos", 1, italic=True)
-    preencher_linha(ws, r, lambda i, L: f'={sel(18, L)}', PCT2, color=CINZA, total=False)
+    preencher_linha(ws, r, lambda i, L: f'={sel(O.aliquota, L)}', PCT2, color=CINZA, total=False)
     nota(ws, f"{L_PCT}{r}", "Simples Nacional progressivo; migra para Lucro Presumido acima de R$ 4,8 mi.")
     F["aliq"] = r; r += 2
 
@@ -267,22 +275,22 @@ def build_fluxo(wb, P, A, I, BLOCOS, PE):
     secao(ws, r, "OPERACIONAIS", COL_PCT); r += 1
     op_ini = r
     ops = [
-        ("Infraestrutura e nuvem",              lambda i, L: f'={sel(23, L)}',                     "nuvem"),
-        ("Suporte ao cliente",                  lambda i, L: f'={sel(24, L)}',                     "suporte"),
+        ("Infraestrutura e nuvem",              lambda i, L: f'={sel(O.nuvem, L)}',                     "nuvem"),
+        ("Suporte ao cliente",                  lambda i, L: f'={sel(O.suporte, L)}',                     "suporte"),
         ("Equipe PJ",                           lambda i, L: f'=-Pessoas!{L}{PE["pj"]}',           "equipe"),
         ("Equipe CLT (salários e encargos)",     lambda i, L: f'=-Pessoas!{L}{PE["clt"]}',          "clt"),
         ("Pró-labore dos sócios",                lambda i, L: f'=-Pessoas!{L}{PE["socio"]}',        "prolab"),
         ("Marketing de performance (aquisição)",
-         lambda i, L: f'=-{sel(1, L)}*(1-{yr("organico", L)})*{yr_cen("cac", L)}',                 "mkt_perf"),
+         lambda i, L: f'=-{sel(O.novos, L)}*(1-{yr("organico", L)})*{yr_cen("cac", L)}',                 "mkt_perf"),
         ("Marketing recorrente (agência e conteúdo)",
          lambda i, L: f'=-IF({L}${TEMPO}>=Premissas!$B${P["mkt_ini"]},{yr("mkt_rec", L)},0)',      "mkt_rec"),
         ("Propaganda de lançamento",
          lambda i, L: (f'=-IF({L}${TEMPO}=DATE(YEAR(Premissas!$B${P["mkt_lanc_mes"]}),'
                        f'MONTH(Premissas!$B${P["mkt_lanc_mes"]}),1),Premissas!$B${P["mkt_lanc"]},0)'),
          "mkt_lanc"),
-        ("Comissão das lojas de aplicativos",   lambda i, L: f'={sel(20, L)}',                     "loja"),
-        ("Taxas de meios de pagamento",         lambda i, L: f'={sel(21, L)}',                     "pgto"),
-        ("Impostos sobre a receita",            lambda i, L: f'={sel(19, L)}',                     "imp"),
+        ("Comissão das lojas de aplicativos",   lambda i, L: f'={sel(O.lojas, L)}',                     "loja"),
+        ("Taxas de meios de pagamento",         lambda i, L: f'={sel(O.pgto, L)}',                     "pgto"),
+        ("Impostos sobre a receita",            lambda i, L: f'={sel(O.impostos, L)}',                     "imp"),
         ("Despesas administrativas",
          lambda i, L: f'=-IF({L}${TEMPO}>=Premissas!$B${P["adm_ini"]},{yr("admin", L)},0)',        "adm"),
     ]
@@ -304,7 +312,7 @@ def build_fluxo(wb, P, A, I, BLOCOS, PE):
     # ---------------- FLUXO --------------------------------------------
     secao(ws, r, "FLUXO DE CAIXA", COL_PCT); r += 1
     rotulo(ws, r, "Receita bruta total", 1)
-    preencher_linha(ws, r, lambda i, L: f'={sel(16, L)}', BRL, color=VERDE_LINK)
+    preencher_linha(ws, r, lambda i, L: f'={sel(O.bruta, L)}', BRL, color=VERDE_LINK)
     F["receita"] = r; r += 1
     rotulo(ws, r, "FLUXO DE CAIXA LIVRE (FCL)", 0, bold=True)
     preencher_linha(ws, r, lambda i, L:
@@ -352,7 +360,7 @@ def build_fluxo(wb, P, A, I, BLOCOS, PE):
                     color=CINZA, total=False)
     F["mk_pbd"] = r; r += 1
     rotulo(ws, r, "✔ Verificação: FCL desta aba − FCL do motor (deve ser zero)", 1, italic=True)
-    preencher_linha(ws, r, lambda i, L: f'=ROUND({L}{F["fcl"]}-{sel(30, L)},2)', BRL2,
+    preencher_linha(ws, r, lambda i, L: f'=ROUND({L}{F["fcl"]}-{sel(O.fcl, L)},2)', BRL2,
                     color=CINZA, total=False)
     ws[f"{L_TOT}{r}"] = f'=SUM(B{r}:{L_FIM}{r})'
     ws[f"{L_TOT}{r}"].number_format = BRL2
@@ -457,32 +465,35 @@ def build_dre(wb, P, I, BLOCOS, FL):
         return D[key]
 
     secao(ws, r, "RECEITA OPERACIONAL BRUTA", COL_PCT); r += 1
-    linha("Assinaturas — Plano Essencial",        lambda i, L: f'={sel(10, L)}', "rb_b", cor=VERDE_LINK)
-    linha("Assinaturas — Plano Premium", lambda i, L: f'={sel(11, L)}', "rb_i", cor=VERDE_LINK)
-    linha("Assinaturas — Plano Família",       lambda i, L: f'={sel(12, L)}', "rb_p", cor=VERDE_LINK)
-    linha("Marketplace — comissões",           lambda i, L: f'={sel(14, L)}', "rb_mp", cor=VERDE_LINK)
-    linha("B2B — parcerias estratégicas",      lambda i, L: f'={sel(15, L)}', "rb_b2b", cor=VERDE_LINK)
-    linha("(=) RECEITA BRUTA", lambda i, L: f'=SUM({L}{D["rb_b"]}:{L}{D["rb_b2b"]})',
+    linha("Assinaturas — Plano Essencial",        lambda i, L: f'={sel(O.rec_ess, L)}', "rb_b", cor=VERDE_LINK)
+    linha("Assinaturas — Plano Premium", lambda i, L: f'={sel(O.rec_pre, L)}', "rb_i", cor=VERDE_LINK)
+    linha("Assinaturas — Plano Família",       lambda i, L: f'={sel(O.rec_fam, L)}', "rb_p", cor=VERDE_LINK)
+    linha("Marketplace — comissões",           lambda i, L: f'={sel(O.marketplace, L)}', "rb_mp", cor=VERDE_LINK)
+    linha("B2B — parcerias estratégicas",      lambda i, L: f'={sel(O.parcerias, L)}', "rb_b2b", cor=VERDE_LINK)
+    linha("B2B — venda de dados",              lambda i, L: f'={sel(O.dados, L)}', "rb_dados", cor=VERDE_LINK,
+          obs="Contratos da tabela de iniciativas B2B em Premissas, categoria Dados.")
+    linha("B2B — outras iniciativas",          lambda i, L: f'={sel(O.outras_b2b, L)}', "rb_out", cor=VERDE_LINK)
+    linha("(=) RECEITA BRUTA", lambda i, L: f'=SUM({L}{D["rb_b"]}:{L}{D["rb_out"]})',
           "bruta", bold=True, destaque=True)
     r += 1
 
     secao(ws, r, "DEDUÇÕES DA RECEITA BRUTA", COL_PCT); r += 1
     linha("(−) Impostos sobre a receita (Simples / Lucro Presumido)",
-          lambda i, L: f'={sel(19, L)}', "ded_imp", cor=VERDE_LINK, pct_base=D["bruta"])
+          lambda i, L: f'={sel(O.impostos, L)}', "ded_imp", cor=VERDE_LINK, pct_base=D["bruta"])
     linha("(−) Comissão das lojas de aplicativos",
-          lambda i, L: f'={sel(20, L)}', "ded_loja", cor=VERDE_LINK, pct_base=D["bruta"],
+          lambda i, L: f'={sel(O.lojas, L)}', "ded_loja", cor=VERDE_LINK, pct_base=D["bruta"],
           obs="Apple/Google. A maior dedução isolada da receita de assinatura.")
     linha("(−) Taxas de meios de pagamento",
-          lambda i, L: f'={sel(21, L)}', "ded_pgto", cor=VERDE_LINK, pct_base=D["bruta"])
+          lambda i, L: f'={sel(O.pgto, L)}', "ded_pgto", cor=VERDE_LINK, pct_base=D["bruta"])
     linha("(=) RECEITA OPERACIONAL LÍQUIDA",
           lambda i, L: f'={L}{D["bruta"]}+SUM({L}{D["ded_imp"]}:{L}{D["ded_pgto"]})',
           "liquida", bold=True, destaque=True, pct_base=D["bruta"])
     r += 1
 
     secao(ws, r, "CUSTO DOS SERVIÇOS PRESTADOS", COL_PCT); r += 1
-    linha("(−) Infraestrutura e nuvem", lambda i, L: f'={sel(23, L)}', "cs_nuvem",
+    linha("(−) Infraestrutura e nuvem", lambda i, L: f'={sel(O.nuvem, L)}', "cs_nuvem",
           cor=VERDE_LINK, pct_base=D["bruta"])
-    linha("(−) Suporte ao cliente", lambda i, L: f'={sel(24, L)}', "cs_sup",
+    linha("(−) Suporte ao cliente", lambda i, L: f'={sel(O.suporte, L)}', "cs_sup",
           cor=VERDE_LINK, pct_base=D["bruta"])
     linha("(=) LUCRO BRUTO",
           lambda i, L: f'={L}{D["liquida"]}+{L}{D["cs_nuvem"]}+{L}{D["cs_sup"]}',

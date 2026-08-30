@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Aba Premissas: todos os inputs do modelo, com registro de linhas."""
 import datetime as dt
-from openpyxl.styles import Alignment
+from openpyxl.styles import Alignment, PatternFill
+from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.comments import Comment
 from common import *
 
@@ -274,7 +275,7 @@ def build(wb):
         obs="Boca a boca + conteúdo da agência da Shaiane. Reduz a fatia paga com mídia."); r += 2
 
     # ==================================================================
-    secao(ws, r, "5. MONETIZAÇÃO — CANAIS E TAXAS", 12); r += 1
+    secao(ws, r, "5. MONETIZAÇÃO — CANAIS, TAXAS E RECEITA B2B", 12); r += 1
     linha_unica(ws, r, "Taxa das lojas de aplicativos (App Store / Google Play)", 0.15, PCT,
         "taxa_loja", chave=True,
         fonte=("Google Play cobra 15% em todas as assinaturas auto-renováveis desde o 1º dia. Apple "
@@ -286,6 +287,96 @@ def build(wb):
         obs="Migração gradual para checkout web/PIX próprio, que não paga comissão de loja."); r += 1
     linha_unica(ws, r, "Taxa de meio de pagamento (venda direta web/PIX)", 0.045, PCT, "taxa_pgto",
         obs="Média ponderada de cartão (~4,99%) e PIX (~1,0%)."); r += 1
+
+
+    rotulo(ws, r, "Receita B2B de dados — o painel", 0, bold=True); r += 1
+    for t in ["O dado só vale se houver escala e consentimento. Estas três premissas definem o "
+              "tamanho do painel comercializável; a tabela logo abaixo define o que se cobra por ele. "
+              "Enquanto o painel não atingir o mínimo, nenhum contrato de dados gera receita, por "
+              "mais que a data de início já tenha passado."]:
+        c = ws.cell(r, 1, "•  " + t)
+        c.font = f(9, False, CINZA)
+        c.alignment = Alignment(wrap_text=True, vertical="top", indent=1)
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=9)
+        ws.row_dimensions[r].height = 28
+        r += 1
+    linha_input(ws, r, "% da base que consente compartilhar dados",
+                [0.25, 0.28, 0.30, 0.32, 0.35], PCT, "consent", chave=True,
+        fonte=("LGPD: dado de saúde é dado sensível (art. 11). Vender exige anonimização efetiva "
+               "(art. 12, que tira o dado anonimizado do alcance da lei) OU consentimento "
+               "ESPECÍFICO e DESTACADO para esta finalidade — separado do aceite de uso do app, "
+               "revogável a qualquer tempo. Quem revoga sai do painel. Taxas de opt-in em apps de "
+               "saúde com pedido bem desenhado ficam na casa de 20% a 40%."),
+        obs="⚠ Consentimento específico e destacado, separado dos termos do app. Revogável."); r += 1
+    linha_unica(ws, r, "Base mínima do painel para ter valor comercial (usuários)", 75000, INT,
+                "painel_min", chave=True,
+        fonte=("Painel pequeno não se vende: comprador de dado quer representatividade. 75 mil "
+               "usuários consentidos é um piso defensável para um painel nichado — idoso com "
+               "doença crônica, monitorado continuamente — que é estreito mas profundo. Abaixo "
+               "disso o modelo zera a receita de dados."),
+        obs="Abaixo deste número, a receita de dados é zero, mesmo com contrato na tabela."); r += 1
+    linha_unica(ws, r, "Custo de processamento do painel (R$/usuário/mês)", 0.05, BRL2,
+                "custo_painel",
+        obs="Anonimização, agregação e entrega dos dados. Entra na linha de nuvem."); r += 1
+    linha_unica(ws, r, "Considerar iniciativas B2B EM ESTUDO?  (1 = Sim · 0 = Não)", 0, '0',
+                "inc_estudo", chave=True,
+        obs="⚠ Desligado. Liga as linhas marcadas como 'Em estudo' na tabela abaixo."); r += 1
+
+    rotulo(ws, r, "Iniciativas de receita B2B", 0, bold=True); r += 1
+    c = ws.cell(r, 1, "Uma linha por iniciativa. As duas primeiras são a venda de dados, já "
+                      "planejada. As demais estão em branco para vocês preencherem — recompra de "
+                      "medicamento de uso crônico, integrações com farmácia, o que vier. Categoria "
+                      "separa o que aparece como 'venda de dados' do que aparece como 'outras "
+                      "iniciativas' na DRE.")
+    c.font = f(9, False, CINZA, italic=True)
+    c.alignment = Alignment(wrap_text=True, vertical="top", indent=1)
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=9)
+    ws.row_dimensions[r].height = 30
+    r += 1
+    for j, h in enumerate(["Iniciativa", "Categoria", "Status", "Modelo", "Valor",
+                           "Início", "Fim"]):
+        c = ws.cell(r, 1 + j, h)
+        c.font = f(9, True, BRANCO); c.fill = FILL_HEADER
+        c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    r += 1
+    P["b2b_ini"] = r
+    linhas_b2b = [
+        ("Venda de dados à indústria farmacêutica", "Dados", "Planejado", "Fixo mensal",
+         45000, dt.datetime(2028, 7, 1), dt.datetime(2030, 12, 1)),
+        ("Venda de dados a redes de farmácia", "Dados", "Planejado", "Fixo mensal",
+         25000, dt.datetime(2029, 1, 1), dt.datetime(2030, 12, 1)),
+        ("Recompra de medicamento de uso crônico", "Outras", "Em estudo", "Fixo mensal",
+         0, dt.datetime(2029, 1, 1), dt.datetime(2030, 12, 1)),
+    ] + [("", "Outras", "Em estudo", "Fixo mensal", 0,
+          dt.datetime(2029, 1, 1), dt.datetime(2030, 12, 1)) for _ in range(6)]
+    for nome, cat, st, mod, val, ini_d, fim_d in linhas_b2b:
+        vazia = not nome
+        ws.cell(r, 1, nome)
+        ws.cell(r, 2, cat)
+        ws.cell(r, 3, st)
+        ws.cell(r, 4, mod)
+        ws.cell(r, 5, val).number_format = BRL2
+        ws.cell(r, 6, ini_d).number_format = MES
+        ws.cell(r, 7, fim_d).number_format = MES
+        for j in range(1, 8):
+            cc = ws.cell(r, j)
+            cc.border = BORDA_FINA
+            cc.font = f(9, False, CINZA if vazia else AZUL_INPUT)
+            cc.alignment = Alignment(horizontal="left" if j == 1 else "center",
+                                     indent=1 if j == 1 else 0)
+            if not vazia:
+                cc.fill = FILL_OK if st == "Planejado" else FILL_ALERTA
+        r += 1
+    P["b2b_fim"] = r - 1
+    for col, opts in (("B", '"Dados,Outras"'), ("C", '"Planejado,Em estudo,Descartado"'),
+                      ("D", '"Fixo mensal,Por usuário"')):
+        dv = DataValidation(type="list", formula1=opts, allow_blank=True, showDropDown=False)
+        ws.add_data_validation(dv)
+        dv.add(f"{col}{P['b2b_ini']}:{col}{P['b2b_fim']}")
+    nota(ws, f"I{P['b2b_ini']}",
+         "Modelo 'Fixo mensal': o valor é R$/mês de contrato. 'Por usuário': o valor é "
+         "R$ por usuário do painel por mês.")
+    r += 2
 
     rotulo(ws, r, "Marketplace de dispositivos", 0, bold=True); r += 1
     linha_unica(ws, r, "Comissão média sobre GMV", 0.10, PCT, "com_mp", chave=True,
