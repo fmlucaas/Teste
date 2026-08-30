@@ -145,21 +145,24 @@ def build(wb, P, A, I, BLOCOS, FL, U):
     linha("TIR mensal", 30, "custom", PCT2, "tir_m",
           custom=lambda k, col: (f"=IFERROR(IRR('Cenários'!$B${BLOCOS[k]+30}:"
                                  f"${L_FIM}${BLOCOS[k]+30}),\"n/d\")"))
-    linha("TIR anual", 0, "custom", PCT, "tir_a",
+    linha("TIR anual", 0, "custom", PCTG, "tir_a",
           custom=lambda k, col: f'=IFERROR((1+{col}{R["tir_m"]})^12-1,"n/d")', bold=True,
           obs="Compare com a TMA. Atenção: quando o investimento inicial é pequeno diante do caixa gerado, a TIR fica muito alta e perde poder de comparação — olhe o VPL junto.")
     linha("Payback simples (meses)", 33, "custom", INT, "pb",
           custom=lambda k, col: (
               f'=IF(\'Cenários\'!${L_FIM}${BLOCOS[k]+33}<0,"> 60",'
-              f'COUNTIF(\'Cenários\'!$B${BLOCOS[k]+33}:${L_FIM}${BLOCOS[k]+33},"<0")+1)'))
+              f'MAX(\'Cenários\'!$B${BLOCOS[k]+38}:${L_FIM}${BLOCOS[k]+38})+1)'),
+          obs="Mês em que o FCL acumulado passa a positivo e não volta mais.")
     linha("Payback descontado (meses)", 32, "custom", INT, "pbd",
           custom=lambda k, col: (
               f'=IF(\'Cenários\'!${L_FIM}${BLOCOS[k]+32}<0,"> 60",'
-              f'COUNTIF(\'Cenários\'!$B${BLOCOS[k]+32}:${L_FIM}${BLOCOS[k]+32},"<0")+1)'),
+              f'MAX(\'Cenários\'!$B${BLOCOS[k]+39}:${L_FIM}${BLOCOS[k]+39})+1)'),
           obs="Critério de decisão: payback desejado definido em Premissas.")
     linha("FCL acumulado em 5 anos", 30, "sum", BRL, "fcl_tot")
-    linha("ROI sobre o capital requerido", 0, "custom", PCT, "roi",
-          custom=lambda k, col: f'=IFERROR({col}{R["fcl_tot"]}/{col}{R["capreq"]},0)')
+    linha("Retorno sobre o capital requerido (múltiplo)", 0, "custom", MULT, "roi",
+          custom=lambda k, col: f'=IFERROR({col}{R["fcl_tot"]}/{col}{R["capreq"]},0)',
+          obs="Múltiplo, não percentual: 3,0x significa devolver três vezes o capital que o "
+              "projeto precisou. Negativo significa que o capital não volta.")
     r += 1
 
     # ---------------- CHECKLIST -------------------------------------------

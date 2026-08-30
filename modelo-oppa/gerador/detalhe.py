@@ -341,6 +341,16 @@ def build_fluxo(wb, P, A, I, BLOCOS, PE):
     for i in range(1, N_MESES + 1):
         ws[f"{col_mes(i)}{r}"].fill = FILL_TOTAL
     F["caixa"] = r; r += 1
+    rotulo(ws, r, "Auxiliar — mês com FCL acumulado negativo", 1, italic=True)
+    preencher_linha(ws, r, lambda i, L: f'=IF({L}{F["fcl_ac"]}<0,{L}${LIDX},0)', INT,
+                    color=CINZA, total=False)
+    nota(ws, f"{L_PCT}{r}", "Guarda o nº do mês enquanto o acumulado está negativo. "
+                            "O payback é o maior valor desta linha, mais um.")
+    F["mk_pb"] = r; r += 1
+    rotulo(ws, r, "Auxiliar — mês com FCL descontado acumulado negativo", 1, italic=True)
+    preencher_linha(ws, r, lambda i, L: f'=IF({L}{F["fcld_ac"]}<0,{L}${LIDX},0)', INT,
+                    color=CINZA, total=False)
+    F["mk_pbd"] = r; r += 1
     rotulo(ws, r, "✔ Verificação: FCL desta aba − FCL do motor (deve ser zero)", 1, italic=True)
     preencher_linha(ws, r, lambda i, L: f'=ROUND({L}{F["fcl"]}-{sel(30, L)},2)', BRL2,
                     color=CINZA, total=False)
@@ -358,13 +368,13 @@ def build_fluxo(wb, P, A, I, BLOCOS, PE):
          "Soma do FCL trazido a valor presente pela TMA. Positivo = cria valor."),
         ("TIR mensal", f'=IFERROR(IRR(B{F["fcl"]}:{L_FIM}{F["fcl"]}),"n/d")', PCT2,
          "Taxa que zera o VPL."),
-        ("TIR anual", f'=IFERROR((1+$B{r+1})^12-1,"n/d")', PCT,
+        ("TIR anual", f'=IFERROR((1+$B{r+1})^12-1,"n/d")', PCTG,
          "Compare com a TMA. Acima dela, o projeto remunera o risco."),
         ("Payback simples (meses)",
-         f'=IF({L_FIM}{F["fcl_ac"]}<0,"> 60 meses",COUNTIF(B{F["fcl_ac"]}:{L_FIM}{F["fcl_ac"]},"<0")+1)',
-         INT, "Mês em que o FCL acumulado vira positivo."),
+         f'=IF({L_FIM}{F["fcl_ac"]}<0,"> 60 meses",MAX(B{F["mk_pb"]}:{L_FIM}{F["mk_pb"]})+1)',
+         INT, "Mês em que o FCL acumulado passa a positivo e não volta mais."),
         ("Payback descontado (meses)",
-         f'=IF({L_FIM}{F["fcld_ac"]}<0,"> 60 meses",COUNTIF(B{F["fcld_ac"]}:{L_FIM}{F["fcld_ac"]},"<0")+1)',
+         f'=IF({L_FIM}{F["fcld_ac"]}<0,"> 60 meses",MAX(B{F["mk_pbd"]}:{L_FIM}{F["mk_pbd"]})+1)',
          INT, "Idem, com o dinheiro trazido a valor presente."),
         ("Capital requerido (pico de caixa negativo)",
          f'=-MIN(B{F["fcl_ac"]}:{L_FIM}{F["fcl_ac"]})', BRL,
@@ -375,8 +385,10 @@ def build_fluxo(wb, P, A, I, BLOCOS, PE):
         ("Investimento total (CAPEX)", f'=-{L_TOT}{F["projeto"]}', BRL, ""),
         ("Receita bruta acumulada", f'={L_TOT}{F["receita"]}', BRL, ""),
         ("FCL acumulado no período", f'={L_TOT}{F["fcl"]}', BRL, ""),
-        ("ROI sobre o capital requerido",
-         f'=IFERROR({L_TOT}{F["fcl"]}/$B{r+5},0)', PCT, "FCL total ÷ capital requerido."),
+        ("Retorno sobre o capital requerido (múltiplo)",
+         f'=IFERROR({L_TOT}{F["fcl"]}/$B{r+5},0)', MULT,
+         "FCL acumulado ÷ capital requerido. É um múltiplo, não um percentual: 3,0x significa "
+         "que o projeto devolve três vezes o capital que precisou."),
         ("TMA utilizada (a.a.)", f'=Premissas!$B${P["tma"]}', PCT, ""),
         ("Alíquota efetiva média de impostos",
          f'=IFERROR(-{L_TOT}{F["imp"]}/{L_TOT}{F["receita"]},0)', PCT2, ""),

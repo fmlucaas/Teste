@@ -13,6 +13,7 @@ INT   = '#,##0;(#,##0);"–"'
 PCT   = '0.0%;(0.0%);"–"'
 PCT2  = '0.00%;(0.00%);"–"'
 MULT  = '0.0"x";(0.0"x");"–"'
+PCTG  = '#,##0%;(#,##0%);"–"'   # percentual grande, sem casas decimais
 MES   = 'mmm/yy'
 DATA  = 'dd/mm/yyyy'
 TXT   = '@'

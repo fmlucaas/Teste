@@ -7,7 +7,7 @@ TEMPO = 4          # linha das datas
 LIDX  = TEMPO + 1  # linha do indice do mes
 LANO  = TEMPO + 2  # linha do ano
 LIDXA = TEMPO + 3  # linha do indice do ano (auxiliar)
-BLOCOS = [9, 53, 97]
+BLOCOS = [9, 55, 101]
 NOMES = ["CONSERVADOR", "PROVÁVEL", "AGRESSIVO"]
 CORES = ["C00000", "1F3864", "1F7040"]
 
@@ -50,11 +50,13 @@ LABELS = [
     "(+) Aportes de sócios",                       # 35
     "Fluxo de caixa do período",                   # 36
     "CAIXA ACUMULADO",                             # 37
+    "Marcador — mês com FCL acumulado negativo",    # 38
+    "Marcador — mês com FCL descontado negativo",   # 39
 ]
 NL = len(LABELS)   # 38
 
 FMT = {i: BRL for i in range(NL)}
-for i in (1, 2, 3, 4, 6, 7, 8, 9):
+for i in (1, 2, 3, 4, 6, 7, 8, 9, 38, 39):
     FMT[i] = INT
 FMT[5] = PCT
 FMT[18] = PCT2
@@ -64,7 +66,7 @@ FMT[17] = BRL
 MODO = {}                      # como consolidar na coluna TOTAL
 for i in range(NL):
     MODO[i] = "soma"
-for i in (2, 4, 5, 6, 7, 8, 9, 17, 18, 32, 33, 34, 37):
+for i in (2, 4, 5, 6, 7, 8, 9, 17, 18, 32, 33, 34, 37, 38, 39):
     MODO[i] = "ultimo"
 MODO[0] = "nada"
 MODO[18] = "media"
@@ -168,6 +170,12 @@ def build(wb, P, A, I, T, PE):
             35: lambda i, L: f'=Aportes!{L}{A["total"]}',
             36: lambda i, L: f'={L}{S+30}+{L}{S+35}',
             37: lambda i, L: f'={L}{S+36}' if i == 1 else f'={prev(i)}{S+37}+{L}{S+36}',
+            # Marcadores de payback. A conta antiga era COUNTIF(acumulado<0)+1, que só vale
+            # se os meses negativos forem os PRIMEIROS. Com jan-mar/2026 em zero (nem
+            # negativos), ela subestimava o payback. Aqui guardamos o índice do mês enquanto
+            # o acumulado ainda está negativo; o payback é o maior desses índices, mais um.
+            38: lambda i, L: f'=IF({L}{S+33}<0,{L}${LIDX},0)',
+            39: lambda i, L: f'=IF({L}{S+32}<0,{L}${LIDX},0)',
         }
 
         for off in range(1, NL):
@@ -196,6 +204,9 @@ def build(wb, P, A, I, T, PE):
         # legenda da coluna TOTAL para linhas de estoque
         for off in (2, 4, 6, 7, 8, 9, 17, 32, 33, 37):
             nota(ws, f"{L_PCT}{S+off}", "Saldo no último mês (dez/2030), não soma.")
+        for off in (38, 39):
+            nota(ws, f"{L_PCT}{S+off}", "Auxiliar do payback: guarda o nº do mês enquanto o "
+                                        "acumulado está negativo. O payback é o maior valor, mais um.")
         nota(ws, f"{L_PCT}{S+18}", "Alíquota efetiva média ponderada do período.")
 
     return ws, BLOCOS, NL
