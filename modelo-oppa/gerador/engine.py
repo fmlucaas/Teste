@@ -19,12 +19,12 @@ LABELS = [
     "Base de usuários — fim do mês",               # 4
     "Taxa de conversão (pagantes ÷ base)",         # 5
     "Usuários pagantes",                           # 6
-    "Pagantes — Plano Básico",                     # 7
-    "Pagantes — Plano Intermediário",              # 8
-    "Pagantes — Plano Premium",                    # 9
-    "Receita — Plano Básico",                      # 10
-    "Receita — Plano Intermediário",               # 11
-    "Receita — Plano Premium",                     # 12
+    "Pagantes — Plano Essencial",                     # 7
+    "Pagantes — Plano Premium",              # 8
+    "Pagantes — Plano Família",                    # 9
+    "Receita — Plano Essencial",                      # 10
+    "Receita — Plano Premium",               # 11
+    "Receita — Plano Família",                     # 12
     "Receita de assinaturas",                      # 13
     "Receita de marketplace (comissões)",          # 14
     "Receita B2B — Boston Scientific",             # 15

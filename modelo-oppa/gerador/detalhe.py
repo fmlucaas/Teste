@@ -53,9 +53,9 @@ def build_usuarios(wb, P, BLOCOS, PE):
         ("Base de usuários — fim do mês", 4, INT, "base", True),
         ("Taxa de conversão", 5, PCT, "conv", False),
         ("Usuários pagantes", 6, INT, "pag", True),
-        ("Pagantes — Plano Básico", 7, INT, "pag_b", False),
-        ("Pagantes — Plano Intermediário", 8, INT, "pag_i", False),
-        ("Pagantes — Plano Premium", 9, INT, "pag_p", False),
+        ("Pagantes — Plano Essencial", 7, INT, "pag_b", False),
+        ("Pagantes — Plano Premium", 8, INT, "pag_i", False),
+        ("Pagantes — Plano Família", 9, INT, "pag_p", False),
     ]
     for lbl, off, fmt, key, bold in linhas:
         rotulo(ws, r, lbl, 0 if bold else 1, bold=bold)
@@ -160,9 +160,9 @@ def build_faturamento(wb, P, BLOCOS):
     r = 8
     secao(ws, r, "RECEITA BRUTA", COL_PCT); r += 1
     for lbl, off, key in [
-        ("Assinaturas — Plano Básico", 10, "b"),
-        ("Assinaturas — Plano Intermediário", 11, "i"),
-        ("Assinaturas — Plano Premium", 12, "p"),
+        ("Assinaturas — Plano Essencial", 10, "b"),
+        ("Assinaturas — Plano Premium", 11, "i"),
+        ("Assinaturas — Plano Família", 12, "p"),
         ("Marketplace — comissões sobre dispositivos", 14, "mp"),
         ("B2B — Boston Scientific (se acordo ativo)", 15, "b2b"),
     ]:
@@ -398,9 +398,9 @@ def build_fluxo(wb, P, A, I, BLOCOS, PE):
 
     # ---------------- PREMISSAS DE CUSTO --------------------------------
     secao(ws, r, "PREMISSAS — RESUMO (editar na aba Premissas)", COL_PCT); r += 1
-    for lbl, key, fmt in [("Plano Básico (R$/mês)", "p_basico", BRL2),
-                          ("Plano Intermediário (R$/mês)", "p_inter", BRL2),
-                          ("Plano Premium (R$/mês)", "p_premium", BRL2),
+    for lbl, key, fmt in [("Plano Essencial (R$/mês)", "p_basico", BRL2),
+                          ("Plano Premium (R$/mês)", "p_inter", BRL2),
+                          ("Plano Família (R$/mês)", "p_premium", BRL2),
                           ("Taxa das lojas de aplicativos", "taxa_loja", PCT),
                           ("Comissão do marketplace", "com_mp", PCT),
                           ("TMA (a.a.)", "tma", PCT),
@@ -445,9 +445,9 @@ def build_dre(wb, P, I, BLOCOS, FL):
         return D[key]
 
     secao(ws, r, "RECEITA OPERACIONAL BRUTA", COL_PCT); r += 1
-    linha("Assinaturas — Plano Básico",        lambda i, L: f'={sel(10, L)}', "rb_b", cor=VERDE_LINK)
-    linha("Assinaturas — Plano Intermediário", lambda i, L: f'={sel(11, L)}', "rb_i", cor=VERDE_LINK)
-    linha("Assinaturas — Plano Premium",       lambda i, L: f'={sel(12, L)}', "rb_p", cor=VERDE_LINK)
+    linha("Assinaturas — Plano Essencial",        lambda i, L: f'={sel(10, L)}', "rb_b", cor=VERDE_LINK)
+    linha("Assinaturas — Plano Premium", lambda i, L: f'={sel(11, L)}', "rb_i", cor=VERDE_LINK)
+    linha("Assinaturas — Plano Família",       lambda i, L: f'={sel(12, L)}', "rb_p", cor=VERDE_LINK)
     linha("Marketplace — comissões",           lambda i, L: f'={sel(14, L)}', "rb_mp", cor=VERDE_LINK)
     linha("B2B — Boston Scientific",           lambda i, L: f'={sel(15, L)}', "rb_b2b", cor=VERDE_LINK)
     linha("(=) RECEITA BRUTA", lambda i, L: f'=SUM({L}{D["rb_b"]}:{L}{D["rb_b2b"]})',

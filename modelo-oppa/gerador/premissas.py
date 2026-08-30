@@ -172,22 +172,34 @@ def build(wb):
 
     # ==================================================================
     secao(ws, r, "3. PREÇOS E MIX DE PLANOS", 12); r += 1
-    linha_unica(ws, r, "Plano Básico (R$/mês)", 19.90, BRL2, "p_basico", chave=True); r += 1
-    linha_unica(ws, r, "Plano Intermediário (R$/mês)", 39.90, BRL2, "p_inter", chave=True); r += 1
-    linha_unica(ws, r, "Plano Premium (R$/mês)", 79.90, BRL2, "p_premium", chave=True); r += 1
+    c = ws.cell(r, 1, "•  São quatro planos, conforme o backlog do produto: Free (gratuito, entra na "
+                      "base de usuários mas não gera receita de assinatura), Essencial, Premium e "
+                      "Família. Os três pagos estão abaixo; o Free é a diferença entre a base ativa "
+                      "e os pagantes, na aba Usuários.")
+    c.font = f(9, False, CINZA)
+    c.alignment = Alignment(wrap_text=True, vertical="top", indent=1)
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=9)
+    ws.row_dimensions[r].height = 28
+    r += 1
+    linha_unica(ws, r, "Plano Essencial (R$/mês)  ·  1 familiar, até 3 cuidadores",
+                19.90, BRL2, "p_basico", chave=True); r += 1
+    linha_unica(ws, r, "Plano Premium (R$/mês)  ·  1 familiar, cuidadores ilimitados",
+                39.90, BRL2, "p_inter", chave=True); r += 1
+    linha_unica(ws, r, "Plano Família (R$/mês)  ·  até 4 familiares, cuidadores ilimitados",
+                79.90, BRL2, "p_premium", chave=True); r += 1
     linha_unica(ws, r, "Reajuste anual de preços (a.a.)", 0.045, PCT, "reajuste",
                 obs="Aplicado a partir de 2027 (IPCA projetado ~4,5%)."); r += 1
 
     rotulo(ws, r, "Mix de pagantes por plano (% dos assinantes)", 0, bold=True); r += 1
-    linha_input(ws, r, "Plano Básico", [0.75, 0.72, 0.68, 0.64, 0.60], PCT, "mix_b", chave=True,
+    linha_input(ws, r, "Plano Essencial", [0.75, 0.72, 0.68, 0.64, 0.60], PCT, "mix_b", chave=True,
         fonte=("Em assinatura B2C de ticket baixo a decisão é 'pagar ou não pagar', não 'qual plano' — "
                "o degrau de entrada concentra a base. Referências de mercado põem o plano de entrada em "
                "60–75% dos assinantes. O efeito compromisso (Simonson & Tversky, 1992) puxa parte da "
                "base para o plano do meio ao longo do tempo. Daí o mix migrar de 75/20/5 para 60/28/12."),
         obs="Efeito compromisso (Simonson & Tversky, 1992) + padrão de assinatura B2C de ticket baixo."); r += 1
-    linha_input(ws, r, "Plano Intermediário", [0.20, 0.22, 0.24, 0.26, 0.28], PCT, "mix_i", chave=True,
+    linha_input(ws, r, "Plano Premium", [0.20, 0.22, 0.24, 0.26, 0.28], PCT, "mix_i", chave=True,
         obs="Plano-ponte: cresce conforme o Premium ganha valor percebido."); r += 1
-    linha_input(ws, r, "Plano Premium", [0.05, 0.06, 0.08, 0.10, 0.12], PCT, "mix_p", chave=True,
+    linha_input(ws, r, "Plano Família", [0.05, 0.06, 0.08, 0.10, 0.12], PCT, "mix_p", chave=True,
         obs="Fatia menor mas crescente — ancoragem de preço que sustenta o Intermediário."); r += 1
     rotulo(ws, r, "Verificação do mix (deve somar 100%)", 2, italic=True)
     for i, a in enumerate(ANOS):
