@@ -17,7 +17,7 @@ EMS_PORTFOLIO_INJ_OUTROS = ['Amoxicilina + Ácido Clavulânico','Teicoplanina','
 
 # ---- Anestésicos injetáveis (slide 34, posições verificadas)
 EMS_ANEST_PORTFOLIO = {'MIDAZOLAM':'Midazolam','FENTANYL':'Fentanil'}
-EMS_ANEST_PIPELINE  = {'KETAMINE':'Escetamina (pipeline; Cetamina é a base)'}
+EMS_ANEST_PIPELINE  = {'KETAMINE':'Escetamina — atenção: o item do deck é a escetamina (S-enantiômero); o produto do catálogo Hikma é cetamina racêmica'}
 EMS_ANEST_GATE      = {'LIDOCAINE':'Lidocaína','DEXMEDETOMIDINE':'Dexmedetomidina','REMIFENTANIL':'Remifentanil'}
 EMS_ANEST_GATE_OUTROS = ['Propofol','Remimazolam','Levobupivacaína','Suzetrigina','Epinefrina+Bupivacaína',
  'Mepivacaína','Procaína','Trimecaína','Tiopental','Epinefrina+Levobupivacaína']
