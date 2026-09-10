@@ -9,7 +9,7 @@ import kb
 SP='/tmp/claude-0/-home-user-Teste/efecc27a-a62f-5537-a145-133cfde4c7cb/scratchpad/'
 OUT='/home/user/Teste/Hikma_Injetaveis_Base_NN.xlsx'
 
-prods=json.load(open(SP+'products.json')); ev=json.load(open(SP+'evaluation2.json'))
+prods=json.load(open(SP+'products.json')); ev=json.load(open(SP+'final.json'))
 matches=json.load(open(SP+'hist_matches.json'))
 EV={e['Molécula (EN)']:e for e in ev}
 
@@ -41,6 +41,7 @@ F['hcat']=hdr('#0B3D5C')                       # fatos do catálogo
 F['hems']=hdr('#1F6F54')                       # sinal pipeline
 F['hnn'] =hdr('#5B3A8C')                       # sinal histórico
 F['hin'] =hdr('#FFD24D','#3D2B00','#B98F00')   # em branco p/ preencher
+F['hrec']=hdr('#8A1C1C')                       # minha recomendação
 F['grp'] =wb.add_format({'bold':True,'font_color':'white','align':'center','valign':'vcenter','font_size':10,'border':1})
 F['t']=wb.add_format({'text_wrap':True,'valign':'top','border':1,'border_color':'#D8DEE4','font_size':9})
 F['tc']=wb.add_format({'text_wrap':True,'valign':'top','align':'center','border':1,'border_color':'#D8DEE4','font_size':9})
@@ -48,12 +49,14 @@ F['num']=wb.add_format({'valign':'top','align':'center','border':1,'border_color
 F['sim']=wb.add_format({'bold':True,'font_color':'#0E6B3D','bg_color':'#DFF3E6','align':'center','valign':'vcenter','border':1,'border_color':'#D8DEE4','font_size':9})
 F['nao']=wb.add_format({'align':'center','valign':'vcenter','border':1,'border_color':'#D8DEE4','font_size':9,'font_color':'#8A93A0'})
 F['inp']=wb.add_format({'border':1,'border_color':'#B98F00','bg_color':'#FFF7DB','font_size':9})
+F['nao2']=wb.add_format({'bold':True,'font_color':'#8A1C1C','bg_color':'#FBE4E4','align':'center','valign':'vcenter','border':1,'border_color':'#D8DEE4','font_size':9})
 F['bold']=wb.add_format({'bold':True,'valign':'top','text_wrap':True})
 F['wrap']=wb.add_format({'text_wrap':True,'valign':'top'})
 
 GRP_CAT=wb.add_format({'bold':True,'font_color':'white','bg_color':'#0B3D5C','align':'center','valign':'vcenter','border':1,'font_size':10})
 GRP_EMS=wb.add_format({'bold':True,'font_color':'white','bg_color':'#1F6F54','align':'center','valign':'vcenter','border':1,'font_size':10})
 GRP_NN =wb.add_format({'bold':True,'font_color':'white','bg_color':'#5B3A8C','align':'center','valign':'vcenter','border':1,'font_size':10})
+GRP_REC=wb.add_format({'bold':True,'font_color':'white','bg_color':'#8A1C1C','align':'center','valign':'vcenter','border':1,'font_size':10})
 GRP_IN =wb.add_format({'bold':True,'font_color':'#3D2B00','bg_color':'#FFD24D','align':'center','valign':'vcenter','border':1,'font_size':10})
 
 # ================= 1. LEIA-ME =================
@@ -64,20 +67,36 @@ r=3
 for t,d in [
  ('O que este arquivo é',
   'O catálogo Hikma 2025 convertido em planilha, com as características de cada produto separadas em colunas, '
-  'mais dois sinalizadores factuais: se a molécula aparece no portfólio/pipeline do Grupo EMS e se já existe '
-  'registro dela na base de Novos Negócios. Não há score, ranking nem recomendação — as colunas de análise '
-  'estão em branco para você preencher.'),
- ('As quatro faixas de coluna',
+  'mais minha recomendação binária por molécula e dois sinalizadores factuais: se a molécula aparece no '
+  'portfólio/pipeline do Grupo EMS e se já passou por Novos Negócios. As colunas de análise de mercado estão '
+  'em branco para você preencher.'),
+ ('As cinco faixas de coluna',
+  'VERMELHA — minha recomendação e a justificativa dela.\n'
   'AZUL — fato do catálogo Hikma, extraído do PDF.\n'
   'VERDE — sinalizador de portfólio/pipeline, extraído da apresentação da Comissão de set/26.\n'
-  'ROXO — sinalizador de histórico, extraído da base de Novos Negócios.\n'
-  'AMARELO — em branco, para você preencher (faturamento, unidades, preço por unidade e o que mais precisar).'),
+  'ROXA — sinalizador de histórico de Novos Negócios: sim/não e quando.\n'
+  'AMARELA — em branco, para você preencher (faturamento, unidades, preço por unidade e o que mais precisar).'),
+ ('Como cheguei ao SIM/NÃO',
+  'Regra de negócio, não nota. Recomendo NÃO quando: a molécula não tem uso relevante no Brasil; é de canal '
+  'Retail, fora do seu escopo; a casa já abordou quatro ou mais parceiros e quase todos estão dormentes; é '
+  'substância da Portaria 344/98 sem preço que justifique a cota de importação; ou o preço unitário no '
+  'hospital brasileiro é baixo demais para cobrir frete, imposto, estoque e registro de um acabado importado. '
+  'Recomendo SIM quando o preço unitário comporta a importação, ou quando é faixa intermediária com escassez '
+  'no mercado, apresentação diferenciada ou projeto interno em andamento que o licenciamento pode antecipar. '
+  'A justificativa de cada linha diz qual desses caminhos foi acionado. Resultado: 30 SIM e 106 NÃO.'),
+ ('O que a recomendação NÃO é',
+  'É triagem para você não gastar tempo com as 106, não veredito. A premissa mais frágil é o preço unitário, '
+  'que estimei por conhecimento de mercado porque a base IQVIA não coube no anexo. Se o preço real de uma '
+  'molécula for muito diferente do que presumi, a recomendação dela vira. Por isso a justificativa sempre diz '
+  'o motivo — para você discordar item a item com dado na mão.'),
  ('Sobre o sinalizador de pipeline',
-  'Indica apenas presença e em que estágio (PORTFÓLIO, PIPELINE ou EM AVALIAÇÃO/GATE 0-3), com o texto '
-  'exato do deck e o slide de origem. Não tira nem dá conclusão: é direcional e não exclusivo.'),
+  'Indica presença e estágio (PORTFÓLIO, PIPELINE ou EM AVALIAÇÃO/GATE 0-3), com o texto exato do deck e o '
+  'slide de origem. Tratei estar em pipeline como direcional positivo — o Grupo já quis a molécula, e '
+  'licenciar o acabado pode antecipar a entrada — mas nunca como fator isolado de decisão.'),
  ('Sobre o sinalizador de histórico',
-  'Indica se a molécula tem registro na base de NN, quantos, com quais parceiros, em que status e por quem. '
-  'O detalhe linha a linha está na aba 4. Status "PASSIVO" é reproduzido como está na base.'),
+  'Só sim/não e quando (primeiro e último registro de entrada), para servir de balizador das suas buscas. '
+  'O detalhe por parceiro, status e responsável está na aba 4, se precisar. Guardei uma coluna à parte para '
+  'contato prévio com a própria Hikma — é o caso da vancomicina, que tem CDA vigente.'),
  ('Injetáveis',
   'As 164 fichas do corpo do catálogo (321 apresentações) são todas injetáveis. O índice de distribuidores '
   '(pág. 81) traz 3 NDCs sem ficha, um deles comprimido (mefloquina) — ficaram de fora da base.'),
@@ -93,87 +112,77 @@ for t,d in [
     ws.write(r,1,d,F['sub']); ws.set_row(r,13.5*(1+d.count('\n')+len(d)//116)); r+=2
 
 # ================= 2. CONSOLIDADO POR MOLÉCULA =================
-CAT=['Molécula (PT/DCB)','Molécula (EN)','Agrupamento terapêutico','Categoria terapêutica (Hikma)',
- 'Produtos no catálogo','Referência (Comparable To)','FDA Rating','Forma farmacêutica',
- 'Apresentação diferenciada','Controle DEA no catálogo','Nº de apresentações (SKUs)','Concentrações',
- 'Conteúdo total','Embalagens','NDCs','Páginas no PDF']
+AVAL=['Molécula (PT/DCB)','Molécula (EN)','Agrupamento terapêutico','RECOMENDAÇÃO','Justificativa']
+CAT=['Categoria terapêutica (Hikma)','Produtos no catálogo','Referência (Comparable To)','FDA Rating',
+ 'Forma farmacêutica','Apresentação diferenciada','Controle DEA no catálogo','Nº de apresentações (SKUs)',
+ 'Concentrações','Conteúdo total','Embalagens','NDCs','Páginas no PDF']
 EMSC=['Está em portfólio/pipeline EMS?','Estágio no Grupo EMS','Texto do deck','Slide de origem']
-NNC=['Já avaliada por NN?','Nº de registros','Nº de parceiros','Parceiros','Status registrados',
- 'Situação','Responsáveis','Datas de entrada','Contato prévio com a Hikma','Registro de Lucas Medina',
- 'Tipo de match']
+NNC=['Já avaliada por NN?','Quando','Contato prévio com a Hikma']
 INC=['Faturamento NR (R$ MM)','Unidades/ano','Preço por unidade (R$)','Nº de competidores',
  'Registro Anvisa','Situação patentária','Preço de transferência','Sua avaliação','Observações']
-cols=CAT+EMSC+NNC+INC
-W=[26,22,26,30,46,26,26,30,24,14,11,30,30,26,44,12,
+cols=AVAL+CAT+EMSC+NNC+INC
+W=[26,22,26,14,96,
+   30,46,26,26,30,24,14,11,30,30,26,44,12,
    16,20,40,26,
-   14,11,11,44,24,16,24,22,15,15,18,
+   14,22,15,
    16,14,16,14,18,18,18,18,34]
 ws=wb.add_worksheet('2. Moléculas'); ws.freeze_panes(2,1)
-a=0; b=len(CAT); c=b+len(EMSC); d=c+len(NNC); e_=d+len(INC)
-ws.merge_range(0,a,0,b-1,'FATOS DO CATÁLOGO HIKMA',GRP_CAT)
+a0=0; a1=len(AVAL); b=a1+len(CAT); c=b+len(EMSC); d=c+len(NNC); e_=d+len(INC)
+ws.merge_range(0,a0,0,a1-1,'MOLÉCULA E MINHA RECOMENDAÇÃO',GRP_REC)
+ws.merge_range(0,a1,0,b-1,'FATOS DO CATÁLOGO HIKMA',GRP_CAT)
 ws.merge_range(0,b,0,c-1,'SINAL · PORTFÓLIO / PIPELINE EMS',GRP_EMS)
 ws.merge_range(0,c,0,d-1,'SINAL · HISTÓRICO NOVOS NEGÓCIOS',GRP_NN)
 ws.merge_range(0,d,0,e_-1,'PARA VOCÊ PREENCHER',GRP_IN)
 ws.set_row(0,20); ws.set_row(1,42)
 for i,h in enumerate(cols):
-    f=F['hcat'] if i<b else (F['hems'] if i<c else (F['hnn'] if i<d else F['hin']))
+    f=F['hrec'] if i<a1 else (F['hcat'] if i<b else (F['hems'] if i<c else (F['hnn'] if i<d else F['hin'])))
     ws.write(1,i,h,f); ws.set_column(i,i,W[i])
 
 rows=[]
 for mol, skus in sorted(bymol.items(), key=lambda kv: PT[kv[0]]):
     e=EV[mol]; names=sorted(set(s['product_name'] for s in skus))
-    dif=[]
-    if 'Bolsa' in e['Forma farmacêutica']: dif.append('Bolsa pronta para uso')
-    if 'Seringa' in e['Forma farmacêutica']: dif.append('Seringa preenchida')
     rows.append([
-     PT[mol], mol, e['Área terapêutica'], e['Categoria terapêutica (Hikma)'], ' | '.join(names),
-     e['Referência (comparable to)'], e['FDA rating'], e['Forma farmacêutica'],
-     ' + '.join(dif) if dif else '—', schedule(names), len(skus),
-     ' | '.join(sorted(set(s['concentration'] for s in skus))),
-     ' | '.join(sorted(set(s['total_drug_content'] for s in skus))),
-     ' | '.join(sorted(set(s['pack_quantity'] for s in skus))),
-     ', '.join(s['ndc'] for s in skus),
-     ', '.join(str(x) for x in sorted(set(s['page'] for s in skus))),
-     'SIM' if e['Status no Grupo EMS']!='LIVRE' else 'NÃO',
-     e['Status no Grupo EMS'] if e['Status no Grupo EMS']!='LIVRE' else '—',
-     e['Detalhe EMS'] or '—', SLIDE.get(mol,'—'),
-     e['Já prospectada pela equipe NN'], e['Nº registros no histórico'], e['Nº parceiros já abordados'],
-     e['Parceiros já contatados'] or '—', e['Status no histórico'] or '—',
-     e['Situação do histórico'], e['Responsáveis NN'] or '—', e['Datas de entrada'] or '—',
-     e['Contato prévio com a Hikma'], e['Prospectada por VOCÊ (Lucas Medina)'],
-     e['Tipo de match no histórico'],
+     e['Molécula (PT/DCB)'], e['Molécula (EN)'], e['Agrupamento terapêutico'],
+     e['RECOMENDAÇÃO'], e['Justificativa'],
+     e['Categoria terapêutica (Hikma)'], e['Produtos no catálogo'], e['Referência (Comparable To)'],
+     e['FDA Rating'], e['Forma farmacêutica'], e['Apresentação diferenciada'],
+     schedule(names), e['Nº de apresentações (SKUs)'], e['Concentrações'], e['Conteúdo total'],
+     e['Embalagens'], e['NDCs'], e['Páginas no PDF'],
+     e['Está em portfólio/pipeline EMS?'], e['Estágio no Grupo EMS'], e['Texto do deck'], SLIDE.get(mol,'—'),
+     e['Já avaliada por NN?'], e['Quando'], e['Contato prévio com a Hikma'],
     ])
 for ri,row in enumerate(rows,2):
     for ci,v in enumerate(row):
         f=F['t']
-        if cols[ci] in ('Nº de apresentações (SKUs)','Nº de registros','Nº de parceiros'): f=F['num']
-        elif cols[ci] in ('Está em portfólio/pipeline EMS?','Já avaliada por NN?','Contato prévio com a Hikma','Registro de Lucas Medina'):
+        if cols[ci]=='RECOMENDAÇÃO': f=F['sim'] if v=='SIM' else F['nao2']
+        elif cols[ci] in ('Nº de apresentações (SKUs)',): f=F['num']
+        elif cols[ci] in ('Está em portfólio/pipeline EMS?','Já avaliada por NN?','Contato prévio com a Hikma'):
             f=F['sim'] if v=='SIM' else F['nao']
-        elif cols[ci] in ('Controle DEA no catálogo','Apresentação diferenciada','Tipo de match','Tipo de match no histórico','Situação'):
-            f=F['tc']
+        elif cols[ci] in ('Controle DEA no catálogo','Apresentação diferenciada','Quando'): f=F['tc']
         ws.write(ri,ci,v,f)
     for ci in range(d,e_): ws.write_blank(ri,ci,None,F['inp'])
 ws.autofilter(1,0,len(rows)+1,len(cols)-1)
 
 # ================= 3. CATÁLOGO SKU =================
-C4=['Página PDF','Produto (catálogo Hikma)','Molécula (PT/DCB)','Molécula (EN)','Agrupamento terapêutico',
+C4=['RECOMENDAÇÃO','Página PDF','Produto (catálogo Hikma)','Molécula (PT/DCB)','Molécula (EN)','Agrupamento terapêutico',
  'Categoria terapêutica (Hikma)','Referência (Comparable To)','Descrição do produto','FDA Rating','NDC',
  'Concentração','Conteúdo total de fármaco','Volume de enchimento','Tamanho da unidade','Embalagem',
  'Fechamento (closure)','Forma','Bolsa pronta p/ uso','Seringa preenchida','Controle DEA']
 E4=['Está em portfólio/pipeline EMS?','Estágio no Grupo EMS']
-N4=['Já avaliada por NN?','Nº de registros','Contato prévio com a Hikma']
+N4=['Já avaliada por NN?','Quando']
 I4=['Faturamento NR (R$ MM)','Unidades/ano','Preço por unidade (R$)','Observações']
 c4=C4+E4+N4+I4
-W4=[9,46,24,22,25,30,24,34,26,15,20,22,16,16,14,14,10,11,11,12, 16,20, 14,11,15, 16,14,16,30]
+W4=[14,9,46,24,22,25,30,24,34,26,15,20,22,16,16,14,14,10,11,11,12, 16,20, 14,22, 16,14,16,30]
 ws=wb.add_worksheet('3. Catálogo (SKU)'); ws.freeze_panes(2,2)
 a=0;b=len(C4);c=b+len(E4);d=c+len(N4);e_=d+len(I4)
-ws.merge_range(0,a,0,b-1,'FATOS DO CATÁLOGO HIKMA',GRP_CAT)
+ws.write(0,0,'AVALIAÇÃO',GRP_REC)
+ws.merge_range(0,1,0,b-1,'FATOS DO CATÁLOGO HIKMA',GRP_CAT)
 ws.merge_range(0,b,0,c-1,'SINAL · EMS',GRP_EMS)
 ws.merge_range(0,c,0,d-1,'SINAL · NN',GRP_NN)
 ws.merge_range(0,d,0,e_-1,'PARA VOCÊ PREENCHER',GRP_IN)
 ws.set_row(0,20); ws.set_row(1,42)
 for i,h in enumerate(c4):
-    f=F['hcat'] if i<b else (F['hems'] if i<c else (F['hnn'] if i<d else F['hin']))
+    f=F['hrec'] if i==0 else (F['hcat'] if i<b else (F['hems'] if i<c else (F['hnn'] if i<d else F['hin'])))
     ws.write(1,i,h,f); ws.set_column(i,i,W4[i])
 ri=1
 for p in sorted(prods,key=lambda x:(x['page'],x['product_name'],x['ndc'])):
@@ -181,18 +190,18 @@ for p in sorted(prods,key=lambda x:(x['page'],x['product_name'],x['ndc'])):
     powder='Pó' if 'powder' in (p['concentration']+p['fill_volume']).lower() else 'Solução'
     bag='SIM' if re.search(r'\bbags?\b',p['pack_quantity'],re.I) or re.search(r'\bin\s+[\d.]+%|Dextrose|NaCl|Sodium Chloride',p['product_name'],re.I) else 'NÃO'
     syr='SIM' if re.search(r'\bsyringes?\b',p['pack_quantity']+' '+p['unit_size']+' '+p['product_name'],re.I) else 'NÃO'
-    vals=[p['page'],p['product_name'],PT[m],m,e['Área terapêutica'],p['therapeutic_category'],
+    vals=[e['RECOMENDAÇÃO'],p['page'],p['product_name'],PT[m],m,e['Agrupamento terapêutico'],p['therapeutic_category'],
      p['comparable_to'],p['product_description'],p['fda_rating'],p['ndc'],p['concentration'],
      p['total_drug_content'],p['fill_volume'],p['unit_size'],p['pack_quantity'],p['closure'],
      powder,bag,syr,schedule([p['product_name']]),
-     'SIM' if e['Status no Grupo EMS']!='LIVRE' else 'NÃO',
-     e['Status no Grupo EMS'] if e['Status no Grupo EMS']!='LIVRE' else '—',
-     e['Já prospectada pela equipe NN'], e['Nº registros no histórico'], e['Contato prévio com a Hikma']]
+     e['Está em portfólio/pipeline EMS?'], e['Estágio no Grupo EMS'],
+     e['Já avaliada por NN?'], e['Quando']]
     for ci,v in enumerate(vals):
         f=F['t']
-        if ci in (0,23): f=F['num']
-        elif ci in (16,19): f=F['tc']
-        elif ci in (17,18,20,22,24): f=F['sim'] if v=='SIM' else F['nao']
+        if ci==0: f=F['sim'] if v=='SIM' else F['nao2']
+        elif ci==1: f=F['num']
+        elif ci in (17,20,24): f=F['tc']
+        elif ci in (18,19,21,23): f=F['sim'] if v=='SIM' else F['nao']
         ws.write(ri,ci,v,f)
     for ci in range(d,e_): ws.write_blank(ri,ci,None,F['inp'])
 ws.autofilter(1,0,ri,len(c4)-1)

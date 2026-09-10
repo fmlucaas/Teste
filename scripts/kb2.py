@@ -60,7 +60,7 @@ SEM_MERCADO_BR={'BENZTROPINE','DICYCLOMINE','ENALAPRILAT','CHLOROPROCAINE','METH
 TESE={
 'ICATIBANT':('ALTA','Angioedema hereditário. Preço por seringa na casa dos milhares de reais e canal de '
   'especialidade/judicialização: é o perfil que melhor absorve custo de importação de acabado. Peptídeo '
-  'sintético, barreira técnica real. Nenhum registro na base NN — espaço branco.'),
+  'sintético, com barreira técnica real.'),
 'DANTROLENE':('ALTA','Antídoto de hipertermia maligna. Item de arsenal obrigatório em centro cirúrgico, '
   'oligopólio mundial e histórico de desabastecimento. Volume baixo com preço alto — economia que funciona '
   'para importado. Porta de entrada institucional em centro cirúrgico, onde o EMS quer crescer.'),
@@ -75,16 +75,13 @@ TESE={
   'diretamente com o WarMap de Urologia de set/26. Nicho, preço alto, sem concorrência local.'),
 'ERIBULIN':('MÉDIA-ALTA','Oncológico de nicho (mama metastática, lipossarcoma). Preço alto e síntese '
   'complexa. Validar situação patentária antes de qualquer contato.'),
-'MICAFUNGIN':('MÉDIA','Equinocandina para candidemia. Preço sustenta importação, MAS a base mostra 7 '
-  'parceiros abordados e praticamente todos dormentes — isso é sinal de que o problema não é encontrar '
-  'fornecedor, é fechar preço. Só reabrir com premissa de custo na mão.'),
+'MICAFUNGIN':('MÉDIA','Equinocandina para candidemia. O preço unitário sustenta importação de acabado.'),
 'DAPTOMYCIN':('MÉDIA','Gram-positivos resistentes, aderente à tese de resistência antimicrobiana do deck. '
-  'Domínio público com muitos players asiáticos; 3 tentativas anteriores, todas dormentes. A Hikma '
-  'dificilmente ganha de um indiano no preço.'),
+  'Domínio público com muitos players asiáticos — a Hikma dificilmente ganha de um indiano no preço.'),
 'COLISTIMETHATE':('MÉDIA','Resgate para Gram-negativos MDR, aderente à tese de resistência. Preço na '
   'fronteira do viável para importado; decide no volume e no custo logístico.'),
 'POLYMYXIN B':('MÉDIA','Mesma tese de colistimetato, com uso brasileiro relevante frente a KPC/NDM. '
-  'Registro único na base, dormente desde 2020 (Xellia).'),
+  'Uso brasileiro consolidado em terapia intensiva.'),
 'ARGATROBAN':('MÉDIA','Anticoagulante para trombocitopenia induzida por heparina. Nicho sem alternativa '
   'direta e apresentação pronta para uso. Preço sustenta importação.'),
 'THIOTEPA':('MÉDIA','Condicionamento pré-transplante de medula. Nicho hospitalar de alto valor, '
@@ -92,14 +89,12 @@ TESE={
 'CLADRIBINE':('MÉDIA','Tricoleucemia. Nicho pequeno mas de preço alto e concorrência mínima.'),
 'LEVOTHYROXINE':('MÉDIA','Levotiroxina IV para coma mixedematoso. Escasso no Brasil, preço alto, '
   'volume muito baixo — avaliar se o volume paga o registro.'),
-'FULVESTRANT':('BAIXA-MÉDIA','Seringa preenchida, preço bom, MAS já genericizado no Brasil e com 7 '
-  'parceiros abordados na base. Chegou tarde.'),
-'FOSAPREPITANT':('BAIXA-MÉDIA','Antiemético NK1. Genericizado, preço em queda, registro anterior '
-  'dormente (Accord/Intas).'),
+'FULVESTRANT':('BAIXA-MÉDIA','Seringa preenchida e preço bom, mas já genericizado no Brasil. Chegou tarde.'),
+'FOSAPREPITANT':('BAIXA-MÉDIA','Antiemético NK1 já genericizado, com preço em queda.'),
 'ACETAMINOPHEN + IBUPROFEN':('MÉDIA','COMBOGESIC® IV. O deck cita nominalmente a combinação como '
   'oportunidade opioid-sparing e a Hikma é a detentora do RLD — endosso estratégico raro. PORÉM o preço '
   'de referência é puxado para baixo pelo paracetamol IV: como acabado importado a conta é apertada. '
-  'A rota correta é licenciar o DOSSIÊ e fabricar localmente, já que o EMS domina as duas moléculas.'),
+  'O caminho realista é licenciar o dossiê e fabricar localmente, já que o EMS domina as duas moléculas.'),
 'ACETAMINOPHEN':('BAIXA','Paracetamol IV é commodity de preço baixo em licitação hospitalar. Mesmo com '
   'a bolsa RLD como diferencial, a margem por unidade não absorve frete, imposto e estoque de importado. '
   'Fora do escopo de licenciamento de acabado.'),
@@ -114,15 +109,12 @@ TESE={
   'Preço na faixa que aguenta importação no curto prazo.'),
 'LINEZOLID':('BAIXA-MÉDIA','Bolsa IV completa a linha (o EMS tem o sólido oral), mas a IV já é '
   'genericizada e disputada por preço.'),
-'ERTAPENEM':('BAIXA-MÉDIA','Nicho de OPAT distinto do meropenem, porém genéricos já pressionam o preço '
-  'e a base tem 3 tentativas anteriores.'),
+'ERTAPENEM':('BAIXA-MÉDIA','Nicho de OPAT distinto do meropenem, mas os genéricos já pressionam o preço.'),
 'MILRINONE':('BAIXA','Premix em dextrose; preço não sustenta importado.'),
 'NICARDIPINE':('BAIXA','Premix em NaCl; mercado brasileiro pequeno e preço baixo.'),
-'SODIUM FERRIC GLUCONATE COMPLEX':('BAIXA','A base mostra prospecção intensa de carboximaltose férrica, '
-  'que é superior e já está no radar. Cai na regra "já temos molécula melhor".'),
+'SODIUM FERRIC GLUCONATE COMPLEX':('BAIXA','A carboximaltose férrica é superior e já está no radar do Grupo — cai na regra "já temos molécula melhor".'),
 'LIRAGLUTIDE':('BAIXA','Alto valor, mas é arena Retail e altamente disputada — fora do escopo Non Retail.'),
 'CAFFEINE CITRATE':('BAIXA-MÉDIA','Apneia da prematuridade. Nicho neonatal defensável, mas volume pequeno.'),
 'LEVOCARNITINE':('BAIXA','Nicho metabólico pequeno; preço não justifica importação.'),
-'OCTREOTIDE':('BAIXA','Preço bom, mas 7 parceiros já abordados na base e mercado dominado pelo LAR, '
-  'que a Hikma não oferece.'),
+'OCTREOTIDE':('BAIXA','Preço bom, mas o mercado é dominado pela formulação LAR, que a Hikma não oferece.'),
 }
