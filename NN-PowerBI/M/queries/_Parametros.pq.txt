@@ -1,0 +1,47 @@
+// =====================================================================
+// PARÂMETROS  —  Novos Negócios | Dashboard Estratégico
+// Cada bloco abaixo é UMA consulta de parâmetro separada no Power Query.
+// No .pbit eles são perguntados na abertura do arquivo.
+// =====================================================================
+
+// ---------- pSiteSharePoint ----------
+"https://emspocbi.sharepoint.com/sites/NOVOSNEGCIOS"
+  meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+
+// ---------- pBiblioteca ----------
+// Nome da biblioteca de documentos como aparece no site (pt-BR)
+"Documentos Compartilhados"
+  meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+
+// ---------- pPastaMapeamentos ----------
+// Caminho da pasta DENTRO da biblioteca, separado por "/"
+"DEMANDAS NN - ALIANÇA/DEMANDAS NN - ALIANÇAS"
+  meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+
+// ---------- pPastaHistorico ----------
+// Pasta de snapshots mensais (opcional). Se não existir, o histórico fica vazio
+// e o dashboard usa apenas a reconstrução por datas.
+"DEMANDAS NN - ALIANÇA/HISTORICO"
+  meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = false]
+
+// ---------- pAbaMapeamento ----------
+"Mapeamento NN"
+  meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+
+// ---------- pAbaSolicitacoes ----------
+"Solicitações"
+  meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = false]
+
+// ---------- pCapacidadeMensalHoras ----------
+// Horas úteis de um analista por mês (base do % de ocupação)
+168
+  meta [IsParameterQuery = true, Type = "Number", IsParameterQueryRequired = true]
+
+// ---------- pAnoMinimo ----------
+2022 meta [IsParameterQuery = true, Type = "Number", IsParameterQueryRequired = false]
+
+// ---------- pEstimarFimQuandoAusente ----------
+// true  = quando o projeto está cancelado/stand by SEM "Data de Finalização",
+//         estima o encerramento pela última data preenchida na linha.
+// false = mantém o projeto carregando até hoje (superestima o carregamento).
+true meta [IsParameterQuery = true, Type = "Logical", IsParameterQueryRequired = false]

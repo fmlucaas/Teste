@@ -1,0 +1,342 @@
+// =====================================================================
+// MEDIDAS DAX — Dashboard Novos Negócios
+// Gerado a partir de build/measures.py (fonte única de verdade).
+// Crie uma tabela vazia chamada  _Medidas  e coloque todas nela.
+// =====================================================================
+
+
+// ============ PASTA: 01 Visão Geral ==================================
+
+Projetos =
+DISTINCTCOUNT ( Mapeamento[ProjetoID] )
+// formato: #,0
+
+Moléculas =
+DISTINCTCOUNT ( Mapeamento[Molécula] )
+// formato: #,0
+
+Fornecedores =
+DISTINCTCOUNT ( Mapeamento[Fornecedor / Parceiro] )
+// formato: #,0
+
+Países =
+DISTINCTCOUNT ( Mapeamento[País Fornecedor] )
+// formato: #,0
+
+Projetos Ativos =
+CALCULATE ( [Projetos], Mapeamento[Situação] = "EM ANDAMENTO" )
+// formato: #,0
+
+Projetos Stand by =
+CALCULATE ( [Projetos], Mapeamento[Situação] = "STAND BY" )
+// formato: #,0
+
+Projetos Encerrados =
+CALCULATE ( [Projetos], Mapeamento[Situação] = "ENCERRADO" )
+// formato: #,0
+
+% Ativos =
+DIVIDE ( [Projetos Ativos], [Projetos] )
+// formato: 0.0%
+
+Projetos por Pessoa =
+DIVIDE ( [Projetos Ativos], DISTINCTCOUNT ( Mapeamento[Responsável Final] ) )
+// formato: #,0.0
+
+
+// ============ PASTA: 02 Carregamento =================================
+
+Horas Empenhadas =
+CALCULATE (
+    SUMX ( Mapeamento, Mapeamento[Horas Mês] ),
+    Mapeamento[Situação] = "EM ANDAMENTO"
+)
+// formato: #,0.0
+
+Horas Empenhadas (com Stand by) =
+CALCULATE (
+    SUMX ( Mapeamento, Mapeamento[Horas Mês] ),
+    Mapeamento[Situação] IN { "EM ANDAMENTO", "STAND BY" }
+)
+// formato: #,0.0
+
+Capacidade (h) =
+SUMX ( VALUES ( Equipe[Pessoa] ), CALCULATE ( MAX ( Equipe[Capacidade Mensal (h)] ) ) )
+// formato: #,0.0
+
+% Ocupação =
+DIVIDE ( [Horas Empenhadas], [Capacidade (h)] )
+// formato: 0.0%
+
+Horas Disponíveis =
+[Capacidade (h)] - [Horas Empenhadas]
+// formato: #,0.0
+
+Status Ocupação =
+VAR o = [% Ocupação]
+RETURN
+SWITCH (
+    TRUE (),
+    ISBLANK ( o ), "Sem dados",
+    o > 1.10,      "🔴 Sobrecarregado",
+    o > 0.90,      "🟠 No limite",
+    o > 0.60,      "🟢 Saudável",
+                   "🔵 Folga"
+)
+
+
+// ============ PASTA: 03 Evolução do Mês ==============================
+
+Projetos no Mês =
+DISTINCTCOUNT ( 'Carregamento Mensal'[ProjetoID] )
+// formato: #,0
+
+Ativos no Fim do Mês =
+CALCULATE ( [Projetos no Mês], 'Carregamento Mensal'[Ativo no Fim do Mês] = TRUE () )
+// formato: #,0
+
+Entradas no Mês =
+CALCULATE ( [Projetos no Mês], 'Carregamento Mensal'[Entrou no Mês] = TRUE () )
+// formato: #,0
+
+Saídas no Mês =
+CALCULATE ( [Projetos no Mês], 'Carregamento Mensal'[Saiu no Mês] = TRUE () )
+// formato: #,0
+
+Saldo do Mês =
+[Entradas no Mês] - [Saídas no Mês]
+// formato: #,0
+
+Ativos no Início do Mês =
+[Ativos no Fim do Mês] - [Saldo do Mês]
+// formato: #,0
+
+Ativos Mês Anterior =
+CALCULATE ( [Ativos no Fim do Mês], DATEADD ( 'Calendário'[Data], -1, MONTH ) )
+// formato: #,0
+
+Variação vs Mês Anterior =
+VAR atual = [Ativos no Fim do Mês]
+VAR anterior = [Ativos Mês Anterior]
+RETURN
+    IF ( NOT ISBLANK ( anterior ), atual - anterior )
+// formato: #,0
+
+% Variação vs Mês Anterior =
+DIVIDE ( [Variação vs Mês Anterior], [Ativos Mês Anterior] )
+// formato: 0.0%
+
+Pico do Mês =
+MAXX ( VALUES ( 'Carregamento Mensal'[ChaveMes] ), [Projetos no Mês] )
+// formato: #,0
+
+Horas Empenhadas no Mês =
+SUMX ( 'Carregamento Mensal', 'Carregamento Mensal'[Horas Mês] )
+// formato: #,0.0
+
+% Ocupação no Mês =
+DIVIDE ( [Horas Empenhadas no Mês], [Capacidade (h)] )
+// formato: 0.0%
+
+Diferença Hoje vs Mês =
+[Projetos Ativos] - [Ativos no Fim do Mês]
+// formato: #,0
+
+Narrativa do Mês =
+VAR ini = [Ativos no Início do Mês]
+VAR ent = [Entradas no Mês]
+VAR sai = [Saídas no Mês]
+VAR fim = [Ativos no Fim do Mês]
+VAR pessoa = IF ( HASONEVALUE ( Equipe[Nome] ), SELECTEDVALUE ( Equipe[Nome] ), "O time" )
+VAR mes = IF ( HASONEVALUE ( 'Calendário'[Ano-Mês] ), SELECTEDVALUE ( 'Calendário'[Ano-Mês] ), "o período" )
+RETURN
+    IF (
+        ISBLANK ( fim ),
+        "Sem movimentação no período.",
+        pessoa & " começou " & mes & " com " & FORMAT ( ini, "0" ) & " projetos, "
+            & "recebeu " & FORMAT ( ent, "0" ) & " novo(s), encerrou " & FORMAT ( sai, "0" )
+            & " e terminou com " & FORMAT ( fim, "0" ) & " em carteira."
+    )
+
+
+// ============ PASTA: 04 Funil e Ciclo ================================
+
+Projetos no Funil =
+CALCULATE ( [Projetos], Mapeamento[Situação] IN { "EM ANDAMENTO", "STAND BY" } )
+// formato: #,0
+
+Dias Médios em NN =
+AVERAGEX ( Mapeamento, Mapeamento[Dias em NN] )
+// formato: #,0
+
+Dias Médios até 1ª Proposta =
+AVERAGEX (
+    FILTER (
+        Mapeamento,
+        NOT ISBLANK ( Mapeamento[Data de recebimento da primeira proposta comercial] )
+            && NOT ISBLANK ( Mapeamento[Data Início Efetiva] )
+    ),
+    DATEDIFF (
+        Mapeamento[Data Início Efetiva],
+        Mapeamento[Data de recebimento da primeira proposta comercial],
+        DAY
+    )
+)
+// formato: #,0
+
+% da Etapa =
+DIVIDE ( [Projetos], CALCULATE ( [Projetos], REMOVEFILTERS ( 'Status NN' ) ) )
+// formato: 0.0%
+
+Taxa de Conversão até Contrato =
+DIVIDE (
+    CALCULATE ( [Projetos], 'Status NN'[Ordem] >= 8 ),
+    CALCULATE ( [Projetos], REMOVEFILTERS ( 'Status NN' ) )
+)
+// formato: 0.0%
+
+
+// ============ PASTA: 05 Cancelamentos ================================
+
+Cancelados + Stand by =
+CALCULATE ( [Projetos], Mapeamento[Situação] IN { "ENCERRADO", "STAND BY" } )
+// formato: #,0
+
+% do Motivo =
+DIVIDE (
+    [Cancelados + Stand by],
+    CALCULATE ( [Cancelados + Stand by], REMOVEFILTERS ( 'Motivo Cancelamento' ) )
+)
+// formato: 0.0%
+
+Motivo nº 1 =
+VAR t =
+    ADDCOLUMNS ( VALUES ( 'Motivo Cancelamento'[Motivo] ), "@q", [Cancelados + Stand by] )
+VAR topo =
+    TOPN ( 1, FILTER ( t, [@q] > 0 ), [@q], DESC )
+RETURN
+    CONCATENATEX ( topo, 'Motivo Cancelamento'[Motivo] )
+
+Cancelados no Mês =
+CALCULATE ( [Projetos no Mês], 'Carregamento Mensal'[Saiu no Mês] = TRUE () )
+// formato: #,0
+
+
+// ============ PASTA: 06 Financeiro ===================================
+
+VPL Total =
+SUM ( Mapeamento[VPL (R$)] )
+// formato: "R$" #,0
+
+VPL Médio =
+AVERAGE ( Mapeamento[VPL (R$)] )
+// formato: "R$" #,0
+
+Peak Sales =
+SUM ( Mapeamento[Fat. Líq. (Peak Sales, R$)] )
+// formato: "R$" #,0
+
+Faturamento 5 Anos =
+SUM ( Mapeamento[Fat. Líq. DRE (Ano1)] )
+    + SUM ( Mapeamento[Fat. Líq. DRE (Ano2)] )
+    + SUM ( Mapeamento[Fat. Líq. DRE (Ano3)] )
+    + SUM ( Mapeamento[Fat. Líq. DRE (Ano4)] )
+    + SUM ( Mapeamento[Fat. Líq. DRE (Ano5)] )
+// formato: "R$" #,0
+
+Margem Bruta Média =
+AVERAGE ( Mapeamento[Margem Bruta (%)] )
+// formato: 0.0%
+
+Projetos com VPL =
+CALCULATE ( [Projetos], NOT ISBLANK ( Mapeamento[VPL (R$)] ) )
+// formato: #,0
+
+% Cobertura Financeira =
+DIVIDE ( [Projetos com VPL], [Projetos no Funil] )
+// formato: 0.0%
+
+VPL de Projetos Ativos =
+CALCULATE ( [VPL Total], Mapeamento[Situação] = "EM ANDAMENTO" )
+// formato: "R$" #,0
+
+Valor em Risco (Stand by) =
+CALCULATE ( [VPL Total], Mapeamento[Situação] = "STAND BY" )
+// formato: "R$" #,0
+
+
+// ============ PASTA: 07 Qualidade da Base ============================
+
+Problemas =
+COUNTROWS ( 'Qualidade de Dados' )
+// formato: #,0
+
+Problemas Graves =
+CALCULATE ( [Problemas], 'Qualidade de Dados'[Gravidade] = "Alta" )
+// formato: #,0
+
+Projetos com Problema =
+DISTINCTCOUNT ( 'Qualidade de Dados'[ProjetoID] )
+// formato: #,0
+
+Índice de Qualidade =
+VAR pesoMax = [Projetos] * 11 * 3
+VAR pesoReal =
+    SUMX ( 'Qualidade de Dados', 'Qualidade de Dados'[Peso] )
+RETURN
+    1 - DIVIDE ( pesoReal, pesoMax )
+// formato: 0.0%
+
+% Projetos Sem Data de Fim =
+DIVIDE (
+    CALCULATE (
+        [Projetos],
+        Mapeamento[Situação] <> "EM ANDAMENTO",
+        ISBLANK ( Mapeamento[Data de Finalização do Projeto em NN] )
+    ),
+    CALCULATE ( [Projetos], Mapeamento[Situação] <> "EM ANDAMENTO" )
+)
+// formato: 0.0%
+
+
+// ============ PASTA: 08 Solicitações Técnicas ========================
+
+Solicitações =
+COUNTROWS ( 'Solicitações' )
+// formato: #,0
+
+SLA Médio (dias) =
+AVERAGE ( 'Solicitações'[Dias de Resposta] )
+// formato: #,0.0
+
+% no Prazo =
+DIVIDE (
+    CALCULATE ( [Solicitações], 'Solicitações'[Dentro do Prazo] = TRUE () ),
+    CALCULATE ( [Solicitações], NOT ISBLANK ( 'Solicitações'[Dentro do Prazo] ) )
+)
+// formato: 0.0%
+
+% Viável =
+DIVIDE (
+    CALCULATE ( [Solicitações], 'Solicitações'[Viabilidade Padrão] = "Viável" ),
+    CALCULATE ( [Solicitações], 'Solicitações'[Viabilidade Padrão] <> "(Sem parecer)" )
+)
+// formato: 0.0%
+
+Solicitações em Aberto =
+CALCULATE ( [Solicitações], ISBLANK ( 'Solicitações'[Data Recebimento] ) )
+// formato: #,0
+
+
+// ============ PASTA: 09 Auxiliares ===================================
+
+Atualizado em =
+"Dados até " & FORMAT ( TODAY (), "dd/mm/yyyy" )
+
+Título Ocupação =
+"Capacidade: " & FORMAT ( [Horas Empenhadas], "#,0.0" ) & " h de "
+    & FORMAT ( [Capacidade (h)], "#,0" ) & " h  ("
+    & FORMAT ( [% Ocupação], "0.0%" ) & ")"
+
+Sem Seleção =
+IF ( ISBLANK ( [Projetos] ), "Nenhum projeto atende aos filtros selecionados.", BLANK () )
