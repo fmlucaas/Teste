@@ -1,15 +1,11 @@
 # Especificação das Telas
 
-Use isto só no **Caminho C** (montagem manual). Cada página tem canvas
+Use isto só no **Caminho C** (montagem manual). Canvas de cada página:
 **1280 × 720** (`Formato da página → Tipo: Personalizado`).
-
-Para cada visual: insira o tipo indicado, posicione pelas coordenadas
-(`Formato do visual → Geral → Propriedades → Posição`) e arraste os campos
-para as áreas indicadas.
 
 ---
 
-## Página 1 — 1. Visão Geral
+## Página 1 — Visão Geral
 
 | Pos. (x, y, larg × alt) | Visual | Título | Campos |
 |---|---|---|---|
@@ -27,14 +23,13 @@ para as áreas indicadas.
 | 1024, 104, 240×72 | Cartão | FORNECEDORES | Valores: `_Medidas[Fornecedores]` (medida) |
 | 16, 184, 408×215 | Gráfico de colunas agrupadas | QUANTIDADE DE PROJETOS x STATUS | Eixo X / Categoria: `Status NN[Status]`<br>Valores (eixo Y): `_Medidas[Projetos]` (medida) |
 | 436, 184, 408×215 | Gráfico de barras agrupadas | PROJETOS x CATEGORIA | Eixo X / Categoria: `Mapeamento[Categoria Padrão]`<br>Valores (eixo Y): `_Medidas[Projetos]` (medida) |
-| 856, 184, 408×215 | Mapa | PROJETOS x PAÍS DO FORNECEDOR | Eixo X / Categoria: `País[País]`<br>Tamanho (bolha): `_Medidas[Projetos]` (medida) |
-| 16, 407, 618×290 | Tabela | PROJETOS — VISÃO RESUMIDA | Valores: `Mapeamento[Responsável Final]`<br>Valores: `Mapeamento[Molécula]`<br>Valores: `Mapeamento[Fornecedor / Parceiro]`<br>Valores: `Mapeamento[Status NN]`<br>Valores: `Mapeamento[Situação]`<br>Valores: `Mapeamento[Alerta]` |
-| 646, 407, 300×290 | Gráfico de rosca | % PROJETOS x COLIGADA | Eixo X / Categoria: `Mapeamento[Coligada Padrão]`<br>Valores (eixo Y): `_Medidas[Projetos]` (medida) |
-| 952, 407, 312×290 | Gráfico de rosca | SITUAÇÃO DOS PROJETOS | Eixo X / Categoria: `Mapeamento[Situação]`<br>Valores (eixo Y): `_Medidas[Projetos]` (medida) |
+| 856, 184, 408×215 | Gráfico de barras agrupadas | ORIGEM DA OPORTUNIDADE | Eixo X / Categoria: `Mapeamento[Entrada]`<br>Valores (eixo Y): `_Medidas[Projetos]` (medida) |
+| 16, 407, 830×290 | Tabela | PROJETOS — VISÃO RESUMIDA | Valores: `Mapeamento[Responsável Final]`<br>Valores: `Mapeamento[Molécula]`<br>Valores: `Mapeamento[Fornecedor / Parceiro]`<br>Valores: `Mapeamento[Status NN]`<br>Valores: `Mapeamento[Situação]`<br>Valores: `Mapeamento[Alerta]` |
+| 858, 407, 406×290 | Gráfico de barras agrupadas | PROJETOS POR COLIGADA | Eixo X / Categoria: `Mapeamento[Coligada Padrão]`<br>Valores (eixo Y): `_Medidas[Projetos]` (medida) |
 
 ---
 
-## Página 2 — 2. Carregamento do Time
+## Página 2 — Carregamento do Time
 
 | Pos. (x, y, larg × alt) | Visual | Título | Campos |
 |---|---|---|---|
@@ -48,17 +43,18 @@ para as áreas indicadas.
 | 16, 104, 240×72 | Cartão | PROJETOS ATIVOS | Valores: `_Medidas[Projetos Ativos]` (medida) |
 | 268, 104, 240×72 | Cartão | HORAS EMPENHADAS | Valores: `_Medidas[Horas Empenhadas]` (medida) |
 | 520, 104, 240×72 | Cartão | CAPACIDADE (H) | Valores: `_Medidas[Capacidade (h)]` (medida) |
-| 772, 104, 240×72 | Cartão | % OCUPAÇÃO | Valores: `_Medidas[% Ocupação]` (medida) |
+| 772, 104, 240×72 | Cartão | HORAS DISPONÍVEIS | Valores: `_Medidas[Horas Disponíveis]` (medida) |
 | 1024, 104, 240×72 | Cartão | PROJETOS / PESSOA | Valores: `_Medidas[Projetos por Pessoa]` (medida) |
 | 16, 184, 618×240 | Gráfico de barras agrupadas | HORAS EMPENHADAS x CAPACIDADE — POR PESSOA | Eixo X / Categoria: `Equipe[Nome]`<br>Valores (eixo Y): `_Medidas[Horas Empenhadas]` (medida)<br>Valores (eixo Y): `_Medidas[Capacidade (h)]` (medida) |
 | 646, 184, 300×240 | Medidor | % DE OCUPAÇÃO DO TIME | Valores (eixo Y): `_Medidas[% Ocupação]` (medida) |
 | 952, 184, 312×240 | Gráfico de rosca | HORAS x ATIVIDADE | Eixo X / Categoria: `Mapeamento[Atividade]`<br>Valores (eixo Y): `_Medidas[Horas Empenhadas]` (medida) |
-| 16, 432, 618×265 | Gráfico de barras empilhadas | PROJETOS ATIVOS POR STATUS E COMPLEXIDADE | Eixo X / Categoria: `Status NN[Status]`<br>Legenda / Série: `Mapeamento[Complexidade]`<br>Valores (eixo Y): `_Medidas[Projetos Ativos]` (medida) |
-| 646, 432, 618×265 | Tabela | OCUPAÇÃO POR PESSOA | Valores: `Equipe[Nome]`<br>Valores: `_Medidas[Projetos Ativos]` (medida)<br>Valores: `_Medidas[Horas Empenhadas]` (medida)<br>Valores: `_Medidas[% Ocupação]` (medida)<br>Valores: `_Medidas[Status Ocupação]` (medida) |
+| 16, 432, 618×205 | Gráfico de barras empilhadas | PROJETOS ATIVOS POR STATUS E COMPLEXIDADE | Eixo X / Categoria: `Status NN[Status]`<br>Legenda / Série: `Mapeamento[Complexidade]`<br>Valores (eixo Y): `_Medidas[Projetos Ativos]` (medida) |
+| 646, 432, 618×205 | Tabela | OCUPAÇÃO POR PESSOA | Valores: `Equipe[Nome]`<br>Valores: `_Medidas[Projetos Ativos]` (medida)<br>Valores: `_Medidas[Horas Empenhadas]` (medida)<br>Valores: `_Medidas[% Ocupação]` (medida)<br>Valores: `_Medidas[Status Ocupação]` (medida) |
+| 16, 643, 1248×54 | Cartão |  | Valores: `_Medidas[Aviso Régua]` (medida) |
 
 ---
 
-## Página 3 — 3. Evolução do Mês
+## Página 3 — Evolução do Mês
 
 | Pos. (x, y, larg × alt) | Visual | Título | Campos |
 |---|---|---|---|
@@ -77,37 +73,60 @@ para as áreas indicadas.
 | 16, 184, 618×245 | Coluna agrupada e linha (combo) | CARTEIRA, ENTRADAS E SAÍDAS POR MÊS | Eixo X / Categoria: `Calendário[Ano-Mês]`<br>Valores (eixo Y): `_Medidas[Ativos no Fim do Mês]` (medida)<br>Valores da linha: `_Medidas[Entradas no Mês]` (medida)<br>Valores da linha: `_Medidas[Saídas no Mês]` (medida) |
 | 646, 184, 618×245 | Gráfico em cascata | SALDO DO MÊS (ENTRADAS − SAÍDAS) | Eixo X / Categoria: `Calendário[Ano-Mês]`<br>Valores (eixo Y): `_Medidas[Saldo do Mês]` (medida) |
 | 16, 437, 618×190 | Matriz | CARTEIRA POR PESSOA E MÊS | Linhas: `Equipe[Nome]`<br>Colunas: `Calendário[Ano-Mês]`<br>Valores: `_Medidas[Ativos no Fim do Mês]` (medida) |
-| 646, 437, 618×190 | Gráfico de colunas empilhadas | COMPOSIÇÃO DO FUNIL AO LONGO DO TEMPO | Eixo X / Categoria: `Calendário[Ano-Mês]`<br>Legenda / Série: `Carregamento Mensal[Status no Mês]`<br>Valores (eixo Y): `_Medidas[Projetos no Mês]` (medida) |
+| 646, 437, 618×190 | Gráfico de área empilhada | COMPOSIÇÃO DO FUNIL AO LONGO DO TEMPO | Eixo X / Categoria: `Calendário[Ano-Mês]`<br>Legenda / Série: `Carregamento Mensal[Status no Mês]`<br>Valores (eixo Y): `_Medidas[Projetos no Mês]` (medida) |
 | 16, 635, 1248×62 | Cartão | RESUMO PARA O REPORT | Valores: `_Medidas[Narrativa do Mês]` (medida) |
 
 ---
 
-## Página 4 — 4. Report por Unidade de Negócio
+## Página 4 — Report por Unidade de Negócio
 
 | Pos. (x, y, larg × alt) | Visual | Título | Campos |
 |---|---|---|---|
 | 20, 6, 780×34 | Caixa de texto | Texto: **One Page Report \| Unidade de Negócio** |  |
-| 820, 14, 444×24 | Caixa de texto | Texto: **Selecione a unidade e o ano — o report que hoje é feito à mão** |  |
+| 820, 14, 444×24 | Caixa de texto | Texto: **Escolha a unidade no filtro — NR e SNC são só dois casos** |  |
 | 16, 56, 240×40 | Segmentação de dados |  | Valores: `Unidade de Negócio[Unidade de Negócio]` |
 | 268, 56, 240×40 | Segmentação de dados |  | Valores: `Mapeamento[Franquia]` |
 | 520, 56, 240×40 | Segmentação de dados |  | Valores: `Calendário[Ano]` |
 | 772, 56, 240×40 | Segmentação de dados |  | Valores: `Mapeamento[Categoria Padrão]` |
 | 1024, 56, 240×40 | Segmentação de dados |  | Valores: `Equipe[Nome]` |
 | 16, 104, 240×72 | Cartão | MOLÉCULAS AVALIADAS | Valores: `_Medidas[Moléculas]` (medida) |
-| 268, 104, 240×72 | Cartão | OPORTUNIDADES | Valores: `_Medidas[Projetos]` (medida) |
+| 268, 104, 240×72 | Cartão | % DO TOTAL DE NN | Valores: `_Medidas[% da Unidade no Total NN]` (medida) |
 | 520, 104, 240×72 | Cartão | EM ANDAMENTO | Valores: `_Medidas[Projetos Ativos]` (medida) |
 | 772, 104, 240×72 | Cartão | CANCELADAS / STAND BY | Valores: `_Medidas[Cancelados + Stand by]` (medida) |
-| 1024, 104, 240×72 | Cartão | PRINCIPAL MOTIVO | Valores: `_Medidas[Motivo nº 1]` (medida) |
-| 16, 184, 408×250 | Barras 100% empilhadas | ESTÁGIO DAS OPORTUNIDADES EM ANDAMENTO | Eixo X / Categoria: `Status NN[Status]`<br>Valores (eixo Y): `_Medidas[Projetos Ativos]` (medida) |
-| 436, 184, 408×250 | Gráfico de barras agrupadas | FRANQUIAS DE ATUAÇÃO DE NOVOS NEGÓCIOS | Eixo X / Categoria: `Unidade de Negócio[Unidade de Negócio]`<br>Valores (eixo Y): `_Medidas[Projetos]` (medida) |
+| 1024, 104, 240×72 | Cartão | NOVAS NO PERÍODO | Valores: `_Medidas[Moléculas Novas no Período]` (medida) |
+| 16, 184, 408×250 | Barras 100% empilhadas | ESTÁGIO DAS OPORTUNIDADES EM ANDAMENTO | Eixo X / Categoria: `Status NN[Status]`<br>Valores (eixo Y): `_Medidas[Moléculas]` (medida) |
+| 436, 184, 408×250 | Gráfico de barras agrupadas | FRANQUIAS DE ATUAÇÃO DE NN (TODAS AS UNIDADES) | Eixo X / Categoria: `Unidade Referência[Unidade]`<br>Valores (eixo Y): `_Medidas[% Moléculas (Referência)]` (medida) |
 | 856, 184, 408×250 | Gráfico de barras agrupadas | MOTIVOS DE CANCELAMENTO / STAND BY | Eixo X / Categoria: `Motivo Cancelamento[Motivo]`<br>Valores (eixo Y): `_Medidas[Cancelados + Stand by]` (medida) |
-| 16, 442, 408×255 | Gráfico de rosca | CATEGORIA DAS MOLÉCULAS | Eixo X / Categoria: `Mapeamento[Categoria Padrão]`<br>Valores (eixo Y): `_Medidas[Moléculas]` (medida) |
-| 436, 442, 408×255 | Gráfico de barras agrupadas | MATURIDADE (FASE DA OPORTUNIDADE) | Eixo X / Categoria: `Mapeamento[Fase Oportunidade NN]`<br>Valores (eixo Y): `_Medidas[Moléculas]` (medida) |
-| 856, 442, 408×255 | Tabela | OPORTUNIDADES EM DESTAQUE | Valores: `Mapeamento[Molécula]`<br>Valores: `Mapeamento[Fornecedor / Parceiro]`<br>Valores: `Mapeamento[Fase Oportunidade NN]`<br>Valores: `Mapeamento[Indicação]`<br>Valores: `Mapeamento[Status NN]`<br>Valores: `Mapeamento[Situação]` |
+| 16, 442, 408×200 | Gráfico de rosca | CATEGORIA DAS MOLÉCULAS | Eixo X / Categoria: `Mapeamento[Categoria Padrão]`<br>Valores (eixo Y): `_Medidas[Moléculas]` (medida) |
+| 436, 442, 408×200 | Gráfico de barras agrupadas | MATURIDADE (FASE DA OPORTUNIDADE) | Eixo X / Categoria: `Mapeamento[Fase Oportunidade NN]`<br>Valores (eixo Y): `_Medidas[Moléculas]` (medida) |
+| 856, 442, 408×200 | Gráfico de barras agrupadas | ÁREA TERAPÊUTICA | Eixo X / Categoria: `Mapeamento[Sub-área Terapêutica]`<br>Valores (eixo Y): `_Medidas[Moléculas]` (medida) |
+| 16, 648, 1248×52 | Cartão |  | Valores: `_Medidas[Resumo da Unidade]` (medida) |
 
 ---
 
-## Página 5 — 5. Financeiro
+## Página 5 — Carteira da Unidade
+
+| Pos. (x, y, larg × alt) | Visual | Título | Campos |
+|---|---|---|---|
+| 20, 6, 780×34 | Caixa de texto | Texto: **Carteira da Unidade de Negócio \| Detalhe** |  |
+| 820, 14, 444×24 | Caixa de texto | Texto: **As oportunidades por trás dos números do one-page** |  |
+| 16, 56, 240×40 | Segmentação de dados |  | Valores: `Unidade de Negócio[Unidade de Negócio]` |
+| 268, 56, 240×40 | Segmentação de dados |  | Valores: `Mapeamento[Franquia]` |
+| 520, 56, 240×40 | Segmentação de dados |  | Valores: `Mapeamento[Situação]` |
+| 772, 56, 240×40 | Segmentação de dados |  | Valores: `Status NN[Status]` |
+| 1024, 56, 240×40 | Segmentação de dados |  | Valores: `Calendário[Ano]` |
+| 16, 104, 240×72 | Cartão | MOLÉCULAS | Valores: `_Medidas[Moléculas]` (medida) |
+| 268, 104, 240×72 | Cartão | CARREGADAS NO PERÍODO | Valores: `_Medidas[Moléculas Novas no Período]` (medida) |
+| 520, 104, 240×72 | Cartão | ENCERRADAS NO PERÍODO | Valores: `_Medidas[Moléculas Encerradas no Período]` (medida) |
+| 772, 104, 240×72 | Cartão | DIAS MÉDIOS EM NN | Valores: `_Medidas[Dias Médios em NN]` (medida) |
+| 1024, 104, 240×72 | Cartão | PRINCIPAL MOTIVO | Valores: `_Medidas[Motivo nº 1]` (medida) |
+| 16, 184, 618×200 | Gráfico de colunas agrupadas | CARREGAMENTO DE MOLÉCULAS POR MÊS | Eixo X / Categoria: `Calendário[Ano-Mês]`<br>Valores (eixo Y): `_Medidas[Moléculas Novas no Período]` (medida) |
+| 646, 184, 618×200 | Gráfico de barras empilhadas | ÁREA TERAPÊUTICA x SITUAÇÃO | Eixo X / Categoria: `Mapeamento[Sub-área Terapêutica]`<br>Legenda / Série: `Mapeamento[Situação]`<br>Valores (eixo Y): `_Medidas[Moléculas]` (medida) |
+| 16, 392, 1248×305 | Tabela | OPORTUNIDADES DA UNIDADE | Valores: `Mapeamento[Molécula]`<br>Valores: `Mapeamento[Fornecedor / Parceiro]`<br>Valores: `Mapeamento[Fase Oportunidade NN]`<br>Valores: `Mapeamento[Indicação]`<br>Valores: `Mapeamento[Status NN]`<br>Valores: `Mapeamento[Situação]`<br>Valores: `Mapeamento[Motivo Padrão]`<br>Valores: `Mapeamento[Responsável Final]`<br>Valores: `Mapeamento[Data de Entrada]` |
+
+---
+
+## Página 6 — Financeiro
 
 | Pos. (x, y, larg × alt) | Visual | Título | Campos |
 |---|---|---|---|
@@ -126,11 +145,11 @@ para as áreas indicadas.
 | 16, 184, 618×245 | Gráfico de barras agrupadas | VPL POR MOLÉCULA | Eixo X / Categoria: `Mapeamento[Molécula]`<br>Valores (eixo Y): `_Medidas[VPL Total]` (medida) |
 | 646, 184, 618×245 | Gráfico de colunas agrupadas | VPL POR UNIDADE DE NEGÓCIO | Eixo X / Categoria: `Unidade de Negócio[Unidade de Negócio]`<br>Valores (eixo Y): `_Medidas[VPL Total]` (medida) |
 | 16, 437, 618×260 | Tabela | PROJETOS COM DADOS FINANCEIROS | Valores: `Mapeamento[Molécula]`<br>Valores: `Mapeamento[Fornecedor / Parceiro]`<br>Valores: `Mapeamento[Moeda]`<br>Valores: `_Medidas[VPL Total]` (medida)<br>Valores: `_Medidas[Peak Sales]` (medida)<br>Valores: `_Medidas[Margem Bruta Média]` (medida)<br>Valores: `_Medidas[Faturamento 5 Anos]` (medida) |
-| 646, 437, 618×260 | Gráfico de colunas agrupadas | VPL POR ESTÁGIO DO FUNIL | Eixo X / Categoria: `Status NN[Status]`<br>Valores (eixo Y): `_Medidas[VPL Total]` (medida) |
+| 646, 437, 618×260 | Gráfico de colunas agrupadas | FATURAMENTO LÍQUIDO PROJETADO (DRE, 5 ANOS) | Eixo X / Categoria: `Faturamento Projetado[Ano Projetado]`<br>Valores (eixo Y): `_Medidas[Faturamento Projetado]` (medida) |
 
 ---
 
-## Página 6 — 6. Mapeamento Completo
+## Página 7 — Mapeamento Completo
 
 | Pos. (x, y, larg × alt) | Visual | Título | Campos |
 |---|---|---|---|
@@ -150,7 +169,7 @@ para as áreas indicadas.
 
 ---
 
-## Página 7 — 7. Qualidade da Base
+## Página 8 — Qualidade da Base
 
 | Pos. (x, y, larg × alt) | Visual | Título | Campos |
 |---|---|---|---|

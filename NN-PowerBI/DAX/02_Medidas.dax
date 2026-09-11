@@ -72,6 +72,20 @@ Horas Disponíveis =
 [Capacidade (h)] - [Horas Empenhadas]
 // formato: #,0.0
 
+Régua Preenchida =
+IF (
+    ISBLANK ( CALCULATE ( SUM ( 'Esforço'[Horas Mês] ), REMOVEFILTERS () ) ),
+    FALSE (),
+    TRUE ()
+)
+
+Aviso Régua =
+IF (
+    NOT [Régua Preenchida],
+    "⚠️ A régua de esforço ainda não foi preenchida. Preencha o arquivo Regua_Esforco_NN.xlsx na pasta dos mapeamentos e atualize — os indicadores de horas passam a calcular sozinhos.",
+    BLANK ()
+)
+
 Status Ocupação =
 VAR o = [% Ocupação]
 RETURN
@@ -340,3 +354,106 @@ Título Ocupação =
 
 Sem Seleção =
 IF ( ISBLANK ( [Projetos] ), "Nenhum projeto atende aos filtros selecionados.", BLANK () )
+
+
+// ============ PASTA: 10 Report BU ====================================
+
+Unidade Selecionada =
+SELECTEDVALUE ( 'Unidade de Negócio'[Unidade de Negócio], "Todas as unidades" )
+
+Período Selecionado =
+VAR anos = CONCATENATEX ( VALUES ( 'Calendário'[Ano] ), 'Calendário'[Ano], ", ", 'Calendário'[Ano] )
+RETURN
+    IF ( ISBLANK ( anos ), "Todos os anos", anos )
+
+Título Report BU =
+"Novos Negócios | " & [Unidade Selecionada] & "  —  " & [Período Selecionado]
+
+Projetos (Todas as Unidades) =
+CALCULATE (
+    [Projetos],
+    REMOVEFILTERS ( 'Unidade de Negócio' ),
+    REMOVEFILTERS ( Mapeamento[Coligada Padrão] )
+)
+// formato: #,0
+
+Moléculas (Todas as Unidades) =
+CALCULATE (
+    [Moléculas],
+    REMOVEFILTERS ( 'Unidade de Negócio' ),
+    REMOVEFILTERS ( Mapeamento[Coligada Padrão] )
+)
+// formato: #,0
+
+% da Unidade no Total NN =
+DIVIDE ( [Moléculas], [Moléculas (Todas as Unidades)] )
+// formato: 0.0%
+
+Moléculas Novas no Período =
+CALCULATE (
+    [Moléculas],
+    USERELATIONSHIP ( 'Calendário'[Data], Mapeamento[Data de Entrada] )
+)
+// formato: #,0
+
+Moléculas Encerradas no Período =
+CALCULATE (
+    [Moléculas],
+    USERELATIONSHIP ( 'Calendário'[Data], Mapeamento[Data Fim Efetiva] )
+)
+// formato: #,0
+
+Resumo da Unidade =
+VAR bu = [Unidade Selecionada]
+VAR part = [% da Unidade no Total NN]
+VAR ativas = [Projetos Ativos]
+VAR paradas = [Cancelados + Stand by]
+VAR motivo = [Motivo nº 1]
+RETURN
+    IF (
+        ISBLANK ( [Projetos] ),
+        "Sem oportunidades para os filtros selecionados.",
+        bu & " representa " & FORMAT ( part, "0,0%" ) & " das moléculas avaliadas "
+            & "por Novos Negócios no período. " & FORMAT ( ativas, "0" ) & " em andamento e "
+            & FORMAT ( paradas, "0" ) & " canceladas ou em stand by — principal motivo: "
+            & motivo & "."
+    )
+
+% das Moléculas =
+DIVIDE (
+    [Moléculas],
+    CALCULATE ( [Moléculas], REMOVEFILTERS ( 'Status NN' ) )
+)
+// formato: 0.0%
+
+Projetos (Referência) =
+CALCULATE (
+    [Projetos],
+    REMOVEFILTERS ( 'Unidade de Negócio' ),
+    REMOVEFILTERS ( Mapeamento[Coligada Padrão] ),
+    TREATAS ( VALUES ( 'Unidade Referência'[Coligada Padrão] ), Mapeamento[Coligada Padrão] )
+)
+// formato: #,0
+
+Moléculas (Referência) =
+CALCULATE (
+    [Moléculas],
+    REMOVEFILTERS ( 'Unidade de Negócio' ),
+    REMOVEFILTERS ( Mapeamento[Coligada Padrão] ),
+    TREATAS ( VALUES ( 'Unidade Referência'[Coligada Padrão] ), Mapeamento[Coligada Padrão] )
+)
+// formato: #,0
+
+% Moléculas (Referência) =
+DIVIDE (
+    [Moléculas (Referência)],
+    CALCULATE ( [Moléculas (Referência)], REMOVEFILTERS ( 'Unidade Referência' ) )
+)
+// formato: 0.0%
+
+
+// ============ PASTA: 06 Financeiro ===================================
+
+Faturamento Projetado =
+SUM ( 'Faturamento Projetado'[Valor] )
+// formato: "R$" #,0

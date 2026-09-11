@@ -1,7 +1,9 @@
 # Dashboard Novos Negócios — Dossiê de Implantação
 
-> **Leia só a seção do caminho que funcionar.** Comece pelo **Caminho A**.
-> Se ele abrir, você terminou em 5 minutos e pode pular para a seção 4.
+> **Se o `.pbit` não abriu no seu Power BI, pule direto para o Caminho B**
+> (seção 2). Ele monta o modelo inteiro — 15 tabelas, 76 medidas e 16
+> relacionamentos — em um clique, e não depende do formato de arquivo que
+> falhou. Leia só a seção do caminho que você for usar.
 
 ---
 
@@ -9,15 +11,16 @@
 
 | Pasta / arquivo | Para que serve |
 |---|---|
-| `dist/Dashboard_Novos_Negocios.pbit` | **Caminho A.** Modelo + 7 páginas prontos. Abre, pede o endereço do SharePoint, carrega sozinho. |
+| `dist/Dashboard_Novos_Negocios.pbit` | **Caminho A.** Modelo + 8 páginas prontos. Abre, pede o endereço do SharePoint, carrega sozinho. |
 | `dist/Dashboard_Novos_Negocios_PBIP/` | **Caminho A2.** Mesmo conteúdo em formato de projeto (pasta), caso o `.pbit` não abra. |
-| `modelo/Model.bim` | **Caminho B.** Definição completa do modelo (tabelas, relações, 60 medidas) para o Tabular Editor. |
-| `modelo/Layout.json` | Definição das 7 páginas do relatório. |
-| `modelo/Section1.m` | Todas as 25 consultas do Power Query num arquivo só. |
+| `dist/Regua_Esforco_NN.xlsx` | **A régua de horas, em branco.** Preencha com o time e coloque no SharePoint. |
+| `modelo/Model.bim` | **Caminho B.** Definição completa do modelo (tabelas, relações, 76 medidas) para o Tabular Editor. |
+| `modelo/Layout.json` | Definição das 8 páginas do relatório. |
+| `modelo/Section1.m` | Todas as 29 consultas do Power Query num arquivo só. |
 | `M/queries/*.pq` | **Caminho C.** Uma consulta por arquivo, pronta para colar no Editor Avançado. |
 | `DAX/01_Colunas_Calculadas.dax` | As 7 colunas calculadas. |
-| `DAX/02_Medidas.dax` | As 60 medidas. |
-| `docs/DOSSIE.md` | Este arquivo. |
+| `DAX/02_Medidas.dax` | As 76 medidas. |
+| `docs/DOSSIE.md` | Este arquivo (versão em PDF em `docs/pdf/`). |
 | `docs/DIAGNOSTICO_BASE.md` | O que encontrei na sua base hoje e o que precisa mudar no processo. |
 
 ---
@@ -37,6 +40,7 @@
    | `pPastaHistorico` | `DEMANDAS NN - ALIANÇA/HISTORICO` |
    | `pAbaMapeamento` | `Mapeamento NN` |
    | `pAbaSolicitacoes` | `Solicitações` |
+   | `pArquivoRegua` | `Regua_Esforco_NN.xlsx` |
    | `pCapacidadeMensalHoras` | `168` |
    | `pAnoMinimo` | `2022` |
    | `pEstimarFimQuandoAusente` | `true` |
@@ -73,9 +77,10 @@ medidas) está pronto nos três caminhos — muda só a forma de carregar.
 
 ## 2. Caminho B — montar o modelo com o Tabular Editor (20 minutos)
 
-Esse caminho monta **o modelo inteiro** (13 tabelas + 60 medidas + 15
-relacionamentos) de uma vez. Só as telas ficam por sua conta — e para elas
-existe a seção 3.6.
+**É o caminho mais confiável, e o recomendado se o `.pbit` não abriu.**
+Ele monta **o modelo inteiro** (15 tabelas + 76 medidas + 16 relacionamentos)
+de uma vez, a partir de um arquivo de texto — sem depender de nenhum formato
+binário. Só as telas ficam por sua conta, e para elas existe a seção 3.6.
 
 1. Baixe o **Tabular Editor 2** (gratuito): <https://github.com/TabularEditor/TabularEditor/releases>
    → arquivo `TabularEditor.Installer.msi`. Instale.
@@ -90,6 +95,15 @@ existe a seção 3.6.
 7. Volte ao Power BI Desktop. `Página Inicial → Atualizar`.
    Ele vai pedir os parâmetros e a credencial — responda como no Caminho A.
 8. Monte as telas usando a seção 3.6.
+
+**Se o passo 4 não listar nenhuma instância local:** confirme que o Power BI
+Desktop está aberto com um arquivo salvo (não pode ser um relatório nunca
+salvo). Se ainda assim não aparecer, feche o Tabular Editor, reabra **como
+administrador** e repita.
+
+**Se o passo 6 der erro ao salvar:** normalmente é uma tabela que o Power BI
+Desktop não conseguiu processar por falta de credencial. Faça o passo 7
+primeiro (Atualizar), autentique, e então repita o passo 6.
 
 ---
 
@@ -109,7 +123,7 @@ Só faça isso se A e B falharem. São cerca de 2 horas. Siga na ordem exata.
    **desmarque** "Data/hora automática".
    *(Isso é importante: senão o Power BI cria relacionamentos errados sozinho.)*
 
-### 3.2 Criar os 9 parâmetros
+### 3.2 Criar os 10 parâmetros
 
 `Página Inicial → Transformar dados` → abre o Editor do Power Query.
 Lá dentro: `Página Inicial → Gerenciar Parâmetros → Novo Parâmetro`.
@@ -124,11 +138,12 @@ Crie um de cada vez, exatamente com estes nomes (respeite maiúsculas):
 | `pPastaHistorico` | Texto | `DEMANDAS NN - ALIANÇA/HISTORICO` |
 | `pAbaMapeamento` | Texto | `Mapeamento NN` |
 | `pAbaSolicitacoes` | Texto | `Solicitações` |
+| `pArquivoRegua` | Texto | `Regua_Esforco_NN.xlsx` |
 | `pCapacidadeMensalHoras` | Número Decimal | `168` |
 | `pAnoMinimo` | Número Decimal | `2022` |
 | `pEstimarFimQuandoAusente` | Verdadeiro/Falso | `true` |
 
-### 3.3 Criar as 15 consultas
+### 3.3 Criar as 17 consultas
 
 Para **cada** arquivo da pasta `M/queries/`, faça:
 
@@ -146,6 +161,7 @@ Para **cada** arquivo da pasta `M/queries/`, faça:
 |---|---|---|---|
 | 1 | `fnUtil.pq` | `fnUtil` | ❌ não |
 | 2 | `Fonte_Arquivos.pq` | `Fonte_Arquivos` | ❌ não |
+| 2b | `Fonte_Regua.pq` | `Fonte_Regua` | ❌ não |
 | 3 | `Mapeamento.pq` | `Mapeamento` | ✅ sim |
 | 4 | `Carregamento Mensal.pq` | `Carregamento Mensal` | ✅ sim |
 | 5 | `Calendario.pq` | `Calendário` | ✅ sim |
@@ -159,6 +175,8 @@ Para **cada** arquivo da pasta `M/queries/`, faça:
 | 13 | `Solicitações.pq` | `Solicitações` | ✅ sim |
 | 14 | `Qualidade de Dados.pq` | `Qualidade de Dados` | ✅ sim |
 | 15 | `Historico Snapshots.pq` | `Histórico Snapshots` | ✅ sim |
+| 16 | `Faturamento Projetado.pq` | `Faturamento Projetado` | ✅ sim |
+| 17 | `Unidade Referencia.pq` | `Unidade Referência` | ✅ sim |
 
 > ⚠️ **Atenção aos nomes com acento** (`Calendário`, `Esforço`, `País`,
 > `Solicitações`, `Unidade de Negócio`, `Histórico Snapshots`). As medidas
@@ -201,7 +219,7 @@ Para cada bloco: selecione a tabela indicada no comentário
 | `Carregamento Mensal` | `Status no Mês` | `Ordem Status Mês` |
 
 **d) Relacionamentos** — `Modelagem → Gerenciar relações → Nova`.
-Crie exatamente estes 15. Em todos, **Cardinalidade = Muitos para um (\*:1)**
+Crie exatamente estes 16. Em todos, **Cardinalidade = Muitos para um (\*:1)**
 e **Direção do filtro cruzado = Único**:
 
 | # | Tabela (muitos) | Coluna | Tabela (um) | Coluna | Ativo |
@@ -214,6 +232,7 @@ e **Direção do filtro cruzado = Único**:
 | 6 | `Mapeamento` | `País Fornecedor` | `País` | `País` | ✅ |
 | 7 | `Carregamento Mensal` | `ProjetoID` | `Mapeamento` | `ProjetoID` | ✅ |
 | 8 | `Qualidade de Dados` | `ProjetoID` | `Mapeamento` | `ProjetoID` | ✅ |
+| 8b | `Faturamento Projetado` | `ProjetoID` | `Mapeamento` | `ProjetoID` | ✅ |
 | 9 | `Carregamento Mensal` | `Data Referência` | `Calendário` | `Data` | ✅ |
 | 10 | `Mapeamento` | `Data de Entrada` | `Calendário` | `Data` | ❌ **inativo** |
 | 11 | `Mapeamento` | `Data Fim Efetiva` | `Calendário` | `Data` | ❌ **inativo** |
@@ -222,13 +241,16 @@ e **Direção do filtro cruzado = Único**:
 | 14 | `Histórico Snapshots` | `Data Snapshot` | `Calendário` | `Data` | ✅ |
 | 15 | `Histórico Snapshots` | `Responsável Final` | `Equipe` | `Pessoa` | ✅ |
 
+> ⚠️ A tabela **`Unidade Referência` não entra em nenhum relacionamento** —
+> ela é desconectada de propósito (explicação na seção 5).
+>
 > Os relacionamentos **10 e 11 precisam ficar inativos** (desmarque
 > "Tornar esta relação ativa"). Se ficarem ativos, filtrar um mês passa a mostrar
 > só os projetos que *entraram* naquele mês — e a página de evolução fica errada.
 
 **e) Medidas** — abra `DAX/02_Medidas.dax`. Para cada medida: selecione a tabela
 `_Medidas` → `Modelagem → Nova medida` → apague o texto padrão → cole o bloco
-(nome + `=` + expressão) → Enter. São 60.
+(nome + `=` + expressão) → Enter. São 76.
 Depois, na faixa `Ferramentas de medida`, aplique o formato indicado no
 comentário `// formato:` de cada uma.
 
@@ -259,29 +281,35 @@ quais campos arrastar para quais áreas.
 ## 5. Como o modelo está montado
 
 ```
-                    ┌──────────────┐
-                    │  Calendário  │  (tabela de datas)
-                    └──────┬───────┘
-            ┌──────────────┼──────────────┬─────────────────┐
-            ▼              ▼(inativo)     ▼                 ▼
-  ┌───────────────────┐  ┌────────────┐  ┌──────────────┐ ┌─────────────────────┐
-  │ Carregamento      │  │            │  │ Solicitações │ │ Histórico Snapshots │
-  │ Mensal            │◄─┤ Mapeamento ├─►│              │ │                     │
-  │ (1 linha por      │  │ (1 linha   │  └──────┬───────┘ └──────────┬──────────┘
-  │  projeto x mês)   │  │  por       │         │                    │
-  └───────────────────┘  │  projeto)  │         ▼                    ▼
-                         └─┬──┬──┬──┬─┘      ┌────────┐         ┌────────┐
-                           │  │  │  │        │ Equipe │◄────────┤ Equipe │
-     ┌─────────────────────┘  │  │  └──────┐ └────────┘         └────────┘
-     ▼            ▼           ▼  ▼         ▼
-┌──────────┐ ┌─────────┐ ┌────────────┐ ┌──────┐ ┌───────────────────┐
-│ Status NN│ │Complexi-│ │Unidade de  │ │ País │ │Motivo Cancelamento│
-│          │ │ dade    │ │ Negócio    │ │      │ │                   │
-└──────────┘ └─────────┘ └────────────┘ └──────┘ └───────────────────┘
+                         ┌──────────────┐
+                         │  Calendário  │   (tabela de datas)
+                         └──────┬───────┘
+        ┌───────────────┬───────┴───────┬────────────────┐
+        ▼               ▼ (inativo)     ▼                ▼
+┌────────────────┐  ┌────────────┐  ┌──────────────┐  ┌─────────────────────┐
+│  Carregamento  │  │            │  │ Solicitações │  │ Histórico Snapshots │
+│     Mensal     │◄─┤ Mapeamento ├─►│              │  │                     │
+│ (projeto x mês)│  │ (projeto)  │  └──────┬───────┘  └──────────┬──────────┘
+└────────────────┘  └─┬─┬─┬─┬─┬──┘         │                     │
+                      │ │ │ │ │            ▼                     ▼
+   ┌──────────────────┘ │ │ │ └──────┐  ┌────────┐          ┌────────┐
+   │      ┌─────────────┘ │ └────┐   │  │ Equipe │          │ Equipe │
+   ▼      ▼               ▼      ▼   ▼  └────────┘          └────────┘
+┌────────┐ ┌──────────┐ ┌──────┐ ┌──────────────┐ ┌───────────────────┐
+│Status  │ │Complexi- │ │ País │ │  Unidade de  │ │Motivo Cancelamento│
+│  NN    │ │  dade    │ │      │ │   Negócio    │ │                   │
+└────────┘ └──────────┘ └──────┘ └──────────────┘ └───────────────────┘
 
-  `Esforço` fica solta de propósito: é consultada por LOOKUPVALUE
-  (Status x Complexidade → horas/mês), não por relacionamento.
-  `Qualidade de Dados` liga em Mapeamento por ProjetoID.
+  Mapeamento também alimenta, por ProjetoID:
+      Qualidade de Dados   e   Faturamento Projetado
+
+  DUAS TABELAS FICAM SOLTAS DE PROPÓSITO:
+  ┌──────────┐   consultada por LOOKUPVALUE (Status × Complexidade → horas).
+  │ Esforço  │   É a régua que o time preenche no Excel.
+  └──────────┘
+  ┌────────────────────┐  eixo do gráfico "Franquias de Atuação" no one-page.
+  │ Unidade Referência │  Fica desconectada para que aquele gráfico continue
+  └────────────────────┘  mostrando TODAS as unidades quando você filtra uma.
 ```
 
 **As duas tabelas de fato e a diferença entre elas:**
@@ -299,45 +327,73 @@ quais campos arrastar para quais áreas.
 
 ---
 
-## 6. A régua de horas — onde ajustar
+## 6. A régua de horas — **está em branco, esperando o time**
 
-O PBI atual calcula horas por uma régua que está dentro dele e que eu não
-consigo ler. Então **montei uma régua nova, explícita e editável**. Ela tem
-duas partes:
+O cálculo de carregamento depende de duas definições que **só o time pode dar**.
+Por isso elas **não estão embutidas no relatório**: elas moram num arquivo Excel
+separado, que vocês preenchem quando decidirem.
 
-**a) Categoria → Complexidade** (arquivo `M/queries/Complexidade.pq`):
+**Enquanto o arquivo não for preenchido, nada quebra.** O dashboard inteiro
+funciona; apenas os indicadores de horas e de ocupação ficam vazios, e a página
+2 mostra um aviso explicando o motivo.
 
-| Categoria | Complexidade |
-|---|---|
-| Inovador Radical, Biológico, M&A | ALTO |
-| Inovador Incremental, Produto para Saúde, Cosmético | MÉDIO |
-| Similar / Genérico, Alimento / Suplemento, Fitoterápico | BAIXO |
+### Como preencher
 
-**b) Status × Complexidade → horas/mês** (arquivo `M/queries/Esforco.pq`):
+1. Abra `dist/Regua_Esforco_NN.xlsx`. Ele tem três abas: **Instruções**,
+   **Complexidade** e **Esforço**. **Só as células amarelas são para preencher.**
 
-| Status | Baixo | Médio | Alto |
-|---|---|---|---|
-| Aguardando Início | 0,5 | 1 | 1,5 |
-| Prospecção | 2 | 3 | 4 |
-| CDA | 1 | 1,5 | 2 |
-| Av. Técnica Inicial | 4 | 6 | 8 |
-| Av. Marketing | 3 | 4 | 6 |
-| Negociação | 6 | 8 | 12 |
-| Aprovação Summary | 3 | 4 | 6 |
-| Term Sheet | 5 | 7 | 10 |
-| Contrato | 6 | 8 | 12 |
+2. **Aba `Complexidade`** — para cada categoria de produto, diga se ela é
+   `BAIXO`, `MÉDIO` ou `ALTO` (a célula tem lista suspensa).
+   *A pergunta para o time:* "um projeto desta categoria dá mais ou menos
+   trabalho que os outros?"
 
-> **Estes números são uma proposta minha, não um dado da sua base.**
-> Rode uma reunião de 30 minutos com o time perguntando
-> *"quantas horas por mês um projeto nesse status realmente consome?"* e
-> substitua. Para editar: `Página Inicial → Transformar dados` → consulta
-> `Esforço` → `Editor Avançado` → troque os números → `Fechar e Aplicar`.
+   | Categoria | Complexidade |
+   |---|---|
+   | INOVADOR RADICAL | _(a preencher)_ |
+   | INOVADOR INCREMENTAL | _(a preencher)_ |
+   | SIMILAR / GENÉRICO | _(a preencher)_ |
+   | … mais 7 categorias | |
 
-A **capacidade** (168 h/mês) está no parâmetro `pCapacidadeMensalHoras`.
-Para dar capacidade diferente por pessoa, edite a consulta `Equipe` e troque
-`each pCapacidadeMensalHoras` por um `if [Pessoa] = "FULANO" then 120 else 168`.
+3. **Aba `Esforço`** — 27 linhas (9 status × 3 complexidades). Em cada uma,
+   quantas **horas por mês** um único projeto naquele status e complexidade
+   consome.
+   *A pergunta para o time:* "um projeto de complexidade ALTA parado em
+   NEGOCIAÇÃO consome quantas horas suas por mês?"
 
----
+   | Status | Complexidade | Horas Mês |
+   |---|---|---|
+   | AGUARDANDO INÍCIO | BAIXO | _(a preencher)_ |
+   | AGUARDANDO INÍCIO | MÉDIO | _(a preencher)_ |
+   | … | | |
+
+   Aceita decimais (1,5). O que ficar em branco vale zero — dá para preencher
+   por partes, começando pelos status mais comuns.
+
+4. Salve o arquivo **com o nome `Regua_Esforco_NN.xlsx`** (exatamente assim)
+   na **mesma pasta do SharePoint** onde ficam os mapeamentos:
+   `Documentos Compartilhados / DEMANDAS NN - ALIANÇA / DEMANDAS NN - ALIANÇAS`
+
+5. No Power BI: `Página Inicial → Atualizar`. As horas aparecem.
+
+> Quer guardar a régua em outra pasta ou com outro nome? Mude o parâmetro
+> `pArquivoRegua` (`Transformar dados → Gerenciar Parâmetros`). Ele procura o
+> arquivo na mesma pasta dos mapeamentos.
+
+### A capacidade fica em outro lugar
+
+As horas disponíveis por pessoa/mês **não** estão nesse Excel — são o parâmetro
+`pCapacidadeMensalHoras` (padrão **168 h**). Para dar capacidade diferente por
+pessoa, edite a consulta `Equipe` e troque
+
+```m
+each pCapacidadeMensalHoras
+```
+
+por algo como
+
+```m
+each if [Pessoa] = "FULANO DE TAL" then 120 else pCapacidadeMensalHoras
+```
 
 ## 7. Histórico de verdade — snapshots mensais (recomendado)
 
@@ -391,18 +447,54 @@ a consulta devolve tabela vazia e **nada quebra**.
 
 ---
 
-## 8. Perguntas que preciso que você responda
+## 8. O que ainda depende de você
 
-Estas decisões eu tomei sozinho para não travar a entrega. Vale revisar:
+1. **A régua de esforço (seção 6).** É a única coisa que falta para os
+   indicadores de horas e ocupação ligarem. Enquanto isso, todas as outras
+   páginas já funcionam.
 
-1. **A régua de horas da seção 6** — os números são chute meu, calibrado pelo
-   bom senso. Os do PBI atual estão dentro dele e não consegui lê-los.
-2. **Complexidade = Categoria.** Assumi que "Inovador Radical" é alto e
-   "Similar/Genérico" é baixo. Se o time tem outro critério (por exemplo, país
-   do fornecedor ou forma farmacêutica), dá para trocar na consulta `Complexidade`.
-3. **"Stand by" não conta horas** na medida `Horas Empenhadas`. Deixei uma
-   medida alternativa (`Horas Empenhadas (com Stand by)`) caso você discorde —
-   e é uma boa discussão, porque 152 dos 354 projetos do seu arquivo estão em
-   stand by.
-4. **Capacidade de 168 h/mês para todos.** Se há gente em tempo parcial ou com
-   outras atribuições, ajuste como descrito na seção 6.
+2. **"Stand by" não conta horas** na medida `Horas Empenhadas`. Deixei a medida
+   alternativa `Horas Empenhadas (com Stand by)` caso vocês discordem — e vale a
+   discussão: **152 dos 354 projetos** do seu arquivo estão em stand by. Se um
+   projeto em stand by ainda consome acompanhamento, a conta atual subestima o
+   carregamento do time.
+
+3. **Capacidade de 168 h/mês para todos** (seção 6, final).
+
+4. **A data de finalização dos projetos** (seção 7). É o único campo que falta
+   para o histórico mensal deixar de ser estimativa.
+
+---
+
+## 9. O que foi removido e por quê
+
+Ajustes feitos na revisão, para o relatório não carregar visual que não decide
+nada:
+
+| Página | Saiu | Motivo | Entrou no lugar |
+|---|---|---|---|
+| 1. Visão Geral | **Mapa de países** | Reproduzia a origem dos fornecedores sem gerar decisão; o país continua disponível como coluna na base completa | **Origem da Oportunidade** (Prospecção Ativa, Parceiro, Wishlist, Feiras…) — mostra de onde o pipeline nasce |
+| 1. Visão Geral | Rosca "Situação dos Projetos" | Repetia exatamente o que os três cartões do topo já diziam | Espaço devolvido à tabela, que ficou maior |
+| 1. Visão Geral | Rosca "% Projetos x Coligada" | 11 categorias numa rosca são ilegíveis | Mesmo dado em **barras ordenadas** |
+| 2. Carregamento | Cartão "% Ocupação" | Duplicava o medidor logo abaixo | Cartão **Horas Disponíveis** |
+| 3. Evolução | Colunas empilhadas do funil | Com 9 status × muitos meses vira serrilha | **Área empilhada**, que lê composição ao longo do tempo |
+| 6. Financeiro | "VPL por Estágio do Funil" | Só 7 projetos têm VPL — o gráfico nascia vazio | **Faturamento líquido projetado (DRE, 5 anos)**, que usa as 5 colunas de DRE que estavam sem uso |
+| 6. Financeiro | Top 15 de VPL | Mais linhas do que dados existentes | Top 10 |
+
+E o report de unidade de negócio **virou duas páginas**, espelhando a estrutura
+dos seus documentos atuais:
+
+- **Página 4 — Report por Unidade de Negócio**: o one-page. O filtro
+  `▼ UNIDADE DE NEGÓCIO` troca a unidade inteira — NR, SNC (EMS Prescrição +
+  franquia NEURO), USK, Ofta, OTC, Brace, Legrand, ou qualquer outra que
+  apareça na base. Ganhou o gráfico de **Área Terapêutica** e um **resumo em
+  texto** pronto para colar no slide.
+- **Página 5 — Carteira da Unidade**: o detalhe. Carregamento de moléculas por
+  mês, área terapêutica × situação, e a tabela de oportunidades.
+
+> **Detalhe técnico que vale conhecer:** no one-page, o gráfico
+> *"Franquias de Atuação de NN (todas as unidades)"* **não** é filtrado quando
+> você seleciona uma unidade — ele continua mostrando o bolo inteiro, que é o
+> contraste que dá a leitura *"esta BU representou X% do que NN avaliou"*.
+> Isso é feito pela tabela desconectada `Unidade Referência`. Se você conectá-la
+> por engano a alguma outra tabela, esse gráfico para de funcionar.

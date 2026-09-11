@@ -74,6 +74,13 @@ COLUMNS = {
     ("Status", S, None, None), ("Complexidade", S, None, None),
     ("Horas Mês", N, "#,0.0", None), ("ChaveEsforco", S, None, None),
 ],
+"Unidade Referência": [
+    ("Coligada Padrão", S, None, None), ("Unidade", S, None, "Ordem"), ("Ordem", I, "0", None),
+],
+"Faturamento Projetado": [
+    ("ProjetoID", S, None, None), ("Ano do DRE", I, "0", None),
+    ("Ano Projetado", S, None, "Ano do DRE"), ("Valor", N, '"R$" #,0', None),
+],
 "Equipe": [
     ("Pessoa", S, None, None), ("Nome", S, None, None),
     ("Gerência", S, None, None), ("Projetos Totais", I, "#,0", None),
@@ -164,6 +171,7 @@ RELATIONSHIPS = [
     ("País", "País", "Mapeamento", "País Fornecedor", True),
     ("Mapeamento", "ProjetoID", "Carregamento Mensal", "ProjetoID", True),
     ("Mapeamento", "ProjetoID", "Qualidade de Dados", "ProjetoID", True),
+    ("Mapeamento", "ProjetoID", "Faturamento Projetado", "ProjetoID", True),
     ("Calendário", "Data", "Carregamento Mensal", "Data Referência", True),
     ("Calendário", "Data", "Mapeamento", "Data de Entrada", False),
     ("Calendário", "Data", "Mapeamento", "Data Fim Efetiva", False),
@@ -181,6 +189,7 @@ PARAMETERS = [
  ("pPastaHistorico", '"DEMANDAS NN - ALIANÇA/HISTORICO" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]'),
  ("pAbaMapeamento", '"Mapeamento NN" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]'),
  ("pAbaSolicitacoes", '"Solicitações" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]'),
+ ("pArquivoRegua", '"Regua_Esforco_NN.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]'),
  ("pCapacidadeMensalHoras", '168 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]'),
  ("pAnoMinimo", '2022 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=false]'),
  ("pEstimarFimQuandoAusente", 'true meta [IsParameterQuery=true, Type="Logical", IsParameterQueryRequired=false]'),
@@ -194,7 +203,10 @@ TABLE_QUERIES = {
  "Unidade de Negócio": "Unidade de Negocio", "Motivo Cancelamento": "Motivo Cancelamento",
  "País": "Pais", "Solicitações": "Solicitações",
  "Qualidade de Dados": "Qualidade de Dados", "Histórico Snapshots": "Historico Snapshots",
+ "Faturamento Projetado": "Faturamento Projetado",
+ "Unidade Referência": "Unidade Referencia",
 }
 
 # consultas auxiliares (não viram tabela): função e navegação
-HELPER_QUERIES = {"fnUtil": "fnUtil", "Fonte_Arquivos": "Fonte_Arquivos"}
+HELPER_QUERIES = {"fnUtil": "fnUtil", "Fonte_Arquivos": "Fonte_Arquivos",
+                  "Fonte_Regua": "Fonte_Regua"}

@@ -12,6 +12,8 @@ shared pAbaMapeamento = "Mapeamento NN" meta [IsParameterQuery=true, Type="Text"
 
 shared pAbaSolicitacoes = "Solicitações" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false];
 
+shared pArquivoRegua = "Regua_Esforco_NN.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false];
+
 shared pCapacidadeMensalHoras = 168 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true];
 
 shared pAnoMinimo = 2022 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=false];
@@ -198,6 +200,42 @@ let
                 MissingField.UseNull)
 in
     Final;
+
+shared Fonte_Regua = // Fonte_Regua — abre o arquivo da régua de esforço (Regua_Esforco_NN.xlsx),
+// se ele existir na pasta dos mapeamentos. Se não existir, devolve null e o
+// modelo segue funcionando com a régua em branco.
+// Esta é a consulta que deixa o "canal aberto": o time preenche o Excel,
+// atualiza o Power BI, e as horas passam a aparecer. Sem mexer em código.
+let
+    Tentativa = try
+        let
+            Origem = SharePoint.Contents(pSiteSharePoint, [ApiVersion = 15]),
+            fnEntrar = (tbl as table, nome as text) =>
+                Table.SelectRows(tbl, each
+                    Comparer.OrdinalIgnoreCase(Text.Trim([Name]), Text.Trim(nome)) = 0){0}[Content],
+            Biblioteca = fnEntrar(Origem, pBiblioteca),
+            Partes = List.Select(List.Transform(Text.Split(pPastaMapeamentos, "/"), Text.Trim), each _ <> ""),
+            Pasta = List.Accumulate(Partes, Biblioteca, (e, p) => fnEntrar(e, p)),
+            Arquivo = Table.SelectRows(Pasta, each
+                Comparer.OrdinalIgnoreCase(Text.Trim([Name]), Text.Trim(pArquivoRegua)) = 0),
+            Conteudo = if Table.RowCount(Arquivo) = 0 then null else Arquivo{0}[Content],
+            Livro = if Conteudo = null then null else Excel.Workbook(Conteudo, null, true)
+        in  Livro
+    otherwise null,
+
+    // lê uma aba do arquivo pelo nome; null se não existir
+    fnAba = (nome as text) as nullable table =>
+        if Tentativa = null then null
+        else let
+            a = Table.SelectRows(Tentativa, each [Kind] = "Sheet" and
+                    Comparer.OrdinalIgnoreCase(Text.Trim([Item]), nome) = 0)
+        in  if Table.RowCount(a) = 0 then null
+            else fnUtil[NormalizaCabecalhos](
+                    Table.PromoteHeaders(a{0}[Data], [PromoteAllScalars = true])),
+
+    Saida = [Livro = Tentativa, Aba = fnAba]
+in
+    Saida;
 
 shared Mapeamento = // =====================================================================
 // Mapeamento — FATO principal. Uma linha por oportunidade, de todos os
@@ -604,51 +642,134 @@ let
 in
     Tipado;
 
-shared Complexidade = // De-para Categoria -> Complexidade. EDITE AQUI se a régua do time mudar.
+shared Complexidade = // Complexidade — de-para Categoria -> Complexidade (BAIXO / MÉDIO / ALTO).
+//
+// >>> TAMBÉM NASCE EM BRANCO. <<<
+// Preencha no arquivo  Regua_Esforco_NN.xlsx  (aba "Complexidade").
+// Sem preenchimento, toda categoria fica como "(A DEFINIR)" e o cálculo de
+// horas fica zerado — sem quebrar nenhuma outra parte do relatório.
 let
-    Fonte = Table.FromRecords({
-        [#"Categoria Padrão" = "INOVADOR RADICAL",     Complexidade = "ALTO",  #"Ordem Complexidade" = 3],
-        [#"Categoria Padrão" = "BIOLÓGICO",            Complexidade = "ALTO",  #"Ordem Complexidade" = 3],
-        [#"Categoria Padrão" = "M&A",                  Complexidade = "ALTO",  #"Ordem Complexidade" = 3],
-        [#"Categoria Padrão" = "INOVADOR INCREMENTAL", Complexidade = "MÉDIO", #"Ordem Complexidade" = 2],
-        [#"Categoria Padrão" = "PRODUTO PARA SAÚDE",   Complexidade = "MÉDIO", #"Ordem Complexidade" = 2],
-        [#"Categoria Padrão" = "COSMÉTICO",            Complexidade = "MÉDIO", #"Ordem Complexidade" = 2],
-        [#"Categoria Padrão" = "SIMILAR / GENÉRICO",   Complexidade = "BAIXO", #"Ordem Complexidade" = 1],
-        [#"Categoria Padrão" = "ALIMENTO / SUPLEMENTO",Complexidade = "BAIXO", #"Ordem Complexidade" = 1],
-        [#"Categoria Padrão" = "FITOTERÁPICO",         Complexidade = "BAIXO", #"Ordem Complexidade" = 1],
-        [#"Categoria Padrão" = "(NÃO INFORMADO)",      Complexidade = "MÉDIO", #"Ordem Complexidade" = 2]
-    }),
+    DoArquivo = Fonte_Regua[Aba]("Complexidade"),
+
+    Preenchido =
+        if DoArquivo = null then null
+        else let
+            cols = fnUtil[SelecionaColunas](DoArquivo, {"Categoria", "Complexidade"}),
+            limpo = Table.TransformColumns(cols, {
+                {"Categoria",    each fnUtil[Chave](_), type nullable text},
+                {"Complexidade", each fnUtil[Chave](_), type nullable text}}),
+            validos = Table.SelectRows(limpo, each [Categoria] <> null and [Complexidade] <> null),
+            renom = Table.RenameColumns(validos, {{"Categoria", "Categoria Padrão"}})
+        in  Table.Distinct(renom, {"Categoria Padrão"}),
+
+    // toda categoria que existe na base precisa existir aqui
     DaBase = List.Distinct(List.RemoveNulls(Mapeamento[Categoria Padrão])),
-    Faltantes = List.Difference(DaBase, Fonte[Categoria Padrão]),
-    Extras = Table.FromRecords(List.Transform(Faltantes, each
-        [#"Categoria Padrão" = _, Complexidade = "MÉDIO", #"Ordem Complexidade" = 2])),
-    Uniao = Table.Combine({Fonte, Extras}),
-    Tipado = Table.TransformColumnTypes(Uniao,
-        {{"Categoria Padrão", type text}, {"Complexidade", type text}, {"Ordem Complexidade", Int64.Type}})
+    Base = Table.FromList(DaBase, Splitter.SplitByNothing(), {"Categoria Padrão"}),
+
+    Combinado =
+        if Preenchido = null
+        then Table.AddColumn(Base, "Complexidade", each "(A DEFINIR)", type text)
+        else let
+            merge = Table.NestedJoin(Base, {"Categoria Padrão"},
+                        Preenchido, {"Categoria Padrão"}, "m", JoinKind.LeftOuter),
+            exp = Table.ExpandTableColumn(merge, "m", {"Complexidade"}, {"Complexidade"}),
+            semNulo = Table.TransformColumns(exp,
+                        {{"Complexidade", each _ ?? "(A DEFINIR)", type text}})
+        in  semNulo,
+
+    ComOrdem = Table.AddColumn(Combinado, "Ordem Complexidade", each
+        if [Complexidade] = "BAIXO" then 1
+        else if [Complexidade] = "MÉDIO" then 2
+        else if [Complexidade] = "ALTO" then 3
+        else 0, Int64.Type),
+
+    Tipado = Table.TransformColumnTypes(ComOrdem,
+        {{"Categoria Padrão", type text}, {"Complexidade", type text}})
 in
     Tipado;
 
-shared Esforço = // Horas/mês consumidas por UM projeto, por Status x Complexidade.
-// >>> ESTA É A RÉGUA DE CARREGAMENTO. Ajuste os números com o time. <<<
+shared Esforço = // Esforço — RÉGUA DE CARREGAMENTO: horas/mês que UM projeto consome,
+// por Status x Complexidade.
+//
+// >>> ESTA TABELA NASCE EM BRANCO, DE PROPÓSITO. <<<
+// Preencha com o time no arquivo  Regua_Esforco_NN.xlsx  (aba "Esforço"),
+// colocado na mesma pasta do SharePoint dos mapeamentos. Enquanto as horas
+// não forem preenchidas, o dashboard funciona normalmente — só os
+// indicadores de horas e de ocupação ficam vazios, com aviso na tela.
 let
-    Fonte = Table.FromRecords({
-        [Status = "AGUARDANDO INÍCIO",   BAIXO = 0.5, #"MÉDIO" = 1,  ALTO = 1.5],
-        [Status = "PROSPECÇÃO",          BAIXO = 2,   #"MÉDIO" = 3,  ALTO = 4],
-        [Status = "CDA",                 BAIXO = 1,   #"MÉDIO" = 1.5,ALTO = 2],
-        [Status = "AV. TÉCNICA INICIAL", BAIXO = 4,   #"MÉDIO" = 6,  ALTO = 8],
-        [Status = "AV. MARKETING",       BAIXO = 3,   #"MÉDIO" = 4,  ALTO = 6],
-        [Status = "NEGOCIAÇÃO",          BAIXO = 6,   #"MÉDIO" = 8,  ALTO = 12],
-        [Status = "APROVAÇÃO SUMMARY",   BAIXO = 3,   #"MÉDIO" = 4,  ALTO = 6],
-        [Status = "TERM SHEET",          BAIXO = 5,   #"MÉDIO" = 7,  ALTO = 10],
-        [Status = "CONTRATO",            BAIXO = 6,   #"MÉDIO" = 8,  ALTO = 12],
-        [Status = "(SEM STATUS)",        BAIXO = 0,   #"MÉDIO" = 0,  ALTO = 0]
-    }),
-    Despivotado = Table.UnpivotOtherColumns(Fonte, {"Status"}, "Complexidade", "Horas Mês"),
-    Tipado = Table.TransformColumnTypes(Despivotado,
-        {{"Status", type text}, {"Complexidade", type text}, {"Horas Mês", type number}}),
+    Statuses = {"AGUARDANDO INÍCIO", "PROSPECÇÃO", "CDA", "AV. TÉCNICA INICIAL",
+                "AV. MARKETING", "NEGOCIAÇÃO", "APROVAÇÃO SUMMARY",
+                "TERM SHEET", "CONTRATO"},
+    Complexidades = {"BAIXO", "MÉDIO", "ALTO"},
+
+    // grade completa: todas as combinações sempre existem
+    Grade = Table.FromRows(
+        List.Combine(List.Transform(Statuses, (s) =>
+            List.Transform(Complexidades, (c) => {s, c}))),
+        {"Status", "Complexidade"}),
+
+    // o que veio do arquivo da régua (se houver)
+    DoArquivo = Fonte_Regua[Aba]("Esforço"),
+
+    Preenchido =
+        if DoArquivo = null then null
+        else let
+            cols = fnUtil[SelecionaColunas](DoArquivo, {"Status", "Complexidade", "Horas Mês"}),
+            limpo = Table.TransformColumns(cols, {
+                {"Status",       each fnUtil[Chave](_),  type nullable text},
+                {"Complexidade", each fnUtil[Chave](_),  type nullable text},
+                {"Horas Mês",    each fnUtil[Numero](_), type nullable number}}),
+            validos = Table.SelectRows(limpo, each [Status] <> null and [Complexidade] <> null)
+        in  Table.Distinct(validos, {"Status", "Complexidade"}),
+
+    Combinado =
+        if Preenchido = null then Table.AddColumn(Grade, "Horas Mês", each null, type nullable number)
+        else let
+            merge = Table.NestedJoin(Grade, {"Status", "Complexidade"},
+                        Preenchido, {"Status", "Complexidade"}, "m", JoinKind.LeftOuter),
+            exp = Table.ExpandTableColumn(merge, "m", {"Horas Mês"}, {"Horas Mês"})
+        in  exp,
+
+    Tipado = Table.TransformColumnTypes(Combinado,
+        {{"Status", type text}, {"Complexidade", type text}, {"Horas Mês", type nullable number}}),
     Chave = Table.AddColumn(Tipado, "ChaveEsforco", each [Status] & "|" & [Complexidade], type text)
 in
     Chave;
+
+shared #"Unidade Referência" = // Unidade Referência — cópia DESCONECTADA da lista de unidades de negócio.
+// Não tem relacionamento com nada, de propósito.
+// Serve ao gráfico "Franquias de Atuação": ele precisa mostrar TODAS as
+// unidades mesmo quando o filtro da página está numa unidade só — é esse
+// contraste que dá a leitura "esta BU representa X% do que NN avaliou".
+let
+    Fonte = #"Unidade de Negócio",
+    Renomeado = Table.RenameColumns(Fonte, {{"Unidade de Negócio", "Unidade"}})
+in
+    Renomeado;
+
+shared #"Faturamento Projetado" = // Faturamento Projetado — despivota o DRE (Ano1..Ano5) do mapeamento.
+// Grão: 1 linha por projeto x ano do DRE. Permite ver a curva de receita
+// projetada do pipeline, que hoje fica presa em 5 colunas soltas.
+let
+    Base = Table.SelectColumns(Mapeamento, {
+        "ProjetoID",
+        "Fat. Líq. DRE (Ano1)", "Fat. Líq. DRE (Ano2)", "Fat. Líq. DRE (Ano3)",
+        "Fat. Líq. DRE (Ano4)", "Fat. Líq. DRE (Ano5)"}, MissingField.UseNull),
+
+    Despivotado = Table.UnpivotOtherColumns(Base, {"ProjetoID"}, "Coluna", "Valor"),
+
+    SoValores = Table.SelectRows(Despivotado, each [Valor] <> null and [Valor] <> 0),
+
+    ComAno = Table.AddColumn(SoValores, "Ano do DRE", each
+        try Number.From(Text.BetweenDelimiters([Coluna], "Ano", ")")) otherwise null, Int64.Type),
+
+    ComRotulo = Table.AddColumn(ComAno, "Ano Projetado", each
+        "Ano " & Text.From([Ano do DRE]), type text),
+
+    Final = Table.SelectColumns(ComRotulo, {"ProjetoID", "Ano do DRE", "Ano Projetado", "Valor"}),
+    Tipado = Table.TransformColumnTypes(Final, {{"Valor", type number}})
+in
+    Tipado;
 
 shared Equipe = // Gerada da própria base — não precisa manter lista de nomes.
 let

@@ -18,13 +18,14 @@ campo que falta para o histórico funcionar.
 
 | # | Página | O que responde |
 |---|---|---|
-| 1 | Visão Geral | A foto de hoje: quantas oportunidades, em que status, de que país, de que coligada |
+| 1 | Visão Geral | A foto de hoje: quantas oportunidades, em que status, de que categoria, de onde vieram |
 | 2 | Carregamento do Time | Quantas horas cada pessoa tem empenhadas contra a capacidade dela |
 | 3 | **Evolução do Mês** | *Começou o mês com quantos, entraram quantos, saíram quantos, terminou com quantos* |
-| 4 | **Report por Unidade de Negócio** | O one-page de NR / SNC / qualquer BU, gerado sozinho |
-| 5 | Financeiro | VPL, peak sales, faturamento projetado e margem do pipeline |
-| 6 | **Mapeamento Completo** | O consolidado de todos os mapeamentos, sem precisar pedir para ninguém |
-| 7 | Qualidade da Base | Por responsável, o que falta preencher e por que isso importa |
+| 4 | **Report por Unidade de Negócio** | O one-page de qualquer BU — troca no filtro. NR e SNC são só dois casos |
+| 5 | **Carteira da Unidade** | O detalhe por trás do one-page: carregamento por mês e lista de oportunidades |
+| 6 | Financeiro | VPL, peak sales, faturamento projetado (DRE 5 anos) e margem do pipeline |
+| 7 | **Mapeamento Completo** | O consolidado de todos os mapeamentos, sem precisar pedir para ninguém |
+| 8 | Qualidade da Base | Por responsável, o que falta preencher e por que isso importa |
 
 ## O que mudou em relação ao PBI atual
 
@@ -36,8 +37,9 @@ campo que falta para o histórico funcionar.
   de dividir os números dos gráficos.
 - **Datas à prova de bala.** As 53 células de data gravadas como texto passam a
   ser lidas; os valores impossíveis (ano 1913, o número 5039) são descartados.
-- **Régua de horas explícita.** O cálculo de carregamento saiu de dentro do
-  arquivo e virou uma tabela que o time edita e discute.
+- **Régua de horas em aberto.** O cálculo de carregamento saiu de dentro do
+  arquivo e virou um Excel (`Regua_Esforco_NN.xlsx`) que o time preenche quando
+  decidir. Até lá, todo o resto funciona normalmente.
 - **Aba `Solicitações` incorporada.** 93 demandas às áreas técnicas que hoje não
   aparecem em lugar nenhum viram SLA e taxa de viabilidade.
 - **Página de qualidade.** 11 regras que apontam, por responsável, o que impede
@@ -46,11 +48,12 @@ campo que falta para o histórico funcionar.
 ## Estrutura
 
 ```
-dist/       Dashboard_Novos_Negocios.pbit   ← comece por este
+dist/       Dashboard_Novos_Negocios.pbit   ← tente este primeiro
             Dashboard_Novos_Negocios_PBIP/  ← alternativa em formato projeto
+            Regua_Esforco_NN.xlsx           ← a régua de horas, para o time preencher
 modelo/     Model.bim, Layout.json, Section1.m
-M/queries/  as 15 consultas do Power Query, uma por arquivo
-DAX/        as 60 medidas e as 7 colunas calculadas
+M/queries/  as 17 consultas do Power Query, uma por arquivo
+DAX/        as 76 medidas e as 7 colunas calculadas
 docs/       DOSSIE.md, DIAGNOSTICO_BASE.md, ESPECIFICACAO_TELAS.md
 build/      scripts que geram tudo acima (Python)
 ```

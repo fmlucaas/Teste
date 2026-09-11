@@ -29,6 +29,16 @@ MEASURES = [
  "SUMX ( VALUES ( Equipe[Pessoa] ), CALCULATE ( MAX ( Equipe[Capacidade Mensal (h)] ) ) )", FMT_DEC, "02 Carregamento"),
 ("% Ocupação", "DIVIDE ( [Horas Empenhadas], [Capacidade (h)] )", FMT_PCT, "02 Carregamento"),
 ("Horas Disponíveis", "[Capacidade (h)] - [Horas Empenhadas]", FMT_DEC, "02 Carregamento"),
+("Régua Preenchida",
+ "IF (\n    ISBLANK ( CALCULATE ( SUM ( 'Esforço'[Horas Mês] ), REMOVEFILTERS () ) ),\n"
+ '    FALSE (),\n    TRUE ()\n)', FMT_TXT, "02 Carregamento"),
+("Aviso Régua",
+ 'IF (\n'
+ '    NOT [Régua Preenchida],\n'
+ '    "⚠️ A régua de esforço ainda não foi preenchida. Preencha o arquivo '
+ 'Regua_Esforco_NN.xlsx na pasta dos mapeamentos e atualize — os indicadores '
+ 'de horas passam a calcular sozinhos.",\n'
+ '    BLANK ()\n)', FMT_TXT, "02 Carregamento"),
 ("Status Ocupação",
  'VAR o = [% Ocupação]\nRETURN\nSWITCH (\n    TRUE (),\n    ISBLANK ( o ), "Sem dados",\n    o > 1.10,      "🔴 Sobrecarregado",\n    o > 0.90,      "🟠 No limite",\n    o > 0.60,      "🟢 Saudável",\n                   "🔵 Folga"\n)', FMT_TXT, "02 Carregamento"),
 
@@ -134,4 +144,68 @@ MEASURES = [
  '"Capacidade: " & FORMAT ( [Horas Empenhadas], "#,0.0" ) & " h de "\n    & FORMAT ( [Capacidade (h)], "#,0" ) & " h  ("\n    & FORMAT ( [% Ocupação], "0.0%" ) & ")"', FMT_TXT, "09 Auxiliares"),
 ("Sem Seleção",
  'IF ( ISBLANK ( [Projetos] ), "Nenhum projeto atende aos filtros selecionados.", BLANK () )', FMT_TXT, "09 Auxiliares"),
+
+# ---------------- 10 Report por Unidade de Negócio ----------------
+("Unidade Selecionada",
+ 'SELECTEDVALUE ( \'Unidade de Negócio\'[Unidade de Negócio], "Todas as unidades" )',
+ FMT_TXT, "10 Report BU"),
+("Período Selecionado",
+ 'VAR anos = CONCATENATEX ( VALUES ( \'Calendário\'[Ano] ), \'Calendário\'[Ano], ", ", \'Calendário\'[Ano] )\n'
+ 'RETURN\n    IF ( ISBLANK ( anos ), "Todos os anos", anos )', FMT_TXT, "10 Report BU"),
+("Título Report BU",
+ '"Novos Negócios | " & [Unidade Selecionada] & "  —  " & [Período Selecionado]',
+ FMT_TXT, "10 Report BU"),
+("Projetos (Todas as Unidades)",
+ "CALCULATE (\n    [Projetos],\n    REMOVEFILTERS ( 'Unidade de Negócio' ),\n"
+ "    REMOVEFILTERS ( Mapeamento[Coligada Padrão] )\n)", FMT_INT, "10 Report BU"),
+("Moléculas (Todas as Unidades)",
+ "CALCULATE (\n    [Moléculas],\n    REMOVEFILTERS ( 'Unidade de Negócio' ),\n"
+ "    REMOVEFILTERS ( Mapeamento[Coligada Padrão] )\n)", FMT_INT, "10 Report BU"),
+("% da Unidade no Total NN",
+ "DIVIDE ( [Moléculas], [Moléculas (Todas as Unidades)] )", FMT_PCT, "10 Report BU"),
+("Moléculas Novas no Período",
+ "CALCULATE (\n    [Moléculas],\n"
+ "    USERELATIONSHIP ( 'Calendário'[Data], Mapeamento[Data de Entrada] )\n)",
+ FMT_INT, "10 Report BU"),
+("Moléculas Encerradas no Período",
+ "CALCULATE (\n    [Moléculas],\n"
+ "    USERELATIONSHIP ( 'Calendário'[Data], Mapeamento[Data Fim Efetiva] )\n)",
+ FMT_INT, "10 Report BU"),
+("Resumo da Unidade",
+ 'VAR bu = [Unidade Selecionada]\n'
+ 'VAR part = [% da Unidade no Total NN]\n'
+ 'VAR ativas = [Projetos Ativos]\n'
+ 'VAR paradas = [Cancelados + Stand by]\n'
+ 'VAR motivo = [Motivo nº 1]\n'
+ 'RETURN\n'
+ '    IF (\n'
+ '        ISBLANK ( [Projetos] ),\n'
+ '        "Sem oportunidades para os filtros selecionados.",\n'
+ '        bu & " representa " & FORMAT ( part, "0,0%" ) & " das moléculas avaliadas "\n'
+ '            & "por Novos Negócios no período. " & FORMAT ( ativas, "0" ) & " em andamento e "\n'
+ '            & FORMAT ( paradas, "0" ) & " canceladas ou em stand by — principal motivo: "\n'
+ '            & motivo & "."\n'
+ '    )', FMT_TXT, "10 Report BU"),
+("% das Moléculas",
+ "DIVIDE (\n    [Moléculas],\n    CALCULATE ( [Moléculas], REMOVEFILTERS ( 'Status NN' ) )\n)",
+ FMT_PCT, "10 Report BU"),
+
+("Projetos (Referência)",
+ "CALCULATE (\n    [Projetos],\n    REMOVEFILTERS ( 'Unidade de Negócio' ),\n"
+ "    REMOVEFILTERS ( Mapeamento[Coligada Padrão] ),\n"
+ "    TREATAS ( VALUES ( 'Unidade Referência'[Coligada Padrão] ), Mapeamento[Coligada Padrão] )\n)",
+ FMT_INT, "10 Report BU"),
+("Moléculas (Referência)",
+ "CALCULATE (\n    [Moléculas],\n    REMOVEFILTERS ( 'Unidade de Negócio' ),\n"
+ "    REMOVEFILTERS ( Mapeamento[Coligada Padrão] ),\n"
+ "    TREATAS ( VALUES ( 'Unidade Referência'[Coligada Padrão] ), Mapeamento[Coligada Padrão] )\n)",
+ FMT_INT, "10 Report BU"),
+("% Moléculas (Referência)",
+ "DIVIDE (\n    [Moléculas (Referência)],\n"
+ "    CALCULATE ( [Moléculas (Referência)], REMOVEFILTERS ( 'Unidade Referência' ) )\n)",
+ FMT_PCT, "10 Report BU"),
+
+# ---------------- 06 Financeiro (complemento) ----------------
+("Faturamento Projetado",
+ "SUM ( 'Faturamento Projetado'[Valor] )", FMT_RS, "06 Financeiro"),
 ]
