@@ -19,6 +19,41 @@ for m in kb.EMS_PORTFOLIO_INJ: SLIDE[m]='Slide 25 — Antibióticos J01, Non Ret
 for m in list(kb.EMS_ANEST_PORTFOLIO)+list(kb.EMS_ANEST_PIPELINE)+list(kb.EMS_ANEST_GATE):
     SLIDE[m]='Slide 34 — Anestésicos injetáveis (ATC N)'
 
+
+PACK_PT={'vials':'frascos','vial':'frasco','bags':'bolsas','bag':'bolsa','syringes':'seringas',
+ 'syringe':'seringa','ampuls':'ampolas','ampul':'ampola','ampoules':'ampolas','ampoule':'ampola'}
+def pt_pack(txt):
+    out=txt
+    for en,pt in PACK_PT.items():
+        out=re.sub(r'\b%s\b'%en, pt, out)
+    return out
+
+def apresentacoes(skus):
+    """Uma linha por apresentação, agrupada por produto quando houver mais de um."""
+    nomes=[]
+    for s in skus:
+        if s['product_name'] not in nomes: nomes.append(s['product_name'])
+    multi=len(nomes)>1
+    linhas=[]
+    for nome in nomes:
+        grupo=[s for s in skus if s['product_name']==nome]
+        if multi: linhas.append(nome)
+        for s in grupo:
+            dose=pt_pack(s['total_drug_content'].strip())
+            conc=pt_pack(s['concentration'].strip())
+            partes=[dose]
+            if conc.lower()=='powder': partes.append('pó')
+            elif conc and conc!=dose: partes.append(conc.replace(' / ','/'))
+            pack=pt_pack(s['pack_quantity'].strip())
+            unit=s['unit_size'].strip()
+            unit=pt_pack(unit)
+            if unit and unit.lower() not in ('powder',) and not re.search(r'seringa|frasco|bolsa|ampola',unit,re.I):
+                pack='%s de %s'%(pack,unit)
+            partes.append(pack)
+            partes.append('NDC '+s['ndc'])
+            linhas.append(('   ' if multi else '')+' · '.join(p for p in partes if p))
+    return '\n'.join(linhas)
+
 bymol=defaultdict(list)
 for p in prods: bymol[canon(p['product_name'])].append(p)
 
@@ -50,6 +85,7 @@ F['sim']=wb.add_format({'bold':True,'font_color':'#0E6B3D','bg_color':'#DFF3E6',
 F['nao']=wb.add_format({'align':'center','valign':'vcenter','border':1,'border_color':'#D8DEE4','font_size':9,'font_color':'#8A93A0'})
 F['inp']=wb.add_format({'border':1,'border_color':'#B98F00','bg_color':'#FFF7DB','font_size':9})
 F['nao2']=wb.add_format({'bold':True,'font_color':'#8A1C1C','bg_color':'#FBE4E4','align':'center','valign':'vcenter','border':1,'border_color':'#D8DEE4','font_size':9})
+F['mono']=wb.add_format({'text_wrap':True,'valign':'top','border':1,'border_color':'#D8DEE4','font_size':9,'font_name':'Consolas'})
 F['bold']=wb.add_format({'bold':True,'valign':'top','text_wrap':True})
 F['wrap']=wb.add_format({'text_wrap':True,'valign':'top'})
 
@@ -89,6 +125,12 @@ for t,d in [
   'que estimei por conhecimento de mercado porque a base IQVIA não coube no anexo. Se o preço real de uma '
   'molécula for muito diferente do que presumi, a recomendação dela vira. Por isso a justificativa sempre diz '
   'o motivo — para você discordar item a item com dado na mão.'),
+ ('Uma linha por molécula',
+  'A aba 2 tem 136 linhas, uma por molécula, e não uma por apresentação. Todas as apresentações de uma '
+  'molécula ficam juntas na célula "Apresentações (todas)", uma por linha, no formato dose · concentração · '
+  'embalagem · NDC. Quando a molécula tem mais de um produto no catálogo (a vancomicina tem três: pó, pó USP '
+  'e bolsa pronta para uso), as apresentações vêm agrupadas sob o nome de cada produto. Se precisar de uma '
+  'linha por NDC — para filtrar por código ou cruzar com pedido — a aba 3 mantém as 321 apresentações abertas.'),
  ('Sobre o sinalizador de pipeline',
   'Indica presença e estágio (PORTFÓLIO, PIPELINE ou EM AVALIAÇÃO/GATE 0-3), com o texto exato do deck e o '
   'slide de origem. Tratei estar em pipeline como direcional positivo — o Grupo já quis a molécula, e '
@@ -114,15 +156,15 @@ for t,d in [
 # ================= 2. CONSOLIDADO POR MOLÉCULA =================
 AVAL=['Molécula (PT/DCB)','Molécula (EN)','Agrupamento terapêutico','RECOMENDAÇÃO','Justificativa']
 CAT=['Categoria terapêutica (Hikma)','Produtos no catálogo','Referência (Comparable To)','FDA Rating',
- 'Forma farmacêutica','Apresentação diferenciada','Controle DEA no catálogo','Nº de apresentações (SKUs)',
- 'Concentrações','Conteúdo total','Embalagens','NDCs','Páginas no PDF']
+ 'Forma farmacêutica','Apresentação diferenciada','Controle DEA no catálogo','Nº de apresentações',
+ 'Apresentações (todas)','Páginas no PDF']
 EMSC=['Está em portfólio/pipeline EMS?','Estágio no Grupo EMS','Texto do deck','Slide de origem']
 NNC=['Já avaliada por NN?','Quando','Contato prévio com a Hikma']
 INC=['Faturamento NR (R$ MM)','Unidades/ano','Preço por unidade (R$)','Nº de competidores',
  'Registro Anvisa','Situação patentária','Preço de transferência','Sua avaliação','Observações']
 cols=AVAL+CAT+EMSC+NNC+INC
-W=[26,22,26,14,96,
-   30,46,26,26,30,24,14,11,30,30,26,44,12,
+W=[26,22,26,14,90,
+   30,44,26,26,30,24,14,13,74,12,
    16,20,40,26,
    14,22,15,
    16,14,16,14,18,18,18,18,34]
@@ -146,8 +188,7 @@ for mol, skus in sorted(bymol.items(), key=lambda kv: PT[kv[0]]):
      e['RECOMENDAÇÃO'], e['Justificativa'],
      e['Categoria terapêutica (Hikma)'], e['Produtos no catálogo'], e['Referência (Comparable To)'],
      e['FDA Rating'], e['Forma farmacêutica'], e['Apresentação diferenciada'],
-     schedule(names), e['Nº de apresentações (SKUs)'], e['Concentrações'], e['Conteúdo total'],
-     e['Embalagens'], e['NDCs'], e['Páginas no PDF'],
+     schedule(names), e['Nº de apresentações (SKUs)'], apresentacoes(skus), e['Páginas no PDF'],
      e['Está em portfólio/pipeline EMS?'], e['Estágio no Grupo EMS'], e['Texto do deck'], SLIDE.get(mol,'—'),
      e['Já avaliada por NN?'], e['Quando'], e['Contato prévio com a Hikma'],
     ])
@@ -155,12 +196,16 @@ for ri,row in enumerate(rows,2):
     for ci,v in enumerate(row):
         f=F['t']
         if cols[ci]=='RECOMENDAÇÃO': f=F['sim'] if v=='SIM' else F['nao2']
-        elif cols[ci] in ('Nº de apresentações (SKUs)',): f=F['num']
+        elif cols[ci]=='Apresentações (todas)': f=F['mono']
+        elif cols[ci] in ('Nº de apresentações',): f=F['num']
         elif cols[ci] in ('Está em portfólio/pipeline EMS?','Já avaliada por NN?','Contato prévio com a Hikma'):
             f=F['sim'] if v=='SIM' else F['nao']
         elif cols[ci] in ('Controle DEA no catálogo','Apresentação diferenciada','Quando'): f=F['tc']
         ws.write(ri,ci,v,f)
     for ci in range(d,e_): ws.write_blank(ri,ci,None,F['inp'])
+    n_ap=row[cols.index('Apresentações (todas)')].count('\n')+1
+    n_ju=max(1,-(-len(row[cols.index('Justificativa')])//88))
+    ws.set_row(ri, min(max(n_ap,n_ju)*12.6+4, 320))
 ws.autofilter(1,0,len(rows)+1,len(cols)-1)
 
 # ================= 3. CATÁLOGO SKU =================
@@ -173,7 +218,7 @@ N4=['Já avaliada por NN?','Quando']
 I4=['Faturamento NR (R$ MM)','Unidades/ano','Preço por unidade (R$)','Observações']
 c4=C4+E4+N4+I4
 W4=[14,9,46,24,22,25,30,24,34,26,15,20,22,16,16,14,14,10,11,11,12, 16,20, 14,22, 16,14,16,30]
-ws=wb.add_worksheet('3. Catálogo (SKU)'); ws.freeze_panes(2,2)
+ws=wb.add_worksheet('3. Detalhe por NDC'); ws.freeze_panes(2,2)
 a=0;b=len(C4);c=b+len(E4);d=c+len(N4);e_=d+len(I4)
 ws.write(0,0,'AVALIAÇÃO',GRP_REC)
 ws.merge_range(0,1,0,b-1,'FATOS DO CATÁLOGO HIKMA',GRP_CAT)
