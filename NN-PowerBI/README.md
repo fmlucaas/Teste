@@ -7,8 +7,15 @@ carregamento dentro do mês**.
 
 ## Comece por aqui
 
-**→ [`docs/DOSSIE.md`](docs/DOSSIE.md)** — como colocar no ar.
-Tem três caminhos, do mais rápido ao mais manual. Comece pelo Caminho A.
+**1. Veja o dashboard funcionando, sem instalar nada:**
+https://claude.ai/code/artifact/011ee2d5-3d93-4cae-80ef-84412edb2b76
+
+**2. → [`docs/COMECE_AQUI.md`](docs/COMECE_AQUI.md)** (PDF em `docs/pdf/`) — como
+montar no Power BI em **3 colagens**, escrito para quem nunca abriu o programa.
+Usa as consultas da pasta `SIMPLES/`.
+
+**3. → [`docs/DOSSIE.md`](docs/DOSSIE.md)** — a versão completa (16 tabelas, 76
+medidas, 8 páginas). Só depois que o caminho simples estiver funcionando.
 
 **→ [`docs/DIAGNOSTICO_BASE.md`](docs/DIAGNOSTICO_BASE.md)** — o que encontrei na
 base atual: colunas em desuso (com números), divergências de digitação, e o
@@ -48,7 +55,8 @@ campo que falta para o histórico funcionar.
 ## Estrutura
 
 ```
-dist/       Dashboard_Novos_Negocios.pbit   ← tente este primeiro
+SIMPLES/    as 3 consultas do caminho fácil ← comece por estas
+dist/       Dashboard_Novos_Negocios.pbit   ← formato .pbit (não abriu no ambiente do usuário)
             Dashboard_Novos_Negocios_PBIP/  ← alternativa em formato projeto
             Regua_Esforco_NN.xlsx           ← a régua de horas, para o time preencher
 modelo/     Model.bim, Layout.json, Section1.m
