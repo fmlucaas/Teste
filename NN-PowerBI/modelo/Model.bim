@@ -1,0 +1,1857 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1550,
+  "model": {
+    "culture": "pt-BR",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "pt-BR",
+    "tables": [
+      {
+        "name": "Mapeamento",
+        "columns": [
+          {
+            "name": "ProjetoID",
+            "dataType": "string",
+            "sourceColumn": "ProjetoID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Arquivo",
+            "dataType": "string",
+            "sourceColumn": "Arquivo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Responsável Final",
+            "dataType": "string",
+            "sourceColumn": "Responsável Final",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gerência",
+            "dataType": "string",
+            "sourceColumn": "Gerência",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Entrada",
+            "dataType": "string",
+            "sourceColumn": "Entrada",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Molécula",
+            "dataType": "string",
+            "sourceColumn": "Molécula",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Código CI",
+            "dataType": "string",
+            "sourceColumn": "Código CI",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Marca do Referência BR",
+            "dataType": "string",
+            "sourceColumn": "Marca do Referência BR",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fornecedor / Parceiro",
+            "dataType": "string",
+            "sourceColumn": "Fornecedor / Parceiro",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "País Fornecedor",
+            "dataType": "string",
+            "sourceColumn": "País Fornecedor",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Categoria Padrão",
+            "dataType": "string",
+            "sourceColumn": "Categoria Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Coligada Padrão",
+            "dataType": "string",
+            "sourceColumn": "Coligada Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Área Terapêutica",
+            "dataType": "string",
+            "sourceColumn": "Área Terapêutica",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Franquia",
+            "dataType": "string",
+            "sourceColumn": "Franquia",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Sub-área Terapêutica",
+            "dataType": "string",
+            "sourceColumn": "Sub-área Terapêutica",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fase Oportunidade NN",
+            "dataType": "string",
+            "sourceColumn": "Fase Oportunidade NN",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Indicação",
+            "dataType": "string",
+            "sourceColumn": "Indicação",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Forma Farmacêutica",
+            "dataType": "string",
+            "sourceColumn": "Forma Farmacêutica",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Status NN",
+            "dataType": "string",
+            "sourceColumn": "Status NN",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Situação",
+            "dataType": "string",
+            "sourceColumn": "Situação",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Atividade",
+            "dataType": "string",
+            "sourceColumn": "Atividade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Motivo Padrão",
+            "dataType": "string",
+            "sourceColumn": "Motivo Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Detalhamento do cancelamento",
+            "dataType": "string",
+            "sourceColumn": "Detalhamento do cancelamento",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CDA Status",
+            "dataType": "string",
+            "sourceColumn": "CDA Status",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Moeda",
+            "dataType": "string",
+            "sourceColumn": "Moeda",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data de Entrada",
+            "dataType": "dateTime",
+            "sourceColumn": "Data de Entrada",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data de Início do Projeto",
+            "dataType": "dateTime",
+            "sourceColumn": "Data de Início do Projeto",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data de Finalização do Projeto em NN",
+            "dataType": "dateTime",
+            "sourceColumn": "Data de Finalização do Projeto em NN",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data Início Efetiva",
+            "dataType": "dateTime",
+            "sourceColumn": "Data Início Efetiva",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data Fim Efetiva",
+            "dataType": "dateTime",
+            "sourceColumn": "Data Fim Efetiva",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Última Data Registrada",
+            "dataType": "dateTime",
+            "sourceColumn": "Última Data Registrada",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data de recebimento da primeira proposta comercial",
+            "dataType": "dateTime",
+            "sourceColumn": "Data de recebimento da primeira proposta comercial",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Dias em NN",
+            "dataType": "int64",
+            "sourceColumn": "Dias em NN",
+            "formatString": "#,0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fim Estimado?",
+            "dataType": "boolean",
+            "sourceColumn": "Fim Estimado?",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Preço de Fornecimento",
+            "dataType": "double",
+            "sourceColumn": "Preço de Fornecimento",
+            "formatString": "#,0.00",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Margem Bruta (%)",
+            "dataType": "double",
+            "sourceColumn": "Margem Bruta (%)",
+            "formatString": "0.0%",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "VPL (R$)",
+            "dataType": "double",
+            "sourceColumn": "VPL (R$)",
+            "formatString": "\"R$\" #,0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fat. Líq. (Peak Sales, R$)",
+            "dataType": "double",
+            "sourceColumn": "Fat. Líq. (Peak Sales, R$)",
+            "formatString": "\"R$\" #,0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fat. Líq. DRE (Ano1)",
+            "dataType": "double",
+            "sourceColumn": "Fat. Líq. DRE (Ano1)",
+            "formatString": "\"R$\" #,0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fat. Líq. DRE (Ano2)",
+            "dataType": "double",
+            "sourceColumn": "Fat. Líq. DRE (Ano2)",
+            "formatString": "\"R$\" #,0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fat. Líq. DRE (Ano3)",
+            "dataType": "double",
+            "sourceColumn": "Fat. Líq. DRE (Ano3)",
+            "formatString": "\"R$\" #,0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fat. Líq. DRE (Ano4)",
+            "dataType": "double",
+            "sourceColumn": "Fat. Líq. DRE (Ano4)",
+            "formatString": "\"R$\" #,0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fat. Líq. DRE (Ano5)",
+            "dataType": "double",
+            "sourceColumn": "Fat. Líq. DRE (Ano5)",
+            "formatString": "\"R$\" #,0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Complexidade",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "COALESCE (\n    LOOKUPVALUE (\n        Complexidade[Complexidade],\n        Complexidade[Categoria Padrão], Mapeamento[Categoria Padrão]\n    ),\n    \"MÉDIO\"\n)",
+            "isDataTypeInferred": false,
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Horas Mês",
+            "dataType": "double",
+            "type": "calculated",
+            "expression": "COALESCE (\n    LOOKUPVALUE (\n        'Esforço'[Horas Mês],\n        'Esforço'[Status], Mapeamento[Status NN],\n        'Esforço'[Complexidade], Mapeamento[Complexidade]\n    ),\n    0\n)",
+            "isDataTypeInferred": false,
+            "formatString": "#,0.0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Faixa de Duração",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "VAR d = Mapeamento[Dias em NN]\nRETURN\nSWITCH (\n    TRUE (),\n    ISBLANK ( d ), \"Sem data\",\n    d <= 30,  \"Até 1 mês\",\n    d <= 90,  \"1 a 3 meses\",\n    d <= 180, \"3 a 6 meses\",\n    d <= 365, \"6 a 12 meses\",\n    d <= 730, \"1 a 2 anos\",\n              \"Mais de 2 anos\"\n)",
+            "isDataTypeInferred": false,
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Alerta",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "VAR ultima = Mapeamento[Última Data Registrada]\nVAR diasParado = IF ( ISBLANK ( ultima ), BLANK (), DATEDIFF ( ultima, TODAY (), DAY ) )\nRETURN\nSWITCH (\n    TRUE (),\n    Mapeamento[Situação] <> \"EM ANDAMENTO\", \"⚪ Não ativo\",\n    ISBLANK ( diasParado ),                 \"⚫ Sem data\",\n    diasParado <= 30,                       \"🟢 Em dia\",\n    diasParado <= 90,                       \"🟡 Atenção\",\n                                            \"🔴 Parado\"\n)",
+            "isDataTypeInferred": false,
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Mapeamento",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// =====================================================================\n// Mapeamento — FATO principal. Uma linha por oportunidade, de todos os\n// arquivos de mapeamento ativo do time. Já vem limpo e padronizado.\n// =====================================================================\nlet\n    Arquivos = Fonte_Arquivos,\n\n    // --- abre cada workbook e pega a aba de mapeamento -------------------\n    ComPasta = Table.AddColumn(Arquivos, \"Conteudo\", each\n        let\n            wb  = Excel.Workbook([Content], null, true),\n            aba = Table.SelectRows(wb, each [Kind] = \"Sheet\" and\n                     Comparer.OrdinalIgnoreCase(Text.Trim([Item]), pAbaMapeamento) = 0),\n            dados = if Table.RowCount(aba) = 0 then null else aba{0}[Data],\n            promovido = if dados = null then null\n                        else Table.PromoteHeaders(dados, [PromoteAllScalars = true]),\n            normalizado = if promovido = null then null\n                          else fnUtil[NormalizaCabecalhos](promovido)\n        in  normalizado),\n\n    SoValidos = Table.SelectRows(ComPasta, each [Conteudo] <> null),\n\n    // --- colunas que interessam (nomes JÁ normalizados: sem \\n, sem espaço duplo)\n    ColunasDesejadas = {\n        \"Entrada\", \"Responsável\", \"Gerência\", \"Molécula\", \"Código CI\",\n        \"Marca do Referência BR\", \"Fornecedor / Parceiro\", \"País Fornecedor\",\n        \"Contato Fornecedor\", \"Email Fornecedor\",\n        \"Data de Entrada\", \"Data de Início do Projeto\",\n        \"Data de Retomada do Projeto (se aplicável)\",\n        \"Data de Finalização do Projeto em NN\",\n        \"Categoria\", \"Coligada\", \"Área Terapêutica\", \"Fase Oportunidade NN\",\n        \"Indicação\", \"Forma Farmacêutica\", \"Concentração\", \"Apresentação / SKU\",\n        \"Projeto em andamento?\", \"Status de projeto (NN)\", \"Status interno\",\n        \"Motivo Cancelamento Projeto\", \"Detalhamento do cancelamento\",\n        \"Data Início Prospecção\", \"Data Conclusão Prospecção\",\n        \"Data Inicio Processo de CDA\", \"Data de Concl. CDA\", \"CDA Status\",\n        \"DATA - Inicio avaliação técnica inicial\", \"Checklist do parceiro\",\n        \"DATA - Conclusão avaliação técnica Inicial\",\n        \"DATA - Inicio avaliação marketing\", \"DATA - Conclusão avaliação marketing\",\n        \"DATA - Inicio Negociações com parceiro\",\n        \"Data de recebimento da primeira proposta comercial\",\n        \"DATA - Conclusão Negociações com parceiro\",\n        \"Moeda\", \"Preço de Fornecimento\", \"Margem Bruta (%)\", \"VPL (R$)\",\n        \"Fat. Líq. (Peak Sales, R$)\",\n        \"Fat. Líq. DRE (Ano1)\", \"Fat. Líq. DRE (Ano2)\", \"Fat. Líq. DRE (Ano3)\",\n        \"Fat. Líq. DRE (Ano4)\", \"Fat. Líq. DRE (Ano5)\",\n        \"Data de Início Summary\", \"Data Conclusão Summary\",\n        \"Data inicio elaboração Term Sheet\", \"Data Concl. Term Sheet\",\n        \"Início discussão contratual\", \"Data Assinatura Contrato\",\n        \"Data estimada para Lançamento\"\n    },\n\n    Padronizado = Table.AddColumn(SoValidos, \"Selecionado\", each\n        fnUtil[SelecionaColunas]([Conteudo], ColunasDesejadas)),\n\n    Enxuto = Table.SelectColumns(Padronizado,\n                {\"Arquivo\", \"Responsável (arquivo)\", \"Selecionado\"}),\n\n    Expandido = Table.ExpandTableColumn(Enxuto, \"Selecionado\",\n                    ColunasDesejadas, ColunasDesejadas),\n\n    // --- descarta linhas totalmente vazias / linhas de rodapé ------------\n    ComLinhaUtil = Table.SelectRows(Expandido, each\n        fnUtil[Texto]([Molécula]) <> null or fnUtil[Texto]([#\"Fornecedor / Parceiro\"]) <> null),\n\n    // =====================================================================\n    // PADRONIZAÇÃO  (aqui mora o maior ganho: a base tem MUITA divergência\n    // de digitação — \"Legrand\"/\"LEGRAND\", \"BRACE PHARM\"/\"BRACE PHARMA\",\n    // \"INOVAÇÃO INCREMENTAL\"/\"INOVADOR INCREMENTAL\", \"concluído\"/\"CONCLUÍDO\"…)\n    // =====================================================================\n    Limpo = Table.TransformColumns(ComLinhaUtil, {\n        {\"Entrada\",                    each fnUtil[Chave](_), type nullable text},\n        {\"Responsável\",                each fnUtil[Chave](_), type nullable text},\n        {\"Gerência\",                   each fnUtil[Chave](_), type nullable text},\n        {\"Molécula\",                   each fnUtil[Texto](_), type nullable text},\n        {\"Código CI\",                  each fnUtil[Chave](_), type nullable text},\n        {\"Marca do Referência BR\",     each fnUtil[Texto](_), type nullable text},\n        {\"Fornecedor / Parceiro\",      each fnUtil[Texto](_), type nullable text},\n        {\"País Fornecedor\",            each fnUtil[Texto](_), type nullable text},\n        {\"Contato Fornecedor\",         each fnUtil[Texto](_), type nullable text},\n        {\"Email Fornecedor\",           each fnUtil[Texto](_), type nullable text},\n        {\"Categoria\",                  each fnUtil[Chave](_), type nullable text},\n        {\"Coligada\",                   each fnUtil[Chave](_), type nullable text},\n        {\"Área Terapêutica\",           each fnUtil[Chave](_), type nullable text},\n        {\"Fase Oportunidade NN\",       each fnUtil[Chave](_), type nullable text},\n        {\"Indicação\",                  each fnUtil[Texto](_), type nullable text},\n        {\"Forma Farmacêutica\",         each fnUtil[Chave](_), type nullable text},\n        {\"Concentração\",               each fnUtil[Texto](_), type nullable text},\n        {\"Apresentação / SKU\",         each fnUtil[Texto](_), type nullable text},\n        {\"Projeto em andamento?\",      each fnUtil[Chave](_), type nullable text},\n        {\"Status de projeto (NN)\",     each fnUtil[Chave](_), type nullable text},\n        {\"Status interno\",             each fnUtil[Chave](_), type nullable text},\n        {\"Motivo Cancelamento Projeto\",each fnUtil[Chave](_), type nullable text},\n        {\"Detalhamento do cancelamento\", each fnUtil[Texto](_), type nullable text},\n        {\"CDA Status\",                 each fnUtil[Chave](_), type nullable text},\n        {\"Checklist do parceiro\",      each fnUtil[Chave](_), type nullable text},\n        {\"Moeda\",                      each fnUtil[Chave](_), type nullable text},\n        // ---- datas ----\n        {\"Data de Entrada\",                                     each fnUtil[Data](_), type nullable date},\n        {\"Data de Início do Projeto\",                           each fnUtil[Data](_), type nullable date},\n        {\"Data de Retomada do Projeto (se aplicável)\",          each fnUtil[Data](_), type nullable date},\n        {\"Data de Finalização do Projeto em NN\",                each fnUtil[Data](_), type nullable date},\n        {\"Data Início Prospecção\",                              each fnUtil[Data](_), type nullable date},\n        {\"Data Conclusão Prospecção\",                           each fnUtil[Data](_), type nullable date},\n        {\"Data Inicio Processo de CDA\",                         each fnUtil[Data](_), type nullable date},\n        {\"Data de Concl. CDA\",                                  each fnUtil[Data](_), type nullable date},\n        {\"DATA - Inicio avaliação técnica inicial\",             each fnUtil[Data](_), type nullable date},\n        {\"DATA - Conclusão avaliação técnica Inicial\",          each fnUtil[Data](_), type nullable date},\n        {\"DATA - Inicio avaliação marketing\",                   each fnUtil[Data](_), type nullable date},\n        {\"DATA - Conclusão avaliação marketing\",                each fnUtil[Data](_), type nullable date},\n        {\"DATA - Inicio Negociações com parceiro\",              each fnUtil[Data](_), type nullable date},\n        {\"Data de recebimento da primeira proposta comercial\",  each fnUtil[Data](_), type nullable date},\n        {\"DATA - Conclusão Negociações com parceiro\",           each fnUtil[Data](_), type nullable date},\n        {\"Data de Início Summary\",                              each fnUtil[Data](_), type nullable date},\n        {\"Data Conclusão Summary\",                              each fnUtil[Data](_), type nullable date},\n        {\"Data inicio elaboração Term Sheet\",                   each fnUtil[Data](_), type nullable date},\n        {\"Data Concl. Term Sheet\",                              each fnUtil[Data](_), type nullable date},\n        {\"Início discussão contratual\",                         each fnUtil[Data](_), type nullable date},\n        {\"Data Assinatura Contrato\",                            each fnUtil[Data](_), type nullable date},\n        {\"Data estimada para Lançamento\",                       each fnUtil[Data](_), type nullable date},\n        // ---- números ----\n        {\"Preço de Fornecimento\",      each fnUtil[Numero](_), type nullable number},\n        {\"Margem Bruta (%)\",           each fnUtil[Numero](_), type nullable number},\n        {\"VPL (R$)\",                   each fnUtil[Numero](_), type nullable number},\n        {\"Fat. Líq. (Peak Sales, R$)\", each fnUtil[Numero](_), type nullable number},\n        {\"Fat. Líq. DRE (Ano1)\",       each fnUtil[Numero](_), type nullable number},\n        {\"Fat. Líq. DRE (Ano2)\",       each fnUtil[Numero](_), type nullable number},\n        {\"Fat. Líq. DRE (Ano3)\",       each fnUtil[Numero](_), type nullable number},\n        {\"Fat. Líq. DRE (Ano4)\",       each fnUtil[Numero](_), type nullable number},\n        {\"Fat. Líq. DRE (Ano5)\",       each fnUtil[Numero](_), type nullable number}\n    }),\n\n    // --- de-para de valores divergentes ---------------------------------\n    ComResponsavel = Table.AddColumn(Limpo, \"Responsável Final\", each\n        [Responsável] ?? [#\"Responsável (arquivo)\"], type nullable text),\n\n    ComCategoria = Table.AddColumn(ComResponsavel, \"Categoria Padrão\", each\n        let c = [Categoria] in\n        if c = null then \"(NÃO INFORMADO)\"\n        else if Text.Contains(c, \"INCREMENTAL\") then \"INOVADOR INCREMENTAL\"\n        else if Text.Contains(c, \"RADICAL\")     then \"INOVADOR RADICAL\"\n        else if Text.Contains(c, \"SIMILAR\") or Text.Contains(c, \"GENÉRICO\") then \"SIMILAR / GENÉRICO\"\n        else if Text.Contains(c, \"SUPLEMENTO\") or Text.Contains(c, \"ALIMENTO\") then \"ALIMENTO / SUPLEMENTO\"\n        else if Text.Contains(c, \"FITO\")        then \"FITOTERÁPICO\"\n        else if Text.Contains(c, \"SAÚDE\")       then \"PRODUTO PARA SAÚDE\"\n        else if Text.Contains(c, \"BIOL\")        then \"BIOLÓGICO\"\n        else if Text.Contains(c, \"COSM\")        then \"COSMÉTICO\"\n        else if Text.Contains(c, \"M&A\")         then \"M&A\"\n        else c, type text),\n\n    ComColigada = Table.AddColumn(ComCategoria, \"Coligada Padrão\", each\n        let c = [Coligada] in\n        if c = null then \"(NÃO INFORMADO)\"\n        else if Text.StartsWith(c, \"BRACE\")     then \"BRACE PHARMA\"\n        else if Text.Contains(c, \"NON RETAIL\") or Text.Contains(c, \"NON-RETAIL\") then \"NON RETAIL\"\n        else if Text.Contains(c, \"PRESCRI\")     then \"EMS PRESCRIÇÃO\"\n        else if Text.Contains(c, \"GENÉRICO\") or Text.Contains(c, \"GENERICO\") then \"EMS GENÉRICOS\"\n        else if Text.Contains(c, \"MARCAS\")      then \"EMS MARCAS\"\n        else c, type text),\n\n    ComMotivo = Table.AddColumn(ComColigada, \"Motivo Padrão\", each\n        let m = [Motivo Cancelamento Projeto] in\n        if m = null then \"(SEM MOTIVO REGISTRADO)\"\n        else if Text.Contains(m, \"PARCERIA\")      then \"INDISPONIBILIDADE DE PARCERIA\"\n        else if Text.Contains(m, \"CONTATO\")       then \"INDISPONIBILIDADE DE CONTATO\"\n        else if Text.Contains(m, \"APRESENTAÇÃO\")  then \"INDISPONIBILIDADE DE APRESENTAÇÃO\"\n        else if Text.Contains(m, \"MÉDIC\")         then \"INVIABILIDADE ÁREA MÉDICA\"\n        else if Text.Contains(m, \"FINANCEIR\")     then \"INVIABILIDADE FINANCEIRA\"\n        else if Text.Contains(m, \"REGULAT\")       then \"INVIABILIDADE REGULATÓRIA\"\n        else if Text.Contains(m, \"PATENT\")        then \"INVIABILIDADE PATENTES\"\n        else if Text.Contains(m, \"CONTRATUAL\")    then \"INVIABILIDADE CONTRATUAL\"\n        else if Text.Contains(m, \"MODELO DE NEG\") then \"INVIABILIDADE MODELO DE NEGÓCIO\"\n        else if Text.Contains(m, \"DESINTERESSE\")  then \"DESINTERESSE BU\"\n        else if Text.Contains(m, \"PREMISSAS\")     then \"PREMISSAS BU\"\n        else if Text.Contains(m, \"CMED\")          then \"PREÇO CMED\"\n        else if Text.Contains(m, \"MERCADO\")       then \"MERCADO\"\n        else \"OUTROS\", type text),\n\n    ComStatus = Table.AddColumn(ComMotivo, \"Status NN\", each\n        let s = [#\"Status de projeto (NN)\"] in\n        if s = null then \"(SEM STATUS)\"\n        else if Text.Contains(s, \"AGUARDANDO\")   then \"AGUARDANDO INÍCIO\"\n        else if Text.Contains(s, \"PROSPEC\")      then \"PROSPECÇÃO\"\n        else if s = \"CDA\"                        then \"CDA\"\n        else if Text.Contains(s, \"TÉCNICA\")      then \"AV. TÉCNICA INICIAL\"\n        else if Text.Contains(s, \"MARKETING\")    then \"AV. MARKETING\"\n        else if Text.Contains(s, \"NEGOCIA\")      then \"NEGOCIAÇÃO\"\n        else if Text.Contains(s, \"SUMMARY\")      then \"APROVAÇÃO SUMMARY\"\n        else if Text.Contains(s, \"TERM SHEET\")   then \"TERM SHEET\"\n        else if Text.Contains(s, \"CONTRATO\")     then \"CONTRATO\"\n        else s, type text),\n\n    ComAndamento = Table.AddColumn(ComStatus, \"Situação\", each\n        let a = [#\"Projeto em andamento?\"] in\n        if a = null then \"NÃO INFORMADO\"\n        else if Text.StartsWith(a, \"SIM\")   then \"EM ANDAMENTO\"\n        else if Text.Contains(a, \"STAND\")   then \"STAND BY\"\n        else if Text.StartsWith(a, \"NÃO\") or Text.StartsWith(a, \"NAO\") then \"ENCERRADO\"\n        else a, type text),\n\n    ComAtividade = Table.AddColumn(ComAndamento, \"Atividade\", each\n        [Status interno] ?? \"(NÃO INFORMADO)\", type text),\n\n    // --- franquia terapêutica (separa o prefixo \"NR - \", \"OFTA - \", \"USK - \")\n    ComFranquia = Table.AddColumn(ComAtividade, \"Franquia\", each\n        let a = [Área Terapêutica] in\n        if a = null then \"(NÃO INFORMADO)\"\n        else if Text.Contains(a, \" - \") then Text.BeforeDelimiter(a, \" - \")\n        else a, type text),\n\n    ComSubArea = Table.AddColumn(ComFranquia, \"Sub-área Terapêutica\", each\n        let a = [Área Terapêutica] in\n        if a = null then \"(NÃO INFORMADO)\"\n        else if Text.Contains(a, \" - \") then Text.AfterDelimiter(a, \" - \")\n        else a, type text),\n\n    // --- datas derivadas -------------------------------------------------\n    ComInicio = Table.AddColumn(ComSubArea, \"Data Início Efetiva\", each\n        [Data de Entrada] ?? [Data de Início do Projeto] ?? [Data Início Prospecção],\n        type nullable date),\n\n    ComUltimaData = Table.AddColumn(ComInicio, \"Última Data Registrada\", each\n        List.Max(List.RemoveNulls({\n            [Data de Entrada], [Data de Início do Projeto], [Data Início Prospecção],\n            [Data Conclusão Prospecção], [Data Inicio Processo de CDA], [Data de Concl. CDA],\n            [#\"DATA - Inicio avaliação técnica inicial\"], [#\"DATA - Conclusão avaliação técnica Inicial\"],\n            [#\"DATA - Inicio avaliação marketing\"], [#\"DATA - Conclusão avaliação marketing\"],\n            [#\"DATA - Inicio Negociações com parceiro\"], [#\"DATA - Conclusão Negociações com parceiro\"],\n            [Data de Início Summary], [Data Conclusão Summary],\n            [Data inicio elaboração Term Sheet], [Data Concl. Term Sheet],\n            [Início discussão contratual], [Data de Finalização do Projeto em NN]\n        })), type nullable date),\n\n    // Fim efetivo: usa a data oficial; se não houver e o projeto não estiver\n    // ativo, estima pela última data registrada (controlado por parâmetro).\n    ComFim = Table.AddColumn(ComUltimaData, \"Data Fim Efetiva\", each\n        if [Data de Finalização do Projeto em NN] <> null\n            then [Data de Finalização do Projeto em NN]\n        else if [Situação] = \"EM ANDAMENTO\" then null\n        else if pEstimarFimQuandoAusente then [Última Data Registrada]\n        else null, type nullable date),\n\n    ComFimEstimado = Table.AddColumn(ComFim, \"Fim Estimado?\", each\n        [Data de Finalização do Projeto em NN] = null and [Data Fim Efetiva] <> null,\n        type logical),\n\n    ComDuracao = Table.AddColumn(ComFimEstimado, \"Dias em NN\", each\n        if [Data Início Efetiva] = null then null\n        else Duration.Days(([Data Fim Efetiva] ?? Date.From(DateTime.LocalNow())) - [Data Início Efetiva]),\n        Int64.Type),\n\n    // --- chave única do projeto -----------------------------------------\n    ComIndice = Table.AddIndexColumn(ComDuracao, \"Seq\", 1, 1, Int64.Type),\n    ComID = Table.AddColumn(ComIndice, \"ProjetoID\", each\n        Text.Combine({[Arquivo], Text.From([Seq])}, \"#\"), type text),\n\n    Final = Table.RemoveColumns(ComID, {\"Seq\"}, MissingField.Ignore)\nin\n    Final"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Carregamento Mensal",
+        "columns": [
+          {
+            "name": "ProjetoID",
+            "dataType": "string",
+            "sourceColumn": "ProjetoID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Arquivo",
+            "dataType": "string",
+            "sourceColumn": "Arquivo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Responsável Final",
+            "dataType": "string",
+            "sourceColumn": "Responsável Final",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gerência",
+            "dataType": "string",
+            "sourceColumn": "Gerência",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Mês",
+            "dataType": "dateTime",
+            "sourceColumn": "Mês",
+            "formatString": "mmm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data Referência",
+            "dataType": "dateTime",
+            "sourceColumn": "Data Referência",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ChaveMes",
+            "dataType": "int64",
+            "sourceColumn": "ChaveMes",
+            "formatString": "0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Status no Mês",
+            "dataType": "string",
+            "sourceColumn": "Status no Mês",
+            "sortByColumn": "Ordem Status Mês",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Entrou no Mês",
+            "dataType": "boolean",
+            "sourceColumn": "Entrou no Mês",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Saiu no Mês",
+            "dataType": "boolean",
+            "sourceColumn": "Saiu no Mês",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ativo no Fim do Mês",
+            "dataType": "boolean",
+            "sourceColumn": "Ativo no Fim do Mês",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Categoria Padrão",
+            "dataType": "string",
+            "sourceColumn": "Categoria Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Coligada Padrão",
+            "dataType": "string",
+            "sourceColumn": "Coligada Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Franquia",
+            "dataType": "string",
+            "sourceColumn": "Franquia",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Motivo Padrão",
+            "dataType": "string",
+            "sourceColumn": "Motivo Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Atividade",
+            "dataType": "string",
+            "sourceColumn": "Atividade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Situação",
+            "dataType": "string",
+            "sourceColumn": "Situação",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fim Estimado?",
+            "dataType": "boolean",
+            "sourceColumn": "Fim Estimado?",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Complexidade",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "COALESCE (\n    LOOKUPVALUE (\n        Complexidade[Complexidade],\n        Complexidade[Categoria Padrão], 'Carregamento Mensal'[Categoria Padrão]\n    ),\n    \"MÉDIO\"\n)",
+            "isDataTypeInferred": false,
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Horas Mês",
+            "dataType": "double",
+            "type": "calculated",
+            "expression": "COALESCE (\n    LOOKUPVALUE (\n        'Esforço'[Horas Mês],\n        'Esforço'[Status], 'Carregamento Mensal'[Status no Mês],\n        'Esforço'[Complexidade], 'Carregamento Mensal'[Complexidade]\n    ),\n    0\n)",
+            "isDataTypeInferred": false,
+            "formatString": "#,0.0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ordem Status Mês",
+            "dataType": "int64",
+            "type": "calculated",
+            "expression": "COALESCE (\n    LOOKUPVALUE (\n        'Status NN'[Ordem],\n        'Status NN'[Status], 'Carregamento Mensal'[Status no Mês]\n    ),\n    99\n)",
+            "isDataTypeInferred": false,
+            "formatString": "0",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Carregamento Mensal",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// =====================================================================\n// Carregamento Mensal — FATO de período (snapshot reconstruído)\n// Grão: 1 linha por PROJETO x MÊS em que ele esteve aberto em NN.\n// Responde: \"quantos projetos o analista tinha em JUNHO?\", \"quantos\n// entraram, quantos saíram, e em que status ele estava naquele mês\".\n// Reconstruído a partir das datas de etapa já existentes na planilha —\n// não depende de nenhuma infraestrutura nova.\n// =====================================================================\nlet\n    Hoje = Date.From(DateTime.LocalNow()),\n\n    Base = Table.SelectRows(Mapeamento, each [Data Início Efetiva] <> null),\n\n    ComFimSerie = Table.AddColumn(Base, \"FimSerie\", each\n        let f = [Data Fim Efetiva] ?? Hoje in\n        if f > Hoje then Hoje else f, type date),\n\n    Valido = Table.SelectRows(ComFimSerie, each [FimSerie] >= [Data Início Efetiva]),\n\n    // ---- gera um registro por mês entre início e fim --------------------\n    ComMeses = Table.AddColumn(Valido, \"MesInicio\", each\n        List.Generate(\n            () => Date.StartOfMonth([Data Início Efetiva]),\n            each _ <= Date.StartOfMonth([FimSerie]),\n            each Date.AddMonths(_, 1)\n        ), type list),\n\n    Explodido = Table.ExpandListColumn(ComMeses, \"MesInicio\"),\n\n    // data de corte usada para dizer em que status o projeto estava\n    ComRef = Table.AddColumn(Explodido, \"Data Referência\", each\n        List.Min({Date.EndOfMonth([MesInicio]), [FimSerie]}), type date),\n\n    // ---- status reconstruído na data de referência ----------------------\n    ComStatus = Table.AddColumn(ComRef, \"Status no Mês\", each\n        let\n            ref = [Data Referência],\n            etapas = {\n                [o = 1, s = \"AGUARDANDO INÍCIO\",   d = [Data Início Efetiva]],\n                [o = 2, s = \"PROSPECÇÃO\",          d = [Data Início Prospecção] ?? [Data de Início do Projeto]],\n                [o = 3, s = \"CDA\",                 d = [Data Inicio Processo de CDA]],\n                [o = 4, s = \"AV. TÉCNICA INICIAL\", d = [#\"DATA - Inicio avaliação técnica inicial\"]],\n                [o = 5, s = \"AV. MARKETING\",       d = [#\"DATA - Inicio avaliação marketing\"]],\n                [o = 6, s = \"NEGOCIAÇÃO\",          d = [#\"DATA - Inicio Negociações com parceiro\"]],\n                [o = 7, s = \"APROVAÇÃO SUMMARY\",   d = [Data de Início Summary]],\n                [o = 8, s = \"TERM SHEET\",          d = [Data inicio elaboração Term Sheet]],\n                [o = 9, s = \"CONTRATO\",            d = [Início discussão contratual]]\n            },\n            atingidas = List.Select(etapas, each _[d] <> null and _[d] <= ref),\n            maiorOrdem = if List.Count(atingidas) = 0 then null\n                         else List.Max(List.Transform(atingidas, each _[o])),\n            porData = if maiorOrdem = null then null\n                      else List.Select(etapas, each _[o] = maiorOrdem){0}[s]\n        in\n            porData ?? [Status NN], type text),\n\n    // ---- marcadores de fluxo do mês ------------------------------------\n    ComEntrada = Table.AddColumn(ComStatus, \"Entrou no Mês\", each\n        Date.StartOfMonth([Data Início Efetiva]) = [MesInicio], type logical),\n\n    ComSaida = Table.AddColumn(ComEntrada, \"Saiu no Mês\", each\n        [Data Fim Efetiva] <> null\n        and Date.StartOfMonth([Data Fim Efetiva]) = [MesInicio], type logical),\n\n    ComAtivo = Table.AddColumn(ComSaida, \"Ativo no Fim do Mês\", each\n        not [Saiu no Mês], type logical),\n\n    ComChave = Table.AddColumn(ComAtivo, \"ChaveMes\", each\n        Date.Year([MesInicio]) * 100 + Date.Month([MesInicio]), Int64.Type),\n\n    // ---- enxuga: o resto vem por relacionamento com Mapeamento ----------\n    Final = Table.SelectColumns(ComChave, {\n        \"ProjetoID\", \"Arquivo\", \"Responsável Final\", \"Gerência\",\n        \"MesInicio\", \"Data Referência\", \"ChaveMes\",\n        \"Status no Mês\", \"Entrou no Mês\", \"Saiu no Mês\", \"Ativo no Fim do Mês\",\n        \"Categoria Padrão\", \"Coligada Padrão\", \"Franquia\", \"Motivo Padrão\",\n        \"Atividade\", \"Situação\", \"Fim Estimado?\"\n    }, MissingField.UseNull),\n\n    Renomeado = Table.RenameColumns(Final, {{\"MesInicio\", \"Mês\"}})\nin\n    Renomeado"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Calendário",
+        "columns": [
+          {
+            "name": "Data",
+            "dataType": "dateTime",
+            "sourceColumn": "Data",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none",
+            "isKey": true
+          },
+          {
+            "name": "Ano",
+            "dataType": "int64",
+            "sourceColumn": "Ano",
+            "formatString": "0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Nº Mês",
+            "dataType": "int64",
+            "sourceColumn": "Nº Mês",
+            "formatString": "0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Mês",
+            "dataType": "string",
+            "sourceColumn": "Mês",
+            "sortByColumn": "Nº Mês",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Mês Abrev",
+            "dataType": "string",
+            "sourceColumn": "Mês Abrev",
+            "sortByColumn": "Nº Mês",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ano-Mês",
+            "dataType": "string",
+            "sourceColumn": "Ano-Mês",
+            "sortByColumn": "ChaveMes",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ChaveMes",
+            "dataType": "int64",
+            "sourceColumn": "ChaveMes",
+            "formatString": "0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Trimestre",
+            "dataType": "string",
+            "sourceColumn": "Trimestre",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ano-Trimestre",
+            "dataType": "string",
+            "sourceColumn": "Ano-Trimestre",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Início do Mês",
+            "dataType": "dateTime",
+            "sourceColumn": "Início do Mês",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fim do Mês",
+            "dataType": "dateTime",
+            "sourceColumn": "Fim do Mês",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "É Mês Atual",
+            "dataType": "boolean",
+            "sourceColumn": "É Mês Atual",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "É Ano Atual",
+            "dataType": "boolean",
+            "sourceColumn": "É Ano Atual",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Passado ou Hoje",
+            "dataType": "boolean",
+            "sourceColumn": "Passado ou Hoje",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Calendário",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Hoje = Date.From(DateTime.LocalNow()),\n    Min1 = List.Min(List.RemoveNulls(Mapeamento[Data Início Efetiva])),\n    Inicio = Date.StartOfYear(Min1 ?? #date(pAnoMinimo, 1, 1)),\n    Fim = Date.EndOfYear(Date.AddYears(Hoje, 1)),\n    Dias = Duration.Days(Fim - Inicio) + 1,\n    Lista = List.Dates(Inicio, Dias, #duration(1, 0, 0, 0)),\n    Tabela = Table.FromList(Lista, Splitter.SplitByNothing(), {\"Data\"}),\n    Tipada = Table.TransformColumnTypes(Tabela, {{\"Data\", type date}}),\n    C = Table.AddColumn(Tipada, \"Ano\", each Date.Year([Data]), Int64.Type),\n    C2 = Table.AddColumn(C, \"Nº Mês\", each Date.Month([Data]), Int64.Type),\n    C3 = Table.AddColumn(C2, \"Mês\", each Text.Proper(Date.MonthName([Data], \"pt-BR\")), type text),\n    C4 = Table.AddColumn(C3, \"Mês Abrev\", each Text.Proper(Text.Start(Date.MonthName([Data], \"pt-BR\"), 3)), type text),\n    C5 = Table.AddColumn(C4, \"Ano-Mês\", each Text.From(Date.Year([Data])) & \"-\" & Text.PadStart(Text.From(Date.Month([Data])), 2, \"0\"), type text),\n    C6 = Table.AddColumn(C5, \"ChaveMes\", each Date.Year([Data]) * 100 + Date.Month([Data]), Int64.Type),\n    C7 = Table.AddColumn(C6, \"Trimestre\", each \"T\" & Text.From(Date.QuarterOfYear([Data])), type text),\n    C8 = Table.AddColumn(C7, \"Ano-Trimestre\", each Text.From(Date.Year([Data])) & \"-T\" & Text.From(Date.QuarterOfYear([Data])), type text),\n    C9 = Table.AddColumn(C8, \"Início do Mês\", each Date.StartOfMonth([Data]), type date),\n    C10 = Table.AddColumn(C9, \"Fim do Mês\", each Date.EndOfMonth([Data]), type date),\n    C11 = Table.AddColumn(C10, \"É Mês Atual\", each Date.StartOfMonth([Data]) = Date.StartOfMonth(Hoje), type logical),\n    C12 = Table.AddColumn(C11, \"É Ano Atual\", each Date.Year([Data]) = Date.Year(Hoje), type logical),\n    C13 = Table.AddColumn(C12, \"Passado ou Hoje\", each [Data] <= Hoje, type logical)\nin\n    C13"
+            }
+          }
+        ],
+        "dataCategory": "Time"
+      },
+      {
+        "name": "Status NN",
+        "columns": [
+          {
+            "name": "Status",
+            "dataType": "string",
+            "sourceColumn": "Status",
+            "sortByColumn": "Ordem",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ordem",
+            "dataType": "int64",
+            "sourceColumn": "Ordem",
+            "formatString": "0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Grupo",
+            "dataType": "string",
+            "sourceColumn": "Grupo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Em Uso",
+            "dataType": "boolean",
+            "sourceColumn": "Em Uso",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Status NN",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// Ordem do funil + agrupamento + sinalização do que está em desuso.\nlet\n    Fonte = Table.FromRecords({\n        [Status = \"AGUARDANDO INÍCIO\",   Ordem = 1,  Grupo = \"Entrada\",     #\"Em Uso\" = true],\n        [Status = \"PROSPECÇÃO\",          Ordem = 2,  Grupo = \"Prospecção\",  #\"Em Uso\" = true],\n        [Status = \"CDA\",                 Ordem = 3,  Grupo = \"Prospecção\",  #\"Em Uso\" = true],\n        [Status = \"AV. TÉCNICA INICIAL\", Ordem = 4,  Grupo = \"Avaliação\",   #\"Em Uso\" = true],\n        [Status = \"AV. MARKETING\",       Ordem = 5,  Grupo = \"Avaliação\",   #\"Em Uso\" = true],\n        [Status = \"NEGOCIAÇÃO\",          Ordem = 6,  Grupo = \"Negociação\",  #\"Em Uso\" = true],\n        [Status = \"APROVAÇÃO SUMMARY\",   Ordem = 7,  Grupo = \"Negociação\",  #\"Em Uso\" = true],\n        [Status = \"TERM SHEET\",          Ordem = 8,  Grupo = \"Contratação\", #\"Em Uso\" = true],\n        [Status = \"CONTRATO\",            Ordem = 9,  Grupo = \"Contratação\", #\"Em Uso\" = true],\n        // ---- etapas de Projetos & Alianças: continuam no de-para da planilha,\n        //      mas NÃO têm nenhuma coluna preenchida hoje (em desuso em NN) ----\n        [Status = \"INICIAÇÃO\",           Ordem = 10, Grupo = \"Pós-NN (P&A)\", #\"Em Uso\" = false],\n        [Status = \"DUE DILIGENCE\",       Ordem = 11, Grupo = \"Pós-NN (P&A)\", #\"Em Uso\" = false],\n        [Status = \"REGULATORY PLAN\",     Ordem = 12, Grupo = \"Pós-NN (P&A)\", #\"Em Uso\" = false],\n        [Status = \"PRÉ-SUBMISSÃO\",       Ordem = 13, Grupo = \"Pós-NN (P&A)\", #\"Em Uso\" = false],\n        [Status = \"AVALIAÇÃO ANVISA\",    Ordem = 14, Grupo = \"Pós-NN (P&A)\", #\"Em Uso\" = false],\n        [Status = \"LANÇAMENTO\",          Ordem = 15, Grupo = \"Pós-NN (P&A)\", #\"Em Uso\" = false],\n        [Status = \"LANÇADO\",             Ordem = 16, Grupo = \"Pós-NN (P&A)\", #\"Em Uso\" = false],\n        [Status = \"EM DESCONTINUAÇÃO\",   Ordem = 17, Grupo = \"Pós-NN (P&A)\", #\"Em Uso\" = false],\n        [Status = \"DESCONTINUADO\",       Ordem = 18, Grupo = \"Pós-NN (P&A)\", #\"Em Uso\" = false],\n        [Status = \"CANCELADO\",           Ordem = 19, Grupo = \"Encerrado\",    #\"Em Uso\" = false],\n        [Status = \"(SEM STATUS)\",        Ordem = 99, Grupo = \"Sem Status\",   #\"Em Uso\" = true]\n    }),\n    // acrescenta qualquer status novo que apareça na base e não esteja na lista\n    DaBase = List.Distinct(List.RemoveNulls(Mapeamento[Status NN])),\n    Faltantes = List.Difference(DaBase, Fonte[Status]),\n    Extras = Table.FromRecords(List.Transform(Faltantes, each\n        [Status = _, Ordem = 98, Grupo = \"Não mapeado\", #\"Em Uso\" = true])),\n    Uniao = Table.Combine({Fonte, Extras}),\n    Tipado = Table.TransformColumnTypes(Uniao,\n        {{\"Status\", type text}, {\"Ordem\", Int64.Type}, {\"Grupo\", type text}, {\"Em Uso\", type logical}})\nin\n    Tipado"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Complexidade",
+        "columns": [
+          {
+            "name": "Categoria Padrão",
+            "dataType": "string",
+            "sourceColumn": "Categoria Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Complexidade",
+            "dataType": "string",
+            "sourceColumn": "Complexidade",
+            "sortByColumn": "Ordem Complexidade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ordem Complexidade",
+            "dataType": "int64",
+            "sourceColumn": "Ordem Complexidade",
+            "formatString": "0",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Complexidade",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// Complexidade — de-para Categoria -> Complexidade (BAIXO / MÉDIO / ALTO).\n//\n// >>> TAMBÉM NASCE EM BRANCO. <<<\n// Preencha no arquivo  Regua_Esforco_NN.xlsx  (aba \"Complexidade\").\n// Sem preenchimento, toda categoria fica como \"(A DEFINIR)\" e o cálculo de\n// horas fica zerado — sem quebrar nenhuma outra parte do relatório.\nlet\n    DoArquivo = Fonte_Regua[Aba](\"Complexidade\"),\n\n    Preenchido =\n        if DoArquivo = null then null\n        else let\n            cols = fnUtil[SelecionaColunas](DoArquivo, {\"Categoria\", \"Complexidade\"}),\n            limpo = Table.TransformColumns(cols, {\n                {\"Categoria\",    each fnUtil[Chave](_), type nullable text},\n                {\"Complexidade\", each fnUtil[Chave](_), type nullable text}}),\n            validos = Table.SelectRows(limpo, each [Categoria] <> null and [Complexidade] <> null),\n            renom = Table.RenameColumns(validos, {{\"Categoria\", \"Categoria Padrão\"}})\n        in  Table.Distinct(renom, {\"Categoria Padrão\"}),\n\n    // toda categoria que existe na base precisa existir aqui\n    DaBase = List.Distinct(List.RemoveNulls(Mapeamento[Categoria Padrão])),\n    Base = Table.FromList(DaBase, Splitter.SplitByNothing(), {\"Categoria Padrão\"}),\n\n    Combinado =\n        if Preenchido = null\n        then Table.AddColumn(Base, \"Complexidade\", each \"(A DEFINIR)\", type text)\n        else let\n            merge = Table.NestedJoin(Base, {\"Categoria Padrão\"},\n                        Preenchido, {\"Categoria Padrão\"}, \"m\", JoinKind.LeftOuter),\n            exp = Table.ExpandTableColumn(merge, \"m\", {\"Complexidade\"}, {\"Complexidade\"}),\n            semNulo = Table.TransformColumns(exp,\n                        {{\"Complexidade\", each _ ?? \"(A DEFINIR)\", type text}})\n        in  semNulo,\n\n    ComOrdem = Table.AddColumn(Combinado, \"Ordem Complexidade\", each\n        if [Complexidade] = \"BAIXO\" then 1\n        else if [Complexidade] = \"MÉDIO\" then 2\n        else if [Complexidade] = \"ALTO\" then 3\n        else 0, Int64.Type),\n\n    Tipado = Table.TransformColumnTypes(ComOrdem,\n        {{\"Categoria Padrão\", type text}, {\"Complexidade\", type text}})\nin\n    Tipado"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Esforço",
+        "columns": [
+          {
+            "name": "Status",
+            "dataType": "string",
+            "sourceColumn": "Status",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Complexidade",
+            "dataType": "string",
+            "sourceColumn": "Complexidade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Horas Mês",
+            "dataType": "double",
+            "sourceColumn": "Horas Mês",
+            "formatString": "#,0.0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ChaveEsforco",
+            "dataType": "string",
+            "sourceColumn": "ChaveEsforco",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Esforço",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// Esforço — RÉGUA DE CARREGAMENTO: horas/mês que UM projeto consome,\n// por Status x Complexidade.\n//\n// >>> ESTA TABELA NASCE EM BRANCO, DE PROPÓSITO. <<<\n// Preencha com o time no arquivo  Regua_Esforco_NN.xlsx  (aba \"Esforço\"),\n// colocado na mesma pasta do SharePoint dos mapeamentos. Enquanto as horas\n// não forem preenchidas, o dashboard funciona normalmente — só os\n// indicadores de horas e de ocupação ficam vazios, com aviso na tela.\nlet\n    Statuses = {\"AGUARDANDO INÍCIO\", \"PROSPECÇÃO\", \"CDA\", \"AV. TÉCNICA INICIAL\",\n                \"AV. MARKETING\", \"NEGOCIAÇÃO\", \"APROVAÇÃO SUMMARY\",\n                \"TERM SHEET\", \"CONTRATO\"},\n    Complexidades = {\"BAIXO\", \"MÉDIO\", \"ALTO\"},\n\n    // grade completa: todas as combinações sempre existem\n    Grade = Table.FromRows(\n        List.Combine(List.Transform(Statuses, (s) =>\n            List.Transform(Complexidades, (c) => {s, c}))),\n        {\"Status\", \"Complexidade\"}),\n\n    // o que veio do arquivo da régua (se houver)\n    DoArquivo = Fonte_Regua[Aba](\"Esforço\"),\n\n    Preenchido =\n        if DoArquivo = null then null\n        else let\n            cols = fnUtil[SelecionaColunas](DoArquivo, {\"Status\", \"Complexidade\", \"Horas Mês\"}),\n            limpo = Table.TransformColumns(cols, {\n                {\"Status\",       each fnUtil[Chave](_),  type nullable text},\n                {\"Complexidade\", each fnUtil[Chave](_),  type nullable text},\n                {\"Horas Mês\",    each fnUtil[Numero](_), type nullable number}}),\n            validos = Table.SelectRows(limpo, each [Status] <> null and [Complexidade] <> null)\n        in  Table.Distinct(validos, {\"Status\", \"Complexidade\"}),\n\n    Combinado =\n        if Preenchido = null then Table.AddColumn(Grade, \"Horas Mês\", each null, type nullable number)\n        else let\n            merge = Table.NestedJoin(Grade, {\"Status\", \"Complexidade\"},\n                        Preenchido, {\"Status\", \"Complexidade\"}, \"m\", JoinKind.LeftOuter),\n            exp = Table.ExpandTableColumn(merge, \"m\", {\"Horas Mês\"}, {\"Horas Mês\"})\n        in  exp,\n\n    Tipado = Table.TransformColumnTypes(Combinado,\n        {{\"Status\", type text}, {\"Complexidade\", type text}, {\"Horas Mês\", type nullable number}}),\n    Chave = Table.AddColumn(Tipado, \"ChaveEsforco\", each [Status] & \"|\" & [Complexidade], type text)\nin\n    Chave"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Unidade Referência",
+        "columns": [
+          {
+            "name": "Coligada Padrão",
+            "dataType": "string",
+            "sourceColumn": "Coligada Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Unidade",
+            "dataType": "string",
+            "sourceColumn": "Unidade",
+            "sortByColumn": "Ordem",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ordem",
+            "dataType": "int64",
+            "sourceColumn": "Ordem",
+            "formatString": "0",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Unidade Referência",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// Unidade Referência — cópia DESCONECTADA da lista de unidades de negócio.\n// Não tem relacionamento com nada, de propósito.\n// Serve ao gráfico \"Franquias de Atuação\": ele precisa mostrar TODAS as\n// unidades mesmo quando o filtro da página está numa unidade só — é esse\n// contraste que dá a leitura \"esta BU representa X% do que NN avaliou\".\nlet\n    Fonte = #\"Unidade de Negócio\",\n    Renomeado = Table.RenameColumns(Fonte, {{\"Unidade de Negócio\", \"Unidade\"}})\nin\n    Renomeado"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Faturamento Projetado",
+        "columns": [
+          {
+            "name": "ProjetoID",
+            "dataType": "string",
+            "sourceColumn": "ProjetoID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ano do DRE",
+            "dataType": "int64",
+            "sourceColumn": "Ano do DRE",
+            "formatString": "0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ano Projetado",
+            "dataType": "string",
+            "sourceColumn": "Ano Projetado",
+            "sortByColumn": "Ano do DRE",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Valor",
+            "dataType": "double",
+            "sourceColumn": "Valor",
+            "formatString": "\"R$\" #,0",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Faturamento Projetado",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// Faturamento Projetado — despivota o DRE (Ano1..Ano5) do mapeamento.\n// Grão: 1 linha por projeto x ano do DRE. Permite ver a curva de receita\n// projetada do pipeline, que hoje fica presa em 5 colunas soltas.\nlet\n    Base = Table.SelectColumns(Mapeamento, {\n        \"ProjetoID\",\n        \"Fat. Líq. DRE (Ano1)\", \"Fat. Líq. DRE (Ano2)\", \"Fat. Líq. DRE (Ano3)\",\n        \"Fat. Líq. DRE (Ano4)\", \"Fat. Líq. DRE (Ano5)\"}, MissingField.UseNull),\n\n    Despivotado = Table.UnpivotOtherColumns(Base, {\"ProjetoID\"}, \"Coluna\", \"Valor\"),\n\n    SoValores = Table.SelectRows(Despivotado, each [Valor] <> null and [Valor] <> 0),\n\n    ComAno = Table.AddColumn(SoValores, \"Ano do DRE\", each\n        try Number.From(Text.BetweenDelimiters([Coluna], \"Ano\", \")\")) otherwise null, Int64.Type),\n\n    ComRotulo = Table.AddColumn(ComAno, \"Ano Projetado\", each\n        \"Ano \" & Text.From([Ano do DRE]), type text),\n\n    Final = Table.SelectColumns(ComRotulo, {\"ProjetoID\", \"Ano do DRE\", \"Ano Projetado\", \"Valor\"}),\n    Tipado = Table.TransformColumnTypes(Final, {{\"Valor\", type number}})\nin\n    Tipado"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Equipe",
+        "columns": [
+          {
+            "name": "Pessoa",
+            "dataType": "string",
+            "sourceColumn": "Pessoa",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Nome",
+            "dataType": "string",
+            "sourceColumn": "Nome",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gerência",
+            "dataType": "string",
+            "sourceColumn": "Gerência",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Projetos Totais",
+            "dataType": "int64",
+            "sourceColumn": "Projetos Totais",
+            "formatString": "#,0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Capacidade Mensal (h)",
+            "dataType": "double",
+            "sourceColumn": "Capacidade Mensal (h)",
+            "formatString": "#,0",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Equipe",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// Gerada da própria base — não precisa manter lista de nomes.\nlet\n    DoMapeamento = Table.SelectColumns(Mapeamento, {\"Responsável Final\", \"Gerência\"}),\n    SemNulos = Table.SelectRows(DoMapeamento, each [Responsável Final] <> null),\n    Agrupado = Table.Group(SemNulos, {\"Responsável Final\"}, {\n        {\"Gerência\", each List.Mode([Gerência]) ?? \"(NÃO INFORMADO)\", type text},\n        {\"Projetos Totais\", each Table.RowCount(_), Int64.Type}}),\n    Renom = Table.RenameColumns(Agrupado, {{\"Responsável Final\", \"Pessoa\"}}),\n    ComCapacidade = Table.AddColumn(Renom, \"Capacidade Mensal (h)\", each pCapacidadeMensalHoras, type number),\n    ComNome = Table.AddColumn(ComCapacidade, \"Nome\", each Text.Proper(Text.Lower([Pessoa])), type text)\nin\n    ComNome"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Unidade de Negócio",
+        "columns": [
+          {
+            "name": "Coligada Padrão",
+            "dataType": "string",
+            "sourceColumn": "Coligada Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Unidade de Negócio",
+            "dataType": "string",
+            "sourceColumn": "Unidade de Negócio",
+            "sortByColumn": "Ordem",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ordem",
+            "dataType": "int64",
+            "sourceColumn": "Ordem",
+            "formatString": "0",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Unidade de Negócio",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// De-para Coligada -> Unidade de Negócio (o eixo dos reports de BU).\nlet\n    Fonte = Table.FromRecords({\n        [#\"Coligada Padrão\" = \"EMS PRESCRIÇÃO\", #\"Unidade de Negócio\" = \"EMS Prescrição\", Ordem = 1],\n        [#\"Coligada Padrão\" = \"NON RETAIL\",     #\"Unidade de Negócio\" = \"Non-Retail\",     Ordem = 2],\n        [#\"Coligada Padrão\" = \"USK\",            #\"Unidade de Negócio\" = \"USK\",            Ordem = 3],\n        [#\"Coligada Padrão\" = \"OFTA\",           #\"Unidade de Negócio\" = \"Ofta\",           Ordem = 4],\n        [#\"Coligada Padrão\" = \"OTC\",            #\"Unidade de Negócio\" = \"OTC\",            Ordem = 5],\n        [#\"Coligada Padrão\" = \"BRACE PHARMA\",   #\"Unidade de Negócio\" = \"Brace Pharma\",   Ordem = 6],\n        [#\"Coligada Padrão\" = \"LEGRAND\",        #\"Unidade de Negócio\" = \"Legrand\",        Ordem = 7],\n        [#\"Coligada Padrão\" = \"MULTILAB\",       #\"Unidade de Negócio\" = \"Multilab\",       Ordem = 8],\n        [#\"Coligada Padrão\" = \"GERMED\",         #\"Unidade de Negócio\" = \"Germed\",         Ordem = 9],\n        [#\"Coligada Padrão\" = \"EMS MARCAS\",     #\"Unidade de Negócio\" = \"EMS Marcas\",     Ordem = 10],\n        [#\"Coligada Padrão\" = \"EMS GENÉRICOS\",  #\"Unidade de Negócio\" = \"EMS Genéricos\",  Ordem = 11],\n        [#\"Coligada Padrão\" = \"NOVA QUÍMICA\",   #\"Unidade de Negócio\" = \"Nova Química\",   Ordem = 12],\n        [#\"Coligada Padrão\" = \"(NÃO INFORMADO)\",#\"Unidade de Negócio\" = \"(Não informado)\",Ordem = 99]\n    }),\n    DaBase = List.Distinct(List.RemoveNulls(Mapeamento[Coligada Padrão])),\n    Faltantes = List.Difference(DaBase, Fonte[Coligada Padrão]),\n    Extras = Table.FromRecords(List.Transform(Faltantes, each\n        [#\"Coligada Padrão\" = _, #\"Unidade de Negócio\" = Text.Proper(Text.Lower(_)), Ordem = 98])),\n    Uniao = Table.Combine({Fonte, Extras}),\n    Tipado = Table.TransformColumnTypes(Uniao,\n        {{\"Coligada Padrão\", type text}, {\"Unidade de Negócio\", type text}, {\"Ordem\", Int64.Type}})\nin\n    Tipado"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Motivo Cancelamento",
+        "columns": [
+          {
+            "name": "Motivo Padrão",
+            "dataType": "string",
+            "sourceColumn": "Motivo Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Motivo",
+            "dataType": "string",
+            "sourceColumn": "Motivo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Bloco",
+            "dataType": "string",
+            "sourceColumn": "Bloco",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Motivo Cancelamento",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Fonte = Table.FromRecords({\n        [#\"Motivo Padrão\" = \"INDISPONIBILIDADE DE PARCERIA\",     #\"Motivo\" = \"Indisponibilidade de Parceria\",     Bloco = \"Parceiro\"],\n        [#\"Motivo Padrão\" = \"INDISPONIBILIDADE DE CONTATO\",      #\"Motivo\" = \"Indisponibilidade de Contato\",      Bloco = \"Parceiro\"],\n        [#\"Motivo Padrão\" = \"INDISPONIBILIDADE DE APRESENTAÇÃO\", #\"Motivo\" = \"Indisponibilidade de Apresentação\", Bloco = \"Parceiro\"],\n        [#\"Motivo Padrão\" = \"INVIABILIDADE ÁREA MÉDICA\",         #\"Motivo\" = \"Inviabilidade Área Médica\",         Bloco = \"Técnico\"],\n        [#\"Motivo Padrão\" = \"INVIABILIDADE REGULATÓRIA\",         #\"Motivo\" = \"Inviabilidade Regulatória\",         Bloco = \"Técnico\"],\n        [#\"Motivo Padrão\" = \"INVIABILIDADE PATENTES\",            #\"Motivo\" = \"Inviabilidade Patentes\",            Bloco = \"Técnico\"],\n        [#\"Motivo Padrão\" = \"INVIABILIDADE FINANCEIRA\",          #\"Motivo\" = \"Inviabilidade Financeira\",          Bloco = \"Financeiro\"],\n        [#\"Motivo Padrão\" = \"PREÇO CMED\",                        #\"Motivo\" = \"Preço CMED\",                        Bloco = \"Financeiro\"],\n        [#\"Motivo Padrão\" = \"INVIABILIDADE CONTRATUAL\",          #\"Motivo\" = \"Inviabilidade Contratual\",          Bloco = \"Contratual\"],\n        [#\"Motivo Padrão\" = \"INVIABILIDADE MODELO DE NEGÓCIO\",   #\"Motivo\" = \"Inviabilidade Modelo de Negócio\",   Bloco = \"Contratual\"],\n        [#\"Motivo Padrão\" = \"DESINTERESSE BU\",                   #\"Motivo\" = \"Desinteresse BU\",                   Bloco = \"Unidade de Negócio\"],\n        [#\"Motivo Padrão\" = \"PREMISSAS BU\",                      #\"Motivo\" = \"Premissas BU\",                      Bloco = \"Unidade de Negócio\"],\n        [#\"Motivo Padrão\" = \"MERCADO\",                           #\"Motivo\" = \"Mercado\",                           Bloco = \"Mercado\"],\n        [#\"Motivo Padrão\" = \"OUTROS\",                            #\"Motivo\" = \"Outros\",                            Bloco = \"Outros\"],\n        [#\"Motivo Padrão\" = \"(SEM MOTIVO REGISTRADO)\",           #\"Motivo\" = \"(Sem motivo registrado)\",           Bloco = \"Sem registro\"]\n    }),\n    Tipado = Table.TransformColumnTypes(Fonte,\n        {{\"Motivo Padrão\", type text}, {\"Motivo\", type text}, {\"Bloco\", type text}})\nin\n    Tipado"
+            }
+          }
+        ]
+      },
+      {
+        "name": "País",
+        "columns": [
+          {
+            "name": "País",
+            "dataType": "string",
+            "sourceColumn": "País",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ISO3",
+            "dataType": "string",
+            "sourceColumn": "ISO3",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "País",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// Lê a aba \"PAÍS\" do primeiro arquivo que a tiver (traz o ISO ALPHA-3,\n// que faz o mapa do Power BI acertar 100% dos países).\nlet\n    Arquivos = Fonte_Arquivos,\n    ComAba = Table.AddColumn(Arquivos, \"Tab\", each\n        let\n            wb = Excel.Workbook([Content], null, true),\n            aba = Table.SelectRows(wb, each [Kind] = \"Sheet\" and Text.Upper(Text.Trim([Item])) = \"PAÍS\")\n        in  if Table.RowCount(aba) = 0 then null else aba{0}[Data]),\n    ComDados = Table.SelectRows(ComAba, each [Tab] <> null),\n    Primeiro = if Table.RowCount(ComDados) = 0 then null else ComDados{0}[Tab],\n\n    DaTabela =\n        if Primeiro = null then #table({\"País\", \"ISO3\"}, {})\n        else let\n            colA = Table.SelectColumns(Primeiro, {\"Column1\", \"Column2\"}, MissingField.UseNull),\n            renom = Table.RenameColumns(colA, {{\"Column1\", \"País\"}, {\"Column2\", \"ISO3\"}}),\n            limpo = Table.TransformColumns(renom, {\n                {\"País\", each fnUtil[Texto](_), type nullable text},\n                {\"ISO3\", each fnUtil[Texto](_), type nullable text}}),\n            validos = Table.SelectRows(limpo, each\n                [País] <> null and [ISO3] <> null and Text.Length([ISO3]) = 3\n                and [País] <> \"Nome do país ou território\")\n        in  validos,\n\n    // garante que todo país presente na base exista na dimensão\n    DaBase = List.Distinct(List.RemoveNulls(Mapeamento[País Fornecedor])),\n    Faltantes = List.Difference(DaBase, DaTabela[País]),\n    Extras = Table.FromRecords(List.Transform(Faltantes, each [País = _, ISO3 = null])),\n    Uniao = Table.Combine({DaTabela, Extras}),\n    SemDup = Table.Distinct(Uniao, {\"País\"}),\n    Tipado = Table.TransformColumnTypes(SemDup, {{\"País\", type text}, {\"ISO3\", type nullable text}})\nin\n    Tipado"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Solicitações",
+        "columns": [
+          {
+            "name": "Arquivo",
+            "dataType": "string",
+            "sourceColumn": "Arquivo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Área Técnica",
+            "dataType": "string",
+            "sourceColumn": "Área Técnica",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Solicitante",
+            "dataType": "string",
+            "sourceColumn": "Solicitante",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Molécula",
+            "dataType": "string",
+            "sourceColumn": "Molécula",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Status Solicitação",
+            "dataType": "string",
+            "sourceColumn": "Status Solicitação",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data Solicitação",
+            "dataType": "dateTime",
+            "sourceColumn": "Data Solicitação",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data Previsão",
+            "dataType": "dateTime",
+            "sourceColumn": "Data Previsão",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data Recebimento",
+            "dataType": "dateTime",
+            "sourceColumn": "Data Recebimento",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Dias de Resposta",
+            "dataType": "int64",
+            "sourceColumn": "Dias de Resposta",
+            "formatString": "#,0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Dentro do Prazo",
+            "dataType": "boolean",
+            "sourceColumn": "Dentro do Prazo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Viabilidade Padrão",
+            "dataType": "string",
+            "sourceColumn": "Viabilidade Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "OBS",
+            "dataType": "string",
+            "sourceColumn": "OBS",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Solicitações",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// Solicitações — // FATO de demandas às áreas técnicas (Médica, Patentes,\n// Regulatória, Econômicos). Mede SLA de resposta e taxa de viabilidade.\n// =====================================================================\nlet\n    Arquivos = Fonte_Arquivos,\n    ComAba = Table.AddColumn(Arquivos, \"Tab\", each\n        let\n            wb = Excel.Workbook([Content], null, true),\n            aba = Table.SelectRows(wb, each [Kind] = \"Sheet\" and\n                    Comparer.OrdinalIgnoreCase(Text.Trim([Item]), pAbaSolicitacoes) = 0),\n            dados = if Table.RowCount(aba) = 0 then null else aba{0}[Data],\n            promov = if dados = null then null else Table.PromoteHeaders(dados, [PromoteAllScalars = true]),\n            norm = if promov = null then null else fnUtil[NormalizaCabecalhos](promov)\n        in  norm),\n\n    ComDados = Table.SelectRows(ComAba, each [Tab] <> null),\n\n    Colunas = {\"ÁREA TÉCNICA\", \"SOLICITANTE\", \"MOLÉCULA\", \"DATA DA SOLICITAÇÃO\",\n               \"DATA DE PREVISÃO\", \"STATUS\", \"DIAS DISPONÍVEIS\",\n               \"DATA DO RECEBIMENTO\", \"RECEBIDO\", \"VIABILIDADE\", \"OBS\"},\n\n    Selec = Table.AddColumn(ComDados, \"Sel\", each fnUtil[SelecionaColunas]([Tab], Colunas)),\n    Enxuto = Table.SelectColumns(Selec, {\"Arquivo\", \"Responsável (arquivo)\", \"Sel\"}),\n    Expand = Table.ExpandTableColumn(Enxuto, \"Sel\", Colunas, Colunas),\n\n    Uteis = Table.SelectRows(Expand, each fnUtil[Texto]([MOLÉCULA]) <> null),\n\n    Limpo = Table.TransformColumns(Uteis, {\n        {\"ÁREA TÉCNICA\",        each fnUtil[Chave](_), type nullable text},\n        {\"SOLICITANTE\",         each fnUtil[Chave](_), type nullable text},\n        {\"MOLÉCULA\",            each fnUtil[Texto](_), type nullable text},\n        {\"STATUS\",              each fnUtil[Chave](_), type nullable text},\n        {\"VIABILIDADE\",         each fnUtil[Chave](_), type nullable text},\n        {\"OBS\",                 each fnUtil[Texto](_), type nullable text},\n        {\"DATA DA SOLICITAÇÃO\", each fnUtil[Data](_),  type nullable date},\n        {\"DATA DE PREVISÃO\",    each fnUtil[Data](_),  type nullable date},\n        {\"DATA DO RECEBIMENTO\", each fnUtil[Data](_),  type nullable date}\n    }),\n\n    ComSLA = Table.AddColumn(Limpo, \"Dias de Resposta\", each\n        if [DATA DA SOLICITAÇÃO] = null or [DATA DO RECEBIMENTO] = null then null\n        else Duration.Days([DATA DO RECEBIMENTO] - [DATA DA SOLICITAÇÃO]), Int64.Type),\n\n    ComPrazo = Table.AddColumn(ComSLA, \"Dentro do Prazo\", each\n        if [DATA DE PREVISÃO] = null or [DATA DO RECEBIMENTO] = null then null\n        else [DATA DO RECEBIMENTO] <= [DATA DE PREVISÃO], type nullable logical),\n\n    ComViab = Table.AddColumn(ComPrazo, \"Viabilidade Padrão\", each\n        let v = [VIABILIDADE] in\n        if v = null then \"(Sem parecer)\"\n        else if Text.StartsWith(v, \"VIÁVEL\") or v = \"VIAVEL\" then \"Viável\"\n        else if Text.Contains(v, \"RESSALVA\") then \"Com ressalvas\"\n        else if Text.Contains(v, \"INVIÁVEL\") or Text.Contains(v, \"INVIAVEL\") then \"Inviável\"\n        else Text.Proper(Text.Lower(v)), type text),\n\n    Renom = Table.RenameColumns(ComViab, {\n        {\"ÁREA TÉCNICA\", \"Área Técnica\"}, {\"SOLICITANTE\", \"Solicitante\"},\n        {\"MOLÉCULA\", \"Molécula\"}, {\"STATUS\", \"Status Solicitação\"},\n        {\"DATA DA SOLICITAÇÃO\", \"Data Solicitação\"},\n        {\"DATA DE PREVISÃO\", \"Data Previsão\"},\n        {\"DATA DO RECEBIMENTO\", \"Data Recebimento\"}}),\n\n    Final = Table.RemoveColumns(Renom, {\"DIAS DISPONÍVEIS\", \"RECEBIDO\", \"VIABILIDADE\"}, MissingField.Ignore)\nin\n    Final"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Qualidade de Dados",
+        "columns": [
+          {
+            "name": "ProjetoID",
+            "dataType": "string",
+            "sourceColumn": "ProjetoID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Arquivo",
+            "dataType": "string",
+            "sourceColumn": "Arquivo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Responsável Final",
+            "dataType": "string",
+            "sourceColumn": "Responsável Final",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Molécula",
+            "dataType": "string",
+            "sourceColumn": "Molécula",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fornecedor / Parceiro",
+            "dataType": "string",
+            "sourceColumn": "Fornecedor / Parceiro",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Status NN",
+            "dataType": "string",
+            "sourceColumn": "Status NN",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Situação",
+            "dataType": "string",
+            "sourceColumn": "Situação",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Regra",
+            "dataType": "string",
+            "sourceColumn": "Regra",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gravidade",
+            "dataType": "string",
+            "sourceColumn": "Gravidade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Impacto",
+            "dataType": "string",
+            "sourceColumn": "Impacto",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Peso",
+            "dataType": "int64",
+            "sourceColumn": "Peso",
+            "formatString": "0",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Qualidade de Dados",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// Qualidade de Dados — // uma linha por PROBLEMA encontrado.\n// É o que transforma o dashboard em ferramenta de gestão da própria base:\n// mostra, por responsável, exatamente o que falta preencher.\n// =====================================================================\nlet\n    M = Mapeamento,\n\n    fnRegra = (nome as text, gravidade as text, criterio as function, impacto as text) as table =>\n        let\n            afetados = Table.SelectRows(M, criterio),\n            comCampos = Table.SelectColumns(afetados,\n                {\"ProjetoID\", \"Arquivo\", \"Responsável Final\", \"Molécula\",\n                 \"Fornecedor / Parceiro\", \"Status NN\", \"Situação\"}, MissingField.UseNull),\n            comRegra = Table.AddColumn(comCampos, \"Regra\", each nome, type text),\n            comGrav = Table.AddColumn(comRegra, \"Gravidade\", each gravidade, type text),\n            comImp = Table.AddColumn(comGrav, \"Impacto\", each impacto, type text)\n        in  comImp,\n\n    Regras = {\n        fnRegra(\"Projeto encerrado sem Data de Finalização\", \"Alta\",\n            each [Situação] <> \"EM ANDAMENTO\" and [Data de Finalização do Projeto em NN] = null,\n            \"Impede medir quando o projeto saiu do carregamento — o histórico do mês fica estimado.\"),\n        fnRegra(\"Projeto encerrado sem Motivo de Cancelamento\", \"Alta\",\n            each [Situação] = \"ENCERRADO\" and [Motivo Cancelamento Projeto] = null,\n            \"Impede o report de motivos de cancelamento por unidade de negócio.\"),\n        fnRegra(\"Sem Data de Entrada\", \"Alta\",\n            each [Data de Entrada] = null,\n            \"Projeto não entra em nenhuma análise temporal.\"),\n        fnRegra(\"Sem Coligada / Unidade de Negócio\", \"Alta\",\n            each [Coligada] = null,\n            \"Projeto não aparece no report da BU.\"),\n        fnRegra(\"Sem Categoria\", \"Média\",\n            each [Categoria] = null,\n            \"Sem categoria não há complexidade — o cálculo de horas usa MÉDIO por padrão.\"),\n        fnRegra(\"Sem Área Terapêutica\", \"Média\",\n            each [Área Terapêutica] = null,\n            \"Projeto não aparece nos cortes por franquia.\"),\n        fnRegra(\"Sem Status interno (NN / Interno / Parceiro)\", \"Média\",\n            each [Status interno] = null,\n            \"Impede a visão de onde o tempo do time está sendo gasto.\"),\n        fnRegra(\"Sem Fase da Oportunidade\", \"Baixa\",\n            each [Fase Oportunidade NN] = null,\n            \"Falta no gráfico de maturidade das moléculas.\"),\n        fnRegra(\"Sem País do Fornecedor\", \"Baixa\",\n            each [País Fornecedor] = null,\n            \"Projeto não aparece no mapa.\"),\n        fnRegra(\"Em Negociação sem dado financeiro\", \"Média\",\n            each List.Contains({\"NEGOCIAÇÃO\", \"APROVAÇÃO SUMMARY\", \"TERM SHEET\", \"CONTRATO\"}, [Status NN])\n                 and [#\"VPL (R$)\"] = null and [#\"Margem Bruta (%)\"] = null,\n            \"Projeto em fase avançada sem VPL nem margem — a visão financeira fica cega.\"),\n        fnRegra(\"Data de fim anterior à data de início\", \"Alta\",\n            each [Data Fim Efetiva] <> null and [Data Início Efetiva] <> null\n                 and [Data Fim Efetiva] < [Data Início Efetiva],\n            \"Inconsistência de datas: distorce duração e histórico.\")\n    },\n\n    Tudo = Table.Combine(Regras),\n    Tipado = Table.TransformColumnTypes(Tudo,\n        {{\"Regra\", type text}, {\"Gravidade\", type text}, {\"Impacto\", type text}}),\n    ComPeso = Table.AddColumn(Tipado, \"Peso\", each\n        if [Gravidade] = \"Alta\" then 3 else if [Gravidade] = \"Média\" then 2 else 1, Int64.Type)\nin\n    ComPeso"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Histórico Snapshots",
+        "columns": [
+          {
+            "name": "ProjetoID",
+            "dataType": "string",
+            "sourceColumn": "ProjetoID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data Snapshot",
+            "dataType": "dateTime",
+            "sourceColumn": "Data Snapshot",
+            "formatString": "dd/mm/yyyy",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Responsável Final",
+            "dataType": "string",
+            "sourceColumn": "Responsável Final",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Status NN",
+            "dataType": "string",
+            "sourceColumn": "Status NN",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Situação",
+            "dataType": "string",
+            "sourceColumn": "Situação",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Coligada Padrão",
+            "dataType": "string",
+            "sourceColumn": "Coligada Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Categoria Padrão",
+            "dataType": "string",
+            "sourceColumn": "Categoria Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Motivo Padrão",
+            "dataType": "string",
+            "sourceColumn": "Motivo Padrão",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Molécula",
+            "dataType": "string",
+            "sourceColumn": "Molécula",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Histórico Snapshots",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "// Histórico Snapshots — // OPCIONAL. Lê a pasta HISTORICO, onde cada\n// subpasta \"yyyy-MM\" guarda a cópia dos mapeamentos daquele fechamento.\n// Se a pasta não existir, devolve tabela vazia (o relatório não quebra).\n// Isto captura o que as datas NÃO conseguem reconstruir: cancelamentos\n// sem data de finalização e mudanças de responsável.\n// =====================================================================\nlet\n    Vazia = #table(\n        type table [ProjetoID = text, #\"Data Snapshot\" = date, #\"Responsável Final\" = text,\n                    #\"Status NN\" = text, #\"Situação\" = text, #\"Coligada Padrão\" = text,\n                    #\"Categoria Padrão\" = text, #\"Motivo Padrão\" = text, Molécula = text],\n        {}),\n\n    Tentativa = try\n        let\n            Origem = SharePoint.Contents(pSiteSharePoint, [ApiVersion = 15]),\n            fnEntrar = (tbl as table, nome as text) =>\n                Table.SelectRows(tbl, each Comparer.OrdinalIgnoreCase(Text.Trim([Name]), Text.Trim(nome)) = 0){0}[Content],\n            Biblioteca = fnEntrar(Origem, pBiblioteca),\n            Partes = List.Select(List.Transform(Text.Split(pPastaHistorico, \"/\"), Text.Trim), each _ <> \"\"),\n            Pasta = List.Accumulate(Partes, Biblioteca, (e, p) => fnEntrar(e, p)),\n\n            // subpastas no formato yyyy-MM\n            Subpastas = Table.SelectRows(Pasta, each\n                Text.Length([Name]) >= 7 and Text.Contains([Name], \"-\")),\n\n            ComData = Table.AddColumn(Subpastas, \"Data Snapshot\", each\n                try Date.EndOfMonth(#date(\n                        Number.From(Text.Start([Name], 4)),\n                        Number.From(Text.Middle([Name], 5, 2)), 1)) otherwise null),\n\n            Validas = Table.SelectRows(ComData, each [Data Snapshot] <> null),\n\n            ComArquivos = Table.AddColumn(Validas, \"Arqs\", each\n                Table.SelectRows([Content], each\n                    Text.EndsWith(Text.Lower([Name]), \".xlsx\") and not Text.StartsWith([Name], \"~$\"))),\n\n            Exp1 = Table.ExpandTableColumn(\n                    Table.SelectColumns(ComArquivos, {\"Data Snapshot\", \"Arqs\"}),\n                    \"Arqs\", {\"Content\", \"Name\"}, {\"Content\", \"Arquivo\"}),\n\n            ComTab = Table.AddColumn(Exp1, \"Tab\", each\n                let\n                    wb = Excel.Workbook([Content], null, true),\n                    aba = Table.SelectRows(wb, each [Kind] = \"Sheet\" and\n                            Comparer.OrdinalIgnoreCase(Text.Trim([Item]), pAbaMapeamento) = 0),\n                    d = if Table.RowCount(aba) = 0 then null else aba{0}[Data],\n                    p = if d = null then null else Table.PromoteHeaders(d, [PromoteAllScalars = true]),\n                    n = if p = null then null else fnUtil[NormalizaCabecalhos](p)\n                in  n),\n\n            SoValidos = Table.SelectRows(ComTab, each [Tab] <> null),\n\n            Cols = {\"Responsável\", \"Molécula\", \"Coligada\", \"Categoria\",\n                    \"Status de projeto (NN)\", \"Projeto em andamento?\",\n                    \"Motivo Cancelamento Projeto\", \"Fornecedor / Parceiro\"},\n\n            Sel = Table.AddColumn(SoValidos, \"Sel\", each fnUtil[SelecionaColunas]([Tab], Cols)),\n            Enx = Table.SelectColumns(Sel, {\"Data Snapshot\", \"Arquivo\", \"Sel\"}),\n            Exp2 = Table.ExpandTableColumn(Enx, \"Sel\", Cols, Cols),\n            Uteis = Table.SelectRows(Exp2, each fnUtil[Texto]([Molécula]) <> null),\n            ComSeq = Table.AddIndexColumn(Uteis, \"Seq\", 1, 1, Int64.Type),\n            ComID = Table.AddColumn(ComSeq, \"ProjetoID\", each\n                Text.Combine({[Arquivo], Text.From([Seq])}, \"#\"), type text),\n            Padrao = Table.TransformColumns(ComID, {\n                {\"Responsável\", each fnUtil[Chave](_), type nullable text},\n                {\"Coligada\", each fnUtil[Chave](_), type nullable text},\n                {\"Categoria\", each fnUtil[Chave](_), type nullable text},\n                {\"Status de projeto (NN)\", each fnUtil[Chave](_), type nullable text},\n                {\"Projeto em andamento?\", each fnUtil[Chave](_), type nullable text},\n                {\"Motivo Cancelamento Projeto\", each fnUtil[Chave](_), type nullable text},\n                {\"Molécula\", each fnUtil[Texto](_), type nullable text}}),\n\n            // normaliza para EXATAMENTE o mesmo esquema da tabela vazia,\n            // senão os dois ramos do try/otherwise divergem e o modelo quebra\n            ComSituacao = Table.AddColumn(Padrao, \"Situação\", each\n                let a = [#\"Projeto em andamento?\"] in\n                if a = null then \"NÃO INFORMADO\"\n                else if Text.StartsWith(a, \"SIM\") then \"EM ANDAMENTO\"\n                else if Text.Contains(a, \"STAND\") then \"STAND BY\"\n                else if Text.StartsWith(a, \"NÃO\") or Text.StartsWith(a, \"NAO\") then \"ENCERRADO\"\n                else a, type text),\n\n            Renomeado = Table.RenameColumns(ComSituacao, {\n                {\"Responsável\", \"Responsável Final\"},\n                {\"Status de projeto (NN)\", \"Status NN\"},\n                {\"Coligada\", \"Coligada Padrão\"},\n                {\"Categoria\", \"Categoria Padrão\"},\n                {\"Motivo Cancelamento Projeto\", \"Motivo Padrão\"}}),\n\n            Enxugado = Table.SelectColumns(Renomeado,\n                {\"ProjetoID\", \"Data Snapshot\", \"Responsável Final\", \"Status NN\",\n                 \"Situação\", \"Coligada Padrão\", \"Categoria Padrão\", \"Motivo Padrão\",\n                 \"Molécula\"}, MissingField.UseNull),\n\n            Tipado = Table.TransformColumnTypes(Enxugado, {\n                {\"ProjetoID\", type text}, {\"Data Snapshot\", type date},\n                {\"Responsável Final\", type text}, {\"Status NN\", type text},\n                {\"Situação\", type text}, {\"Coligada Padrão\", type text},\n                {\"Categoria Padrão\", type text}, {\"Motivo Padrão\", type text},\n                {\"Molécula\", type text}})\n        in  Tipado\n    otherwise Vazia,\n\n    Resultado = if Tentativa is table then Tentativa else Vazia\nin\n    Resultado"
+            }
+          }
+        ]
+      },
+      {
+        "name": "_Medidas",
+        "columns": [
+          {
+            "name": "_",
+            "dataType": "string",
+            "sourceColumn": "_",
+            "isHidden": true,
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Medidas",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Fonte = #table(type table [_ = text], {{\"x\"}})\nin\n    Fonte"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Projetos",
+            "expression": "DISTINCTCOUNT ( Mapeamento[ProjetoID] )",
+            "displayFolder": "01 Visão Geral",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Moléculas",
+            "expression": "DISTINCTCOUNT ( Mapeamento[Molécula] )",
+            "displayFolder": "01 Visão Geral",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Fornecedores",
+            "expression": "DISTINCTCOUNT ( Mapeamento[Fornecedor / Parceiro] )",
+            "displayFolder": "01 Visão Geral",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Países",
+            "expression": "DISTINCTCOUNT ( Mapeamento[País Fornecedor] )",
+            "displayFolder": "01 Visão Geral",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projetos Ativos",
+            "expression": "CALCULATE ( [Projetos], Mapeamento[Situação] = \"EM ANDAMENTO\" )",
+            "displayFolder": "01 Visão Geral",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projetos Stand by",
+            "expression": "CALCULATE ( [Projetos], Mapeamento[Situação] = \"STAND BY\" )",
+            "displayFolder": "01 Visão Geral",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projetos Encerrados",
+            "expression": "CALCULATE ( [Projetos], Mapeamento[Situação] = \"ENCERRADO\" )",
+            "displayFolder": "01 Visão Geral",
+            "formatString": "#,0"
+          },
+          {
+            "name": "% Ativos",
+            "expression": "DIVIDE ( [Projetos Ativos], [Projetos] )",
+            "displayFolder": "01 Visão Geral",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Projetos por Pessoa",
+            "expression": "DIVIDE ( [Projetos Ativos], DISTINCTCOUNT ( Mapeamento[Responsável Final] ) )",
+            "displayFolder": "01 Visão Geral",
+            "formatString": "#,0.0"
+          },
+          {
+            "name": "Horas Empenhadas",
+            "expression": "CALCULATE (\n    SUMX ( Mapeamento, Mapeamento[Horas Mês] ),\n    Mapeamento[Situação] = \"EM ANDAMENTO\"\n)",
+            "displayFolder": "02 Carregamento",
+            "formatString": "#,0.0"
+          },
+          {
+            "name": "Horas Empenhadas (com Stand by)",
+            "expression": "CALCULATE (\n    SUMX ( Mapeamento, Mapeamento[Horas Mês] ),\n    Mapeamento[Situação] IN { \"EM ANDAMENTO\", \"STAND BY\" }\n)",
+            "displayFolder": "02 Carregamento",
+            "formatString": "#,0.0"
+          },
+          {
+            "name": "Capacidade (h)",
+            "expression": "SUMX ( VALUES ( Equipe[Pessoa] ), CALCULATE ( MAX ( Equipe[Capacidade Mensal (h)] ) ) )",
+            "displayFolder": "02 Carregamento",
+            "formatString": "#,0.0"
+          },
+          {
+            "name": "% Ocupação",
+            "expression": "DIVIDE ( [Horas Empenhadas], [Capacidade (h)] )",
+            "displayFolder": "02 Carregamento",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Horas Disponíveis",
+            "expression": "[Capacidade (h)] - [Horas Empenhadas]",
+            "displayFolder": "02 Carregamento",
+            "formatString": "#,0.0"
+          },
+          {
+            "name": "Régua Preenchida",
+            "expression": "IF (\n    ISBLANK ( CALCULATE ( SUM ( 'Esforço'[Horas Mês] ), REMOVEFILTERS () ) ),\n    FALSE (),\n    TRUE ()\n)",
+            "displayFolder": "02 Carregamento"
+          },
+          {
+            "name": "Aviso Régua",
+            "expression": "IF (\n    NOT [Régua Preenchida],\n    \"⚠️ A régua de esforço ainda não foi preenchida. Preencha o arquivo Regua_Esforco_NN.xlsx na pasta dos mapeamentos e atualize — os indicadores de horas passam a calcular sozinhos.\",\n    BLANK ()\n)",
+            "displayFolder": "02 Carregamento"
+          },
+          {
+            "name": "Status Ocupação",
+            "expression": "VAR o = [% Ocupação]\nRETURN\nSWITCH (\n    TRUE (),\n    ISBLANK ( o ), \"Sem dados\",\n    o > 1.10,      \"🔴 Sobrecarregado\",\n    o > 0.90,      \"🟠 No limite\",\n    o > 0.60,      \"🟢 Saudável\",\n                   \"🔵 Folga\"\n)",
+            "displayFolder": "02 Carregamento"
+          },
+          {
+            "name": "Projetos no Mês",
+            "expression": "DISTINCTCOUNT ( 'Carregamento Mensal'[ProjetoID] )",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Ativos no Fim do Mês",
+            "expression": "CALCULATE ( [Projetos no Mês], 'Carregamento Mensal'[Ativo no Fim do Mês] = TRUE () )",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Entradas no Mês",
+            "expression": "CALCULATE ( [Projetos no Mês], 'Carregamento Mensal'[Entrou no Mês] = TRUE () )",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Saídas no Mês",
+            "expression": "CALCULATE ( [Projetos no Mês], 'Carregamento Mensal'[Saiu no Mês] = TRUE () )",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Saldo do Mês",
+            "expression": "[Entradas no Mês] - [Saídas no Mês]",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Ativos no Início do Mês",
+            "expression": "[Ativos no Fim do Mês] - [Saldo do Mês]",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Ativos Mês Anterior",
+            "expression": "CALCULATE ( [Ativos no Fim do Mês], DATEADD ( 'Calendário'[Data], -1, MONTH ) )",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Variação vs Mês Anterior",
+            "expression": "VAR atual = [Ativos no Fim do Mês]\nVAR anterior = [Ativos Mês Anterior]\nRETURN\n    IF ( NOT ISBLANK ( anterior ), atual - anterior )",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0"
+          },
+          {
+            "name": "% Variação vs Mês Anterior",
+            "expression": "DIVIDE ( [Variação vs Mês Anterior], [Ativos Mês Anterior] )",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Pico do Mês",
+            "expression": "MAXX ( VALUES ( 'Carregamento Mensal'[ChaveMes] ), [Projetos no Mês] )",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Horas Empenhadas no Mês",
+            "expression": "SUMX ( 'Carregamento Mensal', 'Carregamento Mensal'[Horas Mês] )",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0.0"
+          },
+          {
+            "name": "% Ocupação no Mês",
+            "expression": "DIVIDE ( [Horas Empenhadas no Mês], [Capacidade (h)] )",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Diferença Hoje vs Mês",
+            "expression": "[Projetos Ativos] - [Ativos no Fim do Mês]",
+            "displayFolder": "03 Evolução do Mês",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Narrativa do Mês",
+            "expression": "VAR ini = [Ativos no Início do Mês]\nVAR ent = [Entradas no Mês]\nVAR sai = [Saídas no Mês]\nVAR fim = [Ativos no Fim do Mês]\nVAR pessoa = IF ( HASONEVALUE ( Equipe[Nome] ), SELECTEDVALUE ( Equipe[Nome] ), \"O time\" )\nVAR mes = IF ( HASONEVALUE ( 'Calendário'[Ano-Mês] ), SELECTEDVALUE ( 'Calendário'[Ano-Mês] ), \"o período\" )\nRETURN\n    IF (\n        ISBLANK ( fim ),\n        \"Sem movimentação no período.\",\n        pessoa & \" começou \" & mes & \" com \" & FORMAT ( ini, \"0\" ) & \" projetos, \"\n            & \"recebeu \" & FORMAT ( ent, \"0\" ) & \" novo(s), encerrou \" & FORMAT ( sai, \"0\" )\n            & \" e terminou com \" & FORMAT ( fim, \"0\" ) & \" em carteira.\"\n    )",
+            "displayFolder": "03 Evolução do Mês"
+          },
+          {
+            "name": "Projetos no Funil",
+            "expression": "CALCULATE ( [Projetos], Mapeamento[Situação] IN { \"EM ANDAMENTO\", \"STAND BY\" } )",
+            "displayFolder": "04 Funil e Ciclo",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Dias Médios em NN",
+            "expression": "AVERAGEX ( Mapeamento, Mapeamento[Dias em NN] )",
+            "displayFolder": "04 Funil e Ciclo",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Dias Médios até 1ª Proposta",
+            "expression": "AVERAGEX (\n    FILTER (\n        Mapeamento,\n        NOT ISBLANK ( Mapeamento[Data de recebimento da primeira proposta comercial] )\n            && NOT ISBLANK ( Mapeamento[Data Início Efetiva] )\n    ),\n    DATEDIFF (\n        Mapeamento[Data Início Efetiva],\n        Mapeamento[Data de recebimento da primeira proposta comercial],\n        DAY\n    )\n)",
+            "displayFolder": "04 Funil e Ciclo",
+            "formatString": "#,0"
+          },
+          {
+            "name": "% da Etapa",
+            "expression": "DIVIDE ( [Projetos], CALCULATE ( [Projetos], REMOVEFILTERS ( 'Status NN' ) ) )",
+            "displayFolder": "04 Funil e Ciclo",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Taxa de Conversão até Contrato",
+            "expression": "DIVIDE (\n    CALCULATE ( [Projetos], 'Status NN'[Ordem] >= 8 ),\n    CALCULATE ( [Projetos], REMOVEFILTERS ( 'Status NN' ) )\n)",
+            "displayFolder": "04 Funil e Ciclo",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Cancelados + Stand by",
+            "expression": "CALCULATE ( [Projetos], Mapeamento[Situação] IN { \"ENCERRADO\", \"STAND BY\" } )",
+            "displayFolder": "05 Cancelamentos",
+            "formatString": "#,0"
+          },
+          {
+            "name": "% do Motivo",
+            "expression": "DIVIDE (\n    [Cancelados + Stand by],\n    CALCULATE ( [Cancelados + Stand by], REMOVEFILTERS ( 'Motivo Cancelamento' ) )\n)",
+            "displayFolder": "05 Cancelamentos",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Motivo nº 1",
+            "expression": "VAR t =\n    ADDCOLUMNS ( VALUES ( 'Motivo Cancelamento'[Motivo] ), \"@q\", [Cancelados + Stand by] )\nVAR topo =\n    TOPN ( 1, FILTER ( t, [@q] > 0 ), [@q], DESC )\nRETURN\n    CONCATENATEX ( topo, 'Motivo Cancelamento'[Motivo] )",
+            "displayFolder": "05 Cancelamentos"
+          },
+          {
+            "name": "Cancelados no Mês",
+            "expression": "CALCULATE ( [Projetos no Mês], 'Carregamento Mensal'[Saiu no Mês] = TRUE () )",
+            "displayFolder": "05 Cancelamentos",
+            "formatString": "#,0"
+          },
+          {
+            "name": "VPL Total",
+            "expression": "SUM ( Mapeamento[VPL (R$)] )",
+            "displayFolder": "06 Financeiro",
+            "formatString": "\"R$\" #,0"
+          },
+          {
+            "name": "VPL Médio",
+            "expression": "AVERAGE ( Mapeamento[VPL (R$)] )",
+            "displayFolder": "06 Financeiro",
+            "formatString": "\"R$\" #,0"
+          },
+          {
+            "name": "Peak Sales",
+            "expression": "SUM ( Mapeamento[Fat. Líq. (Peak Sales, R$)] )",
+            "displayFolder": "06 Financeiro",
+            "formatString": "\"R$\" #,0"
+          },
+          {
+            "name": "Faturamento 5 Anos",
+            "expression": "SUM ( Mapeamento[Fat. Líq. DRE (Ano1)] )\n    + SUM ( Mapeamento[Fat. Líq. DRE (Ano2)] )\n    + SUM ( Mapeamento[Fat. Líq. DRE (Ano3)] )\n    + SUM ( Mapeamento[Fat. Líq. DRE (Ano4)] )\n    + SUM ( Mapeamento[Fat. Líq. DRE (Ano5)] )",
+            "displayFolder": "06 Financeiro",
+            "formatString": "\"R$\" #,0"
+          },
+          {
+            "name": "Margem Bruta Média",
+            "expression": "AVERAGE ( Mapeamento[Margem Bruta (%)] )",
+            "displayFolder": "06 Financeiro",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Projetos com VPL",
+            "expression": "CALCULATE ( [Projetos], NOT ISBLANK ( Mapeamento[VPL (R$)] ) )",
+            "displayFolder": "06 Financeiro",
+            "formatString": "#,0"
+          },
+          {
+            "name": "% Cobertura Financeira",
+            "expression": "DIVIDE ( [Projetos com VPL], [Projetos no Funil] )",
+            "displayFolder": "06 Financeiro",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "VPL de Projetos Ativos",
+            "expression": "CALCULATE ( [VPL Total], Mapeamento[Situação] = \"EM ANDAMENTO\" )",
+            "displayFolder": "06 Financeiro",
+            "formatString": "\"R$\" #,0"
+          },
+          {
+            "name": "Valor em Risco (Stand by)",
+            "expression": "CALCULATE ( [VPL Total], Mapeamento[Situação] = \"STAND BY\" )",
+            "displayFolder": "06 Financeiro",
+            "formatString": "\"R$\" #,0"
+          },
+          {
+            "name": "Problemas",
+            "expression": "COUNTROWS ( 'Qualidade de Dados' )",
+            "displayFolder": "07 Qualidade da Base",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Problemas Graves",
+            "expression": "CALCULATE ( [Problemas], 'Qualidade de Dados'[Gravidade] = \"Alta\" )",
+            "displayFolder": "07 Qualidade da Base",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projetos com Problema",
+            "expression": "DISTINCTCOUNT ( 'Qualidade de Dados'[ProjetoID] )",
+            "displayFolder": "07 Qualidade da Base",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Índice de Qualidade",
+            "expression": "VAR pesoMax = [Projetos] * 11 * 3\nVAR pesoReal =\n    SUMX ( 'Qualidade de Dados', 'Qualidade de Dados'[Peso] )\nRETURN\n    1 - DIVIDE ( pesoReal, pesoMax )",
+            "displayFolder": "07 Qualidade da Base",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "% Projetos Sem Data de Fim",
+            "expression": "DIVIDE (\n    CALCULATE (\n        [Projetos],\n        Mapeamento[Situação] <> \"EM ANDAMENTO\",\n        ISBLANK ( Mapeamento[Data de Finalização do Projeto em NN] )\n    ),\n    CALCULATE ( [Projetos], Mapeamento[Situação] <> \"EM ANDAMENTO\" )\n)",
+            "displayFolder": "07 Qualidade da Base",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Solicitações",
+            "expression": "COUNTROWS ( 'Solicitações' )",
+            "displayFolder": "08 Solicitações Técnicas",
+            "formatString": "#,0"
+          },
+          {
+            "name": "SLA Médio (dias)",
+            "expression": "AVERAGE ( 'Solicitações'[Dias de Resposta] )",
+            "displayFolder": "08 Solicitações Técnicas",
+            "formatString": "#,0.0"
+          },
+          {
+            "name": "% no Prazo",
+            "expression": "DIVIDE (\n    CALCULATE ( [Solicitações], 'Solicitações'[Dentro do Prazo] = TRUE () ),\n    CALCULATE ( [Solicitações], NOT ISBLANK ( 'Solicitações'[Dentro do Prazo] ) )\n)",
+            "displayFolder": "08 Solicitações Técnicas",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "% Viável",
+            "expression": "DIVIDE (\n    CALCULATE ( [Solicitações], 'Solicitações'[Viabilidade Padrão] = \"Viável\" ),\n    CALCULATE ( [Solicitações], 'Solicitações'[Viabilidade Padrão] <> \"(Sem parecer)\" )\n)",
+            "displayFolder": "08 Solicitações Técnicas",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Solicitações em Aberto",
+            "expression": "CALCULATE ( [Solicitações], ISBLANK ( 'Solicitações'[Data Recebimento] ) )",
+            "displayFolder": "08 Solicitações Técnicas",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Atualizado em",
+            "expression": "\"Dados até \" & FORMAT ( TODAY (), \"dd/mm/yyyy\" )",
+            "displayFolder": "09 Auxiliares"
+          },
+          {
+            "name": "Título Ocupação",
+            "expression": "\"Capacidade: \" & FORMAT ( [Horas Empenhadas], \"#,0.0\" ) & \" h de \"\n    & FORMAT ( [Capacidade (h)], \"#,0\" ) & \" h  (\"\n    & FORMAT ( [% Ocupação], \"0.0%\" ) & \")\"",
+            "displayFolder": "09 Auxiliares"
+          },
+          {
+            "name": "Sem Seleção",
+            "expression": "IF ( ISBLANK ( [Projetos] ), \"Nenhum projeto atende aos filtros selecionados.\", BLANK () )",
+            "displayFolder": "09 Auxiliares"
+          },
+          {
+            "name": "Unidade Selecionada",
+            "expression": "SELECTEDVALUE ( 'Unidade de Negócio'[Unidade de Negócio], \"Todas as unidades\" )",
+            "displayFolder": "10 Report BU"
+          },
+          {
+            "name": "Período Selecionado",
+            "expression": "VAR anos = CONCATENATEX ( VALUES ( 'Calendário'[Ano] ), 'Calendário'[Ano], \", \", 'Calendário'[Ano] )\nRETURN\n    IF ( ISBLANK ( anos ), \"Todos os anos\", anos )",
+            "displayFolder": "10 Report BU"
+          },
+          {
+            "name": "Título Report BU",
+            "expression": "\"Novos Negócios | \" & [Unidade Selecionada] & \"  —  \" & [Período Selecionado]",
+            "displayFolder": "10 Report BU"
+          },
+          {
+            "name": "Projetos (Todas as Unidades)",
+            "expression": "CALCULATE (\n    [Projetos],\n    REMOVEFILTERS ( 'Unidade de Negócio' ),\n    REMOVEFILTERS ( Mapeamento[Coligada Padrão] )\n)",
+            "displayFolder": "10 Report BU",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Moléculas (Todas as Unidades)",
+            "expression": "CALCULATE (\n    [Moléculas],\n    REMOVEFILTERS ( 'Unidade de Negócio' ),\n    REMOVEFILTERS ( Mapeamento[Coligada Padrão] )\n)",
+            "displayFolder": "10 Report BU",
+            "formatString": "#,0"
+          },
+          {
+            "name": "% da Unidade no Total NN",
+            "expression": "DIVIDE ( [Moléculas], [Moléculas (Todas as Unidades)] )",
+            "displayFolder": "10 Report BU",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Moléculas Novas no Período",
+            "expression": "CALCULATE (\n    [Moléculas],\n    USERELATIONSHIP ( 'Calendário'[Data], Mapeamento[Data de Entrada] )\n)",
+            "displayFolder": "10 Report BU",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Moléculas Encerradas no Período",
+            "expression": "CALCULATE (\n    [Moléculas],\n    USERELATIONSHIP ( 'Calendário'[Data], Mapeamento[Data Fim Efetiva] )\n)",
+            "displayFolder": "10 Report BU",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Resumo da Unidade",
+            "expression": "VAR bu = [Unidade Selecionada]\nVAR part = [% da Unidade no Total NN]\nVAR ativas = [Projetos Ativos]\nVAR paradas = [Cancelados + Stand by]\nVAR motivo = [Motivo nº 1]\nRETURN\n    IF (\n        ISBLANK ( [Projetos] ),\n        \"Sem oportunidades para os filtros selecionados.\",\n        bu & \" representa \" & FORMAT ( part, \"0,0%\" ) & \" das moléculas avaliadas \"\n            & \"por Novos Negócios no período. \" & FORMAT ( ativas, \"0\" ) & \" em andamento e \"\n            & FORMAT ( paradas, \"0\" ) & \" canceladas ou em stand by — principal motivo: \"\n            & motivo & \".\"\n    )",
+            "displayFolder": "10 Report BU"
+          },
+          {
+            "name": "% das Moléculas",
+            "expression": "DIVIDE (\n    [Moléculas],\n    CALCULATE ( [Moléculas], REMOVEFILTERS ( 'Status NN' ) )\n)",
+            "displayFolder": "10 Report BU",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Projetos (Referência)",
+            "expression": "CALCULATE (\n    [Projetos],\n    REMOVEFILTERS ( 'Unidade de Negócio' ),\n    REMOVEFILTERS ( Mapeamento[Coligada Padrão] ),\n    TREATAS ( VALUES ( 'Unidade Referência'[Coligada Padrão] ), Mapeamento[Coligada Padrão] )\n)",
+            "displayFolder": "10 Report BU",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Moléculas (Referência)",
+            "expression": "CALCULATE (\n    [Moléculas],\n    REMOVEFILTERS ( 'Unidade de Negócio' ),\n    REMOVEFILTERS ( Mapeamento[Coligada Padrão] ),\n    TREATAS ( VALUES ( 'Unidade Referência'[Coligada Padrão] ), Mapeamento[Coligada Padrão] )\n)",
+            "displayFolder": "10 Report BU",
+            "formatString": "#,0"
+          },
+          {
+            "name": "% Moléculas (Referência)",
+            "expression": "DIVIDE (\n    [Moléculas (Referência)],\n    CALCULATE ( [Moléculas (Referência)], REMOVEFILTERS ( 'Unidade Referência' ) )\n)",
+            "displayFolder": "10 Report BU",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Faturamento Projetado",
+            "expression": "SUM ( 'Faturamento Projetado'[Valor] )",
+            "displayFolder": "06 Financeiro",
+            "formatString": "\"R$\" #,0"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "591877a3-c46e-4fe6-194d-3d96b3fb277f",
+        "fromTable": "Mapeamento",
+        "fromColumn": "Responsável Final",
+        "toTable": "Equipe",
+        "toColumn": "Pessoa"
+      },
+      {
+        "name": "f0ca038f-172f-386f-678d-d1c6ca55e8a0",
+        "fromTable": "Mapeamento",
+        "fromColumn": "Status NN",
+        "toTable": "Status NN",
+        "toColumn": "Status"
+      },
+      {
+        "name": "5639738d-ed47-f697-fe86-7bb8f5015994",
+        "fromTable": "Mapeamento",
+        "fromColumn": "Categoria Padrão",
+        "toTable": "Complexidade",
+        "toColumn": "Categoria Padrão"
+      },
+      {
+        "name": "5872a623-a8f6-2675-0bd4-7e4bbf3ab01e",
+        "fromTable": "Mapeamento",
+        "fromColumn": "Coligada Padrão",
+        "toTable": "Unidade de Negócio",
+        "toColumn": "Coligada Padrão"
+      },
+      {
+        "name": "1f8b5e81-d39e-d238-1d88-f1a17e9915f6",
+        "fromTable": "Mapeamento",
+        "fromColumn": "Motivo Padrão",
+        "toTable": "Motivo Cancelamento",
+        "toColumn": "Motivo Padrão"
+      },
+      {
+        "name": "88a2ca6b-73c2-e2ea-0094-223454a4eecc",
+        "fromTable": "Mapeamento",
+        "fromColumn": "País Fornecedor",
+        "toTable": "País",
+        "toColumn": "País"
+      },
+      {
+        "name": "7917a32e-16f5-cb51-7fb8-41405de72080",
+        "fromTable": "Carregamento Mensal",
+        "fromColumn": "ProjetoID",
+        "toTable": "Mapeamento",
+        "toColumn": "ProjetoID"
+      },
+      {
+        "name": "c9083cf6-d4c7-3ad1-9eae-668ab7da9344",
+        "fromTable": "Qualidade de Dados",
+        "fromColumn": "ProjetoID",
+        "toTable": "Mapeamento",
+        "toColumn": "ProjetoID"
+      },
+      {
+        "name": "35892b41-cbe9-0c3d-6833-bb6a9a1a5f65",
+        "fromTable": "Faturamento Projetado",
+        "fromColumn": "ProjetoID",
+        "toTable": "Mapeamento",
+        "toColumn": "ProjetoID"
+      },
+      {
+        "name": "dc7c4f11-eb5e-22c3-7e15-fc75c7cc7394",
+        "fromTable": "Carregamento Mensal",
+        "fromColumn": "Data Referência",
+        "toTable": "Calendário",
+        "toColumn": "Data"
+      },
+      {
+        "name": "528701dc-d09a-aa95-ce2e-c2b677014089",
+        "fromTable": "Mapeamento",
+        "fromColumn": "Data de Entrada",
+        "toTable": "Calendário",
+        "toColumn": "Data",
+        "isActive": false
+      },
+      {
+        "name": "ecdff225-6c2a-e421-74ba-f927e7c86cc4",
+        "fromTable": "Mapeamento",
+        "fromColumn": "Data Fim Efetiva",
+        "toTable": "Calendário",
+        "toColumn": "Data",
+        "isActive": false
+      },
+      {
+        "name": "af6a4fd3-d202-a4ba-0b4d-8ebfd0d4b6dc",
+        "fromTable": "Solicitações",
+        "fromColumn": "Data Solicitação",
+        "toTable": "Calendário",
+        "toColumn": "Data"
+      },
+      {
+        "name": "803ed72f-61cc-7d0e-1566-e8db01d80ba6",
+        "fromTable": "Solicitações",
+        "fromColumn": "Solicitante",
+        "toTable": "Equipe",
+        "toColumn": "Pessoa"
+      },
+      {
+        "name": "61af30cd-37ad-e898-70d2-27562de8af8c",
+        "fromTable": "Histórico Snapshots",
+        "fromColumn": "Data Snapshot",
+        "toTable": "Calendário",
+        "toColumn": "Data"
+      },
+      {
+        "name": "68a7c380-054f-c6a5-a640-778879348ebf",
+        "fromTable": "Histórico Snapshots",
+        "fromColumn": "Responsável Final",
+        "toTable": "Equipe",
+        "toColumn": "Pessoa"
+      }
+    ],
+    "expressions": [
+      {
+        "name": "pSiteSharePoint",
+        "kind": "m",
+        "expression": "\"https://emspocbi.sharepoint.com/sites/NOVOSNEGCIOS\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "queryGroup": "00 Parâmetros"
+      },
+      {
+        "name": "pBiblioteca",
+        "kind": "m",
+        "expression": "\"Documentos Compartilhados\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "queryGroup": "00 Parâmetros"
+      },
+      {
+        "name": "pPastaMapeamentos",
+        "kind": "m",
+        "expression": "\"DEMANDAS NN - ALIANÇA/DEMANDAS NN - ALIANÇAS\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "queryGroup": "00 Parâmetros"
+      },
+      {
+        "name": "pPastaHistorico",
+        "kind": "m",
+        "expression": "\"DEMANDAS NN - ALIANÇA/HISTORICO\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=false]",
+        "queryGroup": "00 Parâmetros"
+      },
+      {
+        "name": "pAbaMapeamento",
+        "kind": "m",
+        "expression": "\"Mapeamento NN\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "queryGroup": "00 Parâmetros"
+      },
+      {
+        "name": "pAbaSolicitacoes",
+        "kind": "m",
+        "expression": "\"Solicitações\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=false]",
+        "queryGroup": "00 Parâmetros"
+      },
+      {
+        "name": "pArquivoRegua",
+        "kind": "m",
+        "expression": "\"Regua_Esforco_NN.xlsx\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=false]",
+        "queryGroup": "00 Parâmetros"
+      },
+      {
+        "name": "pCapacidadeMensalHoras",
+        "kind": "m",
+        "expression": "168 meta [IsParameterQuery=true, Type=\"Number\", IsParameterQueryRequired=true]",
+        "queryGroup": "00 Parâmetros"
+      },
+      {
+        "name": "pAnoMinimo",
+        "kind": "m",
+        "expression": "2022 meta [IsParameterQuery=true, Type=\"Number\", IsParameterQueryRequired=false]",
+        "queryGroup": "00 Parâmetros"
+      },
+      {
+        "name": "pEstimarFimQuandoAusente",
+        "kind": "m",
+        "expression": "true meta [IsParameterQuery=true, Type=\"Logical\", IsParameterQueryRequired=false]",
+        "queryGroup": "00 Parâmetros"
+      },
+      {
+        "name": "fnUtil",
+        "kind": "m",
+        "expression": "// =====================================================================\n// fnUtil — funções utilitárias compartilhadas\n// Crie UMA consulta em branco chamada exatamente  fnUtil  e cole isto.\n// Uso: fnUtil[Data](valor) , fnUtil[Texto](valor) , etc.\n// =====================================================================\nlet\n    // ---- Limpeza de texto: remove NBSP, quebras de linha, espaços duplos ----\n    Texto = (v as any) as nullable text =>\n        let\n            t0 = if v = null then null else Text.From(v),\n            t1 = if t0 = null then null else\n                 Text.Replace(Text.Replace(Text.Replace(Text.Replace(t0,\n                     Character.FromNumber(160), \" \"), \"#(cr)\", \" \"), \"#(lf)\", \" \"), \"#(tab)\", \" \"),\n            t2 = if t1 = null then null else Text.Trim(t1),\n            t3 = if t2 = null then null else\n                 List.Accumulate({1..5}, t2, (s, _) => Text.Replace(s, \"  \", \" \")),\n            t4 = if t3 = null or t3 = \"\" then null else t3\n        in  t4,\n\n    // ---- Padroniza rótulos: MAIÚSCULA sem acento duplicado, para agrupar ----\n    Chave = (v as any) as nullable text =>\n        let t = Texto(v) in if t = null then null else Text.Upper(t),\n\n    // ---- Título: Primeira Letra Maiúscula (para exibição) ----\n    Titulo = (v as any) as nullable text =>\n        let t = Texto(v) in if t = null then null else Text.Proper(Text.Lower(t)),\n\n    // ---- Conversão de data à prova de bala -------------------------------\n    // Aceita: data real, datetime, número (serial Excel), texto dd/MM/yyyy,\n    // dd-MM-yyyy, dd.MM.yyyy, dd/MM.yyyy (erro de digitação real na base),\n    // yyyy-MM-dd. Descarta anos fora de 2000..2040 (lixo tipo 1913 e 5039).\n    Data = (v as any) as nullable date =>\n        let\n            bruto = if v = null then null else v,\n            porTipo =\n                if bruto = null then null\n                else if Value.Is(bruto, type date) then bruto\n                else if Value.Is(bruto, type datetime) then DateTime.Date(bruto)\n                else if Value.Is(bruto, type datetimezone) then DateTime.Date(DateTimeZone.RemoveZone(bruto))\n                else if Value.Is(bruto, type number) then\n                    (if bruto >= 36526 and bruto <= 51136   // 2000-01-01 .. 2040-01-01\n                     then Date.From(#date(1899,12,30) + #duration(Number.RoundDown(bruto),0,0,0))\n                     else null)\n                else null,\n            comoTexto = if porTipo <> null then null else Texto(bruto),\n            limpo = if comoTexto = null then null else\n                    Text.Replace(Text.Replace(comoTexto, \".\", \"/\"), \"-\", \"/\"),\n            partes = if limpo = null then null else\n                     List.Select(Text.Split(limpo, \"/\"), each Text.Trim(_) <> \"\"),\n            numeros = if partes = null then null else\n                      List.Transform(partes, each try Number.From(Text.Trim(Text.Start(_, 4))) otherwise null),\n            valido  = if numeros = null then false else\n                      (List.Count(numeros) >= 3 and not List.Contains(numeros, null)),\n            porTexto =\n                if not valido then null\n                else let\n                    a = numeros{0}, b = numeros{1}, c = numeros{2},\n                    // yyyy/MM/dd  ou  dd/MM/yyyy\n                    tentativa = if a > 31 then (try #date(a, b, c) otherwise null)\n                                          else (try #date(c, b, a) otherwise null)\n                in tentativa,\n            final = porTipo ?? porTexto,\n            saida = if final = null then null\n                    else if Date.Year(final) < 2000 or Date.Year(final) > 2040 then null\n                    else final\n        in  saida,\n\n    // ---- Número à prova de bala (aceita \"1.234,56\", \"R$ 297\", \"138.82\") ----\n    Numero = (v as any) as nullable number =>\n        let\n            porTipo = if v = null then null\n                      else if Value.Is(v, type number) then v\n                      else null,\n            txt = if porTipo <> null then null else Texto(v),\n            // mantém apenas dígitos, vírgula, ponto e sinal negativo\n            cru = if txt = null then null\n                  else Text.Select(txt, {\"0\"..\"9\", \",\", \".\", \"-\"}),\n            temVirgula = cru <> null and Text.Contains(cru, \",\"),\n            temPonto   = cru <> null and Text.Contains(cru, \".\"),\n            qtdPontos  = if cru = null then 0\n                         else List.Count(List.Select(Text.ToList(cru), each _ = \".\")),\n            // pt-BR \"1.234,56\"  -> ponto = milhar, vírgula = decimal\n            // \"1.234.567\"       -> pontos = milhar\n            // \"138.82\"          -> ponto = decimal\n            padronizado =\n                if cru = null then null\n                else if temVirgula and temPonto then Text.Replace(Text.Replace(cru, \".\", \"\"), \",\", \".\")\n                else if temVirgula then Text.Replace(cru, \",\", \".\")\n                else if qtdPontos > 1 then Text.Replace(cru, \".\", \"\")\n                else cru,\n            porTexto = if padronizado = null or padronizado = \"\" or padronizado = \"-\" then null\n                       else try Number.From(padronizado, \"en-US\") otherwise null\n        in  porTipo ?? porTexto,\n\n    // ---- Normaliza nomes de coluna (tira \\n, espaços duplos, trim) ------\n    NormalizaCabecalhos = (t as table) as table =>\n        let\n            nomes = Table.ColumnNames(t),\n            limpos = List.Transform(nomes, each Texto(_) ?? \"Coluna\"),\n            unicos = List.Accumulate(\n                List.Positions(limpos), {},\n                (acc, i) =>\n                    let n = limpos{i},\n                        n2 = if List.Contains(acc, n) then n & \"_\" & Text.From(i) else n\n                    in acc & {n2}),\n            renom = Table.RenameColumns(t, List.Zip({nomes, unicos}))\n        in  renom,\n\n    // ---- Garante que as colunas existam (cria como null se faltarem) ----\n    GaranteColunas = (t as table, cols as list) as table =>\n        let\n            faltantes = List.Difference(cols, Table.ColumnNames(t)),\n            completo = List.Accumulate(faltantes, t,\n                (s, c) => Table.AddColumn(s, c, each null))\n        in  completo,\n\n    // ---- Seleciona só as colunas desejadas, tolerando ausências ---------\n    SelecionaColunas = (t as table, cols as list) as table =>\n        Table.SelectColumns(GaranteColunas(t, cols), cols),\n\n    Saida = [\n        Texto = Texto, Chave = Chave, Titulo = Titulo,\n        Data = Data, Numero = Numero,\n        NormalizaCabecalhos = NormalizaCabecalhos,\n        GaranteColunas = GaranteColunas,\n        SelecionaColunas = SelecionaColunas\n    ]\nin\n    Saida",
+        "queryGroup": "01 Auxiliares"
+      },
+      {
+        "name": "Fonte_Arquivos",
+        "kind": "m",
+        "expression": "// =====================================================================\n// Fonte_Arquivos — navega no SharePoint e devolve a lista de planilhas\n// de mapeamento ativo. Uma linha por arquivo .xlsx da pasta.\n// =====================================================================\nlet\n    Origem = SharePoint.Contents(pSiteSharePoint, [ApiVersion = 15]),\n\n    // entra numa subpasta pelo nome, ignorando maiúsc./minúsc.\n    fnEntrar = (tbl as table, nome as text) as table =>\n        let\n            achado = Table.SelectRows(tbl, each\n                        Comparer.OrdinalIgnoreCase(Text.Trim([Name]), Text.Trim(nome)) = 0),\n            conteudo =\n                if Table.RowCount(achado) = 0\n                then error Error.Record(\"Pasta não encontrada\",\n                        \"Não existe a pasta/biblioteca '\" & nome & \"' neste nível do SharePoint.\",\n                        \"Níveis disponíveis: \" & Text.Combine(tbl[Name], \" | \"))\n                else achado{0}[Content]\n        in  conteudo,\n\n    Biblioteca = fnEntrar(Origem, pBiblioteca),\n\n    Partes = List.Select(\n                List.Transform(Text.Split(pPastaMapeamentos, \"/\"), Text.Trim),\n                each _ <> \"\"),\n\n    Pasta = List.Accumulate(Partes, Biblioteca, (estado, parte) => fnEntrar(estado, parte)),\n\n    SoArquivos = Table.SelectRows(Pasta, each\n        [Content] <> null\n        and Text.EndsWith(Text.Lower([Name]), \".xlsx\")\n        and not Text.StartsWith([Name], \"~$\")),\n\n    ComResponsavel = Table.AddColumn(SoArquivos, \"Arquivo\", each [Name], type text),\n\n    // Nome do responsável deduzido do arquivo (fallback caso a coluna venha vazia)\n    ComNomeArquivo = Table.AddColumn(ComResponsavel, \"Responsável (arquivo)\", each\n        let\n            semExt = Text.BeforeDelimiter([Name], \".\", {0, RelativePosition.FromEnd}),\n            semPrefixo = if Text.Contains(Text.Lower(semExt), \"mapeamento\")\n                         then Text.AfterDelimiter(semExt, \"_\")\n                         else semExt,\n            comEspaco = Text.Trim(Text.Replace(Text.Replace(semPrefixo, \"_\", \" \"), \"-\", \" \"))\n        in  if comEspaco = \"\" then semExt else Text.Upper(comEspaco), type text),\n\n    Final = Table.SelectColumns(ComNomeArquivo,\n                {\"Content\", \"Arquivo\", \"Responsável (arquivo)\", \"Date modified\"},\n                MissingField.UseNull)\nin\n    Final",
+        "queryGroup": "01 Auxiliares"
+      },
+      {
+        "name": "Fonte_Regua",
+        "kind": "m",
+        "expression": "// Fonte_Regua — abre o arquivo da régua de esforço (Regua_Esforco_NN.xlsx),\n// se ele existir na pasta dos mapeamentos. Se não existir, devolve null e o\n// modelo segue funcionando com a régua em branco.\n// Esta é a consulta que deixa o \"canal aberto\": o time preenche o Excel,\n// atualiza o Power BI, e as horas passam a aparecer. Sem mexer em código.\nlet\n    Tentativa = try\n        let\n            Origem = SharePoint.Contents(pSiteSharePoint, [ApiVersion = 15]),\n            fnEntrar = (tbl as table, nome as text) =>\n                Table.SelectRows(tbl, each\n                    Comparer.OrdinalIgnoreCase(Text.Trim([Name]), Text.Trim(nome)) = 0){0}[Content],\n            Biblioteca = fnEntrar(Origem, pBiblioteca),\n            Partes = List.Select(List.Transform(Text.Split(pPastaMapeamentos, \"/\"), Text.Trim), each _ <> \"\"),\n            Pasta = List.Accumulate(Partes, Biblioteca, (e, p) => fnEntrar(e, p)),\n            Arquivo = Table.SelectRows(Pasta, each\n                Comparer.OrdinalIgnoreCase(Text.Trim([Name]), Text.Trim(pArquivoRegua)) = 0),\n            Conteudo = if Table.RowCount(Arquivo) = 0 then null else Arquivo{0}[Content],\n            Livro = if Conteudo = null then null else Excel.Workbook(Conteudo, null, true)\n        in  Livro\n    otherwise null,\n\n    // lê uma aba do arquivo pelo nome; null se não existir\n    fnAba = (nome as text) as nullable table =>\n        if Tentativa = null then null\n        else let\n            a = Table.SelectRows(Tentativa, each [Kind] = \"Sheet\" and\n                    Comparer.OrdinalIgnoreCase(Text.Trim([Item]), nome) = 0)\n        in  if Table.RowCount(a) = 0 then null\n            else fnUtil[NormalizaCabecalhos](\n                    Table.PromoteHeaders(a{0}[Data], [PromoteAllScalars = true])),\n\n    Saida = [Livro = Tentativa, Aba = fnAba]\nin\n    Saida",
+        "queryGroup": "01 Auxiliares"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"pSiteSharePoint\", \"pBiblioteca\", \"pPastaMapeamentos\", \"pPastaHistorico\", \"pAbaMapeamento\", \"pAbaSolicitacoes\", \"pArquivoRegua\", \"pCapacidadeMensalHoras\", \"pAnoMinimo\", \"pEstimarFimQuandoAusente\", \"fnUtil\", \"Fonte_Arquivos\", \"Fonte_Regua\", \"Mapeamento\", \"Carregamento Mensal\", \"Calendário\", \"Status NN\", \"Complexidade\", \"Esforço\", \"Equipe\", \"Unidade de Negócio\", \"Motivo Cancelamento\", \"País\", \"Solicitações\", \"Qualidade de Dados\", \"Histórico Snapshots\", \"Faturamento Projetado\", \"Unidade Referência\", \"_Medidas\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "PBIDesktopVersion",
+        "value": "Gerado por script — Novos Negócios"
+      }
+    ]
+  }
+}

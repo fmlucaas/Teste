@@ -1,0 +1,82 @@
+// COLUNAS CALCULADAS — Modelagem > Nova coluna
+
+// ---------- Tabela: Mapeamento ----------
+
+Complexidade =
+COALESCE (
+    LOOKUPVALUE (
+        Complexidade[Complexidade],
+        Complexidade[Categoria Padrão], Mapeamento[Categoria Padrão]
+    ),
+    "MÉDIO"
+)
+
+Horas Mês =
+COALESCE (
+    LOOKUPVALUE (
+        'Esforço'[Horas Mês],
+        'Esforço'[Status], Mapeamento[Status NN],
+        'Esforço'[Complexidade], Mapeamento[Complexidade]
+    ),
+    0
+)
+// formato: #,0.0
+
+Faixa de Duração =
+VAR d = Mapeamento[Dias em NN]
+RETURN
+SWITCH (
+    TRUE (),
+    ISBLANK ( d ), "Sem data",
+    d <= 30,  "Até 1 mês",
+    d <= 90,  "1 a 3 meses",
+    d <= 180, "3 a 6 meses",
+    d <= 365, "6 a 12 meses",
+    d <= 730, "1 a 2 anos",
+              "Mais de 2 anos"
+)
+
+Alerta =
+VAR ultima = Mapeamento[Última Data Registrada]
+VAR diasParado = IF ( ISBLANK ( ultima ), BLANK (), DATEDIFF ( ultima, TODAY (), DAY ) )
+RETURN
+SWITCH (
+    TRUE (),
+    Mapeamento[Situação] <> "EM ANDAMENTO", "⚪ Não ativo",
+    ISBLANK ( diasParado ),                 "⚫ Sem data",
+    diasParado <= 30,                       "🟢 Em dia",
+    diasParado <= 90,                       "🟡 Atenção",
+                                            "🔴 Parado"
+)
+
+// ---------- Tabela: Carregamento Mensal ----------
+
+Complexidade =
+COALESCE (
+    LOOKUPVALUE (
+        Complexidade[Complexidade],
+        Complexidade[Categoria Padrão], 'Carregamento Mensal'[Categoria Padrão]
+    ),
+    "MÉDIO"
+)
+
+Horas Mês =
+COALESCE (
+    LOOKUPVALUE (
+        'Esforço'[Horas Mês],
+        'Esforço'[Status], 'Carregamento Mensal'[Status no Mês],
+        'Esforço'[Complexidade], 'Carregamento Mensal'[Complexidade]
+    ),
+    0
+)
+// formato: #,0.0
+
+Ordem Status Mês =
+COALESCE (
+    LOOKUPVALUE (
+        'Status NN'[Ordem],
+        'Status NN'[Status], 'Carregamento Mensal'[Status no Mês]
+    ),
+    99
+)
+// formato: 0
