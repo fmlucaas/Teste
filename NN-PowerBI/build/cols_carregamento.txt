@@ -1,0 +1,22 @@
+Ano
+Ano-Mês
+Arquivo
+Ativo no Fim do Mês
+Categoria Padrão
+Complexidade
+Data Referência
+Entrou no Mês
+Fim Estimado
+Fornecedor / Parceiro
+Franquia
+Gerência
+Molécula
+Motivo
+Mês
+Ordem Status Mês
+ProjetoID
+Responsável
+Saiu no Mês
+Situação
+Status no Mês
+Unidade de Negócio

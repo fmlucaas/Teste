@@ -1,0 +1,67 @@
+Alerta
+Ano de Entrada
+Arquivo
+CDA Status
+Categoria
+Categoria Padrão
+Coligada
+Complexidade
+Concentração
+Código CI
+DATA - Conclusão avaliação marketing
+DATA - Conclusão avaliação técnica Inicial
+DATA - Inicio Negociações com parceiro
+DATA - Inicio avaliação marketing
+DATA - Inicio avaliação técnica inicial
+Data Conclusão Prospecção
+Data Fim
+Data Inicio Processo de CDA
+Data Início
+Data Início Prospecção
+Data de Concl. CDA
+Data de Entrada
+Data de Finalização do Projeto em NN
+Data de Início Summary
+Data de Início do Projeto
+Data de recebimento da primeira proposta comercial
+Data inicio elaboração Term Sheet
+Detalhamento do cancelamento
+Dias Parado
+Dias em NN
+Entrada
+Fase Oportunidade NN
+Fat. Líq. (Peak Sales, R$)
+Fat. Líq. DRE (Ano1)
+Fat. Líq. DRE (Ano2)
+Fat. Líq. DRE (Ano3)
+Fat. Líq. DRE (Ano4)
+Fat. Líq. DRE (Ano5)
+Fim Estimado
+Forma Farmacêutica
+Fornecedor / Parceiro
+Franquia
+Gerência
+Indicação
+Início discussão contratual
+Marca do Referência BR
+Margem Bruta (%)
+Moeda
+Molécula
+Motivo
+Motivo Cancelamento Projeto
+Mês de Entrada
+Ordem Status
+Origem
+País Fornecedor
+Projeto em andamento?
+ProjetoID
+Responsável
+Situação
+Status NN
+Status de projeto (NN)
+Status interno
+Unidade de Negócio
+VPL (R$)
+Área Terapêutica
+Área Terapêutica (detalhe)
+Última Data

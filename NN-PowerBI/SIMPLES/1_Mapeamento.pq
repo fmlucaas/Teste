@@ -283,7 +283,16 @@ let
         else if [Dias Parado] <= 30 then "1. Em dia"
         else if [Dias Parado] <= 90 then "2. Atenção" else "3. Parado", type text),
 
-    ComIndice = Table.AddIndexColumn(D7, "Seq", 1, 1, Int64.Type),
+    // ano e mês da entrada, prontos para usar em filtros e gráficos
+    // (assim não é preciso criar uma terceira ligação com o Calendário)
+    D8 = Table.AddColumn(D7, "Ano de Entrada", each
+        if [Data de Entrada] = null then null else Date.Year([Data de Entrada]), Int64.Type),
+    D9 = Table.AddColumn(D8, "Mês de Entrada", each
+        if [Data de Entrada] = null then null
+        else Text.From(Date.Year([Data de Entrada])) & "-"
+             & Text.PadStart(Text.From(Date.Month([Data de Entrada])), 2, "0"), type text),
+
+    ComIndice = Table.AddIndexColumn(D9, "Seq", 1, 1, Int64.Type),
     ComID = Table.AddColumn(ComIndice, "ProjetoID", each [Arquivo] & "#" & Text.From([Seq]), type text),
     Final = Table.RemoveColumns(ComID, {"Seq"})
 in
