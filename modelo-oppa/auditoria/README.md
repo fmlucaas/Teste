@@ -68,3 +68,18 @@ A única diferença intencional em todo o motor foi o TOTAL da alíquota efetiva
 que antes mostrava 0,00% por causa de offset numérico residual e agora mostra
 16,53% no cenário Provável — o mesmo número que a aba Análise Fluxo já calculava
 por outro caminho.
+
+## p8.py — a aba Preço
+
+Onze testes. Os dois que mais importam fazem a conta ao contrário: a aba diz
+quanto a nuvem por assinante pode custar para um preço fechar, o teste põe esse
+valor em Premissas e confere que a sobra dá exatamente zero (e que, no valor com
+margem, a margem sai exatamente a desejada). Se a aritmética da aba estivesse
+errada, esses dois não fechariam.
+
+Um teste nasceu errado: *"mudar o preço em Premissas não muda o preço
+necessário"*. Muda — e deve mudar. A aba traduz a ARPPU necessária em preço do
+Essencial pela **razão** entre os três planos, e mexer no preço de um plano
+redefine essa razão. O invariante certo é a ARPPU, que vem do custo. O teste
+passou a verificar isso, e que `Essencial necessário × fator do mix = ARPPU
+necessária`.
