@@ -3,6 +3,7 @@
 from openpyxl.styles import Alignment
 from common import *
 from engine import O
+from ajuste import ov
 
 TEMPO, LIDX, LANO, LIDXA = 4, 5, 6, 7
 
@@ -21,7 +22,14 @@ def mk_sel(P, BLOCOS):
         partes = ",".join(yr(f"{prefixo}_{s}", L, ano_row) for s in (1, 2, 3))
         return f'CHOOSE(Premissas!$B${P["cenario"]},{partes})'
 
-    return sel, yr, yr_cen
+    def ov_cen(prefixo, L):
+        """Como yr_cen, mas respeitando o override mensal de cada cenario.
+        Precisa existir porque estas abas recalculam o driver em vez de ler o
+        motor — se uma esquecer o override, a linha de reconciliacao acusa."""
+        partes = ",".join(ov(f"{prefixo}_{s}", L, yr(f"{prefixo}_{s}", L)) for s in (1, 2, 3))
+        return f'CHOOSE(Premissas!$B${P["cenario"]},{partes})'
+
+    return sel, yr, yr_cen, ov_cen
 
 
 def _sub(ws, r):
@@ -34,7 +42,7 @@ def _sub(ws, r):
 # =====================================================================
 def build_usuarios(wb, P, BLOCOS, PE):
     ws = wb.create_sheet("Usuários")
-    sel, yr, yr_cen = mk_sel(P, BLOCOS)
+    sel, yr, yr_cen, ov_cen = mk_sel(P, BLOCOS)
     titulo(ws, "USUÁRIOS E INDICADORES DE UNIDADE",
            "Funil de usuários e métricas de unidade do cenário selecionado em Premissas.")
     largura_padrao(ws, col_a=46)
@@ -87,7 +95,7 @@ def build_usuarios(wb, P, BLOCOS, PE):
     secao(ws, r, "INDICADORES DE UNIDADE", COL_PCT); r += 1
     rotulo(ws, r, "Investimento em mídia de aquisição", 1)
     preencher_linha(ws, r, lambda i, L:
-        f'={L}{U["novos"]}*(1-{yr("organico", L)})*{yr_cen("cac", L)}', BRL)
+        f'={L}{U["novos"]}*(1-{yr("organico", L)})*{ov_cen("cac", L)}', BRL)
     U["midia"] = r; r += 1
     rotulo(ws, r, "CAC — custo por usuário adquirido", 1)
     preencher_linha(ws, r, lambda i, L: f'=IFERROR({L}{U["midia"]}/{L}{U["novos"]},0)',
@@ -117,7 +125,7 @@ def build_usuarios(wb, P, BLOCOS, PE):
     U["mc"] = r; r += 1
     rotulo(ws, r, "LTV — valor do assinante ao longo da vida", 1, bold=True)
     preencher_linha(ws, r, lambda i, L:
-        f'=IFERROR({L}{U["mc"]}/{yr_cen("churn", L)},0)', BRL2, bold=True, total=False)
+        f'=IFERROR({L}{U["mc"]}/{ov_cen("churn", L)},0)', BRL2, bold=True, total=False)
     nota(ws, f"{L_PCT}{r}", "Margem de contribuição ÷ churn mensal.")
     U["ltv"] = r; r += 1
     rotulo(ws, r, "LTV ÷ CAC por pagante", 1, bold=True)
@@ -154,7 +162,7 @@ def build_usuarios(wb, P, BLOCOS, PE):
 # =====================================================================
 def build_faturamento(wb, P, BLOCOS):
     ws = wb.create_sheet("Faturamento")
-    sel, yr, yr_cen = mk_sel(P, BLOCOS)
+    sel, yr, yr_cen, ov_cen = mk_sel(P, BLOCOS)
     titulo(ws, "FATURAMENTO PROJETADO",
            "Receita por linha de negócio e deduções, no cenário selecionado.")
     largura_padrao(ws, col_a=46)
@@ -238,7 +246,7 @@ def build_faturamento(wb, P, BLOCOS):
 # =====================================================================
 def build_fluxo(wb, P, A, I, BLOCOS, PE):
     ws = wb.create_sheet("Análise Fluxo")
-    sel, yr, yr_cen = mk_sel(P, BLOCOS)
+    sel, yr, yr_cen, ov_cen = mk_sel(P, BLOCOS)
     titulo(ws, "ANÁLISE DE FLUXO DE CAIXA E VIABILIDADE",
            "Estrutura herdada da planilha de Análise de Investimento: Projeto (investimentos) → "
            "Operacionais → Fluxo Líquido → VPL / TIR / Payback.")
@@ -281,9 +289,10 @@ def build_fluxo(wb, P, A, I, BLOCOS, PE):
         ("Equipe CLT (salários e encargos)",     lambda i, L: f'=-Pessoas!{L}{PE["clt"]}',          "clt"),
         ("Pró-labore dos sócios",                lambda i, L: f'=-Pessoas!{L}{PE["socio"]}',        "prolab"),
         ("Marketing de performance (aquisição)",
-         lambda i, L: f'=-{sel(O.novos, L)}*(1-{yr("organico", L)})*{yr_cen("cac", L)}',                 "mkt_perf"),
+         lambda i, L: f'=-{sel(O.novos, L)}*(1-{yr("organico", L)})*{ov_cen("cac", L)}',                 "mkt_perf"),
         ("Marketing recorrente (agência e conteúdo)",
-         lambda i, L: f'=-IF({L}${TEMPO}>=Premissas!$B${P["mkt_ini"]},{yr("mkt_rec", L)},0)',      "mkt_rec"),
+         lambda i, L: (f'=-IF({L}${TEMPO}>=Premissas!$B${P["mkt_ini"]},'
+                       f'{ov("mkt_rec", L, yr("mkt_rec", L))},0)'),                                "mkt_rec"),
         ("Propaganda de lançamento",
          lambda i, L: (f'=-IF({L}${TEMPO}=DATE(YEAR(Premissas!$B${P["mkt_lanc_mes"]}),'
                        f'MONTH(Premissas!$B${P["mkt_lanc_mes"]}),1),Premissas!$B${P["mkt_lanc"]},0)'),
@@ -292,7 +301,8 @@ def build_fluxo(wb, P, A, I, BLOCOS, PE):
         ("Taxas de meios de pagamento",         lambda i, L: f'={sel(O.pgto, L)}',                     "pgto"),
         ("Impostos sobre a receita",            lambda i, L: f'={sel(O.impostos, L)}',                     "imp"),
         ("Despesas administrativas",
-         lambda i, L: f'=-IF({L}${TEMPO}>=Premissas!$B${P["adm_ini"]},{yr("admin", L)},0)',        "adm"),
+         lambda i, L: (f'=-IF({L}${TEMPO}>=Premissas!$B${P["adm_ini"]},'
+                       f'{ov("admin", L, yr("admin", L))},0)'),                                    "adm"),
     ]
     for lbl, fn, key in ops:
         rotulo(ws, r, lbl, 1)
@@ -437,10 +447,12 @@ def build_fluxo(wb, P, A, I, BLOCOS, PE):
 # =====================================================================
 def build_dre(wb, P, I, BLOCOS, FL):
     ws = wb.create_sheet("DRE Projetada")
-    sel, yr, yr_cen = mk_sel(P, BLOCOS)
-    titulo(ws, "DRE PROJETADA — DEMONSTRAÇÃO DO RESULTADO DO EXERCÍCIO",
-           "Regime de competência. Investimentos NÃO aparecem como despesa: entram como depreciação "
-           "e amortização em 60 meses. Por isso o EBITDA aqui difere do fluxo de caixa livre.")
+    sel, yr, yr_cen, ov_cen = mk_sel(P, BLOCOS)
+    titulo(ws, "DRE PROJETADA MENSAL — DEMONSTRAÇÃO DO RESULTADO DO EXERCÍCIO",
+           "Uma coluna por mês, de jan/2026 a dez/2030 (colunas B a BI) — a consolidação anual "
+           "fica no rodapé, depois do detalhe mensal. Regime de competência. Investimentos NÃO "
+           "aparecem como despesa: entram como depreciação e amortização em 60 meses. Por isso o "
+           "EBITDA aqui difere do fluxo de caixa livre.")
     largura_padrao(ws, col_a=48)
     cabecalho_tempo(ws, linha_data=TEMPO, congelar="B9", anos_row=P["anos"])
     ws["A2"] = '=" Cenário ativo: "&Premissas!B' + str(P["cenario_nome"])
@@ -558,7 +570,7 @@ def build_dre(wb, P, I, BLOCOS, FL):
     D["ll_ac"] = r; r += 2
 
     # ---------------- DRE ANUAL -----------------------------------------
-    secao(ws, r, "DRE ANUAL CONSOLIDADA", COL_PCT); r += 1
+    secao(ws, r, "DRE ANUAL CONSOLIDADA — a mesma DRE acima, somada por ano", COL_PCT); r += 1
     hdr = r
     ws.cell(r, 1, "Demonstração do Resultado").font = f(10, True, BRANCO)
     ws.cell(r, 1).fill = FILL_HEADER

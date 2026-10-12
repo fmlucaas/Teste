@@ -335,14 +335,16 @@ def build_aportes(wb, P):
         ("CAPITAL TOTAL CONSIDERADO NO MODELO",
          f'=C{A["total_lanc"]}+C{A["total_est"]}', True),
     ]
-    for lbl, fx, bold in linhas_res:
+    # a aba Necessidade de Capital le estas linhas por nome, nao por posicao
+    chaves_res = ["res_real", "res_comp", "res_prev", "res_negoc", "res_estr", "capital_total"]
+    for (lbl, fx, bold), chave in zip(linhas_res, chaves_res):
         ws.cell(r, 2, lbl).font = f(10 if bold else 9, bold)
         c = ws.cell(r, 3, fx)
         c.number_format = BRL; c.font = f(10 if bold else 9, True)
         if bold:
             c.fill = FILL_TOTAL
+        A[chave] = r
         r += 1
-    A["capital_total"] = r - 1
     nota(ws, f"E{A['capital_total']}",
          "Os controles que ligam e desligam 'Previsto' e 'Em negociação' estão na aba Premissas, seção 7.")
     r += 2
@@ -373,6 +375,8 @@ def build_aportes(wb, P):
             cc.border = BORDA_FINA
             cc.alignment = Alignment(horizontal="center" if j > 1 else "left", indent=1)
         r += 1
+    A["fund_ini"] = A["meta"]
+    A["fund_fim"] = r - 1
     nota(ws, f"H{A['meta']}", "Paulo Kapp já integralizou os R$ 20.000. Os demais têm saldo a aportar.")
     r += 2
 

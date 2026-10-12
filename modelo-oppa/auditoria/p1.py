@@ -26,6 +26,15 @@ for ws in F.worksheets:
                 if alvo not in F.sheetnames:
                     continue
                 col, lin = m.group(3), int(m.group(4))
+                # A aba Ajuste Mensal e feita para ficar vazia: celula em branco
+                # significa "usa a premissa anual". Referenciar vazio ali e o
+                # desenho, nao defeito — a formula tem de ser IF(cel="";...).
+                if alvo == "Ajuste Mensal":
+                    if '="")' not in c.value and '=""' not in c.value:
+                        flag("ALTA", ws.title, c.coordinate,
+                             f'referencia {alvo}!{col}{lin} sem tratar o caso vazio '
+                             f'(falta o IF(...="") em volta)')
+                    continue
                 tgt = F[alvo][f"{col}{lin}"]
                 if tgt.value is None:
                     flag("ALTA", ws.title, c.coordinate,

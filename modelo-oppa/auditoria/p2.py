@@ -11,6 +11,7 @@ from openpyxl.utils import get_column_letter as gcl
 ARQ = sys.argv[1]
 V = openpyxl.load_workbook(ARQ, data_only=True)
 P, CE, PE, IN, AP, TR = V["Premissas"], V["Cenários"], V["Pessoas"], V["Investimentos"], V["Aportes"], V["Tributos"]
+AJ = V["Ajuste Mensal"]
 N = 60
 
 def lin(ws, txt, col=1, exato=False):
@@ -93,6 +94,8 @@ regime   = b(P, "Regime  (1 = Simples")
 lp       = b(P, "Alíquota Lucro Presumido")
 teto     = b(P, "Teto do Simples Nacional")
 lancto   = b(P, "Data de lançamento (calculada)")
+prem_ini = b(P, "Mês de entrada do plano Premium")
+fam_ini  = b(P, "Mês de entrada do plano Família")
 consent  = anos(P, "% da base que consente")
 painel_min   = b(P, "Base mínima do painel")
 custo_painel = b(P, "Custo de processamento do painel")
@@ -122,6 +125,46 @@ def b2b_receita(d, categoria, painel):
     return fixo + pu * painel
 
 def mes_data(i): return dt.datetime(ano_de(i), (i - 1) % 12 + 1, 1)
+
+# ------------------------------------------------- overrides mensais
+# A aba Ajuste Mensal sobrepoe o driver anual em um mes especifico. Em branco,
+# nao faz nada. Lido aqui pelos ROTULOS, dentro do bloco do cenario testado.
+_ROT_AJ = {"Novos usuários captados no mês": "novos",
+           "Churn mensal da base": "churn",
+           "Taxa de conversão — patamar": "conv",
+           "CAC — custo por usuário captado": "cac",
+           "Nuvem — custo fixo mensal": "cloud_fixo",
+           "Marketing recorrente": "mkt_rec",
+           "Despesas administrativas": "admin"}
+
+def _le_overrides(cen_alvo):
+    """Devolve {driver: {mes: valor}} com as celulas efetivamente preenchidas."""
+    out = {v: {} for v in _ROT_AJ.values()}
+    bloco_atual = None
+    for r in range(1, AJ.max_row + 1):
+        rot = AJ.cell(r, 1).value
+        if not isinstance(rot, str):
+            continue
+        rot = rot.strip()
+        if rot.startswith("CENÁRIO "):
+            bloco_atual = int(rot.split()[1]); continue
+        if rot.startswith("CUSTOS"):
+            bloco_atual = 0; continue        # 0 = vale para os tres
+        if rot.startswith("CONFERÊNCIA"):
+            bloco_atual = None; continue     # dali para baixo sao linhas de checagem
+        chave = next((v for k, v in _ROT_AJ.items() if rot.startswith(k)), None)
+        if chave is None:
+            continue
+        # drivers de cenario so contam no bloco do cenario testado
+        if chave in ("novos", "churn", "conv", "cac") and bloco_atual != cen_alvo:
+            continue
+        if chave in ("cloud_fixo", "mkt_rec", "admin") and bloco_atual != 0:
+            continue
+        for i in range(1, N + 1):
+            v = AJ.cell(r, 1 + i).value
+            if isinstance(v, (int, float)):
+                out[chave][i] = v
+    return out
 
 # ---------------------------------------------------------------- tributos
 a3 = lin(TR, "ANEXO III"); a5 = lin(TR, "ANEXO V")
@@ -201,20 +244,29 @@ def b2b(i):
     return tot
 
 # ---------------------------------------------------------------- modelo
+OV = _le_overrides(CEN_TESTE)
+_n_ov = sum(len(v) for v in OV.values())
+print(f"overrides mensais lidos (cenário {CEN_TESTE}): {_n_ov} célula(s)")
 res = {k: [0.0]*(N+1) for k in
-       ["novos","base","pag","painel","rec_ass","rec_mp","rec_b2b","rec_dados","rec_outras",
+       ["novos","base","pag","pag_ess","pag_pre","pag_fam",
+        "painel","rec_ass","rec_mp","rec_b2b","rec_dados","rec_outras",
         "bruta","rbt12","aliq","imp",
         "loja","pgto","liq","nuvem","sup","pes","mkt","adm","ebitda","capex","fcl",
         "fcld","fcld_ac","fcl_ac","aporte","caixa"]}
 base_ant = 0.0
 for i in range(1, N+1):
     a, d = idx(i), mes_data(i)
-    nv = 0 if d < lancto else novos[a]
-    ch = base_ant * churn[a]
+    nv = 0 if d < lancto else OV["novos"].get(i, novos[a])
+    ch = base_ant * OV["churn"].get(i, churn[a])
     base = base_ant - ch + nv
-    cv = 0 if d < lancto else conv[a] * min(1, max(0, (i - lanc_idx + 1) / rampa))
+    cv = (0 if d < lancto else
+          OV["conv"].get(i, conv[a]) * min(1, max(0, (i - lanc_idx + 1) / rampa)))
     pag = xlround(base * cv)
-    pe_ = xlround(pag * mix_e[a]); pp = xlround(pag * mix_p[a]); pf = pag - pe_ - pp
+    # Entrada faseada: Premium e Familia so existem a partir da data de entrada;
+    # o Essencial e o residuo, e por isso carrega a sobra do arredondamento.
+    pp = xlround(pag * mix_p[a]) * (1 if d >= prem_ini else 0)
+    pf = xlround(pag * mix_f[a]) * (1 if d >= fam_ini else 0)
+    pe_ = pag - pp - pf
     infl = (1 + reaj) ** a
     ass = (pe_*p_ess + pp*p_pre + pf*p_fam) * infl
     mp  = base * att_mp[a] * tick_mp * com_mp
@@ -225,6 +277,7 @@ for i in range(1, N+1):
     ro  = b2b_receita(d, "Outras", pn)
     bruta = ass + mp + bb + rd + ro
     res["novos"][i], res["base"][i], res["pag"][i] = nv, base, pag
+    res["pag_ess"][i], res["pag_pre"][i], res["pag_fam"][i] = pe_, pp, pf
     res["painel"][i] = pn
     res["rec_dados"][i], res["rec_outras"][i] = rd, ro
     res["rec_ass"][i], res["rec_mp"][i], res["rec_b2b"][i], res["bruta"][i] = ass, mp, bb, bruta
@@ -237,12 +290,13 @@ for i in range(1, N+1):
     pgto = -(ass*(1-sh_loja[a]) + mp)*tx_pgto
     liq  = bruta + imp + loja + pgto
     nuv  = -(pag*cl_pag[a] + (base-pag)*cl_free[a] + pn*custo_painel
-             + (cl_fix[a] if d >= cloud_ini else 0))
+             + (OV["cloud_fixo"].get(i, cl_fix[a]) if d >= cloud_ini else 0))
     sup  = -pag*sup_var[a]
     pes  = -pessoal(i, "Despesa")
-    mkt  = -(nv*(1-organ[a])*cac[a] + (mkt_rec[a] if d >= mkt_ini else 0)
+    mkt  = -(nv*(1-organ[a])*OV["cac"].get(i, cac[a])
+             + (OV["mkt_rec"].get(i, mkt_rec[a]) if d >= mkt_ini else 0)
              + (mkt_lanc if d == dt.datetime(mkt_lmes.year, mkt_lmes.month, 1) else 0))
-    adm  = -(admin[a] if d >= adm_ini else 0)
+    adm  = -(OV["admin"].get(i, admin[a]) if d >= adm_ini else 0)
     eb   = liq + nuv + sup + pes + mkt + adm
     cpx  = -capex(i)
     fcl  = eb + cpx
@@ -263,6 +317,9 @@ ROTULOS = [
     ("novos",      "Novos usuários captados"),
     ("base",       "Base de usuários — fim do mês"),
     ("pag",        "Usuários pagantes"),
+    ("pag_ess",    "Pagantes — Plano Essencial"),
+    ("pag_pre",    "Pagantes — Plano Premium"),
+    ("pag_fam",    "Pagantes — Plano Família"),
     ("painel",     "Usuários no painel de dados"),
     ("rec_ass",    "Receita de assinaturas"),
     ("rec_mp",     "Receita de marketplace"),

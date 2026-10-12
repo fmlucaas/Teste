@@ -38,3 +38,33 @@ bloco desloca todos os offsets seguintes, e o auditor passa a comparar a linha
 errada em silêncio — aconteceu três vezes. Todos os scripts agora localizam a
 linha pelo rótulo em coluna A dentro do bloco. O gerador faz o mesmo, via o
 objeto `O` de `engine.py`.
+
+## p7.py — comportamento das inclusões de outubro
+
+Vinte testes sobre a entrada faseada dos planos, o override mensal, a aba
+Necessidade de Capital e a aba Preço Mínimo. Cada um muda **uma** célula,
+recalcula a planilha inteira no LibreOffice e confere o efeito — inclusive onde
+o efeito tem de ser **nenhum**.
+
+Dois testes nasceram errados e foram corrigidos depois de a planilha provar o
+contrário. Vale registrar, porque a planilha estava certa nos dois casos:
+
+- *"Antecipar um aporte previsto reduz a lacuna"* — não reduz. O pico da lacuna
+  é em abr/2027 e os aportes previstos já chegavam antes disso; o caixa acumulado
+  no mês do pico é o mesmo. O que aumenta a lacuna é **atrasar**, e é isso que o
+  teste passou a verificar.
+- *"Mais capital adia o mês em que o caixa fica negativo"* — não adia, se o
+  capital chega depois. O aporte da C-ioT entra em out/2026 e o caixa já fica
+  negativo em jun/2026, por desencontro entre o calendário do CAPEX e o dos
+  aportes. O teste passou a verificar exatamente isso.
+
+## Prova de neutralidade
+
+Antes de aceitar o override mensal, o arquivo novo com todas as células de
+Ajuste Mensal vazias foi comparado contra o anterior: 18 linhas do motor que não
+podiam mudar × 3 cenários × 60 meses = **3.240 células, zero divergência**.
+
+A única diferença intencional em todo o motor foi o TOTAL da alíquota efetiva,
+que antes mostrava 0,00% por causa de offset numérico residual e agora mostra
+16,53% no cenário Provável — o mesmo número que a aba Análise Fluxo já calculava
+por outro caminho.

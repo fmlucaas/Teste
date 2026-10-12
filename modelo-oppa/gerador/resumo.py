@@ -10,7 +10,7 @@ NOMES = ["CONSERVADOR", "PROVÁVEL", "AGRESSIVO"]
 CORES = ["C00000", "1F3864", "1F7040"]
 
 
-def build(wb, P, A, I, BLOCOS, FL, U):
+def build(wb, P, A, I, BLOCOS, FL, U, CAPR, W, SPR):
     ws = wb.create_sheet("Resumo")
     titulo(ws, "OPPA — VIABILIDADE FINANCEIRA · PAINEL EXECUTIVO",
            "Projeção de 60 meses (jan/2026 – dez/2030). Os três cenários são calculados "
@@ -135,6 +135,52 @@ def build(wb, P, A, I, BLOCOS, FL, U):
               f"'Cenários'!$B${BLOCOS[k]+O.caixa}:${L_FIM}${BLOCOS[k]+O.caixa},0)-1)/12))"),
           obs="Quando o caixa chega no fundo do poço — é o mês para o qual o aporte precisa chegar antes.")
     linha("Caixa em dez/2030", O.caixa, "last", BRL, "caixa_fim")
+    # As colunas de cenario na aba Necessidade de Capital sao B, C, D; aqui sao C, D, E.
+    CAPCOL = ["B", "C", "D"]
+    linha("FALTA CAPTAR — respeitando as datas de entrada", 0, "custom", BRL, "falta_cap",
+          custom=lambda k, col: f"='Necessidade de Capital'!{CAPCOL[k]}{CAPR['falta_real']}",
+          bold=True,
+          obs="Inclui a reserva mínima de caixa. Detalhe mês a mês na aba Necessidade de Capital.")
+    linha("Primeiro mês com caixa negativo", 0, "custom", TXT, "mes_neg",
+          custom=lambda k, col: f"='Necessidade de Capital'!{CAPCOL[k]}{CAPR['primeiro_mes']}",
+          obs="O prazo da captação. Pode ser bem antes do mês do fundo do poço.")
+    linha("Por fundador, se os quatro cobrissem a lacuna", 0, "custom", BRL, "por_fund",
+          custom=lambda k, col: f"='Necessidade de Capital'!{CAPCOL[k]}{CAPR['por_fund']}",
+          obs="Além dos R$ 20 mil já comprometidos por cada um.")
+    r += 1
+
+    # ---------------- PREÇO vs CUSTO --------------------------------------
+    bloco("PREÇO vs CUSTO — A CONTA DE TRÁS PRA FRENTE")
+    PCOL = ["B", "C", "D"]
+    linha("Primeiro mês em que a assinatura cobre o custo", 0, "custom", TXT, "mes_cob",
+          custom=lambda k, col: f"='Preço Mínimo'!{PCOL[k]}{SPR['mes_eq']}",
+          obs="Ao preço de tabela. É o mesmo mês do break-even acima — as duas contas são a "
+              "mesma, lidas de lados opostos.")
+    linha("EBITDA acumulado até o fim da janela de cobertura", 0, "custom", BRL, "eb_jan",
+          custom=lambda k, col: f"='Preço Mínimo'!{PCOL[k]}{SPR['eb_tot']}", bold=True,
+          obs="Negativo significa que os primeiros meses não se pagam: a diferença vem de capital.")
+    for lbl, ref, fmt, obs in [
+        ("Preço do Essencial que zeraria a janela inicial", W["preco"], BRL2,
+         "Um preço único, cobrado em todos os meses da janela definida em Premissas."),
+        ("Quantas vezes o preço de hoje", W["mult"], MULT,
+         "Acima de ~1,5x o preço deixa de ser vendável: o problema passa a ser de escala, não de preço."),
+        ("Assinantes necessários na janela, ao preço de hoje", W["n_nec"], INT,
+         "Contra a média projetada na mesma janela."),
+        ("Veredicto da janela inicial", W["veredicto"], TXT, ""),
+    ]:
+        c = ws.cell(r, 2, lbl + "  (cenário ativo)")
+        c.font = f(10); c.alignment = Alignment(indent=1)
+        cc = ws["C" + str(r)]
+        cc.value = f"='Preço Mínimo'!$B${ref}"
+        cc.number_format = fmt; cc.font = f(10, True)
+        cc.fill = FILL_TOTAL
+        cc.alignment = Alignment(horizontal="center")
+        ws.merge_cells(start_row=r, start_column=3, end_row=r, end_column=5)
+        for cx in range(3, 6):
+            ws.cell(r, cx).border = BORDA_FINA
+        if obs:
+            nota(ws, f"G{r}", obs)
+        r += 1
     r += 1
 
     # ---------------- VIABILIDADE -----------------------------------------
@@ -291,6 +337,31 @@ def build(wb, P, A, I, BLOCOS, FL, U):
          "negociação' está em 0, na seção 7 de Premissas. Ligue para dimensionar o upside — e "
          "considere que a exclusividade B2B hospitalar limita outras receitas do mesmo canal. Para "
          "incluir outro investidor estratégico, some uma linha na tabela 2 da aba Aportes."),
+        ("No lançamento só existe o plano Essencial",
+         "Premium entra em abr/2027 e Família em out/2027, pelas datas da seção 3 de Premissas. "
+         "Antes disso todo pagante é Essencial, então a receita por assinante no lançamento é "
+         "R$ 19,90 e não a média dos três planos. É isto que torna 2026 mais tímido do que a "
+         "conversão sozinha explicaria, e é também o que empurra o break-even de março para "
+         "abril de 2027. Mude as duas datas e a curva inteira responde."),
+        ("Nenhum preço de mercado cobre os primeiros seis meses",
+         "A aba Preço Mínimo faz a conta de trás pra frente: para a assinatura pagar sozinha a "
+         "janela do lançamento seria preciso cobrar cerca de 2,5 vezes o preço de hoje, ou ter "
+         "2,5 vezes a base projetada. Não é defeito da precificação — é a aritmética de "
+         "assinatura de ticket baixo com base pequena. O preço cobre o custo variável desde o "
+         "primeiro assinante; o custo fixo dos primeiros meses é pago por capital. Preço alto "
+         "no lançamento não resolve o caixa: derruba a conversão e piora o caixa."),
+        ("O caixa já fica negativo em 2026, muito antes do fundo do poço",
+         "A aba Necessidade de Capital mostra o primeiro mês com caixa negativo, e ele é bem "
+         "anterior ao mês do caixa mínimo. A causa não é falta de capital: é desencontro de "
+         "calendário entre o CAPEX (equipamento em maio, certificação em agosto e setembro) e os "
+         "aportes (abril, julho, agosto). São poucos milhares de reais, mas conta sem fundo não "
+         "tem tamanho mínimo. Ajustar a data de dois lançamentos na aba Aportes resolve sem "
+         "captar nada."),
+        ("A data do aporte importa tanto quanto o valor",
+         "Na aba Necessidade de Capital, 'falta captar ignorando datas' e 'falta captar "
+         "respeitando as datas' dão números diferentes. A segunda é maior porque parte do "
+         "capital previsto chega depois do mês em que o caixa aperta. Antecipar aporte já "
+         "previsto resolve parte da lacuna sem captar um real a mais."),
     ]
     for tit, txt in alertas:
         c = ws.cell(r, 2, "▸  " + tit)

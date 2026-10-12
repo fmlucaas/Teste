@@ -2,6 +2,7 @@
 """Aba Cenarios: o motor do modelo. Tres blocos mensais identicos, um por cenario."""
 from openpyxl.styles import Alignment, PatternFill
 from common import *
+from ajuste import ov
 
 TEMPO = 4          # linha das datas
 LIDX  = TEMPO + 1  # linha do indice do mes
@@ -63,6 +64,15 @@ LINHAS = [
 ]
 OFF      = {nome: i for i, (nome, *_) in enumerate(LINHAS)}
 
+# Linhas auxiliares: existem para alimentar outras contas, nao para serem lidas.
+# Ficam em cinza. Identificadas por NOME — nunca por numero de linha.
+AUXILIARES = {"flag_eb", "mk_pb", "mk_pbd"}
+
+# Linhas de estoque: o TOTAL e o saldo do ultimo mes, nao a soma dos 60 meses.
+# A legenda da coluna de nota sai desta lista, tambem por nome.
+ESTOQUE = {"base_ini", "base", "conv", "pag", "pag_ess", "pag_pre", "pag_fam",
+           "painel", "rbt12", "fcld_ac", "fcl_ac", "flag_eb"}
+
 
 class _Off:
     """Offsets por atributo: O.assinaturas em vez de OFF["assinaturas"].
@@ -111,7 +121,7 @@ def build(wb, P, A, I, T, PE):
             r = S + off
             rotulo(ws, r, LABELS[off], 1 if off not in NEGRITO else 0,
                    bold=(off in NEGRITO),
-                   color=CINZA if off == 34 else PRETO)
+                   color=CINZA if LINHAS[off][0] in AUXILIARES else PRETO)
 
         def prev(i):
             return gcl(COL0 + i - 2)
@@ -135,18 +145,25 @@ def build(wb, P, A, I, T, PE):
             return f'={corpo}'
 
         FORM = {
-            O.novos:  lambda i, L: f'=IF({L}${TEMPO}<Premissas!$B${P["lancamento"]},0,{yr(f"novos_{s}", L)})',
+            O.novos:  lambda i, L: (f'=IF({L}${TEMPO}<Premissas!$B${P["lancamento"]},0,'
+                          f'{ov(f"novos_{s}", L, yr(f"novos_{s}", L))})'),
             O.base_ini:  lambda i, L: '=0' if i == 1 else f'={prev(i)}{S+O.base}',
-            O.churn:  lambda i, L: f'=-{L}{S+O.base_ini}*{yr(f"churn_{s}", L)}',
+            O.churn:  lambda i, L: (f'=-{L}{S+O.base_ini}*'
+                          f'{ov(f"churn_{s}", L, yr(f"churn_{s}", L))}'),
             O.base:  lambda i, L: f'={L}{S+O.base_ini}+{L}{S+O.churn}+{L}{S+O.novos}',
             O.conv:  lambda i, L: (f'=IF({L}${TEMPO}<Premissas!$B${P["lancamento"]},0,'
-                          f'{yr(f"conv_{s}", L)}*MIN(1,MAX(0,'
+                          f'{ov(f"conv_{s}", L, yr(f"conv_{s}", L))}*MIN(1,MAX(0,'
                           f'({L}${LIDX}-Premissas!$B${P["lanc_idx"]}+1)'
                           f'/Premissas!$B${P["rampa_conv"]})))'),
             O.pag:  lambda i, L: f'=ROUND({L}{S+O.base}*{L}{S+O.conv},0)',
-            O.pag_ess:  lambda i, L: f'=ROUND({L}{S+O.pag}*{yr("mix_b", L)},0)',
-            O.pag_pre:  lambda i, L: f'=ROUND({L}{S+O.pag}*{yr("mix_i", L)},0)',
-            O.pag_fam:  lambda i, L: f'={L}{S+O.pag}-{L}{S+O.pag_ess}-{L}{S+O.pag_pre}',
+            # Entrada faseada: antes da data de entrada o plano simplesmente nao existe,
+            # e quem assina vai para o Essencial. Por isso o Essencial e o RESIDUO — o mix
+            # dos planos ausentes nao se redistribui, ele deixa de existir.
+            O.pag_pre:  lambda i, L: (f'=ROUND({L}{S+O.pag}*{yr("mix_i", L)},0)'
+                          f'*IF({L}${TEMPO}>=Premissas!$B${P["prem_ini"]},1,0)'),
+            O.pag_fam:  lambda i, L: (f'=ROUND({L}{S+O.pag}*{yr("mix_p", L)},0)'
+                          f'*IF({L}${TEMPO}>=Premissas!$B${P["fam_ini"]},1,0)'),
+            O.pag_ess:  lambda i, L: f'={L}{S+O.pag}-{L}{S+O.pag_pre}-{L}{S+O.pag_fam}',
             O.rec_ess: lambda i, L: (f'={L}{S+O.pag_ess}*Premissas!$B${P["p_basico"]}'
                               f'*(1+Premissas!$B${P["reajuste"]})^({L}${LANO}-2026)'),
             O.rec_pre: lambda i, L: (f'={L}{S+O.pag_pre}*Premissas!$B${P["p_inter"]}'
@@ -184,14 +201,18 @@ def build(wb, P, A, I, T, PE):
             O.nuvem: lambda i, L: (f'=-({L}{S+O.pag}*{yr("cloud_pag", L)}'
                               f'+({L}{S+O.base}-{L}{S+O.pag})*{yr("cloud_free", L)}'
                               f'+{L}{S+O.painel}*Premissas!$B${P["custo_painel"]}'
-                              f'+IF({L}${TEMPO}>=Premissas!$B${P["cloud_ini"]},{yr("cloud_fixo", L)},0))'),
+                              f'+IF({L}${TEMPO}>=Premissas!$B${P["cloud_ini"]},'
+                              f'{ov("cloud_fixo", L, yr("cloud_fixo", L))},0))'),
             O.suporte: lambda i, L: f'=-{L}{S+O.pag}*{yr("sup_var", L)}',
             O.pessoal: lambda i, L: f'=-Pessoas!{L}{PE["despesa"]}',
-            O.marketing: lambda i, L: (f'=-({L}{S+O.novos}*(1-{yr("organico", L)})*{yr(f"cac_{s}", L)}'
-                              f'+IF({L}${TEMPO}>=Premissas!$B${P["mkt_ini"]},{yr("mkt_rec", L)},0)'
+            O.marketing: lambda i, L: (f'=-({L}{S+O.novos}*(1-{yr("organico", L)})'
+                              f'*{ov(f"cac_{s}", L, yr(f"cac_{s}", L))}'
+                              f'+IF({L}${TEMPO}>=Premissas!$B${P["mkt_ini"]},'
+                              f'{ov("mkt_rec", L, yr("mkt_rec", L))},0)'
                               f'+IF({L}${TEMPO}=DATE(YEAR(Premissas!$B${P["mkt_lanc_mes"]}),'
                               f'MONTH(Premissas!$B${P["mkt_lanc_mes"]}),1),Premissas!$B${P["mkt_lanc"]},0))'),
-            O.admin: lambda i, L: f'=-IF({L}${TEMPO}>=Premissas!$B${P["adm_ini"]},{yr("admin", L)},0)',
+            O.admin: lambda i, L: (f'=-IF({L}${TEMPO}>=Premissas!$B${P["adm_ini"]},'
+                          f'{ov("admin", L, yr("admin", L))},0)'),
             O.ebitda: lambda i, L: f'=SUM({L}{S+O.liquida}:{L}{S+O.admin})',
             O.capex: lambda i, L: f'=-Investimentos!{L}{I["total"]}',
             O.fcl: lambda i, L: f'={L}{S+O.ebitda}+{L}{S+O.capex}',
@@ -220,7 +241,7 @@ def build(wb, P, A, I, T, PE):
                 cel = ws[f"{L}{r}"]
                 cel.value = FORM[off](i, L)
                 cel.number_format = fmt
-                cel.font = f(9, bold, CINZA if off == 34 else PRETO)
+                cel.font = f(9, bold, CINZA if LINHAS[off][0] in AUXILIARES else PRETO)
                 if off in DESTAQUE:
                     cel.fill = DESTAQUE[off]
             # coluna TOTAL
@@ -230,16 +251,16 @@ def build(wb, P, A, I, T, PE):
             elif MODO[off] == "ultimo":
                 ct.value = f"={L_FIM}{r}"
             elif MODO[off] == "media":
-                ct.value = f"=IFERROR(-{L_TOT}{S+19}/{L_TOT}{S+16},0)"
+                ct.value = f"=IFERROR(-{L_TOT}{S+O.impostos}/{L_TOT}{S+O.bruta},0)"
             ct.number_format = fmt
             ct.font = f(9, True, PRETO)
             ct.fill = FILL_TOTAL
         # legenda da coluna TOTAL para linhas de estoque
-        for off in (2, 4, 6, 7, 8, 9, 17, 32, 33, 37):
-            nota(ws, f"{L_PCT}{S+off}", "Saldo no último mês (dez/2030), não soma.")
-        for off in (38, 39):
-            nota(ws, f"{L_PCT}{S+off}", "Auxiliar do payback: guarda o nº do mês enquanto o "
-                                        "acumulado está negativo. O payback é o maior valor, mais um.")
-        nota(ws, f"{L_PCT}{S+18}", "Alíquota efetiva média ponderada do período.")
+        for nome in ESTOQUE:
+            nota(ws, f"{L_PCT}{S+OFF[nome]}", "Saldo no último mês (dez/2030), não soma.")
+        for nome in ("mk_pb", "mk_pbd"):
+            nota(ws, f"{L_PCT}{S+OFF[nome]}", "Auxiliar do payback: guarda o nº do mês enquanto o "
+                                              "acumulado está negativo. O payback é o maior valor, mais um.")
+        nota(ws, f"{L_PCT}{S+O.aliquota}", "Alíquota efetiva média ponderada do período.")
 
     return ws, BLOCOS, NL

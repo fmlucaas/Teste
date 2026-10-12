@@ -217,7 +217,57 @@ def build(wb):
             f'+{L}{P["mix_p"]}*$B${P["p_premium"]})*(1+$B${P["reajuste"]})^({L}${P["anos"]}-2026)')
         c.number_format = BRL2; c.font = f(9, True, VERDE_LINK)
         c.alignment = Alignment(horizontal="center")
-    P["arppu"] = r; r += 2
+    P["arppu"] = r
+    nota(ws, f"I{r}", "Ignora a entrada faseada: é a ARPPU com os três planos no ar. "
+                      "A ARPPU real, mês a mês, está na aba Preço Mínimo.")
+    r += 2
+
+    rotulo(ws, r, "Entrada dos planos — o que está no ar em cada mês", 0, bold=True); r += 1
+    c = ws.cell(r, 1, "•  No lançamento só existe o Essencial. Premium e Família entram quando o "
+                      "produto tiver recurso que os justifique. Antes da data de entrada, quem "
+                      "assina vai todo para o Essencial — o mix dos outros dois é ignorado, não "
+                      "redistribuído. Para vender só o Essencial nos cinco anos, jogue as duas "
+                      "datas para depois de dez/2030.")
+    c.font = f(9, False, CINZA)
+    c.alignment = Alignment(wrap_text=True, vertical="top", indent=1)
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=9)
+    ws.row_dimensions[r].height = 40
+    r += 1
+    linha_unica(ws, r, "Mês de entrada do plano Premium", dt.datetime(2027, 4, 1), MES,
+                "prem_ini", chave=True,
+                fonte=("Seis meses depois do lançamento. O Premium vende cuidadores ilimitados, "
+                       "o que exige gestão de permissões por perfil — item do backlog que não "
+                       "está no MVP."),
+                obs="Padrão: 6 meses após o lançamento. Antes disso, todo pagante é Essencial."); r += 1
+    linha_unica(ws, r, "Mês de entrada do plano Família", dt.datetime(2027, 10, 1), MES,
+                "fam_ini", chave=True,
+                fonte=("Doze meses depois do lançamento. O Família exige múltiplos monitorados "
+                       "em uma conta — mudança de modelo de dados, não de tela."),
+                obs="Padrão: 12 meses após o lançamento."); r += 2
+
+    rotulo(ws, r, "Política de preço — parâmetros da conta de trás pra frente", 0, bold=True); r += 1
+    c = ws.cell(r, 1, "•  A aba PREÇO MÍNIMO parte do custo e devolve o preço. Estes três campos "
+                      "definem a régua. Nada aqui altera a projeção: o preço que o modelo cobra "
+                      "é o digitado acima. Fechar o laço criaria circularidade — preço muda "
+                      "receita, receita muda a faixa do Simples, a faixa muda o preço mínimo.")
+    c.font = f(9, False, CINZA)
+    c.alignment = Alignment(wrap_text=True, vertical="top", indent=1)
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=9)
+    ws.row_dimensions[r].height = 40
+    r += 1
+    linha_unica(ws, r, "Meses iniciais que a assinatura precisa cobrir", 6, '0',
+                "meses_cob", chave=True,
+                obs="Contados do mês de lançamento. É a janela da pergunta "
+                    "\u201co Essencial cobre os primeiros seis meses?\u201d"); r += 1
+    linha_unica(ws, r, "Incluir na conta os custos anteriores ao lançamento?  (1 = Sim · 0 = Não)",
+                1, '0', "cob_prelanc", chave=True,
+                fonte=("Com 1, a janela também tem de pagar o que foi gasto antes de existir "
+                       "receita: nuvem desde maio, administrativas desde abril, a equipe PJ de "
+                       "setembro e outubro e a propaganda de lançamento. É a leitura literal de "
+                       "'cobrir os custos iniciais'. Com 0, só os custos que caem dentro da janela."),
+                obs="Com 1, a janela paga também o que foi gasto antes do lançamento."); r += 1
+    linha_unica(ws, r, "Margem EBITDA desejada no preço-alvo", 0.20, PCT, "margem_alvo",
+                obs="Usada só na linha de preço-alvo. Não entra na projeção."); r += 2
 
     # ==================================================================
     secao(ws, r, "4. DRIVERS POR CENÁRIO", 12); r += 1
@@ -453,7 +503,15 @@ def build(wb):
                        "Desligado por padrão para que a viabilidade não dependa de receita nem de "
                        "capital não contratados. Ligue para dimensionar o upside."),
                 obs="⚠ Desligado por padrão. Ligue para incluir a Boston Scientific e qualquer "
-                    "outra parceria em negociação."); r += 2
+                    "outra parceria em negociação."); r += 1
+    linha_unica(ws, r, "Reserva mínima de caixa (meses de custo fixo)", 3, '0',
+                "reserva_meses", chave=True,
+                fonte=("Caixa que precisa sobrar depois de pagar tudo. Três meses de custo fixo é "
+                       "o piso usual para startup em estágio inicial: dá tempo de reagir a um mês "
+                       "ruim sem parar a operação nem aceitar o primeiro cheque que aparecer. "
+                       "Zerar esta célula faz o modelo pedir só o capital que evita o caixa "
+                       "negativo — o mínimo matemático, que na prática não se opera."),
+                obs="Entra na conta de quanto ainda falta captar, na aba Necessidade de Capital."); r += 2
 
     # ==================================================================
     secao(ws, r, "8. NOTAS METODOLÓGICAS", 12); r += 1

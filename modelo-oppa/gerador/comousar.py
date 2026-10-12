@@ -128,6 +128,31 @@ def build(wb, P, PE):
     item("“Vamos mudar os preços dos planos.”",
          "Premissas → seção 3. Preços e mix por plano. A ARPPU implícita aparece logo abaixo do mix, "
          "para você conferir o efeito antes de olhar o resultado.")
+    item("“Quanto precisamos captar, e até quando?”",
+         "Aba NECESSIDADE DE CAPITAL. A resposta curta está no bloco 'Resposta por cenário': "
+         "necessidade total, quanto já está na mesa e quanto falta captar. A data limite é a linha "
+         "'primeiro mês em que o caixa fica negativo'. O detalhe mês a mês está acima, num bloco "
+         "por cenário.")
+    item("“Quanto cada sócio teria de aportar?”",
+         "Mesma aba, bloco 'Quanto sai de cada sócio'. Mostra o compromisso que já existe, quanto "
+         "sairia de cada fundador se os quatro cobrissem tudo, quantas vezes isso é o que cada um já "
+         "colocou, e quanto precisaria vir de fora.")
+    item("“Qual o preço mínimo que podemos cobrar?”",
+         "Aba PREÇO MÍNIMO. São quatro pisos, do mais baixo ao mais alto: o que cobre só o custo "
+         "variável, o que cobre variável mais CAC, o que equilibra o mês e o que entrega a margem "
+         "desejada. Os três planos aparecem, mantendo a razão de preço entre eles.")
+    item("“A assinatura cobre os primeiros seis meses?”",
+         "Aba PREÇO MÍNIMO, seção 6. Define a janela a partir do mês de lançamento, soma o custo "
+         "da janela (e o anterior ao lançamento, se o interruptor estiver ligado) e devolve o preço "
+         "único que zeraria a conta. O número de meses está em Premissas, seção 3.")
+    item("“No começo vamos ter só o plano Essencial.”",
+         "Premissas → seção 3, 'Mês de entrada do plano Premium' e 'do plano Família'. Antes dessas "
+         "datas todo pagante é Essencial. Para vender só o Essencial nos cinco anos, jogue as duas "
+         "datas para depois de dez/2030.")
+    item("“O número de um mês específico é diferente do número do ano.”",
+         "Aba AJUSTE MENSAL. Digite o valor naquele mês e ele passa a valer só ali. Em branco, o "
+         "modelo usa a premissa anual. Serve também para fechar o passado: conforme os meses "
+         "acontecem, digite o realizado e o modelo projeta só o que falta.")
 
     # ------------------------------------------------------------------
     sec("AS ABAS, UMA A UMA")
@@ -137,14 +162,34 @@ def build(wb, P, PE):
          "Painel executivo. Três cenários lado a lado, teste Go/No-Go em quatro perguntas objetivas, "
          "métricas de unidade e a lista de pontos de atenção que apareceram na modelagem. "
          "É a aba para mostrar a um investidor.", "1F3864"),
+        ("Necessidade de Capital",
+         "Quanto a empresa precisa de investimento e de quem. Mês a mês, com um bloco por cenário: "
+         "o que a operação queima, o capital já na mesa por status, a reserva mínima desejada e a "
+         "lacuna que sobra. Fecha com a resposta por cenário e o rateio entre os sócios. Há duas "
+         "respostas para 'quanto falta captar' — uma ignorando as datas de entrada do capital e "
+         "outra respeitando. A segunda é a que manda.", "1F3864"),
+        ("Preço Mínimo",
+         "A conta de trás pra frente: do custo para o preço. Quanto sobra de cada real cobrado "
+         "depois de imposto, loja e meio de pagamento; o custo variável por assinante; e os pisos "
+         "de preço de cada plano, mês a mês. A seção 6 responde se a assinatura cobre os primeiros "
+         "meses do lançamento. Esta aba não altera a projeção — é régua, não motor.", "1F3864"),
         ("Premissas",
          "Todos os números do negócio, em oito seções: controles, tributação, preços e mix, drivers "
          "por cenário, monetização, custos operacionais, Boston Scientific e notas metodológicas. "
          "É aqui que você passa a maior parte do tempo.", "BF8F00"),
+        ("Ajuste Mensal",
+         "Sobrepõe a premissa anual em um mês específico: captação, churn, conversão, CAC, nuvem "
+         "fixa, marketing recorrente e administrativas. Em branco, nada muda. A coluna TOTAL conta "
+         "quantos meses estão sobrepostos, e o bloco final avisa se alguma célula caiu fora da "
+         "janela do driver e vai ser ignorada.", "BF8F00"),
         ("Pessoas",
          "O quadro de pessoal, linha a linha. Separa o que está contratado do que é plano, calcula o "
          "headcount mês a mês e o Fator R — o índice que decide se a empresa fica no Anexo III ou no "
          "Anexo V do Simples.", "BF8F00"),
+        ("Sócios",
+         "O lucro distribuível e o rateio por participação. Os percentuais estão provisórios — "
+         "fundadores majoritários, investidores com cotas menores — porque os valores definitivos "
+         "dependem do valuation de cada rodada. Troque os percentuais e o rateio responde.", "1F3864"),
         ("DRE Projetada",
          "A demonstração de resultado em regime de competência, mês a mês e consolidada por ano. "
          "Receita bruta → deduções → receita líquida → lucro bruto → EBITDA → lucro líquido, com as "

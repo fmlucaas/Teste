@@ -44,17 +44,34 @@ else:
 
 print()
 print("=" * 78)
-print("MOTOR — cenário PROVÁVEL (bloco linha 53), marcos anuais")
+print("MOTOR — cenário PROVÁVEL, marcos anuais")
 cen = wb["Cenários"]
-S = 53
-labels = {4: "Base de usuários", 6: "Pagantes", 16: "Receita bruta/mês",
-          18: "Alíquota efetiva", 28: "EBITDA/mês", 30: "FCL/mês", 37: "Caixa acumulado"}
+# Localiza o bloco e as linhas por RÓTULO. Offset numérico quebra silenciosamente
+# a cada linha inserida no motor — já quebrou uma vez.
+S = None
+for r in range(1, 200):
+    v = cen.cell(r, 1).value
+    if v and "PROVÁVEL" in str(v) and str(v).startswith("CENÁRIO"):
+        S = r
+procura = ["Base de usuários — fim do mês", "Usuários pagantes", "RECEITA BRUTA TOTAL",
+           "Alíquota efetiva de impostos", "EBITDA", "FLUXO DE CAIXA LIVRE (FCL)",
+           "CAIXA ACUMULADO"]
+linhas = {}
+if S:
+    for r in range(S, S + 60):
+        v = cen.cell(r, 1).value
+        if v and str(v).strip() in procura and str(v).strip() not in linhas:
+            linhas[str(v).strip()] = r
 marcos = {"dez/26": "M", "dez/27": "Y", "dez/28": "AK", "dez/29": "AW", "dez/30": "BI"}
-print(f"  {'':<22}" + "".join(f"{k:>16}" for k in marcos))
-for off, lbl in labels.items():
-    linha = f"  {lbl:<22}"
+print(f"  {'':<34}" + "".join(f"{k:>16}" for k in marcos))
+for lbl in procura:
+    r = linhas.get(lbl)
+    if not r:
+        print(f"  {lbl:<34}  (linha não encontrada)")
+        continue
+    linha = f"  {lbl[:34]:<34}"
     for k, col in marcos.items():
-        v = cen[f"{col}{S+off}"].value
+        v = cen[f"{col}{r}"].value
         linha += f"{fmt(v):>16}" if v is not None else " " * 16
     print(linha)
 
